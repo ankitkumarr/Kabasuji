@@ -1,5 +1,4 @@
-
-import java.util.*;
+package com.halaesus.kabasuji.builder.boundary;
 
 /**
  * 
@@ -7,28 +6,20 @@ import java.util.*;
 public class Application extends JFrame {
 
     /**
+     * 
+     */
+    JPanel currentView;
+    
+    /**
      * Default constructor
      */
     public Application() {
     }
 
     /**
-     * 
-     */
-    JPanel currentView;
-
-
-    /**
-     * 
-     */
-    public void Application() {
-        // TODO implement here
-    }
-
-    /**
      * @param JPanel panel
      */
-    public void void changeView(void JPanel panel) {
+    public void changeView(JPanel panel) {
         // TODO implement here
     }
 

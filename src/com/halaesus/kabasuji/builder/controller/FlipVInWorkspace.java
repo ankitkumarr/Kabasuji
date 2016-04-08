@@ -1,5 +1,9 @@
+package com.halaesus.kabasuji.builder.controller;
 
-import java.util.*;
+import java.awt.event.ActionEvent;
+
+import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
+import com.halaesus.kabasuji.builder.entity.*;
 
 /**
  * 
@@ -26,14 +30,14 @@ public class FlipVInWorkspace {
      * @param Workspace workspace 
      * @param AbstractBuilderView builderView
      */
-    public void FlipVInWorkspace(void Workspace workspace, void AbstractBuilderView builderView) {
+    public FlipVInWorkspace(Workspace workspace, AbstractBuilderView builderView) {
         // TODO implement here
     }
 
     /**
      * @param ActionEvent e
      */
-    public void actionPerformed(void ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
         // TODO implement here
     }
 

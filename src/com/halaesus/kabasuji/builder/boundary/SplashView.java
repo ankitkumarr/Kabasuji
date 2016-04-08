@@ -1,5 +1,6 @@
+package com.halaesus.kabasuji.builder.boundary;
 
-import java.util.*;
+import com.halaesus.kabasuji.builder.entity.*;
 
 /**
  * 
@@ -20,7 +21,7 @@ public class SplashView extends JPanel {
     /**
      * @param SplashModel splashModel
      */
-    public void SplashView(void SplashModel splashModel) {
+    public SplashView(SplashModel splashModel) {
         // TODO implement here
     }
 

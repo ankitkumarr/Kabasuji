@@ -1,5 +1,8 @@
+package com.halaesus.kabasuji.builder.controller;
 
-import java.util.*;
+import java.awt.event.MouseEvent;
+
+import com.halaesus.kabasuji.builder.entity.*;
 
 /**
  * 
@@ -20,14 +23,14 @@ public class SaveToFile {
     /**
      * @param AbstractLevel level
      */
-    public void SaveToFile(void AbstractLevel level) {
+    public SaveToFile(AbstractLevel level) {
         // TODO implement here
     }
 
     /**
      * @param MouseEvent e
      */
-    public void mouseClicked(void MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {
         // TODO implement here
     }
 

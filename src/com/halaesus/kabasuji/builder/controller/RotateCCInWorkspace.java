@@ -1,16 +1,14 @@
+package com.halaesus.kabasuji.builder.controller;
 
-import java.util.*;
+import java.awt.event.ActionEvent;
+
+import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
+import com.halaesus.kabasuji.builder.entity.*;
 
 /**
  * 
  */
 public class RotateCCInWorkspace {
-
-    /**
-     * Default constructor
-     */
-    public RotateCCInWorkspace() {
-    }
 
     /**
      * 
@@ -26,14 +24,14 @@ public class RotateCCInWorkspace {
      * @param Workspace workspace 
      * @param AbstractBuilderView builderView
      */
-    public void RotateCCInWorkspace(void Workspace workspace, void AbstractBuilderView builderView) {
+    public RotateCCInWorkspace(Workspace workspace, AbstractBuilderView builderView) {
         // TODO implement here
     }
 
     /**
      * @param ActionEvent e
      */
-    public void actionPerformed(void ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
         // TODO implement here
     }
 

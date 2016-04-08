@@ -1,16 +1,14 @@
+package com.halaesus.kabasuji.builder.controller;
 
-import java.util.*;
+import java.awt.event.MouseEvent;
+
+import com.halaesus.kabasuji.builder.boundary.LightningBuilderView;
+import com.halaesus.kabasuji.builder.entity.*;
 
 /**
  * 
  */
 public class SetNumRandPiecesLightning {
-
-    /**
-     * Default constructor
-     */
-    public SetNumRandPiecesLightning() {
-    }
 
     /**
      * 
@@ -26,14 +24,14 @@ public class SetNumRandPiecesLightning {
      * @param LightningBuilderView builderView 
      * @param LightningLevel level
      */
-    public void SetNumRandPiecesLightning(void LightningBuilderView builderView, void LightningLevel level) {
+    public SetNumRandPiecesLightning(LightningBuilderView builderView, LightningLevel level) {
         // TODO implement here
     }
 
     /**
      * @param MouseEvent e
      */
-    public void mouseClick(void MouseEvent e) {
+    public void mouseClick(MouseEvent e) {
         // TODO implement here
     }
 

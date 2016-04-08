@@ -1,5 +1,8 @@
+package com.halaesus.kabasuji.builder.boundary;
 
-import java.util.*;
+import com.halaesus.kabasuji.builder.entity.*;
+
+import java.awt.image.BufferedImage;
 
 /**
  * 
@@ -25,7 +28,7 @@ public class ReleaseBuilderView extends AbstractBuilderView {
     /**
      * @param ReleaseLevel aLevel
      */
-    public void ReleaseBuilderView(void ReleaseLevel aLevel) {
+    public ReleaseBuilderView(ReleaseLevel aLevel) {
         // TODO implement here
     }
 

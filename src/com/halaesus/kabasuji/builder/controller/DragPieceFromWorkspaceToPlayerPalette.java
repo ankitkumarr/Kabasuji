@@ -1,5 +1,9 @@
+package com.halaesus.kabasuji.builder.controller;
 
-import java.util.*;
+import java.awt.event.MouseEvent;
+
+import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
+import com.halaesus.kabasuji.builder.entity.*;
 
 /**
  * 
@@ -26,28 +30,28 @@ public class DragPieceFromWorkspaceToPlayerPalette {
      * @param WorkspaceToPlayerPaletteMove move 
      * @param AbstractBuilderView builderView
      */
-    public void DragPieceFromWorkspaceToPlayerPalette(void WorkspaceToPlayerPaletteMove move, void AbstractBuilderView builderView) {
+    public DragPieceFromWorkspaceToPlayerPalette(WorkspaceToPlayerPaletteMove move, AbstractBuilderView builderView) {
         // TODO implement here
     }
 
     /**
      * @param MouseEvent e
      */
-    public void mousePressed(void MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         // TODO implement here
     }
 
     /**
      * @param MouseEvent e
      */
-    public void mouseDragged(void MouseEvent e) {
+    public void mouseDragged(MouseEvent e) {
         // TODO implement here
     }
 
     /**
      * @param MouseEvent e
      */
-    public void mouseReleased(void MouseEvent e) {
+    public void mouseReleased(MouseEvent e) {
         // TODO implement here
     }
 

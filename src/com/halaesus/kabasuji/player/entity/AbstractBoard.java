@@ -1,48 +1,33 @@
-
-import java.util.*;
-
+package com.halaesus.kabasuji.player.entity;
 /**
  * 
  */
 public class AbstractBoard {
 
-    /**
-     * Default constructor
-     */
+	 Piece pieces;
+	 BoardSquare[] squares;
+
     public AbstractBoard() {
     }
 
-    /**
-     * 
-     */
-    Piece pieces;
-
-    /**
-     * 
-     */
-    BoardSquare[] squares;
-
-
-
-
-    /**
-     * @param BoardSquare[144] square
-     */
-    public void AbstractBoard(void BoardSquare[144] square) {
+   
+    public AbstractBoard(BoardSquare[] square) {
         // TODO implement here
     }
 
     /**
      * @param Piece p
      */
-    public void boolean doesCollide(void Piece p) {
+    public boolean doesCollide(Piece p) {
+    	return false;
         // TODO implement here
     }
 
     /**
      * @param Piece p
      */
-    public void boolean isOutsideBounds(void Piece p) {
+    public boolean isOutsideBounds(Piece p) {
+    	return false;
         // TODO implement here
     }
 

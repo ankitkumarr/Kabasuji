@@ -1,5 +1,5 @@
+package com.halaesus.kabasuji.player.entity;
 
-import java.util.*;
 
 /**
  * 

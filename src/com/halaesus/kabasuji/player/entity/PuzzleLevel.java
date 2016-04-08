@@ -1,5 +1,6 @@
+package com.halaesus.kabasuji.player.entity;
+import java.io.File;
 
-import java.util.*;
 
 /**
  * 
@@ -27,14 +28,15 @@ public class PuzzleLevel extends AbstractLevel {
      * @param int starsAchieved 
      * @param File file
      */
-    public void PuzzleLevel(void int levelNum, void int starsAchieved, void File file) {
+    public PuzzleLevel(int levelNum, int starsAchieved, File file) {
         // TODO implement here
     }
 
     /**
      * 
      */
-    public void int getMovesLeft() {
+    public int getMovesLeft() {
+    	return 0;
         // TODO implement here
     }
 

@@ -1,5 +1,5 @@
+package com.halaesus.kabasuji.player.entity;
 
-import java.util.*;
 
 /**
  * 
@@ -21,14 +21,15 @@ public class Workspace {
     /**
      * 
      */
-    public void Piece removePiece() {
+    public Piece removePiece() {
+		return null;
         // TODO implement here
     }
 
     /**
      * @param Piece p
      */
-    public void void addPiece(void Piece p) {
+    public void addPiece(Piece p) {
         // TODO implement here
     }
 

@@ -1,5 +1,5 @@
+package com.halaesus.kabasuji.player.entity;
 
-import java.util.*;
 
 /**
  * 
@@ -25,7 +25,7 @@ public class BoardSquare extends AbstractSquare {
     /**
      * @param boolean active
      */
-    public void BoardSquare(void boolean active) {
+    public BoardSquare(boolean active) {
         // TODO implement here
     }
 

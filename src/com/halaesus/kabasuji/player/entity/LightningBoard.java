@@ -1,28 +1,18 @@
-
-import java.util.*;
+package com.halaesus.kabasuji.player.entity;
 
 /**
  * 
  */
 public class LightningBoard extends AbstractBoard {
 
-    /**
-     * Default constructor
-     */
-    public LightningBoard() {
-    }
-
-    /**
-     * @param BoardSquare[144] squares
-     */
-    public void LightningBoard(void BoardSquare[144] squares) {
+   
+    public LightningBoard(BoardSquare[] squares) {
         // TODO implement here
     }
 
-    /**
-     * 
-     */
-    public void int countMarked() {
+
+    public int countMarked() {
+    	return 0;
         // TODO implement here
     }
 

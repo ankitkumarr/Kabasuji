@@ -1,27 +1,18 @@
-
-import java.util.*;
+package com.halaesus.kabasuji.player.entity;
 
 /**
  * 
  */
 public class LevelSelector {
 
-    /**
-     * Default constructor
-     */
-    public LevelSelector() {
-    }
-
-    /**
-     * 
-     */
+  
     LevelList levels;
 
 
     /**
      * @param PlayerProgress progress
      */
-    public void LevelSelector(void PlayerProgress progress) {
+    public LevelSelector(PlayerProgress progress) {
         // TODO implement here
     }
 

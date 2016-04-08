@@ -1,4 +1,4 @@
-
+package com.halaesus.kabasuji.player.entity;
 import java.util.*;
 
 /**
@@ -21,7 +21,7 @@ public class ReleaseBoard extends AbstractBoard {
     /**
      * @param BoardSquare[144] squares
      */
-    public void ReleaseBoard(void BoardSquare[144] squares) {
+    public ReleaseBoard( BoardSquare[] squares) {
         // TODO implement here
     }
 

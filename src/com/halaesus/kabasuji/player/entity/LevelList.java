@@ -1,4 +1,4 @@
-
+package com.halaesus.kabasuji.player.entity;
 import java.util.*;
 
 /**
@@ -16,13 +16,6 @@ public class LevelList {
      * 
      */
     Set<LevelData> levels;
-
-
-    /**
-     * 
-     */
-    public void LevelList() {
-        // TODO implement here
-    }
+  
 
 }

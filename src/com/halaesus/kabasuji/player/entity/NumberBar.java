@@ -1,5 +1,5 @@
+package com.halaesus.kabasuji.player.entity;
 
-import java.util.*;
 
 /**
  * 
@@ -21,7 +21,8 @@ public class NumberBar {
     /**
      * @param int index
      */
-    public void ReleaseNumber getNumber(void int index) {
+    public ReleaseNumber getNumber(int index) {
+    	return null;
         // TODO implement here
     }
 

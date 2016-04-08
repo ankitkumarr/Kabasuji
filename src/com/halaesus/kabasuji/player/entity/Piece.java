@@ -1,5 +1,4 @@
-
-import java.util.*;
+package com.halaesus.kabasuji.player.entity;
 
 /**
  * 
@@ -41,35 +40,35 @@ public class Piece {
      * @param int color 
      * @param PieceSquare squareMap[6]
      */
-    public void Piece(void int pivotRow, void int pivotCol, void int color, void PieceSquare squareMap[6]) {
+    public Piece(int pivotRow, int pivotCol, int color, PieceSquare squareMap[]) {
         // TODO implement here
     }
 
     /**
      * 
      */
-    public void void rotateCC() {
+    public void rotateCC() {
         // TODO implement here
     }
 
     /**
      * 
      */
-    public void void rotateCW() {
+    public void rotateCW() {
         // TODO implement here
     }
 
     /**
      * 
      */
-    public void void flipH() {
+    public void flipH() {
         // TODO implement here
     }
 
     /**
      * 
      */
-    public void void flipV() {
+    public void flipV() {
         // TODO implement here
     }
 

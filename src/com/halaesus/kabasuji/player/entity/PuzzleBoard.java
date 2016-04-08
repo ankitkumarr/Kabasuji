@@ -1,5 +1,5 @@
+package com.halaesus.kabasuji.player.entity;
 
-import java.util.*;
 
 /**
  * 
@@ -15,7 +15,7 @@ public class PuzzleBoard extends AbstractBoard {
     /**
      * @param BoardSquare[144] squares
      */
-    public void PuzzleBoard(void BoardSquare[144] squares) {
+    public PuzzleBoard(BoardSquare[] squares) {
         // TODO implement here
     }
 

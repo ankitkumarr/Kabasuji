@@ -1,4 +1,7 @@
+package com.halaesus.kabasuji.builder.entity;
 
+
+import java.io.File;
 import java.util.*;
 
 /**
@@ -25,22 +28,23 @@ public class LightningLevel extends AbstractLevel {
     /**
      * @param int levelIndex
      */
-    public void LightningLevel(void int levelIndex) {
+    public LightningLevel(int levelIndex) {
         // TODO implement here
     }
 
     /**
      * @param File file
      */
-    public void LightningLevel(void File file) {
+    public LightningLevel(File file) {
         // TODO implement here
     }
 
     /**
      * @param File file
      */
-    public void boolean saveFile(void File file) {
+    public boolean saveFile(File file) {
         // TODO implement here
+    	return false; // stub
     }
 
 }

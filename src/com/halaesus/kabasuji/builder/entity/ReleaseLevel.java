@@ -1,4 +1,7 @@
+package com.halaesus.kabasuji.builder.entity;
 
+
+import java.io.File;
 import java.util.*;
 
 /**
@@ -21,22 +24,23 @@ public class ReleaseLevel extends AbstractLevel {
     /**
      * @param int levelIndex
      */
-    public void ReleaseLevel(void int levelIndex) {
+    public ReleaseLevel(int levelIndex) {
         // TODO implement here
     }
 
     /**
      * @param File file
      */
-    public void ReleaseLevel(void File file) {
+    public ReleaseLevel(File file) {
         // TODO implement here
     }
 
     /**
      * @param File file
      */
-    public void boolean saveFile(void File file) {
+    public boolean saveFile(File file) {
         // TODO implement here
+    	return false; // stub
     }
 
 }

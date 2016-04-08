@@ -1,4 +1,7 @@
+package com.halaesus.kabasuji.builder.entity;
 
+
+import java.io.File;
 import java.util.*;
 
 /**
@@ -47,15 +50,16 @@ public class AbstractLevel {
     /**
      * @param int levelIndex
      */
-    public void AbstractLevel(void int levelIndex) {
+    public AbstractLevel(int levelIndex) {
         // TODO implement here
     }
 
     /**
      * @param File file
      */
-    public void boolean saveFile(void File file) {
+    public boolean saveFile(File file) {
         // TODO implement here
+    	return false; // stub
     }
 
 }

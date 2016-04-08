@@ -1,3 +1,5 @@
+package com.halaesus.kabasuji.builder.entity;
+
 
 import java.util.*;
 
@@ -28,7 +30,7 @@ public class Bullpen {
      * @param Palette p 
      * @param Workspace w
      */
-    public void Bullpen(void Palette p, void Workspace w) {
+    public Bullpen(Palette p, Workspace w) {
         // TODO implement here
     }
 

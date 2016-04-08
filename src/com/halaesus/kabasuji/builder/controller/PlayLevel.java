@@ -1,5 +1,9 @@
+package com.halaesus.kabasuji.builder.controller;
 
-import java.util.*;
+import java.awt.event.ActionEvent;
+
+import com.halaesus.kabasuji.builder.boundary.Application;
+import com.halaesus.kabasuji.builder.entity.*;
 
 /**
  * 
@@ -15,7 +19,7 @@ public class PlayLevel {
     /**
      * 
      */
-    LevelData level;
+    // TODO: LevelData level;
 
     /**
      * 
@@ -26,14 +30,14 @@ public class PlayLevel {
      * @param AbstractLevel level 
      * @param Application app
      */
-    public void PlayLevel(void AbstractLevel level, void Application app) {
+    public PlayLevel(AbstractLevel level, Application app) {
         // TODO implement here
     }
 
     /**
      * @param ActionEvent e
      */
-    public void actionPerformed(void ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
         // TODO implement here
     }
 

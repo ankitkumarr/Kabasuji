@@ -1,5 +1,10 @@
+package com.halaesus.kabasuji.builder.boundary;
 
-import java.util.*;
+import com.halaesus.kabasuji.builder.entity.*;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /**
  * 
@@ -65,7 +70,7 @@ public class LightningBuilderView extends AbstractBuilderView {
     /**
      * @param LightningLevel aLevel
      */
-    public void LightningBuilderView(void LightningLevel aLevel) {
+    public LightningBuilderView(LightningLevel aLevel) {
         // TODO implement here
     }
 

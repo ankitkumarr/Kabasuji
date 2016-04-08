@@ -1,5 +1,9 @@
+package com.halaesus.kabasuji.builder.boundary;
 
-import java.util.*;
+import java.awt.image.BufferedImage;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 /**
  * 
@@ -96,12 +100,5 @@ public class AbstractBuilderView extends JPanel {
      * 
      */
     BufferedImage[] boardPieceSquares;
-
-    /**
-     * 
-     */
-    public void AbstractBuilderView() {
-        // TODO implement here
-    }
 
 }

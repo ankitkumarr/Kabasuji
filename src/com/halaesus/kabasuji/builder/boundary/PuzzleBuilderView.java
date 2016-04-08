@@ -1,5 +1,10 @@
+package com.halaesus.kabasuji.builder.boundary;
 
-import java.util.*;
+import com.halaesus.kabasuji.builder.entity.*;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /**
  * 
@@ -35,7 +40,7 @@ public class PuzzleBuilderView extends AbstractBuilderView {
     /**
      * @param PuzzleLevel aLevel
      */
-    public void PuzzleBuilderView(void PuzzleLevel aLevel) {
+    public PuzzleBuilderView(PuzzleLevel aLevel) {
         // TODO implement here
     }
 

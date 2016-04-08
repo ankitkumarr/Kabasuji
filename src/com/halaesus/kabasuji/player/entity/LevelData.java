@@ -1,5 +1,5 @@
+package com.halaesus.kabasuji.player.entity;
 
-import java.util.*;
 
 /**
  * 
@@ -38,14 +38,15 @@ public class LevelData {
      * @param String name 
      * @param String fileName
      */
-    public void LevelData(void int index, void String type, void String name, void String fileName) {
+    public  LevelData( int index,  String type,  String name,  String fileName) {
         // TODO implement here
     }
 
     /**
      * 
      */
-    public void AbstractLevel loadLevel() {
+    public AbstractLevel loadLevel() {
+    	return null;
         // TODO implement here
     }
 

@@ -1,20 +1,13 @@
+package com.halaesus.kabasuji.player.entity;
+import java.io.File;
 
-import java.util.*;
 
 /**
  * 
  */
 public class ReleaseLevel extends AbstractLevel {
 
-    /**
-     * Default constructor
-     */
-    public ReleaseLevel() {
-    }
-
-    /**
-     * 
-     */
+  
     NumberBar numberBar;
 
 
@@ -23,7 +16,7 @@ public class ReleaseLevel extends AbstractLevel {
      * @param int starsAchieved 
      * @param File file
      */
-    public void ReleaseLevel(void int levelNum, void int starsAchieved, void File file) {
+    public  ReleaseLevel(int levelNum, int starsAchieved, File file) {
         // TODO implement here
     }
 

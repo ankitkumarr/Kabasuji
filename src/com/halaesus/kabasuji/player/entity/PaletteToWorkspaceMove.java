@@ -1,5 +1,4 @@
-
-import java.util.*;
+package com.halaesus.kabasuji.player.entity;
 
 /**
  * 
@@ -30,7 +29,8 @@ public class PaletteToWorkspaceMove {
     /**
      * 
      */
-    public void boolean do() {
+    public boolean doMove() {
+    	return false;
         // TODO implement here
     }
 

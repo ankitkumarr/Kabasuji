@@ -1,5 +1,8 @@
+package com.halaesus.kabasuji.player.entity;
 
-import java.util.*;
+import java.io.File;
+
+
 
 /**
  * 
@@ -39,21 +42,22 @@ public class AbstractLevel {
      * @param int starsAchieved 
      * @param File file
      */
-    public void AbstractLevel(void int levelNum, void int starsAchieved, void File file) {
+    public AbstractLevel(int levelNum, int starsAchieved, File file) {
         // TODO implement here
     }
 
     /**
      * 
      */
-    public void void loadLevel() {
+    public void loadLevel() {
         // TODO implement here
     }
 
     /**
      * 
      */
-    public void boolean hasFinished() {
+    public boolean hasFinished() {
+    	return false;
         // TODO implement here
     }
 

@@ -1,5 +1,6 @@
+package com.halaesus.kabasuji.player.entity;
+import java.io.File;
 
-import java.util.*;
 
 /**
  * 
@@ -32,14 +33,15 @@ public class LightningLevel extends AbstractLevel {
      * @param int starsAchieved 
      * @param File file
      */
-    public void LightningLevel(void int levelNum, void int starsAchieved, void File file) {
+    public LightningLevel( int levelNum, int starsAchieved, File file) {
         // TODO implement here
     }
 
     /**
      * 
      */
-    public void int getTimeLeft() {
+    public int getTimeLeft() {
+    	return 0;
         // TODO implement here
     }
 

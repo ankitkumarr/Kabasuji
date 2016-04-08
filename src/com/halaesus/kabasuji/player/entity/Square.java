@@ -1,20 +1,8 @@
+package com.halaesus.kabasuji.player.entity;
 
-import java.util.*;
-
-/**
- * 
- */
 public class Square {
 
-    /**
-     * Default constructor
-     */
-    public Square() {
-    }
-
-    /**
-     * 
-     */
+   
     boolean filled;
 
     /**
@@ -30,7 +18,7 @@ public class Square {
     /**
      * @param boolean active
      */
-    public void Square(void boolean active) {
+    public Square(boolean active) {
         // TODO implement here
     }
 

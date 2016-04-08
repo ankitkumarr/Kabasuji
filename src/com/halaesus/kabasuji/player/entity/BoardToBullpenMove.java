@@ -1,5 +1,5 @@
+package com.halaesus.kabasuji.player.entity;
 
-import java.util.*;
 
 /**
  * 
@@ -30,14 +30,16 @@ public class BoardToBullpenMove {
     /**
      * @param AbstractLevel level
      */
-    public void boolean do(void AbstractLevel level) {
+    public boolean doMove( AbstractLevel level) {
+    	return false;
         // TODO implement here
     }
 
     /**
      * @param AbstractLevel level
      */
-    public void boolean isValid(void AbstractLevel level) {
+    public boolean isValid(AbstractLevel level) {
+    	return false;
         // TODO implement here
     }
 

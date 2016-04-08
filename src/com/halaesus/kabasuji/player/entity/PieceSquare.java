@@ -1,20 +1,12 @@
+package com.halaesus.kabasuji.player.entity;
 
-import java.util.*;
 
 /**
  * 
  */
 public class PieceSquare extends AbstractSquare {
 
-    /**
-     * Default constructor
-     */
-    public PieceSquare() {
-    }
-
-    /**
-     * 
-     */
+   
     Piece parentPiece;
 
     /**
@@ -33,7 +25,7 @@ public class PieceSquare extends AbstractSquare {
      * @param int row 
      * @param int col
      */
-    public void PieceSquare(void boolean active, void int row, void int col) {
+    public  PieceSquare(boolean active,int row, int col) {
         // TODO implement here
     }
 

@@ -1,20 +1,11 @@
+package com.halaesus.kabasuji.player.entity;
 
-import java.util.*;
 
 /**
  * 
  */
 public class ReleaseNumber {
 
-    /**
-     * Default constructor
-     */
-    public ReleaseNumber() {
-    }
-
-    /**
-     * 
-     */
     boolean visible;
 
     /**

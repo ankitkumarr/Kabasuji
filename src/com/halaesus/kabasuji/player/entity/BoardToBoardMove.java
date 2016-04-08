@@ -1,5 +1,4 @@
-
-import java.util.*;
+package com.halaesus.kabasuji.player.entity;
 
 /**
  * 
@@ -25,15 +24,17 @@ public class BoardToBoardMove {
     /**
      * @param AbstractLevel level
      */
-    public void boolean do(void AbstractLevel level) {
+    public boolean doMove(AbstractLevel level) {
         // TODO implement here
+    	return false;
     }
 
     /**
      * @param AbstractLevel level
      */
-    public void boolean isValid(void AbstractLevel level) {
+    public boolean isValid(AbstractLevel level) {
         // TODO implement here
+    	return false;
     }
 
 }

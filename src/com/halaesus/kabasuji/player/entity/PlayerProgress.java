@@ -1,4 +1,5 @@
-
+package com.halaesus.kabasuji.player.entity;
+import java.io.File;
 import java.util.*;
 
 /**
@@ -25,21 +26,22 @@ public class PlayerProgress {
     /**
      * 
      */
-    Set<HashMap> starsEarned;
+    ArrayList<Integer> starsEarned;
 
 
 
     /**
      * @param File progressFile
      */
-    public void PlayerProgress(void File progressFile) {
+    public PlayerProgress(File progressFile) {
         // TODO implement here
     }
 
     /**
      * @param File progressFile
      */
-    public void boolean saveToFile(void File progressFile) {
+    public boolean saveToFile(File progressFile) {
+    	return false;
         // TODO implement here
     }
 

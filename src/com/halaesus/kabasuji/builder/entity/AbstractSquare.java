@@ -1,3 +1,5 @@
+package com.halaesus.kabasuji.builder.entity;
+
 
 import java.util.*;
 
@@ -25,7 +27,7 @@ public class AbstractSquare {
     /**
      * @param boolean active
      */
-    void AbstractSquare(void boolean active) {
+    public AbstractSquare(boolean active) {
         // TODO implement here
     }
 

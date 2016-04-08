@@ -1,3 +1,5 @@
+package com.halaesus.kabasuji.builder.entity;
+
 
 import java.util.*;
 
@@ -25,29 +27,33 @@ public class NumberToBoardMove {
     /**
      * @param AbstractLevel level
      */
-    public void boolean do(void AbstractLevel level) {
+    public boolean doMove(AbstractLevel level) {
         // TODO implement here
+    	return false; // stub
     }
 
     /**
      * @param AbstractLevel level
      */
-    public void boolean isValid(void AbstractLevel level) {
+    public boolean isValid(AbstractLevel level) {
         // TODO implement here
+    	return false; // stub
     }
 
     /**
      * @param AbstractLevel level
      */
-    public void boolean undo(void AbstractLevel level) {
+    public boolean undo(AbstractLevel level) {
         // TODO implement here
+    	return false; // stub
     }
 
     /**
      * @param AbstractLevel level
      */
-    public void boolean redo(void AbstractLevel level) {
+    public boolean redo(AbstractLevel level) {
         // TODO implement here
+    	return false; // stub
     }
 
 }

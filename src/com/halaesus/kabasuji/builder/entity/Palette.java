@@ -1,3 +1,5 @@
+package com.halaesus.kabasuji.builder.entity;
+
 
 import java.util.*;
 
@@ -15,13 +17,13 @@ public class Palette {
     /**
      * 
      */
-    Hexominos[] hexominos;
+    Hexomino[] hexominos;
 
 
     /**
      * @param Hexominos[35] hex
      */
-    public void Palette(void Hexominos[35] hex) {
+    public Palette(Hexomino[] hex) {
         // TODO implement here
     }
 

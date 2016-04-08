@@ -1,3 +1,5 @@
+package com.halaesus.kabasuji.builder.entity;
+
 
 import java.util.*;
 
@@ -20,14 +22,15 @@ public class Workspace {
     /**
      * 
      */
-    public void Piece removePiece() {
+    public Piece removePiece() {
+		return null; // stub
         // TODO implement here
     }
 
     /**
      * @param Piece p
      */
-    public void void addPiece(void Piece p) {
+    public void addPiece(Piece p) {
         // TODO implement here
     }
 

@@ -1,4 +1,7 @@
+package com.halaesus.kabasuji.builder.entity;
 
+
+import java.io.File;
 import java.util.*;
 
 /**
@@ -20,22 +23,23 @@ public class PuzzleLevel extends AbstractLevel {
     /**
      * @param int levelIndex
      */
-    public void PuzzleLevel(void int levelIndex) {
+    public void PuzzleLevel(int levelIndex) {
         // TODO implement here
     }
 
     /**
      * @param File file
      */
-    public void PuzzleLevel(void File file) {
+    public void PuzzleLevel(File file) {
         // TODO implement here
     }
 
     /**
      * @param File file
      */
-    public void boolean saveFile(void File file) {
+    public boolean saveFile(File file) {
         // TODO implement here
+    	return false; // stub
     }
 
 }

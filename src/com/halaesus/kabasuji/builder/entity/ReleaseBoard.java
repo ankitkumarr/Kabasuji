@@ -1,3 +1,5 @@
+package com.halaesus.kabasuji.builder.entity;
+
 
 import java.util.*;
 
@@ -19,16 +21,9 @@ public class ReleaseBoard extends AbstractBoard {
 
 
     /**
-     * 
-     */
-    public void ReleaseBoard() {
-        // TODO implement here
-    }
-
-    /**
      * @param BoardSquare[144] boardSquares
      */
-    public void ReleaseBoard(void BoardSquare[144] boardSquares) {
+    public ReleaseBoard(BoardSquare[] boardSquares) {
         // TODO implement here
     }
 

@@ -1,3 +1,5 @@
+package com.halaesus.kabasuji.builder.entity;
+
 
 import java.util.*;
 
@@ -15,7 +17,7 @@ public class LightningBoard extends AbstractBoard {
     /**
      * @param BoardSquare[144] boardSquares
      */
-    public void LightningBoard(void BoardSquare[144] boardSquares) {
+    public LightningBoard(BoardSquare[] boardSquares) {
         // TODO implement here
     }
 

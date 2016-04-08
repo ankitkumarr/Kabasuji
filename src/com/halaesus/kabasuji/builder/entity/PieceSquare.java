@@ -1,3 +1,5 @@
+package com.halaesus.kabasuji.builder.entity;
+
 
 import java.util.*;
 
@@ -28,10 +30,11 @@ public class PieceSquare extends AbstractSquare {
     int col;
 
     /**
-     * @param boolean activem int row 
+     * @param boolean activem 
+     * @param int row 
      * @param int col
      */
-    public void PieceSquare(void boolean activem int row, void int col) {
+    public PieceSquare(boolean activem, int row, int col) {
         // TODO implement here
     }
 

@@ -24,7 +24,7 @@ public class Application extends JFrame {
 		this.masterModel = masterModel;
 		// Initialize
 		splashView = new SplashView(masterModel.getSplashModel());
-		levelSelectorView = new LevelSelectorView();
+		levelSelectorView = new LevelSelectorView(masterModel.getLevelSelectorModel());
 		// Show Splash Screen
 		showSplashScreen();
 		
@@ -36,9 +36,9 @@ public class Application extends JFrame {
 	}
 
 	public void showLevelSelector() {
-		currentView = levelSelectorView;
-		setContentPane(currentView);
-		repaint();
+		currentView = levelSelectorView; // Our current view is the Level Selector Screen
+		setContentPane(currentView); // Show it on the UI
+		repaint(); // Refresh the UI
 	}
 
 }

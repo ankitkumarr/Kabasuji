@@ -2,62 +2,50 @@ package com.halaesus.kabasuji.player.boundary;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.util.*;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import com.halaesus.kabasuji.player.entity.LevelList;
+import com.halaesus.kabasuji.player.entity.LevelData;
+import com.halaesus.kabasuji.player.entity.LevelSelector;
 
-/**
- * 
- */
 public class LevelSelectorView extends JPanel {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5441010600182846418L;
-
-	/**
-	 * Default constructor
-	 */
-	public LevelSelectorView() {
-			
-	}
-
-	/**
-	 * 
-	 */
-	Set<LevelThumbnailView> levelViews;
-
-	/**
-	 * 
-	 */
+	LinkedList<LevelThumbnailView> levelViews;
+	LevelSelector levelSelector;
 	JButton exitProgram;
 
-	/**
-	 * 
-	 */
-	LevelList levels;
+	public LevelSelectorView(LevelSelector levelSelector) {
+		this.levelSelector = levelSelector;
+		// Set the bounds for this JPanel
+		setBounds(0, 0, 1280, 720);
+		setLayout(null);
+		// Initialize
+		levelViews = new LinkedList<LevelThumbnailView>();
+		// Initialize GUI elements
+		initialize();
+	}
 
-	/**
-	 * @param LevelList
-	 *            levels
-	 */
-	public LevelSelectorView(LevelList levels) {
+	private void initialize() {
 		exitProgram = new JButton("Exit Game");
-		this.levels = levels;
-		
-		// TODO implement here
+		// For each level, create a LevelThumbnailView
+		for( Iterator<LevelData> iter = levelSelector.getLevels().getIterator(); iter.hasNext(); ) {
+			LevelData levelData = iter.next(); // Get the next object
+			// Create a new LevelThumbnailView
+			//TODO: levelViews.add(new LevelThumbnailView(levelData));
+			// Place the LevelThumbnailView now
+			add(new LevelThumbnailView(levelData));
+			//add(levelViews.getLast());
+		}
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
-		super.paintComponent(g);
-		g.setColor(Color.white);
-		g.fillRect(0, 0, 1280, 720);
+		super.paintComponent(g); // Let the super do its job
+		// Render the background image
+		g.drawImage(levelSelector.getBackgroundImage().getScaledInstance(1280, -1, Image. SCALE_SMOOTH), 0, 0, null);
 	}
 
 }

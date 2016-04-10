@@ -13,8 +13,6 @@ public class SplashView extends JPanel {
 
 	public SplashView(SplashModel splashModel) {
 		this.splashModel = splashModel;
-		// Initialize
-		// TODO: initialize();
 	}
 
 	@Override

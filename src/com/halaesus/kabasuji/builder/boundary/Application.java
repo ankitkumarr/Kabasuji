@@ -1,5 +1,8 @@
 package com.halaesus.kabasuji.builder.boundary;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 /**
  * 
  */

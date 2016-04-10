@@ -1,42 +1,29 @@
 package com.halaesus.kabasuji.player.boundary;
 
 import java.awt.image.BufferedImage;
-import javax.swing.JButton;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import com.halaesus.kabasuji.player.entity.LevelData;
 
-/**
- * 
- */
-public class LevelThumbnailView extends JButton {
+import javafx.scene.paint.Color;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2770472682015033163L;
+public class LevelThumbnailView extends JPanel {
 
-	/**
-	 * Default constructor
-	 */
-	public LevelThumbnailView() {
-	}
-
-	/**
-	 * 
-	 */
-	LevelData level;
-
-	/**
-	 * 
-	 */
+	LevelData levelData;
 	BufferedImage[] stars;
 
-	/**
-	 * @param LevelData
-	 *            level
-	 */
-	public LevelThumbnailView(LevelData level) {
-		// TODO implement here
+	public LevelThumbnailView(LevelData levelData) {
+		this.levelData = levelData;
+		setBounds(0, 0, 100, 100);
+		// Initialize
+		initialize();
+	}
+
+	private void initialize() {
+		JLabel levelText = new JLabel("Level#");
+		add(levelText);
 	}
 
 }

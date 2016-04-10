@@ -11,6 +11,9 @@ public class PlayerProgress {
      * Default constructor
      */
     public PlayerProgress() {
+    	// TODO: Grab file from the drive
+    	levels = new LevelList();
+    	levels.addLevelData(new LevelData(1, "Lighning", "Level1", "nofile"));
     }
 
     /**
@@ -34,7 +37,7 @@ public class PlayerProgress {
      * @param File progressFile
      */
     public PlayerProgress(File progressFile) {
-        // TODO implement here
+    	// TODO: We don't need this one :(
     }
 
     /**

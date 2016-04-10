@@ -1,7 +1,6 @@
 package com.halaesus.kabasuji.builder.entity;
 
 
-import java.util.*;
 
 /**
  * 
@@ -35,7 +34,7 @@ public class Hexomino {
      * @param Piece piece 
      * @param Workspace workspace
      */
-    public void Hexomino(int count, Piece piece, Workspace workspace) {
+    public Hexomino(int count, Piece piece, Workspace workspace) {
         // TODO implement here
     }
 

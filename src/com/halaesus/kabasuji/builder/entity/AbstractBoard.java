@@ -1,7 +1,6 @@
 package com.halaesus.kabasuji.builder.entity;
 
 
-import java.util.*;
 
 /**
  * 
@@ -26,17 +25,11 @@ public class AbstractBoard {
 
 
 
-    /**
-     * 
-     */
-    public void AbstractBoard() {
-        // TODO implement here
-    }
 
     /**
      * @param BoardSquare[144] boardSquares
      */
-    public void AbstractBoard(BoardSquare[] boardSquares) {
+    public AbstractBoard(BoardSquare[] boardSquares) {
         // TODO implement here
     }
 

@@ -1,7 +1,6 @@
 package com.halaesus.kabasuji.builder.entity;
 
 
-import java.util.*;
 
 /**
  * 

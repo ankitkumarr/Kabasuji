@@ -1,7 +1,6 @@
 package com.halaesus.kabasuji.player.boundary;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -14,7 +13,6 @@ import javax.swing.SwingConstants;
 
 import com.halaesus.kabasuji.player.entity.LevelData;
 import com.halaesus.kabasuji.player.entity.SplashModel;
-import com.halaesus.kabasuji.utils.JLabelHelper;
 
 @SuppressWarnings("serial")
 public class LevelThumbnailView extends JPanel {
@@ -23,9 +21,11 @@ public class LevelThumbnailView extends JPanel {
 	BufferedImage[] stars;
 	BufferedImage levelTypeImage;
 	JLabel levelNumberLabel;
+	int starsAchieved;
 
-	public LevelThumbnailView(LevelData levelData) {
+	public LevelThumbnailView(LevelData levelData, int starsAchieved) {
 		this.levelData = levelData;
+		this.starsAchieved = starsAchieved;
 		// Set up the basic GUI layouting stuff
 		setLayout(null); // We will place all the things on the GUI by ourselves
 		// Initialize
@@ -37,12 +37,15 @@ public class LevelThumbnailView extends JPanel {
 		levelTypeImage = null;
 		// TODO: Figure out if the level is locked and the number of stars the user has achieved
 		try {
-			if( levelData.getLevelType().equals("Lightning") )
-				levelTypeImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/lightningThumbnail.png"));
-			else if( levelData.getLevelType().equals("Puzzle") )
-				levelTypeImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/puzzleThumbnail.png"));
-			else if( levelData.getLevelType().equals("Release") )
-				levelTypeImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/releaseThumbnail.png"));
+			if( starsAchieved == -1 )
+				levelTypeImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/levelLockedThumbnail.png"));
+			else
+				if( levelData.getLevelType().equals("Lightning") )
+					levelTypeImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/lightningThumbnail.png"));
+				else if( levelData.getLevelType().equals("Puzzle") )
+					levelTypeImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/puzzleThumbnail.png"));
+				else if( levelData.getLevelType().equals("Release") )
+					levelTypeImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/releaseThumbnail.png"));
 		} catch(IOException e) {
 			// We cannot do anything :(
 		}

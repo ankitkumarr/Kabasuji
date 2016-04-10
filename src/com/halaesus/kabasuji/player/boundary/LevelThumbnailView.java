@@ -47,7 +47,7 @@ public class LevelThumbnailView extends JPanel {
 		}
 		// Place the Level Number in the Thumbnail
 		levelNumberLabel = new JLabel(String.valueOf(levelData.getLevelIndex()), SwingConstants.CENTER);
-		levelNumberLabel.setBounds(0, 0, 140, 20);
+		levelNumberLabel.setBounds(0, 0, 140, 37);
 		levelNumberLabel.setForeground(Color.WHITE);
 		JLabelHelper.resizeTextBasedOnAvailableSize(levelNumberLabel);
 		add(levelNumberLabel);
@@ -61,11 +61,11 @@ public class LevelThumbnailView extends JPanel {
 	protected void paintComponent(Graphics g) {
 		// Paint the levelTypeImage
 		if(levelTypeImage != null)
-			g.drawImage(levelTypeImage.getScaledInstance(100, 100, Image. SCALE_SMOOTH), 20, 20, null);
+			g.drawImage(levelTypeImage.getScaledInstance(30, 30, Image. SCALE_SMOOTH), 60, 40, null);
 		// Also paint the stars
 		for(int i = 0; i < 3; i++)
 			if(stars[i] != null)
-				g.drawImage(stars[i].getScaledInstance(20, 20, Image. SCALE_SMOOTH), (30 * (i + 1)), 120, null);
+				g.drawImage(stars[i].getScaledInstance(30, 30, Image. SCALE_SMOOTH), 5 + (30 * i), 70, null);
 	}
 
 }

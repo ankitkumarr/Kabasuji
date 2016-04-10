@@ -42,7 +42,7 @@ public class LevelSelectorView extends JPanel {
 			LevelData levelData = iter.next(); // Get the next object
 			// Create a new LevelThumbnailView
 			LevelThumbnailView toAdd = new LevelThumbnailView(levelData);
-			toAdd.setBounds(250 + (160 * levelThumbnailColumn++), 60 + (160 * levelThumbnailRow), 140, 140);
+			toAdd.setBounds(350 + (120 * levelThumbnailColumn++), 160 + (120 * levelThumbnailRow), 100, 100);
 			levelViews.add(toAdd);
 			// Place the LevelThumbnailView now
 			add(toAdd);
@@ -53,8 +53,8 @@ public class LevelSelectorView extends JPanel {
 			}
 		}
 		// Add the JLabel as well
-		levelSelectorLabel = new JLabel("KabaSuji - Level Selector", SwingConstants.CENTER);
-		levelSelectorLabel.setBounds(10, 10, 1260, 25);
+		levelSelectorLabel = new JLabel("Level Selector", SwingConstants.CENTER);
+		levelSelectorLabel.setBounds(10, 10, 1260, 80);
 		levelSelectorLabel.setForeground(Color.ORANGE);
 		JLabelHelper.resizeTextBasedOnAvailableSize(levelSelectorLabel);
 		add(levelSelectorLabel);

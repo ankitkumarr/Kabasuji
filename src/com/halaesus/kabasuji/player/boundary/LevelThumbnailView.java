@@ -1,7 +1,6 @@
 package com.halaesus.kabasuji.player.boundary;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -14,6 +13,7 @@ import javax.swing.SwingConstants;
 
 import com.halaesus.kabasuji.player.entity.LevelData;
 import com.halaesus.kabasuji.player.entity.SplashModel;
+import com.halaesus.kabasuji.utils.JLabelHelper;
 
 @SuppressWarnings("serial")
 public class LevelThumbnailView extends JPanel {
@@ -49,34 +49,12 @@ public class LevelThumbnailView extends JPanel {
 		levelNumberLabel = new JLabel(String.valueOf(levelData.getLevelIndex()), SwingConstants.CENTER);
 		levelNumberLabel.setBounds(0, 0, 140, 20);
 		levelNumberLabel.setForeground(Color.WHITE);
-		resizeTextBasedOnAvailableSize(levelNumberLabel);
+		JLabelHelper.resizeTextBasedOnAvailableSize(levelNumberLabel);
 		add(levelNumberLabel);
 		// Initialize the star images as well
 		stars = new BufferedImage[3];
 		stars[0] = null; stars[1] = null; stars[2] = null;
 		// TODO: Based on the number of stars the user has achieved, render these
-	}
-	
-	private void resizeTextBasedOnAvailableSize(JLabel levelNumberLabel2) {
-		// REFERENCE: http://stackoverflow.com/a/2715279
-		
-		Font labelFont = levelNumberLabel.getFont();
-		String labelText = levelNumberLabel.getText();
-	
-		int stringWidth = levelNumberLabel.getFontMetrics(labelFont).stringWidth(labelText);
-		int componentWidth = levelNumberLabel.getWidth();
-	
-		// Find out how much the font can grow in width.
-		double widthRatio = (double)componentWidth / (double)stringWidth;
-	
-		int newFontSize = (int)(labelFont.getSize() * widthRatio);
-		int componentHeight = levelNumberLabel.getHeight();
-	
-		// Pick a new font size so it will not be larger than the height of label.
-		int fontSizeToUse = Math.min(newFontSize, componentHeight);
-	
-		// Set the label's font size to the newly determined size.
-		levelNumberLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
 	}
 
 	@Override

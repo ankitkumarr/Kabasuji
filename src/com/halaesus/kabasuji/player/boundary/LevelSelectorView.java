@@ -1,20 +1,25 @@
 package com.halaesus.kabasuji.player.boundary;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.*;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import com.halaesus.kabasuji.player.entity.LevelData;
 import com.halaesus.kabasuji.player.entity.LevelSelector;
+import com.halaesus.kabasuji.utils.JLabelHelper;
 
 @SuppressWarnings("serial")
 public class LevelSelectorView extends JPanel {
 
 	LinkedList<LevelThumbnailView> levelViews;
 	LevelSelector levelSelector;
+	JLabel levelSelectorLabel;
 	JButton exitProgram;
 
 	public LevelSelectorView(LevelSelector levelSelector) {
@@ -28,21 +33,31 @@ public class LevelSelectorView extends JPanel {
 		initialize();
 	}
 
-	private void initialize() {
-		exitProgram = new JButton("Exit Game");
-		int ctr = 0;
+	private void initialize() {		
 		// For each level, create a LevelThumbnailView
+		int levelThumbnailColumn = 0; // To keep track of the locations of each of the LevelThumbnailViews
+		int levelThumbnailRow = 0; // To keep track of the locations of each of the LevelThumbnailViews
+		// Iterate over for each Level now
 		for( Iterator<LevelData> iter = levelSelector.getLevels().getIterator(); iter.hasNext(); ) {
 			LevelData levelData = iter.next(); // Get the next object
 			// Create a new LevelThumbnailView
 			LevelThumbnailView toAdd = new LevelThumbnailView(levelData);
-			toAdd.setBounds(10 + (150*ctr), 10, 140, 140);
-			ctr++;
-			//TODO: levelViews.add();
+			toAdd.setBounds(250 + (160 * levelThumbnailColumn++), 60 + (160 * levelThumbnailRow), 140, 140);
+			levelViews.add(toAdd);
 			// Place the LevelThumbnailView now
 			add(toAdd);
-			//add(levelViews.getLast());
+			// Change levelThumbnailRow if necessary
+			if( (levelThumbnailColumn != 0) && (levelThumbnailColumn % 5 == 0) ) {
+				levelThumbnailColumn = 0;
+				levelThumbnailRow++;
+			}
 		}
+		// Add the JLabel as well
+		levelSelectorLabel = new JLabel("KabaSuji - Level Selector", SwingConstants.CENTER);
+		levelSelectorLabel.setBounds(10, 10, 1260, 25);
+		levelSelectorLabel.setForeground(Color.ORANGE);
+		JLabelHelper.resizeTextBasedOnAvailableSize(levelSelectorLabel);
+		add(levelSelectorLabel);
 	}
 
 	@Override

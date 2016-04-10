@@ -26,7 +26,8 @@ public class Main {
 		// Show the application
 		app.setVisible(true);
 		// To switch over to the next Screen
-		Timer timer = new Timer(5000, new ActionListener() {
+		// TODO: Fix timer to 3s instead of 500ms
+		Timer timer = new Timer(500, new ActionListener() {
 		    public void actionPerformed(ActionEvent evt) {
 		    	System.out.println("In timer event");
 		        app.showLevelSelector();

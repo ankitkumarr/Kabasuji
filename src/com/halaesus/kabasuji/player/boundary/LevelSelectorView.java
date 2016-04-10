@@ -1,5 +1,7 @@
 package com.halaesus.kabasuji.player.boundary;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.*;
 
 import javax.swing.JButton;
@@ -48,6 +50,14 @@ public class LevelSelectorView extends JPanel {
 		this.levels = levels;
 		
 		// TODO implement here
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		g.setColor(Color.white);
+		g.fillRect(0, 0, 1280, 720);
 	}
 
 }

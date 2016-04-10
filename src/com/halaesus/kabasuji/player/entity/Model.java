@@ -1,9 +1,11 @@
 package com.halaesus.kabasuji.player.entity;
 
 public class Model {
-	SplashModel splash;
+	
+	SplashModel splashModel;
 	
 	public Model() {
-		splash = new SplashModel();
+		splashModel = new SplashModel();
 	}
+	
 }

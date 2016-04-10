@@ -1,21 +1,24 @@
 package com.halaesus.kabasuji.player.entity;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
-/**
- * 
- */
+import javax.imageio.ImageIO;
+
 public class SplashModel {
 
-    /**
-     * Default constructor
-     */
+    BufferedImage splashImage;
+    
     public SplashModel() {
+    	try {
+			splashImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/splash.jpg"));
+		} catch (IOException e) {
+			splashImage = null; // We don't have an image to show :(
+		}
     }
 
-    /**
-     * 
-     */
-    BufferedImage splashImage;
+	public BufferedImage getSplashImage() {
+		return splashImage;
+	}
 
 }

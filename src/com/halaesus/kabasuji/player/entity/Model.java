@@ -7,5 +7,9 @@ public class Model {
 	public Model() {
 		splashModel = new SplashModel();
 	}
+
+	public SplashModel getSplashModel() {
+		return splashModel;
+	}
 	
 }

@@ -4,7 +4,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import com.halaesus.kabasuji.player.boundary.Application;
+import com.halaesus.kabasuji.player.boundary.SplashView;
 import com.halaesus.kabasuji.player.entity.Model;
+import com.halaesus.kabasuji.player.entity.SplashModel;
 
 public class Main {
 	
@@ -20,9 +22,6 @@ public class Main {
 		});
 
 		app.setVisible(true);
-		
-		// Show up the Splash Screen
-		// TODO
 	}
 	
 }

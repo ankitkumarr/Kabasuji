@@ -1,38 +1,48 @@
+package com.halaesus.kabasuji.player.boundary;
 
 import java.util.*;
+
+import javax.swing.JLabel;
+
+import com.halaesus.kabasuji.player.entity.ReleaseLevel;
 
 /**
  * 
  */
 public class ReleaseLevelView extends AbstractLevelView {
 
-    /**
-     * Default constructor
-     */
-    public ReleaseLevelView() {
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2606513613574360112L;
 
-    /**
-     * 
-     */
-    NumberBarView numberBar;
+	/**
+	 * Default constructor
+	 */
+	public ReleaseLevelView() {
+	}
 
-    /**
-     * 
-     */
-    Set<JLabel> numbers;
+	/**
+	 * 
+	 */
+	NumberBarView numberBar;
 
-    /**
-     * 
-     */
-    ReleaseLevel level;
+	/**
+	 * 
+	 */
+	Set<JLabel> numbers;
 
+	/**
+	 * 
+	 */
+	ReleaseLevel level;
 
-    /**
-     * @param ReleaseLevel aLevel
-     */
-    public void ReleaseLevelView(void ReleaseLevel aLevel) {
-        // TODO implement here
-    }
+	/**
+	 * @param ReleaseLevel
+	 *            aLevel
+	 */
+	public ReleaseLevelView(ReleaseLevel aLevel) {
+		// TODO implement here
+	}
 
 }

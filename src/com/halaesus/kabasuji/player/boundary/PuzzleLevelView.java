@@ -1,32 +1,41 @@
+package com.halaesus.kabasuji.player.boundary;
 
-import java.util.*;
+import javax.swing.JLabel;
+
+import com.halaesus.kabasuji.player.entity.PuzzleLevel;
 
 /**
  * 
  */
 public class PuzzleLevelView extends AbstractLevelView {
 
-    /**
-     * Default constructor
-     */
-    public PuzzleLevelView() {
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4286339792070738542L;
 
-    /**
-     * 
-     */
-    JLabel allowedMoves;
+	/**
+	 * Default constructor
+	 */
+	public PuzzleLevelView() {
+	}
 
-    /**
-     * 
-     */
-    PuzzleLevel level;
+	/**
+	 * 
+	 */
+	JLabel allowedMoves;
 
-    /**
-     * @param PuzzleLevel aLevel
-     */
-    public void PuzzleLevelView(void PuzzleLevel aLevel) {
-        // TODO implement here
-    }
+	/**
+	 * 
+	 */
+	PuzzleLevel level;
+
+	/**
+	 * @param PuzzleLevel
+	 *            aLevel
+	 */
+	public PuzzleLevelView(PuzzleLevel aLevel) {
+		// TODO implement here
+	}
 
 }

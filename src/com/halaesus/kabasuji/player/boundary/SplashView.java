@@ -1,27 +1,36 @@
+package com.halaesus.kabasuji.player.boundary;
 
-import java.util.*;
+import javax.swing.JPanel;
+
+import com.halaesus.kabasuji.player.entity.SplashModel;
 
 /**
  * 
  */
 public class SplashView extends JPanel {
 
-    /**
-     * Default constructor
-     */
-    public SplashView() {
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5726904983804956661L;
 
-    /**
-     * 
-     */
-    SplashModel splashModel;
+	/**
+	 * Default constructor
+	 */
+	public SplashView() {
+	}
 
-    /**
-     * @param SplashModel splashModel
-     */
-    public void SplashView(void SplashModel splashModel) {
-        // TODO implement here
-    }
+	/**
+	 * 
+	 */
+	SplashModel splashModel;
+
+	/**
+	 * @param SplashModel
+	 *            splashModel
+	 */
+	public SplashView(SplashModel splashModel) {
+		// TODO implement here
+	}
 
 }

@@ -1,32 +1,41 @@
+package com.halaesus.kabasuji.player.boundary;
 
-import java.util.*;
+import javax.swing.JLabel;
+
+import com.halaesus.kabasuji.player.entity.LightningLevel;
 
 /**
  * 
  */
 public class LightningLevelView extends AbstractLevelView {
 
-    /**
-     * Default constructor
-     */
-    public LightningLevelView() {
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7193857613863693260L;
 
-    /**
-     * 
-     */
-    JLabel timeRemaining;
+	/**
+	 * Default constructor
+	 */
+	public LightningLevelView() {
+	}
 
-    /**
-     * 
-     */
-    LightningLevel level;
+	/**
+	 * 
+	 */
+	JLabel timeRemaining;
 
-    /**
-     * @param LightningLevel aLevel
-     */
-    public void LightningLevelView(void LightningLevel aLevel) {
-        // TODO implement here
-    }
+	/**
+	 * 
+	 */
+	LightningLevel level;
+
+	/**
+	 * @param LightningLevel
+	 *            aLevel
+	 */
+	public LightningLevelView(LightningLevel aLevel) {
+		// TODO implement here
+	}
 
 }

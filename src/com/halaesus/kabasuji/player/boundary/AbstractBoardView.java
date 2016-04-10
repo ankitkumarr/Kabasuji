@@ -1,39 +1,39 @@
+package com.halaesus.kabasuji.player.boundary;
 
-import java.util.*;
+import com.halaesus.kabasuji.player.entity.AbstractBoard;
 
 /**
  * 
  */
 public class AbstractBoardView {
 
-    /**
-     * Default constructor
-     */
-    public AbstractBoardView() {
-    }
+	/**
+	 * Default constructor
+	 */
+	public AbstractBoardView() {
+	}
 
-    /**
-     * 
-     */
-    AbstractBoard board;
+	/**
+	 * 
+	 */
+	AbstractBoard board;
 
-    /**
-     * 
-     */
-    PieceView[] pieces;
+	/**
+	 * 
+	 */
+	PieceView[] pieces;
 
-    /**
-     * 
-     */
-    SquareView[] squares;
+	/**
+	 * 
+	 */
+	SquareView[] squares;
 
-
-
-    /**
-     * @param AbstractBoard board
-     */
-    public void AbstractBoardView(void AbstractBoard board) {
-        // TODO implement here
-    }
+	/**
+	 * @param AbstractBoard
+	 *            board
+	 */
+	public AbstractBoardView(AbstractBoard board) {
+		// TODO implement here
+	}
 
 }

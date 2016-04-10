@@ -1,20 +1,21 @@
+package com.halaesus.kabasuji.player.boundary;
 
-import java.util.*;
+import com.halaesus.kabasuji.player.entity.AbstractLevel;
 
 /**
  * 
  */
 public class StarView {
 
-    /**
-     * Default constructor
-     */
-    public StarView() {
-    }
+	/**
+	 * Default constructor
+	 */
+	public StarView() {
+	}
 
-    /**
-     * 
-     */
-    AbstractLevel level;
+	/**
+	 * 
+	 */
+	AbstractLevel level;
 
 }

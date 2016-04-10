@@ -1,20 +1,21 @@
+package com.halaesus.kabasuji.player.boundary;
 
-import java.util.*;
+import com.halaesus.kabasuji.player.entity.Square;
 
 /**
  * 
  */
 public class SquareView {
 
-    /**
-     * Default constructor
-     */
-    public SquareView() {
-    }
+	/**
+	 * Default constructor
+	 */
+	public SquareView() {
+	}
 
-    /**
-     * 
-     */
-    Square square;
+	/**
+	 * 
+	 */
+	Square square;
 
 }

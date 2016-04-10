@@ -1,25 +1,34 @@
+package com.halaesus.kabasuji.player.boundary;
 
-import java.util.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import com.halaesus.kabasuji.player.entity.NumberBar;
 
 /**
  * 
  */
 public class NumberBarView extends JPanel {
 
-    /**
-     * Default constructor
-     */
-    public NumberBarView() {
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1510543478406922319L;
 
-    /**
-     * 
-     */
-    NumberBar numberBar;
+	/**
+	 * Default constructor
+	 */
+	public NumberBarView() {
+	}
 
-    /**
-     * 
-     */
-    JLabel[] bars;
+	/**
+	 * 
+	 */
+	NumberBar numberBar;
+
+	/**
+	 * 
+	 */
+	JLabel[] bars;
 
 }

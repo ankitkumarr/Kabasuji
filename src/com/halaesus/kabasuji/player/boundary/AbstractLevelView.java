@@ -1,83 +1,84 @@
+package com.halaesus.kabasuji.player.boundary;
 
-import java.util.*;
+import java.awt.image.BufferedImage;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * 
  */
 public class AbstractLevelView extends JPanel {
 
-    /**
-     * Default constructor
-     */
-    public AbstractLevelView() {
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1258037749653208863L;
 
-    /**
-     * 
-     */
-    JButton backToMain;
+	/**
+	 * Default constructor
+	 */
+	public AbstractLevelView() {
+	}
 
-    /**
-     * 
-     */
-    JLabel levelInfo;
+	/**
+	 * 
+	 */
+	JButton backToMain;
 
-    /**
-     * 
-     */
-    BufferedImage[] stars;
+	/**
+	 * 
+	 */
+	JLabel levelInfo;
 
-    /**
-     * 
-     */
-    BufferedImage[] hexButtons;
+	/**
+	 * 
+	 */
+	BufferedImage[] stars;
 
-    /**
-     * 
-     */
-    JButton rotateCC;
+	/**
+	 * 
+	 */
+	BufferedImage[] hexButtons;
 
-    /**
-     * 
-     */
-    JButton rotateCW;
+	/**
+	 * 
+	 */
+	JButton rotateCC;
 
-    /**
-     * 
-     */
-    JButton flipH;
+	/**
+	 * 
+	 */
+	JButton rotateCW;
 
-    /**
-     * 
-     */
-    JButton flipV;
+	/**
+	 * 
+	 */
+	JButton flipH;
 
-    /**
-     * 
-     */
-    BufferedImage[] workspacePieceSquares;
+	/**
+	 * 
+	 */
+	JButton flipV;
 
-    /**
-     * 
-     */
-    BufferedImage[] boardPieceSquares;
+	/**
+	 * 
+	 */
+	BufferedImage[] workspacePieceSquares;
 
-    /**
-     * 
-     */
-    BufferedImage[] boardSquares;
+	/**
+	 * 
+	 */
+	BufferedImage[] boardPieceSquares;
 
-    /**
-     * 
-     */
-    JLabel[] hexCount;
+	/**
+	 * 
+	 */
+	BufferedImage[] boardSquares;
 
-
-    /**
-     * 
-     */
-    public void AbstractLevelView() {
-        // TODO implement here
-    }
+	/**
+	 * 
+	 */
+	JLabel[] hexCount;
 
 }

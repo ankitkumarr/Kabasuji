@@ -1,53 +1,56 @@
+package com.halaesus.kabasuji.player.boundary;
 
-import java.util.*;
+import javax.swing.JButton;
+
+import com.halaesus.kabasuji.player.entity.Workspace;
 
 /**
  * 
  */
 public class WorkspaceView {
 
-    /**
-     * Default constructor
-     */
-    public WorkspaceView() {
-    }
+	/**
+	 * Default constructor
+	 */
+	public WorkspaceView() {
+	}
 
-    /**
-     * 
-     */
-    Workspace workspace;
+	/**
+	 * 
+	 */
+	Workspace workspace;
 
-    /**
-     * 
-     */
-    JButton rotateCC;
+	/**
+	 * 
+	 */
+	JButton rotateCC;
 
-    /**
-     * 
-     */
-    JButton rotateCW;
+	/**
+	 * 
+	 */
+	JButton rotateCW;
 
-    /**
-     * 
-     */
-    JButton flipH;
+	/**
+	 * 
+	 */
+	JButton flipH;
 
-    /**
-     * 
-     */
-    JButton flipV;
+	/**
+	 * 
+	 */
+	JButton flipV;
 
-    /**
-     * 
-     */
-    PieceView pieceView;
+	/**
+	 * 
+	 */
+	PieceView pieceView;
 
-
-    /**
-     * @param Workspace w
-     */
-    public void WorkspaceView(void Workspace w) {
-        // TODO implement here
-    }
+	/**
+	 * @param Workspace
+	 *            w
+	 */
+	public WorkspaceView(Workspace w) {
+		// TODO implement here
+	}
 
 }

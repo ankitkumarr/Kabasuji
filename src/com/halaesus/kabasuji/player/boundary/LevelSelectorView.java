@@ -1,38 +1,49 @@
+package com.halaesus.kabasuji.player.boundary;
 
 import java.util.*;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+import com.halaesus.kabasuji.player.entity.LevelList;
 
 /**
  * 
  */
 public class LevelSelectorView extends JPanel {
 
-    /**
-     * Default constructor
-     */
-    public LevelSelectorView() {
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5441010600182846418L;
 
-    /**
-     * 
-     */
-    Set<LevelThumbnailView> levelViews;
+	/**
+	 * Default constructor
+	 */
+	public LevelSelectorView() {
+	}
 
-    /**
-     * 
-     */
-    JButton exitProgram;
+	/**
+	 * 
+	 */
+	Set<LevelThumbnailView> levelViews;
 
-    /**
-     * 
-     */
-    LevelList levels;
+	/**
+	 * 
+	 */
+	JButton exitProgram;
 
+	/**
+	 * 
+	 */
+	LevelList levels;
 
-    /**
-     * @param LevelList levels
-     */
-    public void LevelSelectorView(void LevelList levels) {
-        // TODO implement here
-    }
+	/**
+	 * @param LevelList
+	 *            levels
+	 */
+	public LevelSelectorView(LevelList levels) {
+		// TODO implement here
+	}
 
 }

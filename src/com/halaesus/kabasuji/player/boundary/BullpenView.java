@@ -1,44 +1,47 @@
+package com.halaesus.kabasuji.player.boundary;
 
-import java.util.*;
+import com.halaesus.kabasuji.player.entity.Palette;
+import com.halaesus.kabasuji.player.entity.Workspace;
 
 /**
  * 
  */
 public class BullpenView {
 
-    /**
-     * Default constructor
-     */
-    public BullpenView() {
-    }
+	/**
+	 * Default constructor
+	 */
+	public BullpenView() {
+	}
 
-    /**
-     * 
-     */
-    WorkspaceView workspaceView;
+	/**
+	 * 
+	 */
+	WorkspaceView workspaceView;
 
-    /**
-     * 
-     */
-    PaletteView paletteView;
+	/**
+	 * 
+	 */
+	// PaletteView paletteView; 
+	// TODO we don't have a palette view
+	/**
+	 * 
+	 */
+	Workspace workspace;
 
-    /**
-     * 
-     */
-    Workspace workspace;
+	/**
+	 * 
+	 */
+	Palette palette;
 
-    /**
-     * 
-     */
-    Palette palette;
-
-
-    /**
-     * @param Workspace w 
-     * @param Palette p
-     */
-    public void BullpenView(void Workspace w, void Palette p) {
-        // TODO implement here
-    }
+	/**
+	 * @param Workspace
+	 *            w
+	 * @param Palette
+	 *            p
+	 */
+	public BullpenView(Workspace w, Palette p) {
+		// TODO implement here
+	}
 
 }

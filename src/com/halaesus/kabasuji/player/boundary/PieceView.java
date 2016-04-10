@@ -1,33 +1,34 @@
+package com.halaesus.kabasuji.player.boundary;
 
-import java.util.*;
+import com.halaesus.kabasuji.player.entity.Piece;
 
 /**
  * 
  */
 public class PieceView {
 
-    /**
-     * Default constructor
-     */
-    public PieceView() {
-    }
+	/**
+	 * Default constructor
+	 */
+	public PieceView() {
+	}
 
-    /**
-     * 
-     */
-    Piece piece;
+	/**
+	 * 
+	 */
+	Piece piece;
 
-    /**
-     * 
-     */
-    SquareView[] squares;
+	/**
+	 * 
+	 */
+	SquareView[] squares;
 
-
-    /**
-     * @param Piece piece
-     */
-    public void PieceView(void Piece piece) {
-        // TODO implement here
-    }
+	/**
+	 * @param Piece
+	 *            piece
+	 */
+	public PieceView(Piece piece) {
+		// TODO implement here
+	}
 
 }

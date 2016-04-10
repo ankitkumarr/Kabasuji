@@ -1,35 +1,35 @@
+package com.halaesus.kabasuji.player.boundary;
 
-import java.util.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * 
  */
 public class Application extends JFrame {
 
-    /**
-     * Default constructor
-     */
-    public Application() {
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8128606962231914487L;
 
-    /**
-     * 
-     */
-    JPanel currentView;
+	/**
+	 * Default constructor
+	 */
+	public Application() {
+	}
 
+	/**
+	 * 
+	 */
+	JPanel currentView;
 
-    /**
-     * 
-     */
-    public void Application() {
-        // TODO implement here
-    }
-
-    /**
-     * @param JPanel newPanel
-     */
-    public void void changeView(void JPanel newPanel) {
-        // TODO implement here
-    }
+	/**
+	 * @param JPanel
+	 *            newPanel
+	 */
+	public void changeView(JPanel newPanel) {
+		// TODO implement here
+	}
 
 }

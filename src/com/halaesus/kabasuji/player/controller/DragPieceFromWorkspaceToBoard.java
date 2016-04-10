@@ -1,5 +1,11 @@
+package com.halaesus.kabasuji.player.controller;
 
+
+import java.awt.event.MouseEvent;
 import java.util.*;
+
+import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
+import com.halaesus.kabasuji.player.entity.WorkspaceToBoardMove;
 
 /**
  * 
@@ -26,28 +32,28 @@ public class DragPieceFromWorkspaceToBoard {
      * @param WorkspaceToBoardMove move 
      * @param AbstractLevelView levelView
      */
-    public void DragPieceFromBoardToBullpen(void WorkspaceToBoardMove move, void AbstractLevelView levelView) {
+    public void DragPieceFromBoardToBullpen(WorkspaceToBoardMove move, AbstractLevelView levelView) {
         // TODO implement here
     }
 
     /**
      * @param MouseEvent e
      */
-    public void mousePressed(void MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         // TODO implement here
     }
 
     /**
      * @param MouseEvent e
      */
-    public void mouseDragged(void MouseEvent e) {
+    public void mouseDragged(MouseEvent e) {
         // TODO implement here
     }
 
     /**
      * @param MouseEvent e
      */
-    public void mouseReleased(void MouseEvent e) {
+    public void mouseReleased(MouseEvent e) {
         // TODO implement here
     }
 

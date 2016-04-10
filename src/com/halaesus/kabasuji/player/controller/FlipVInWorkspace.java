@@ -1,5 +1,9 @@
+package com.halaesus.kabasuji.player.controller;
 
-import java.util.*;
+
+import java.awt.event.ActionEvent;
+import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
+import com.halaesus.kabasuji.player.entity.Workspace;
 
 /**
  * 
@@ -26,14 +30,14 @@ public class FlipVInWorkspace {
      * @param Workspace workspace 
      * @param AbstractLevelView levelView
      */
-    public void FlipVInWorkspace(void Workspace workspace, void AbstractLevelView levelView) {
+    public FlipVInWorkspace(Workspace workspace, AbstractLevelView levelView) {
         // TODO implement here
     }
 
     /**
      * @param ActionEvent e
      */
-    public void actionPerformed(void ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
         // TODO implement here
     }
 

@@ -1,5 +1,8 @@
+package com.halaesus.kabasuji.player.controller;
 
-import java.util.*;
+
+import java.awt.event.ActionEvent;
+import com.halaesus.kabasuji.player.entity.PlayerProgress;
 
 /**
  * 
@@ -20,14 +23,14 @@ public class QuitGame {
     /**
      * @param PlayerProgress playerProgress
      */
-    public void QuitGame(void PlayerProgress playerProgress) {
+    public QuitGame(PlayerProgress playerProgress) {
         // TODO implement here
     }
 
     /**
      * @param ActionEvent e
      */
-    public void actionPerformed(void ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
         // TODO implement here
     }
 

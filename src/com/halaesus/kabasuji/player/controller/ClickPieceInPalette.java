@@ -1,5 +1,9 @@
+package com.halaesus.kabasuji.player.controller;
 
-import java.util.*;
+
+import java.awt.event.MouseEvent;
+import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
+import com.halaesus.kabasuji.player.entity.Hexomino;
 
 /**
  * 
@@ -26,14 +30,14 @@ public class ClickPieceInPalette {
      * @param Hexomino hexomino 
      * @param AbstractLevelView levelView
      */
-    public void ClickPieceInPalette(void Hexomino hexomino, void AbstractLevelView levelView) {
+    public ClickPieceInPalette(Hexomino hexomino, AbstractLevelView levelView) {
         // TODO implement here
     }
 
     /**
      * @param MouseEvent e
      */
-    public void mouseClicked(void MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {
         // TODO implement here
     }
 

@@ -1,5 +1,9 @@
+package com.halaesus.kabasuji.player.controller;
 
-import java.util.*;
+
+import java.awt.event.ActionEvent;
+import com.halaesus.kabasuji.player.boundary.Application;
+import com.halaesus.kabasuji.player.entity.PlayerProgress;
 
 /**
  * 
@@ -23,17 +27,17 @@ public class ReturnToLevelSelector {
     Application app;
 
     /**
-     * @param Player p 
+     * @param PlayerProgress p 
      * @param Application app
      */
-    public void ReturnToLevelSelector(void Player p, void Application app) {
+    public ReturnToLevelSelector(PlayerProgress p, Application app) {
         // TODO implement here
     }
 
     /**
      * @param ActionEvent e
      */
-    public void actionPerformed(void ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
         // TODO implement here
     }
 

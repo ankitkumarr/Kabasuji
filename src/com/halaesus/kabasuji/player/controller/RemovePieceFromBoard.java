@@ -1,5 +1,7 @@
+package com.halaesus.kabasuji.player.controller;
 
-import java.util.*;
+
+import java.awt.event.ActionEvent;
 
 /**
  * 
@@ -13,16 +15,9 @@ public class RemovePieceFromBoard {
     }
 
     /**
-     * 
-     */
-    public void RemovePieceFromBoard() {
-        // TODO implement here
-    }
-
-    /**
      * @param ActionEvent e
      */
-    public void actionPerformed(void ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
         // TODO implement here
     }
 

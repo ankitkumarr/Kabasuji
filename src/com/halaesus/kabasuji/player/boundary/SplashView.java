@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import com.halaesus.kabasuji.player.entity.SplashModel;
 
+@SuppressWarnings("serial")
 public class SplashView extends JPanel {
 
 	SplashModel splashModel;

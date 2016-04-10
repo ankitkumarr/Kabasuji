@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 
 import com.halaesus.kabasuji.player.entity.Model;
 
+@SuppressWarnings("serial")
 public class Application extends JFrame {
 	
 	JPanel currentView;

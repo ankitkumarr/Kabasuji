@@ -1,6 +1,5 @@
 package com.halaesus.kabasuji.player.boundary;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.*;
@@ -11,6 +10,7 @@ import javax.swing.JPanel;
 import com.halaesus.kabasuji.player.entity.LevelData;
 import com.halaesus.kabasuji.player.entity.LevelSelector;
 
+@SuppressWarnings("serial")
 public class LevelSelectorView extends JPanel {
 
 	LinkedList<LevelThumbnailView> levelViews;
@@ -30,13 +30,17 @@ public class LevelSelectorView extends JPanel {
 
 	private void initialize() {
 		exitProgram = new JButton("Exit Game");
+		int ctr = 0;
 		// For each level, create a LevelThumbnailView
 		for( Iterator<LevelData> iter = levelSelector.getLevels().getIterator(); iter.hasNext(); ) {
 			LevelData levelData = iter.next(); // Get the next object
 			// Create a new LevelThumbnailView
-			//TODO: levelViews.add(new LevelThumbnailView(levelData));
+			LevelThumbnailView toAdd = new LevelThumbnailView(levelData);
+			toAdd.setBounds(10 + (150*ctr), 10, 140, 140);
+			ctr++;
+			//TODO: levelViews.add();
 			// Place the LevelThumbnailView now
-			add(new LevelThumbnailView(levelData));
+			add(toAdd);
 			//add(levelViews.getLast());
 		}
 	}

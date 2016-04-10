@@ -4,11 +4,11 @@ import java.util.*;
 
 public class LevelList {
 	
-    Set<LevelData> levels;
+    LinkedList<LevelData> levels;
 
 	public LevelList() {
 		// Initialize
-		levels = new HashSet<LevelData>();
+		levels = new LinkedList<LevelData>();
 	}
     
     public void addLevelData(LevelData levelData) {

@@ -1,53 +1,37 @@
 package com.halaesus.kabasuji.player.entity;
 
-
-/**
- * 
- */
 public class LevelData {
 
-    /**
-     * Default constructor
-     */
-    public LevelData() {
-    }
-
-    /**
-     * 
-     */
-    int index;
-
-    /**
-     * 
-     */
-    String type;
-
-    /**
-     * 
-     */
-    String name;
-
-    /**
-     * 
-     */
+    int levelIndex;
+    String levelType;
+    String levelName;
     String fileName;
 
-    /**
-     * @param int index 
-     * @param String type 
-     * @param String name 
-     * @param String fileName
-     */
-    public  LevelData( int index,  String type,  String name,  String fileName) {
-        // TODO implement here
+    public LevelData(int index, String type, String name, String fileName) {
+        this.levelIndex = index;
+        this.levelType = type;
+        this.levelName = name;
+        this.fileName = fileName;
     }
 
-    /**
-     * 
-     */
     public AbstractLevel loadLevel() {
     	return null;
-        // TODO implement here
     }
+
+	public int getLevelIndex() {
+		return levelIndex;
+	}
+
+	public String getLevelType() {
+		return levelType;
+	}
+
+	public String getLevelName() {
+		return levelName;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
 
 }

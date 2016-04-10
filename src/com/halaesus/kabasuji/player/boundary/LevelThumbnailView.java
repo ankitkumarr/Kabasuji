@@ -1,6 +1,7 @@
 package com.halaesus.kabasuji.player.boundary;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -47,9 +48,10 @@ public class LevelThumbnailView extends JPanel {
 		}
 		// Place the Level Number in the Thumbnail
 		levelNumberLabel = new JLabel(String.valueOf(levelData.getLevelIndex()), SwingConstants.CENTER);
-		levelNumberLabel.setBounds(0, 0, 140, 37);
-		levelNumberLabel.setForeground(Color.WHITE);
-		JLabelHelper.resizeTextBasedOnAvailableSize(levelNumberLabel);
+		levelNumberLabel.setBounds(0, 0, 100, 100);
+		levelNumberLabel.setForeground(Color.RED);
+		levelNumberLabel.setFont(levelNumberLabel.getFont().deriveFont(48.0f));
+		//JLabelHelper.resizeTextBasedOnAvailableSize(levelNumberLabel);
 		add(levelNumberLabel);
 		// Initialize the star images as well
 		stars = new BufferedImage[3];
@@ -61,7 +63,7 @@ public class LevelThumbnailView extends JPanel {
 	protected void paintComponent(Graphics g) {
 		// Paint the levelTypeImage
 		if(levelTypeImage != null)
-			g.drawImage(levelTypeImage.getScaledInstance(30, 30, Image. SCALE_SMOOTH), 60, 40, null);
+			g.drawImage(levelTypeImage.getScaledInstance(80, 80, Image. SCALE_SMOOTH), 10, 10, null);
 		// Also paint the stars
 		for(int i = 0; i < 3; i++)
 			if(stars[i] != null)

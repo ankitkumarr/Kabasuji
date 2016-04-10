@@ -15,25 +15,26 @@ import com.halaesus.kabasuji.player.entity.SplashModel;
 public class Main {
 	
 	public static void main(String[] args) {
+		// The Master Model
 		Model masterModel = new Model();
-		
+		// The Application to render the Model
 		final Application app = new Application(masterModel);
-
+		// Close Listener
 		app.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				app.dispose();
 			}      
 		});
-
+		// Show the application
 		app.setVisible(true);
-		
-		ActionListener taskPerformer = new ActionListener() {
+		// To switch over to the next Screen
+		Timer timer = new Timer(5000, new ActionListener() {
 		    public void actionPerformed(ActionEvent evt) {
 		    	System.out.println("In timer event");
 		        app.showLevelSelector();
 		    }
-		};
-		Timer timer = new Timer(5000, taskPerformer);
+		});
+		// Start up the timer
 		timer.setRepeats(false);
 		timer.start();
 	}

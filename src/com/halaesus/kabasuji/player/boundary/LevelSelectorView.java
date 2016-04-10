@@ -21,6 +21,7 @@ public class LevelSelectorView extends JPanel {
 	 * Default constructor
 	 */
 	public LevelSelectorView() {
+			
 	}
 
 	/**
@@ -43,6 +44,9 @@ public class LevelSelectorView extends JPanel {
 	 *            levels
 	 */
 	public LevelSelectorView(LevelList levels) {
+		exitProgram = new JButton("Exit Game");
+		this.levels = levels;
+		
 		// TODO implement here
 	}
 

@@ -17,6 +17,9 @@ public class Application extends JFrame {
 	 * Default constructor
 	 */
 	public Application() {
+		setTitle("Halaesus Kabasuji");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1920, 1080);
 	}
 
 	/**
@@ -29,7 +32,7 @@ public class Application extends JFrame {
 	 *            newPanel
 	 */
 	public void changeView(JPanel newPanel) {
-		// TODO implement here
+		currentView = newPanel;
 	}
 
 }

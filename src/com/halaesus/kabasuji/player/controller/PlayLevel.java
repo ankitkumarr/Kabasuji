@@ -1,45 +1,36 @@
 package com.halaesus.kabasuji.player.controller;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-import java.awt.event.ActionEvent;
 import com.halaesus.kabasuji.player.boundary.Application;
 import com.halaesus.kabasuji.player.entity.AbstractLevel;
-import com.halaesus.kabasuji.player.entity.LevelData;
 
-/**
- * 
- */
-public class PlayLevel {
+public class PlayLevel implements MouseListener {
+	
+	AbstractLevel theLevel;
+    Application application;
 
-    /**
-     * Default constructor
-     */
-    public PlayLevel() {
+    public PlayLevel(AbstractLevel level, Application application) {
+        this.theLevel = level;
+        this.application = application;
     }
 
-    /**
-     * 
-     */
-    LevelData level;
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		application.showLevel(theLevel); // Show the required level on the GUI now
+	}
 
-    /**
-     * 
-     */
-    Application app;
-
-    /**
-     * @param AbstractLevel level 
-     * @param Application app
-     */
-    public PlayLevel(AbstractLevel level, Application app) {
-        // TODO implement here
-    }
-
-    /**
-     * @param ActionEvent e
-     */
-    public void actionPerformed(ActionEvent e) {
-        // TODO implement here
-    }
+	@Override
+	public void mouseEntered(MouseEvent e) { /* Do nothing */ }
+	
+	@Override
+	public void mouseExited(MouseEvent e) { /* Do nothing */ }
+	
+	@Override
+	public void mousePressed(MouseEvent e) { /* Do nothing */ }
+	
+	@Override
+	public void mouseReleased(MouseEvent e) { /* Do nothing */ }
 
 }

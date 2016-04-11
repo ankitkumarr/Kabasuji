@@ -3,7 +3,11 @@ package com.halaesus.kabasuji.player.boundary;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.halaesus.kabasuji.player.entity.AbstractLevel;
+import com.halaesus.kabasuji.player.entity.LightningLevel;
 import com.halaesus.kabasuji.player.entity.Model;
+import com.halaesus.kabasuji.player.entity.PuzzleLevel;
+import com.halaesus.kabasuji.player.entity.ReleaseLevel;
 
 @SuppressWarnings("serial")
 public class Application extends JFrame {
@@ -25,7 +29,7 @@ public class Application extends JFrame {
 		this.masterModel = masterModel;
 		// Initialize
 		splashView = new SplashView(masterModel.getSplashModel());
-		levelSelectorView = new LevelSelectorView(masterModel.getLevelSelectorModel());
+		levelSelectorView = new LevelSelectorView(masterModel.getLevelSelectorModel(), Application.this);
 		// Show Splash Screen
 		showSplashScreen();
 		
@@ -38,6 +42,19 @@ public class Application extends JFrame {
 
 	public void showLevelSelector() {
 		currentView = levelSelectorView; // Our current view is the Level Selector Screen
+		setContentPane(currentView); // Show it on the UI
+		repaint(); // Refresh the UI
+	}
+	
+	public void showLevel(AbstractLevel theLevel) {
+		// Check the Level being passed to us
+		if( theLevel.getLevelType().equals("Lightning") )
+			currentView = new LightningLevelView((LightningLevel)theLevel);
+		else if( theLevel.getLevelType().equals("Release") )
+			currentView = new ReleaseLevelView((ReleaseLevel)theLevel);
+		else if( theLevel.getLevelType().equals("Puzzle") )
+			currentView = new PuzzleLevelView((PuzzleLevel)theLevel);
+		// Show it on the GUI
 		setContentPane(currentView); // Show it on the UI
 		repaint(); // Refresh the UI
 	}

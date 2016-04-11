@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import com.halaesus.kabasuji.player.controller.PlayLevel;
 import com.halaesus.kabasuji.player.entity.LevelSelector;
 import com.halaesus.kabasuji.player.entity.LevelThumbnail;
 import com.halaesus.kabasuji.utils.JLabelHelper;
@@ -20,10 +21,12 @@ public class LevelSelectorView extends JPanel {
 	LinkedList<LevelThumbnailView> levelViews;
 	LevelSelector levelSelector;
 	JLabel levelSelectorLabel;
+	Application application;
 	JButton exitProgram;
 
-	public LevelSelectorView(LevelSelector levelSelector) {
+	public LevelSelectorView(LevelSelector levelSelector, Application application) {
 		this.levelSelector = levelSelector;
+		this.application = application;
 		// Set the bounds for this JPanel
 		setBounds(0, 0, 1280, 720);
 		setLayout(null);
@@ -42,6 +45,9 @@ public class LevelSelectorView extends JPanel {
 			// Create a new LevelThumbnailView
 			LevelThumbnailView toAdd = new LevelThumbnailView(levelThumbnail);
 			toAdd.setBounds(310 + (140 * levelThumbnailColumn++), 160 + (120 * levelThumbnailRow), 100, 100);
+			// Add a PlayLevel Controller on this LevelThumbnailView
+			toAdd.addMouseListener(new PlayLevel(levelThumbnail.getLevelData().produceLevel(), application));
+			// Now add it to the ArrayList<LevelThumbnail>
 			levelViews.add(toAdd);
 			// Place the LevelThumbnailView now
 			add(toAdd);

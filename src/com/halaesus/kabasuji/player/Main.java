@@ -29,7 +29,6 @@ public class Main {
 		// TODO: Fix timer to 3s instead of 500ms
 		Timer timer = new Timer(500, new ActionListener() {
 		    public void actionPerformed(ActionEvent evt) {
-		    	System.out.println("In timer event");
 		        app.showLevelSelector();
 		    }
 		});

@@ -10,16 +10,23 @@ import javax.imageio.ImageIO;
 
 public class LevelSelector {
 
-	ArrayList<Integer> starsAchieved;
+	ArrayList<LevelThumbnail> thumbnails;
 	PlayerProgress playerProgress;
 	BufferedImage backgroundImage;
-	LevelList levels;
 
 	public LevelSelector(PlayerProgress playerProgress) {
 		this.playerProgress = playerProgress;
 		// Grab the levels and the stars
-		this.levels = this.playerProgress.levels;
-		this.starsAchieved = this.playerProgress.starsEarned;
+		LevelList levels = this.playerProgress.levels;
+		ArrayList<Integer> starsEarned = this.playerProgress.starsEarned;
+		// Initialize some stuff
+		thumbnails = new ArrayList<LevelThumbnail>();
+		// Create a bunch of LevelThumbnails now
+		int idx = 0;
+		for( Iterator<LevelData> iterator = levels.getIterator(); iterator.hasNext(); idx++) {
+			// Create a new LevelThumbnail Model and add it to the ArrayList
+			thumbnails.add(new LevelThumbnail(iterator.next(), starsEarned.get(idx)));
+		}
 		// Get the background image
 		try {
 			backgroundImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/bacground.jpg"));
@@ -28,12 +35,8 @@ public class LevelSelector {
 		}
     }
 	
-	public Iterator<LevelData> getLevelIterator() {
-		return levels.getIterator();
-	}
-	
-	public int getPlayerStarsAchieved(int idx) {
-		return starsAchieved.get(idx);
+	public ArrayList<LevelThumbnail> getThumbnails() {
+		return thumbnails;
 	}
 
 	public Image getBackgroundImage() {

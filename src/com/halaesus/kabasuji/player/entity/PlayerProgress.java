@@ -4,9 +4,9 @@ import java.util.*;
 
 public class PlayerProgress {
 
+    ArrayList<Integer> starsEarned;
 	LevelList levels;
     File progressFile;
-    ArrayList<Integer> starsEarned;
     // TODO: Design Decision - If the level is locked, set the stars earned to -1
     
     public PlayerProgress() {

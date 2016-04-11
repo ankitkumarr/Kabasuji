@@ -10,8 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import com.halaesus.kabasuji.player.entity.LevelData;
 import com.halaesus.kabasuji.player.entity.LevelSelector;
+import com.halaesus.kabasuji.player.entity.LevelThumbnail;
 import com.halaesus.kabasuji.utils.JLabelHelper;
 
 @SuppressWarnings("serial")
@@ -37,13 +37,10 @@ public class LevelSelectorView extends JPanel {
 		// For each level, create a LevelThumbnailView
 		int levelThumbnailColumn = 0; // To keep track of the locations of each of the LevelThumbnailViews
 		int levelThumbnailRow = 0; // To keep track of the locations of each of the LevelThumbnailViews
-		int index = 0; // To keep track of the number of Levels put on the GUI
 		// Iterate over for each Level now
-		for( Iterator<LevelData> iter = levelSelector.getLevelIterator(); iter.hasNext(); ) {
-			LevelData levelData = iter.next(); // Get the next object
+		for( LevelThumbnail levelThumbnail : levelSelector.getThumbnails() ) {
 			// Create a new LevelThumbnailView
-			// TODO: Check if the LevelThumbnailView constructor is allowed to take the stars achieved as well 
-			LevelThumbnailView toAdd = new LevelThumbnailView(levelData, levelSelector.getPlayerStarsAchieved(index));
+			LevelThumbnailView toAdd = new LevelThumbnailView(levelThumbnail);
 			toAdd.setBounds(310 + (140 * levelThumbnailColumn++), 160 + (120 * levelThumbnailRow), 100, 100);
 			levelViews.add(toAdd);
 			// Place the LevelThumbnailView now
@@ -53,8 +50,6 @@ public class LevelSelectorView extends JPanel {
 				levelThumbnailColumn = 0;
 				levelThumbnailRow++;
 			}
-			// Increment index
-			index++;
 		}
 		// Add the JLabel as well
 		levelSelectorLabel = new JLabel("Level Selector", SwingConstants.CENTER);

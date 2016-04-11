@@ -12,20 +12,24 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.halaesus.kabasuji.player.entity.LevelData;
+import com.halaesus.kabasuji.player.entity.LevelThumbnail;
 import com.halaesus.kabasuji.player.entity.SplashModel;
 
 @SuppressWarnings("serial")
 public class LevelThumbnailView extends JPanel {
 
+	LevelThumbnail levelThumbnail;
 	LevelData levelData;
 	BufferedImage[] stars;
 	BufferedImage levelTypeImage;
 	JLabel levelNumberLabel;
 	int starsAchieved;
 
-	public LevelThumbnailView(LevelData levelData, int starsAchieved) {
-		this.levelData = levelData;
-		this.starsAchieved = starsAchieved;
+	public LevelThumbnailView(LevelThumbnail theThumbnail) {
+		this.levelThumbnail = theThumbnail;
+		// Extract the fields
+		this.levelData = levelThumbnail.getLevelData();
+		this.starsAchieved = levelThumbnail.getStarsEarned();
 		// Set up the basic GUI layouting stuff
 		setLayout(null); // We will place all the things on the GUI by ourselves
 		// Initialize
@@ -35,7 +39,6 @@ public class LevelThumbnailView extends JPanel {
 	private void initialize() {
 		// Initialize the required puzzle image
 		levelTypeImage = null;
-		// TODO: Figure out if the level is locked and the number of stars the user has achieved
 		try {
 			if( starsAchieved == -1 )
 				levelTypeImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/levelLockedThumbnail.png"));
@@ -84,7 +87,6 @@ public class LevelThumbnailView extends JPanel {
 		} catch(IOException e) {
 			// Do nothing :(
 		}
-		// TODO: Based on the number of stars the user has achieved, render these
 	}
 
 	@Override

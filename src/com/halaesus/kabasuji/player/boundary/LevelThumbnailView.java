@@ -52,7 +52,11 @@ public class LevelThumbnailView extends JPanel {
 		// Place the Level Number in the Thumbnail
 		levelNumberLabel = new JLabel(String.valueOf(levelData.getLevelIndex()), SwingConstants.CENTER);
 		levelNumberLabel.setBounds(0, 0, 100, 100);
-		levelNumberLabel.setForeground(Color.RED);
+		// Locked based color scheme
+		if( starsAchieved == -1 )
+			levelNumberLabel.setForeground(Color.LIGHT_GRAY);
+		else
+			levelNumberLabel.setForeground(Color.WHITE);
 		levelNumberLabel.setFont(levelNumberLabel.getFont().deriveFont(48.0f));
 		//JLabelHelper.resizeTextBasedOnAvailableSize(levelNumberLabel);
 		add(levelNumberLabel);

@@ -44,7 +44,7 @@ public class LevelSelectorView extends JPanel {
 			// Create a new LevelThumbnailView
 			// TODO: Check if the LevelThumbnailView constructor is allowed to take the stars achieved as well 
 			LevelThumbnailView toAdd = new LevelThumbnailView(levelData, levelSelector.getPlayerStarsAchieved(index));
-			toAdd.setBounds(350 + (120 * levelThumbnailColumn++), 160 + (120 * levelThumbnailRow), 100, 100);
+			toAdd.setBounds(310 + (140 * levelThumbnailColumn++), 160 + (120 * levelThumbnailRow), 100, 100);
 			levelViews.add(toAdd);
 			// Place the LevelThumbnailView now
 			add(toAdd);

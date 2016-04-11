@@ -58,7 +58,28 @@ public class LevelThumbnailView extends JPanel {
 		add(levelNumberLabel);
 		// Initialize the star images as well
 		stars = new BufferedImage[3];
-		stars[0] = null; stars[1] = null; stars[2] = null;
+		// Do case wise
+		try {
+			if( starsAchieved == 0 ) {
+				stars[0] = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/starShadow.png"));
+				stars[1] = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/starShadow.png"));
+				stars[2] = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/starShadow.png"));
+			} else if( starsAchieved == 1 ) {
+				stars[0] = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/starGold.png"));
+				stars[1] = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/starShadow.png"));
+				stars[2] = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/starShadow.png"));
+			} else if( starsAchieved == 2 ) {
+				stars[0] = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/starGold.png"));
+				stars[1] = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/starGold.png"));
+				stars[2] = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/starShadow.png"));
+			} else if( starsAchieved == 3 ) {
+				stars[0] = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/starGold.png"));
+				stars[1] = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/starGold.png"));
+				stars[2] = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/starGold.png"));
+			}
+		} catch(IOException e) {
+			// Do nothing :(
+		}
 		// TODO: Based on the number of stars the user has achieved, render these
 	}
 

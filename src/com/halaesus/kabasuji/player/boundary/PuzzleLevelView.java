@@ -17,6 +17,8 @@ public class PuzzleLevelView extends AbstractLevelView {
 	
 	public PuzzleLevelView(Application anApplication, PuzzleLevel aLevel) {
 		super(anApplication, aLevel); // Let the super do its stuff
+		// Save the level
+		level = aLevel;
 		// Set up Puzzle Specific Layout Stuff
 		setupLevelTypeLabel();
 	}

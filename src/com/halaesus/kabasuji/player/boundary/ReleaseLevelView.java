@@ -19,6 +19,8 @@ public class ReleaseLevelView extends AbstractLevelView {
 
 	public ReleaseLevelView(Application anApplication, ReleaseLevel aLevel) {
 		super(anApplication, aLevel);  // Let the super do its stuff
+		// Save the level
+		level = aLevel;
 		// Set up Puzzle Specific Layout Stuff
 		setupLevelTypeLabel();
 	}

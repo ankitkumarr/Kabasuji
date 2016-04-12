@@ -48,9 +48,10 @@ public class Application extends JFrame {
 	
 	public void showLevel(AbstractLevel theLevel) {
 		// Check the Level being passed to us
-		if( theLevel.getLevelType().equals("Lightning") )
+		if( theLevel.getLevelType().equals("Lightning") ) {
 			currentView = new LightningLevelView(Application.this, (LightningLevel)theLevel);
-		else if( theLevel.getLevelType().equals("Release") )
+			((LightningLevelView)currentView).performContentPaneShownActions(); // Perform actions to reset the board
+		} else if( theLevel.getLevelType().equals("Release") )
 			currentView = new ReleaseLevelView(Application.this, (ReleaseLevel)theLevel);
 		else if( theLevel.getLevelType().equals("Puzzle") )
 			currentView = new PuzzleLevelView(Application.this, (PuzzleLevel)theLevel);

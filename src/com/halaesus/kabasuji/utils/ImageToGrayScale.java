@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 public class ImageToGrayScale {
 
 	BufferedImage image;
+	String filePath;
 	int width;
 	int height;
 
@@ -22,7 +23,6 @@ public class ImageToGrayScale {
 				image = ImageIO.read(input);
 				width = image.getWidth();
 				height = image.getHeight();
-				System.out.println(width);
 
 				for (int i = 0; i < height; i++) {
 

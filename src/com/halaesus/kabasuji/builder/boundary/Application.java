@@ -36,7 +36,7 @@ public class Application extends JFrame {
 		setContentPane(currentView); // Show it on the UI
 	}
 	
-	public void showSuperBuilderView() {
+	public void showAbstractBuilderView() {
 		currentView = abv;
 		setContentPane(currentView);
 	}

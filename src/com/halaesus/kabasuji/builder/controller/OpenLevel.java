@@ -2,7 +2,7 @@ package com.halaesus.kabasuji.builder.controller;
 
 import java.awt.event.MouseEvent;
 
-import com.halaesus.kabasuji.builder.boundary.SuperBuilderView;
+import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
 
 /**
  * 
@@ -18,12 +18,12 @@ public class OpenLevel {
     /**
      * 
      */
-    SuperBuilderView builderView;
+    AbstractBuilderView builderView;
 
     /**
-     * @param SuperBuilderView builderView
+     * @param AbstractBuilderView builderView
      */
-    public OpenLevel(SuperBuilderView builderView) {
+    public OpenLevel(AbstractBuilderView builderView) {
         // TODO implement here
     }
 

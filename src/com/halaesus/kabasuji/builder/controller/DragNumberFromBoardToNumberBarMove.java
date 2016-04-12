@@ -2,7 +2,7 @@ package com.halaesus.kabasuji.builder.controller;
 
 import java.awt.event.MouseEvent;
 
-import com.halaesus.kabasuji.builder.boundary.SuperBuilderView;
+import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
 import com.halaesus.kabasuji.builder.entity.*;
 
 /**
@@ -24,13 +24,13 @@ public class DragNumberFromBoardToNumberBarMove {
     /**
      * 
      */
-    SuperBuilderView builderView;
+    AbstractBuilderView builderView;
 
     /**
      * @param NumberFromBoardToNumberBarMove move 
-     * @param SuperBuilderView builderView
+     * @param AbstractBuilderView builderView
      */
-    public DragNumberFromBoardToNumberBarMove(NumberFromBoardToNumberBarMove move, SuperBuilderView builderView) {
+    public DragNumberFromBoardToNumberBarMove(NumberFromBoardToNumberBarMove move, AbstractBuilderView builderView) {
         // TODO implement here
     }
 

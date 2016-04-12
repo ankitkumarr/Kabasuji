@@ -13,7 +13,7 @@ public class Application extends JFrame {
     Model masterModel;
     
     SplashView splashView;
-    SuperBuilderView sbv;
+    AbstractBuilderView abv;
     
     public Application(Model m) {
 		// Basic GUI Stuff
@@ -26,6 +26,7 @@ public class Application extends JFrame {
 		masterModel = m;
 		// Initialize
 		splashView = new SplashView(masterModel.getSplashModel());
+		abv = new AbstractBuilderView();
 		// Show Splash Screen
 		showSplashScreen();
     }
@@ -36,7 +37,7 @@ public class Application extends JFrame {
 	}
 	
 	public void showSuperBuilderView() {
-		currentView = sbv;
+		currentView = abv;
 		setContentPane(currentView);
 	}
 }

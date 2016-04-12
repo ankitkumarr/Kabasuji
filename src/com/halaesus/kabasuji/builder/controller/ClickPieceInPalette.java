@@ -1,6 +1,6 @@
 package com.halaesus.kabasuji.builder.controller;
 
-import com.halaesus.kabasuji.builder.boundary.SuperBuilderView;
+import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
 import com.halaesus.kabasuji.builder.entity.*;
 
 import java.awt.event.MouseEvent;
@@ -18,13 +18,13 @@ public class ClickPieceInPalette {
     /**
      * 
      */
-    SuperBuilderView builderView;
+    AbstractBuilderView builderView;
 
     /**
      * @param Hexomino hexomino 
-     * @param SuperBuilderView builderView
+     * @param AbstractBuilderView builderView
      */
-    public ClickPieceInPalette(Hexomino hexomino, SuperBuilderView builderView) {
+    public ClickPieceInPalette(Hexomino hexomino, AbstractBuilderView builderView) {
         // TODO implement here
     }
 

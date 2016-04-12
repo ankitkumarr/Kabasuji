@@ -9,13 +9,8 @@ import javax.swing.JTextField;
 /**
  * 
  */
-public class PuzzleBuilderView extends SuperBuilderView {
+public class PuzzleBuilderView extends AbstractBuilderView {
 
-    /**
-     * Default constructor
-     */
-    public PuzzleBuilderView() {
-    }
 
     /**
      * 

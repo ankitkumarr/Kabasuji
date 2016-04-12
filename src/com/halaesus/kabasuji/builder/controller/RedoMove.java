@@ -2,7 +2,7 @@ package com.halaesus.kabasuji.builder.controller;
 
 import java.awt.event.MouseEvent;
 
-import com.halaesus.kabasuji.builder.boundary.SuperBuilderView;
+import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
 import com.halaesus.kabasuji.builder.entity.*;
 
 /**
@@ -19,7 +19,7 @@ public class RedoMove {
     /**
      * 
      */
-    SuperBuilderView builderView;
+    AbstractBuilderView builderView;
 
     /**
      * 
@@ -27,10 +27,10 @@ public class RedoMove {
     AbstractLevel level;
 
     /**
-     * @param SuperBuilderView builderView 
+     * @param AbstractBuilderView builderView 
      * @param AbstractLevel level
      */
-    public RedoMove(SuperBuilderView builderView, AbstractLevel level) {
+    public RedoMove(AbstractBuilderView builderView, AbstractLevel level) {
         // TODO implement here
     }
 

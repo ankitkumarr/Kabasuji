@@ -7,13 +7,8 @@ import java.awt.image.BufferedImage;
 /**
  * 
  */
-public class ReleaseBuilderView extends SuperBuilderView {
+public class ReleaseBuilderView extends AbstractBuilderView {
 
-    /**
-     * Default constructor
-     */
-    public ReleaseBuilderView() {
-    }
 
     /**
      * 
@@ -31,5 +26,4 @@ public class ReleaseBuilderView extends SuperBuilderView {
     public ReleaseBuilderView(ReleaseLevel aLevel) {
         // TODO implement here
     }
-
 }

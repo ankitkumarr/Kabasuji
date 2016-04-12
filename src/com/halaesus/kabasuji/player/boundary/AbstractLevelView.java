@@ -85,8 +85,9 @@ public class AbstractLevelView extends JPanel {
 		}
 		// Render BackToMainButton
 		showBackToMainButton(g);
-		// Set up MouseListener
-		// TODO
+		// Setup left and right panels
+		setupLeftPanel(g);
+		setupRightPanel(g);
 	}
 	
 	private void showBackToMainButton(Graphics g) {
@@ -94,7 +95,25 @@ public class AbstractLevelView extends JPanel {
 		try {
 			g.drawImage(ImageIO.read(getClass().getResource("/resources/backButton.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH), 10, 15, null);
 			// Add it to the HashMap
-			clickMap.put(new Rectangle(10, 10, 60, 50), new ReturnToLevelSelector(myApplication));
+			clickMap.put(new Rectangle(10, 15, 60, 50), new ReturnToLevelSelector(myApplication));
+		} catch (IOException ex) {
+			return; // Cannot do anything. We tried :(
+		}
+	}
+	
+	private void setupLeftPanel(Graphics g) {
+		// Load up the left panel image
+		try {
+			g.drawImage(ImageIO.read(getClass().getResource("/resources/bullpenWindow.jpg")).getScaledInstance(-1, 612, Image.SCALE_SMOOTH), 0, 80, null);
+		} catch (IOException ex) {
+			return; // Cannot do anything. We tried :(
+		}
+	}
+	
+	private void setupRightPanel(Graphics g) {
+		// Load up the right panel image
+		try {
+			g.drawImage(ImageIO.read(getClass().getResource("/resources/bullpenWindow.jpg")).getScaledInstance(-1, 612, Image.SCALE_SMOOTH), 968, 80, null);
 		} catch (IOException ex) {
 			return; // Cannot do anything. We tried :(
 		}

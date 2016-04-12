@@ -54,6 +54,8 @@ public class Application extends JFrame {
 			currentView = new ReleaseLevelView((ReleaseLevel)theLevel);
 		else if( theLevel.getLevelType().equals("Puzzle") )
 			currentView = new PuzzleLevelView((PuzzleLevel)theLevel);
+		else
+			return; 
 		// Show it on the GUI
 		setContentPane(currentView); // Show it on the UI
 		repaint(); // Refresh the UI

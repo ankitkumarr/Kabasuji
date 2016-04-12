@@ -1,41 +1,24 @@
 package com.halaesus.kabasuji.player.boundary;
 
+import java.awt.Graphics;
+
 import javax.swing.JLabel;
 
 import com.halaesus.kabasuji.player.entity.LightningLevel;
 
-/**
- * 
- */
+@SuppressWarnings("serial")
 public class LightningLevelView extends AbstractLevelView {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7193857613863693260L;
-
-	/**
-	 * Default constructor
-	 */
-	public LightningLevelView() {
-	}
-
-	/**
-	 * 
-	 */
 	JLabel timeRemaining;
-
-	/**
-	 * 
-	 */
 	LightningLevel level;
 
-	/**
-	 * @param LightningLevel
-	 *            aLevel
-	 */
 	public LightningLevelView(LightningLevel aLevel) {
-		// TODO implement here
+		super(); // Let the super initialize itself
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
 	}
 
 }

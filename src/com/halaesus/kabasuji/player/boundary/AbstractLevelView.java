@@ -88,8 +88,12 @@ public class AbstractLevelView extends JPanel {
 		// Setup left and right panels
 		setupLeftPanel(g);
 		setupRightPanel(g);
+		// Set up the game board
+		setupGameBoard(g);
+		// Set up hexomino views
+		setupHexominoes(g);
 	}
-	
+
 	private void showBackToMainButton(Graphics g) {
 		// Load up the image
 		try {
@@ -116,6 +120,37 @@ public class AbstractLevelView extends JPanel {
 			g.drawImage(ImageIO.read(getClass().getResource("/resources/bullpenWindow.jpg")).getScaledInstance(-1, 612, Image.SCALE_SMOOTH), 968, 80, null);
 		} catch (IOException ex) {
 			return; // Cannot do anything. We tried :(
+		}
+	}
+	
+	private void setupGameBoard(Graphics g) {
+		// Load up the board image in the middle of the two panels
+		try {
+			g.drawImage(ImageIO.read(getClass().getResource("/resources/board.jpg")).getScaledInstance(656, 612, Image.SCALE_SMOOTH), 309, 80, null);
+		} catch (IOException ex) {
+			return; // Cannot do anything. We tried :(
+		}
+	}
+	
+	private void setupHexominoes(Graphics g) {
+		int paletteRow = 0; // To keep track of positions on the board
+		int paletteColumn = 0;
+		// Iterate over all 35 hexominoes and add them to the board
+		for(int i = 0; i < 35; i++) {
+			try {
+				g.drawImage(ImageIO.read(getClass().getResource("/resources/" + (i + 1) + ".jpg")).getScaledInstance(41, 41, Image.SCALE_SMOOTH), 
+						    9 + (41 * paletteColumn),
+						    90 + (41 * paletteRow), 
+						    null);
+			} catch (IOException ex) {
+				// Cannot do anything. Skip over this hexomino
+			}
+			// Deal with the cycle overs of the rows and columns
+			if( (paletteColumn != 0) && (paletteColumn % 6 == 0) ) {
+				paletteRow += 1; // We move to the next row
+				paletteColumn = 0; // We start from the zeroth column
+			} else
+				paletteColumn++; // We move to the next column
 		}
 	}
 

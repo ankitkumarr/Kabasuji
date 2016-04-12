@@ -6,7 +6,7 @@ public class Hexomino {
     Piece piece;
     int count;
 
-	public  Hexomino(int count, Piece piece, Workspace workspace) {
+	public Hexomino(int count, Piece piece, Workspace workspace) {
         // TODO implement here
     }
 

@@ -1,36 +1,21 @@
 package com.halaesus.kabasuji.player.entity;
 
-
-/**
- * 
- */
 public class Workspace {
 
-    /**
-     * Default constructor
-     */
+	Piece piece;
+	
     public Workspace() {
+    	// TODO
     }
 
-    /**
-     * 
-     */
-    Piece piece;
-
-
-    /**
-     * 
-     */
     public Piece removePiece() {
-		return null;
-        // TODO implement here
+    	Piece temp = piece; // Stores a temporary piece
+		piece = null; // Remove the piece from the Board
+		return temp; // Return this piece
     }
 
-    /**
-     * @param Piece p
-     */
     public void addPiece(Piece p) {
-        // TODO implement here
+        piece = p; // Set the piece on the Board
     }
 
 }

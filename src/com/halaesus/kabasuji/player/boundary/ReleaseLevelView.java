@@ -18,7 +18,7 @@ public class ReleaseLevelView extends AbstractLevelView {
 	ReleaseLevel level;
 
 	public ReleaseLevelView(Application anApplication, ReleaseLevel aLevel) {
-		super(anApplication);  // Let the super do its stuff
+		super(anApplication, aLevel);  // Let the super do its stuff
 		// Set up Puzzle Specific Layout Stuff
 		setupLevelTypeLabel();
 	}
@@ -26,7 +26,7 @@ public class ReleaseLevelView extends AbstractLevelView {
 	private void setupLevelTypeLabel() {
 		// Create the label
 		releaseModeLabel = new JLabel("Release Mode");
-		releaseModeLabel.setBounds(145, 10, 350, 60);
+		releaseModeLabel.setBounds(125, 10, 350, 60);
 		releaseModeLabel.setForeground(Color.ORANGE);
 		releaseModeLabel.setFont(new Font(releaseModeLabel.getFont().getName(), Font.BOLD, releaseModeLabel.getFont().getSize()));
 		JLabelHelper.resizeTextBasedOnAvailableSize(releaseModeLabel);

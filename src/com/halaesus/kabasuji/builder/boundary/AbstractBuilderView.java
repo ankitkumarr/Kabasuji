@@ -1,7 +1,6 @@
 package com.halaesus.kabasuji.builder.boundary;
 
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;

@@ -9,8 +9,8 @@ public class AbstractLevel {
     String levelType;
 	Bullpen bullpen;
     int levelIndex;
-    
-    public AbstractLevel(File file) {
+
+	public AbstractLevel(File file) {
         // TODO implement here
     }
 
@@ -25,6 +25,10 @@ public class AbstractLevel {
     
     public String getLevelType() {
 		return levelType;
+	}
+    
+    public int getLevelIndex() {
+		return levelIndex;
 	}
 
 }

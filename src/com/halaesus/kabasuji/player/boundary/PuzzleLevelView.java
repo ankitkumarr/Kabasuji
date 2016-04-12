@@ -16,7 +16,7 @@ public class PuzzleLevelView extends AbstractLevelView {
 	PuzzleLevel level;
 	
 	public PuzzleLevelView(Application anApplication, PuzzleLevel aLevel) {
-		super(anApplication); // Let the super do its stuff
+		super(anApplication, aLevel); // Let the super do its stuff
 		// Set up Puzzle Specific Layout Stuff
 		setupLevelTypeLabel();
 	}
@@ -24,7 +24,7 @@ public class PuzzleLevelView extends AbstractLevelView {
 	private void setupLevelTypeLabel() {
 		// Create the label
 		puzzleModeLabel = new JLabel("Puzzle Mode");
-		puzzleModeLabel.setBounds(145, 10, 350, 60);
+		puzzleModeLabel.setBounds(125, 10, 350, 60);
 		puzzleModeLabel.setForeground(Color.ORANGE);
 		puzzleModeLabel.setFont(new Font(puzzleModeLabel.getFont().getName(), Font.BOLD, puzzleModeLabel.getFont().getSize()));
 		JLabelHelper.resizeTextBasedOnAvailableSize(puzzleModeLabel);

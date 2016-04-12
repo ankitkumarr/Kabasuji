@@ -1,5 +1,7 @@
 package com.halaesus.kabasuji.player.boundary;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -16,14 +18,17 @@ import javax.swing.JPanel;
 
 import com.halaesus.kabasuji.player.controller.ClickPieceInPalette;
 import com.halaesus.kabasuji.player.controller.ReturnToLevelSelector;
+import com.halaesus.kabasuji.player.entity.AbstractLevel;
 import com.halaesus.kabasuji.player.entity.Hexomino;
 import com.halaesus.kabasuji.player.entity.SplashModel;
+import com.halaesus.kabasuji.utils.JLabelHelper;
 
 @SuppressWarnings("serial")
 public class AbstractLevelView extends JPanel {
 
 	HashMap<Rectangle, MouseListener> clickMap;
 	Application myApplication;
+	AbstractLevel level;
 	
 	JLabel levelInfo;
 	BufferedImage[] stars;
@@ -37,8 +42,9 @@ public class AbstractLevelView extends JPanel {
 	BufferedImage[] boardSquares;
 	JLabel[] hexCount;
 	
-	public AbstractLevelView(Application application) {
+	public AbstractLevelView(Application application, AbstractLevel aLevel) {
 		this.myApplication = application; // Save the application object passed to us
+		this.level = aLevel; // Save the level being played here
 		// Set GUI Bounds
 		setBounds(0, 0, 1280, 720);
 		// Set up LayoutManager to null
@@ -47,8 +53,10 @@ public class AbstractLevelView extends JPanel {
 		clickMap = new HashMap<Rectangle, MouseListener>();
 		// Implement MouseListener
 		implementMouseListener();
+		// Show Level Info
+		showLevelInfo();
 	}
-	
+
 	private void implementMouseListener() {
 		addMouseListener(new MouseListener() {
 			@Override
@@ -75,6 +83,17 @@ public class AbstractLevelView extends JPanel {
 			}
 		});
 	}
+	
+	private void showLevelInfo() {
+		// Create the label
+		levelInfo = new JLabel("Level ".concat(String.valueOf(level.getLevelIndex() + 1)));
+		levelInfo.setBounds(750, 10, 200, 60);
+		levelInfo.setForeground(Color.ORANGE);
+		levelInfo.setFont(new Font(levelInfo.getFont().getName(), Font.BOLD, levelInfo.getFont().getSize()));
+		JLabelHelper.resizeTextBasedOnAvailableSize(levelInfo);
+		// Add it to the GUI
+		add(levelInfo);
+	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -85,13 +104,15 @@ public class AbstractLevelView extends JPanel {
 		} catch (IOException e) {
 			// Don't render the background
 		}
-		// Render BackToMainButton
+		// Render BackToMainButton and Level Number
 		showBackToMainButton(g);
+		showUserStars(g);
 		// Setup left and right panels
 		setupLeftPanel(g);
 		setupRightPanel(g);
-		// Set up the game board
+		// Set up the game board and palette
 		setupGameBoard(g);
+		setupPalette(g);
 		// Set up hexomino views
 		setupHexominoes(g);
 	}
@@ -102,6 +123,18 @@ public class AbstractLevelView extends JPanel {
 			g.drawImage(ImageIO.read(getClass().getResource("/resources/backButton.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH), 10, 15, null);
 			// Add it to the HashMap
 			clickMap.put(new Rectangle(10, 15, 60, 50), new ReturnToLevelSelector(myApplication));
+		} catch (IOException ex) {
+			return; // Cannot do anything. We tried :(
+		}
+	}
+	
+	private void showUserStars(Graphics g) {
+		stars = new BufferedImage[3];
+		// Load up the images
+		try {
+			g.drawImage(ImageIO.read(getClass().getResource("/resources/starShadow.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH), 1040, 9, null);
+			g.drawImage(ImageIO.read(getClass().getResource("/resources/starShadow.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH), 1120, 9, null);
+			g.drawImage(ImageIO.read(getClass().getResource("/resources/starShadow.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH), 1200, 9, null);
 		} catch (IOException ex) {
 			return; // Cannot do anything. We tried :(
 		}
@@ -129,6 +162,15 @@ public class AbstractLevelView extends JPanel {
 		// Load up the board image in the middle of the two panels
 		try {
 			g.drawImage(ImageIO.read(getClass().getResource("/resources/board.jpg")).getScaledInstance(656, 612, Image.SCALE_SMOOTH), 309, 80, null);
+		} catch (IOException ex) {
+			return; // Cannot do anything. We tried :(
+		}
+	}
+	
+	private void setupPalette(Graphics g) {
+		// Load up the palette board image in the left panel
+		try {
+			g.drawImage(ImageIO.read(getClass().getResource("/resources/paletteWindow.jpg")).getScaledInstance(288, -1, Image.SCALE_SMOOTH), 9, 394, null);
 		} catch (IOException ex) {
 			return; // Cannot do anything. We tried :(
 		}

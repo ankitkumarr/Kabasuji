@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 /**
  * 
  */
-public class LightningBuilderView extends AbstractBuilderView {
+public class LightningBuilderView extends SuperBuilderView {
 
     /**
      * Default constructor

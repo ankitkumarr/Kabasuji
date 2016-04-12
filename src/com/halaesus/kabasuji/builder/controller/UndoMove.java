@@ -2,7 +2,7 @@ package com.halaesus.kabasuji.builder.controller;
 
 import java.awt.event.MouseEvent;
 
-import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
+import com.halaesus.kabasuji.builder.boundary.SuperBuilderView;
 import com.halaesus.kabasuji.builder.entity.*;
 
 /**
@@ -13,7 +13,7 @@ public class UndoMove {
     /**
      * 
      */
-    AbstractBuilderView builderView;
+    SuperBuilderView builderView;
 
     /**
      * 
@@ -21,10 +21,10 @@ public class UndoMove {
     AbstractLevel level;
 
     /**
-     * @param AbstractBuilderView builderView 
+     * @param SuperBuilderView builderView 
      * @param AbstractLevel level
      */
-    public UndoMove(AbstractBuilderView builderView, AbstractLevel level) {
+    public UndoMove(SuperBuilderView builderView, AbstractLevel level) {
         // TODO implement here
     }
 

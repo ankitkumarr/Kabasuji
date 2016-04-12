@@ -2,7 +2,7 @@ package com.halaesus.kabasuji.builder.controller;
 
 import java.awt.event.MouseEvent;
 
-import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
+import com.halaesus.kabasuji.builder.boundary.SuperBuilderView;
 import com.halaesus.kabasuji.builder.entity.*;
 
 /**
@@ -18,13 +18,13 @@ public class DragPieceFromBoardToBoard {
     /**
      * 
      */
-    AbstractBuilderView builderView;
+    SuperBuilderView builderView;
 
     /**
      * @param BoardToBoardMove move 
-     * @param AbstractBuilderView builderView
+     * @param SuperBuilderView builderView
      */
-    public DragPieceFromBoardToBoard(BoardToBoardMove move, AbstractBuilderView builderView) {
+    public DragPieceFromBoardToBoard(BoardToBoardMove move, SuperBuilderView builderView) {
         // TODO implement here
     }
 

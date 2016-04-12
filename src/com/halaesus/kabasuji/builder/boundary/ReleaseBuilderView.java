@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 /**
  * 
  */
-public class ReleaseBuilderView extends AbstractBuilderView {
+public class ReleaseBuilderView extends SuperBuilderView {
 
     /**
      * Default constructor

@@ -2,21 +2,27 @@ package com.halaesus.kabasuji.player.boundary;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.halaesus.kabasuji.player.controller.ReturnToLevelSelector;
 import com.halaesus.kabasuji.player.entity.SplashModel;
 
 @SuppressWarnings("serial")
 public class AbstractLevelView extends JPanel {
 
+	HashMap<Rectangle, MouseListener> clickMap;
+	Application myApplication;
+	
 	JLabel levelInfo;
 	BufferedImage[] stars;
 	BufferedImage[] hexButtons;
@@ -29,12 +35,43 @@ public class AbstractLevelView extends JPanel {
 	BufferedImage[] boardSquares;
 	JLabel[] hexCount;
 	
-	public AbstractLevelView() {
+	public AbstractLevelView(Application application) {
+		this.myApplication = application; // Save the application object passed to us
 		// Set GUI Bounds
 		setBounds(0, 0, 1280, 720);
 		// Set up LayoutManager to null
 		setLayout(null);
-		// Initialize stuff on the screen
+		// Initialize HashMap
+		clickMap = new HashMap<Rectangle, MouseListener>();
+		// Implement MouseListener
+		implementMouseListener();
+	}
+	
+	private void implementMouseListener() {
+		addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) { /* Do nothing */ }
+			
+			@Override
+			public void mousePressed(MouseEvent e) { /* Do nothing */ }
+			
+			@Override
+			public void mouseExited(MouseEvent e) { /* Do nothing */ }
+			
+			@Override
+			public void mouseEntered(MouseEvent e) { /* Do nothing */ }
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// Map coordinates in the Rectangles of the HashMap
+				for( Rectangle rectangle : clickMap.keySet() ) {
+					if( rectangle.contains(e.getX(), e.getY()) ) {
+						// Invoke the mouseClicked function
+						clickMap.get(rectangle).mouseClicked(e);
+					}
+				}
+			}
+		});
 	}
 
 	@Override
@@ -56,6 +93,8 @@ public class AbstractLevelView extends JPanel {
 		// Load up the image
 		try {
 			g.drawImage(ImageIO.read(getClass().getResource("/resources/backButton.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH), 10, 15, null);
+			// Add it to the HashMap
+			clickMap.put(new Rectangle(10, 10, 60, 50), new ReturnToLevelSelector(myApplication));
 		} catch (IOException ex) {
 			return; // Cannot do anything. We tried :(
 		}

@@ -12,8 +12,8 @@ public class LightningLevelView extends AbstractLevelView {
 	JLabel timeRemaining;
 	LightningLevel level;
 
-	public LightningLevelView(LightningLevel aLevel) {
-		super(); // Let the super initialize itself
+	public LightningLevelView(Application anApplication, LightningLevel aLevel) {
+		super(anApplication); // Let the super initialize itself
 	}
 
 	@Override

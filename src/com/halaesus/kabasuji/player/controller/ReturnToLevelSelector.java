@@ -1,44 +1,33 @@
 package com.halaesus.kabasuji.player.controller;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-import java.awt.event.ActionEvent;
 import com.halaesus.kabasuji.player.boundary.Application;
-import com.halaesus.kabasuji.player.entity.PlayerProgress;
 
-/**
- * 
- */
-public class ReturnToLevelSelector {
+public class ReturnToLevelSelector implements MouseListener {
 
-    /**
-     * Default constructor
-     */
-    public ReturnToLevelSelector() {
+    Application application;
+
+    public ReturnToLevelSelector(Application application) {
+        this.application = application;
     }
 
-    /**
-     * 
-     */
-    PlayerProgress playerProgress;
+	@Override
+	public void mouseClicked(MouseEvent e) { 
+		application.showLevelSelector();
+	}
 
-    /**
-     * 
-     */
-    Application app;
+	@Override
+	public void mouseEntered(MouseEvent e) { /* Do nothing */ }
 
-    /**
-     * @param PlayerProgress p 
-     * @param Application app
-     */
-    public ReturnToLevelSelector(PlayerProgress p, Application app) {
-        // TODO implement here
-    }
+	@Override
+	public void mouseExited(MouseEvent e) { /* Do nothing */ }
 
-    /**
-     * @param ActionEvent e
-     */
-    public void actionPerformed(ActionEvent e) {
-        // TODO implement here
-    }
+	@Override
+	public void mousePressed(MouseEvent e) { /* Do nothing */ }
+
+	@Override
+	public void mouseReleased(MouseEvent e) { /* Do nothing */ }
 
 }

@@ -14,7 +14,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.halaesus.kabasuji.player.controller.ClickPieceInPalette;
 import com.halaesus.kabasuji.player.controller.ReturnToLevelSelector;
+import com.halaesus.kabasuji.player.entity.Hexomino;
 import com.halaesus.kabasuji.player.entity.SplashModel;
 
 @SuppressWarnings("serial")
@@ -138,10 +140,15 @@ public class AbstractLevelView extends JPanel {
 		// Iterate over all 35 hexominoes and add them to the board
 		for(int i = 0; i < 35; i++) {
 			try {
-				g.drawImage(ImageIO.read(getClass().getResource("/resources/" + (i + 1) + ".jpg")).getScaledInstance(41, 41, Image.SCALE_SMOOTH), 
-						    9 + (41 * paletteColumn),
-						    90 + (41 * paletteRow), 
-						    null);
+				// Set up coordinates
+				int width = 41; int height = 41;
+				int x = 9 + (41 * paletteColumn);
+				int y = 90 + (41 * paletteRow);
+				// Add the image
+				g.drawImage(ImageIO.read(getClass().getResource("/resources/" + (i + 1) + ".jpg")).getScaledInstance(width, height, Image.SCALE_SMOOTH), 
+						    x, y, null);
+				// Add it to the HashMap
+				// TODO: clickMap.put(new Rectangle(x, y, width, height), new ClickPieceInPalette(new Hexomino(), AbstractLevelView.this));
 			} catch (IOException ex) {
 				// Cannot do anything. Skip over this hexomino
 			}

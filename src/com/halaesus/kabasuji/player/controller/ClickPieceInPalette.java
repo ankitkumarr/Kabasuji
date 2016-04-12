@@ -2,43 +2,36 @@ package com.halaesus.kabasuji.player.controller;
 
 
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 import com.halaesus.kabasuji.player.entity.Hexomino;
 
-/**
- * 
- */
-public class ClickPieceInPalette {
+public class ClickPieceInPalette implements MouseListener {
 
-    /**
-     * Default constructor
-     */
-    public ClickPieceInPalette() {
-    }
-
-    /**
-     * 
-     */
     Hexomino hexomino;
-
-    /**
-     * 
-     */
     AbstractLevelView levelView;
-
-    /**
-     * @param Hexomino hexomino 
-     * @param AbstractLevelView levelView
-     */
+    
     public ClickPieceInPalette(Hexomino hexomino, AbstractLevelView levelView) {
-        // TODO implement here
+    	this.levelView = levelView;
+        this.hexomino = hexomino;
     }
 
-    /**
-     * @param MouseEvent e
-     */
-    public void mouseClicked(MouseEvent e) {
-        // TODO implement here
-    }
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		System.out.println("Clicked Hexomino #" + hexomino.getCount()); // TODO
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) { /* Nothing to do */ }
+
+	@Override
+	public void mouseExited(MouseEvent e) { /* Nothing to do */ }
+
+	@Override
+	public void mousePressed(MouseEvent e) { /* Nothing to do */ }
+
+	@Override
+	public void mouseReleased(MouseEvent e) { /* Nothing to do */ }
 
 }

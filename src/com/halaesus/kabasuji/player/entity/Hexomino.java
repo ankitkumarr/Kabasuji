@@ -1,40 +1,17 @@
 package com.halaesus.kabasuji.player.entity;
 
-
-/**
- * 
- */
 public class Hexomino {
 
-    /**
-     * Default constructor
-     */
-    public Hexomino() {
-    }
-
-    /**
-     * 
-     */
+    Workspace workspace;
+    Piece piece;
     int count;
 
-    /**
-     * 
-     */
-    Piece piece;
-
-    /**
-     * 
-     */
-    Workspace workspace;
-
-
-    /**
-     * @param int count 
-     * @param Piece piece 
-     * @param Workspace workspace
-     */
-    public  Hexomino(int count, Piece piece, Workspace workspace) {
+	public  Hexomino(int count, Piece piece, Workspace workspace) {
         // TODO implement here
     }
+
+    public int getCount() {
+		return count;
+	}
 
 }

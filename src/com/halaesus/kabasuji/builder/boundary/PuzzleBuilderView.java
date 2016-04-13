@@ -6,30 +6,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-/**
- * 
- */
 public class PuzzleBuilderView extends AbstractBuilderView {
 
-
-    /**
-     * 
-     */
     JLabel movesLabel;
-
-    /**
-     * 
-     */
     JTextField movesBox;
-
-    /**
-     * 
-     */
     JButton setMoves;
-
-    /**
-     * 
-     */
     PuzzleLevel level;
 
     public PuzzleBuilderView() {

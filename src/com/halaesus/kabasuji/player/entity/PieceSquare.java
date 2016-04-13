@@ -14,6 +14,12 @@ public class PieceSquare extends AbstractSquare {
         this.col = col;
     }
     
+    public PieceSquare(int row, int col) {
+        this.active = true;
+        this.row = row;
+        this.col = col;
+    }
+    
     public void setParentPiece(Piece parentPiece) {
 		this.parentPiece = parentPiece;
 	}

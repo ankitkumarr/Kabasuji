@@ -18,7 +18,7 @@ public class NewLevel {
     /**
      * 
      */
-    public AbstractBuilderView builderView;
+    AbstractBuilderView builderView;
 
     /**
      * @param AbstractBuilderView builderView

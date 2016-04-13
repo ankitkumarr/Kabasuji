@@ -47,8 +47,9 @@ public class AbstractBuilderView extends JPanel { // you'll note this isn't actu
 		// Set up LayoutManager to null
 		setLayout(null);
 		// Set up the popup that handles selecting the level type
-		setupTypeSelectorFrame();
-		levelTypeSelector.setVisible(true);
+//		setupTypeSelectorFrame();
+//		levelTypeSelector.setVisible(true);
+		
     }
 
     protected void paintComponent(Graphics g) {

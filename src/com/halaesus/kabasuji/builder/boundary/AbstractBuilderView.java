@@ -2,6 +2,7 @@ package com.halaesus.kabasuji.builder.boundary;
 
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -10,15 +11,15 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.halaesus.kabasuji.builder.entity.SplashModel;
 
 @SuppressWarnings("serial")
-public class AbstractBuilderView extends JPanel { // you'll note this isn't
-													// actually an abstract
-													// class
+public abstract class AbstractBuilderView extends JPanel { // you'll note this
+															// isn't
+	// actually an abstract
+	// class
 	JButton newBtn;
 	JButton saveBtn;
 	JButton openBtn;
@@ -33,11 +34,12 @@ public class AbstractBuilderView extends JPanel { // you'll note this isn't
 	JLabel bullpenLevel;
 	JLabel[] playerHexsCount;
 
+	JPanel builderPalette;
+
 	BufferedImage[] workspacePiece;
-	JButton[] hexominoImages;
+	JButton[] builderPaletteHexBtns;
 	BufferedImage[] boardSquares;
 	BufferedImage[] boardPieceSquares;
-
 
 	public AbstractBuilderView() {
 		// Set GUI Bounds
@@ -50,76 +52,60 @@ public class AbstractBuilderView extends JPanel { // you'll note this isn't
 			newBtn.setFont(new Font("Arial", Font.PLAIN, 14));
 			newBtn.setBounds(10, 15, 60, 60);
 			this.add(newBtn);
-			saveBtn = new JButton((new ImageIcon(ImageIO.read(getClass().getResource("/resources/save.png")).getScaledInstance(60, 60,
-					Image.SCALE_SMOOTH))));
+			saveBtn = new JButton((new ImageIcon(ImageIO.read(getClass().getResource("/resources/save.png"))
+					.getScaledInstance(60, 60, Image.SCALE_SMOOTH))));
 			saveBtn.setBounds(10 + 60 * 2, 15, 60, 60);
 			this.add(saveBtn);
-			openBtn = new JButton((new ImageIcon(ImageIO.read(getClass().getResource("/resources/open.png")).getScaledInstance(60, 60,
-					Image.SCALE_SMOOTH))));
+			openBtn = new JButton((new ImageIcon(ImageIO.read(getClass().getResource("/resources/open.png"))
+					.getScaledInstance(60, 60, Image.SCALE_SMOOTH))));
 			openBtn.setBounds(10 + 60 * 1, 15, 60, 60);
 			this.add(openBtn);
-			undoBtn = new JButton((new ImageIcon(ImageIO.read(getClass().getResource("/resources/undo.png")).getScaledInstance(60, 60,
-					Image.SCALE_SMOOTH))));
+			undoBtn = new JButton((new ImageIcon(ImageIO.read(getClass().getResource("/resources/undo.png"))
+					.getScaledInstance(60, 60, Image.SCALE_SMOOTH))));
 			undoBtn.setBounds(10 + 60 * 3, 15, 60, 60);
 			this.add(undoBtn);
-			redoBtn = new JButton((new ImageIcon(ImageIO.read(getClass().getResource("/resources/redo.png")).getScaledInstance(60, 60,
-					Image.SCALE_SMOOTH))));
+			redoBtn = new JButton((new ImageIcon(ImageIO.read(getClass().getResource("/resources/redo.png"))
+					.getScaledInstance(60, 60, Image.SCALE_SMOOTH))));
 			redoBtn.setBounds(10 + 60 * 4, 15, 60, 60);
 			this.add(redoBtn);
-			
-			flipHBtn = new JButton((new ImageIcon(ImageIO.read(getClass().getResource("/resources/flipHorizontal.png")).getScaledInstance(60, 60,
-					Image.SCALE_SMOOTH))));
+
+			flipHBtn = new JButton((new ImageIcon(ImageIO.read(getClass().getResource("/resources/flipHorizontal.png"))
+					.getScaledInstance(60, 60, Image.SCALE_SMOOTH))));
 			flipHBtn.setBounds(230, 615, 60, 60);
 			this.add(flipHBtn);
-			
-			flipVBtn = new JButton((new ImageIcon(ImageIO.read(getClass().getResource("/resources/flipVertical.png")).getScaledInstance(60, 60,
-					Image.SCALE_SMOOTH))));
+
+			flipVBtn = new JButton((new ImageIcon(ImageIO.read(getClass().getResource("/resources/flipVertical.png"))
+					.getScaledInstance(60, 60, Image.SCALE_SMOOTH))));
 			flipVBtn.setBounds(10, 395, 60, 60);
 			this.add(flipVBtn);
-			
-			rotateCWBtn = new JButton((new ImageIcon(ImageIO.read(getClass().getResource("/resources/rotateCW.png")).getScaledInstance(60, 60,
-					Image.SCALE_SMOOTH))));
+
+			rotateCWBtn = new JButton((new ImageIcon(ImageIO.read(getClass().getResource("/resources/rotateCW.png"))
+					.getScaledInstance(60, 60, Image.SCALE_SMOOTH))));
 			rotateCWBtn.setBounds(10, 615, 60, 60);
 			this.add(rotateCWBtn);
-			
-			rotateCCBtn = new JButton((new ImageIcon(ImageIO.read(getClass().getResource("/resources/rotateCC.png")).getScaledInstance(60, 60,
-					Image.SCALE_SMOOTH))));
-			rotateCCBtn.setBounds(230, 395, 60, 60);	
+
+			rotateCCBtn = new JButton((new ImageIcon(ImageIO.read(getClass().getResource("/resources/rotateCC.png"))
+					.getScaledInstance(60, 60, Image.SCALE_SMOOTH))));
+			rotateCCBtn.setBounds(230, 395, 60, 60);
 			this.add(rotateCCBtn);
-			
+
+			builderPalette = new JPanel();
+			builderPalette.setBounds(20, 91, 273, 200);
+			builderPalette.setLayout(new GridLayout(5, 7));
+			this.add(builderPalette);
+
+			builderPaletteHexBtns = new JButton[35];
+
+			for (int i = 0; i < 35; i++) {
+				builderPaletteHexBtns[i] = new JButton(
+						(new ImageIcon(ImageIO.read(getClass().getResource("/resources/" + (i + 1) + ".jpg"))
+								.getScaledInstance(40, 40, Image.SCALE_SMOOTH))));
+				builderPalette.add(builderPaletteHexBtns[i]);
+			}
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-	}
-
-	public void showDialog(Application app) {
-		// options in drop down menu
-		String[] choices = { "Open from file", "New Puzzle Level", "New Lightning Level", "New Release Level" };
-
-		// create popup, store response as String
-		String action = (String) JOptionPane.showInputDialog(app, "Open or create a new level", // text
-																								// within
-																								// popup
-				"Select an option", // window title
-				JOptionPane.QUESTION_MESSAGE, // icon
-				null, choices, choices[0]);
-		if (action == null) { // no input
-			// TODO
-			return;
-		} else if (action.equals(choices[0])) { // open from file
-			// TODO
-			app.showPuzzleBuilderView();
-			return;
-		} else if (action.equals(choices[1])) { // new puzzle
-			app.showPuzzleBuilderView();
-			return;
-		} else if (action.equals(choices[2])) { // new lightning
-			app.showLightningBuilderView();
-			return;
-		} else if (action.equals(choices[3])) { // new release
-			app.showReleaseBuilderView();
-			return;
 		}
 	}
 
@@ -138,7 +124,7 @@ public class AbstractBuilderView extends JPanel { // you'll note this isn't
 		drawBuilderPalette(g);
 		drawBoard(g);
 	}
-	
+
 	private void drawWorkspace(Graphics g) {
 		// Load up the left panel image
 		try {
@@ -164,10 +150,9 @@ public class AbstractBuilderView extends JPanel { // you'll note this isn't
 		// TODO drawWorkspacePiece()
 	}
 
-
 	private void drawPlayerPalette(Graphics g) {
 		// TODO drawPlayerPalette()
-		
+
 	}
 
 	private void drawBuilderPalette(Graphics g) {

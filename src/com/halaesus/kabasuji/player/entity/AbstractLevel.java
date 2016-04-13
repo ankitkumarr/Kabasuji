@@ -30,5 +30,9 @@ public class AbstractLevel {
     public int getLevelIndex() {
 		return levelIndex;
 	}
+    
+    public Bullpen getLevelBullpen() {
+    	return bullpen;
+    }
 
 }

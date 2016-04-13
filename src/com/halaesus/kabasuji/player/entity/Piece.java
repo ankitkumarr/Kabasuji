@@ -1,14 +1,20 @@
 package com.halaesus.kabasuji.player.entity;
 
+import java.awt.Color;
+
 public class Piece {
 
     PieceSquare[] squares; 
     int pivotRow;
     int pivotCol;
-    int color;
+    Color color;
 
-    public Piece(int pivotRow, int pivotCol, int color, PieceSquare squareMap[]) {
-        // TODO implement here
+    public Piece(int pivotRow, int pivotCol, Color color, PieceSquare squareMap[]) {
+        // Save the data
+    	this.squares = squareMap;
+    	this.pivotRow = pivotRow;
+    	this.pivotCol = pivotCol;
+    	this.color = color;
     }
 
     public void rotateCC() {

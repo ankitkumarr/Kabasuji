@@ -1,44 +1,37 @@
 package com.halaesus.kabasuji.player.controller;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-import java.awt.event.ActionEvent;
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 import com.halaesus.kabasuji.player.entity.Workspace;
 
-/**
- * 
- */
-public class FlipVInWorkspace {
+public class FlipVInWorkspace implements MouseListener {
 
-    /**
-     * Default constructor
-     */
-    public FlipVInWorkspace() {
-    }
-
-    /**
-     * 
-     */
+    AbstractLevelView levelView;
     Workspace workspace;
 
-    /**
-     * 
-     */
-    AbstractLevelView levelView;
-
-    /**
-     * @param Workspace workspace 
-     * @param AbstractLevelView levelView
-     */
     public FlipVInWorkspace(Workspace workspace, AbstractLevelView levelView) {
-        // TODO implement here
+    	// Store them away
+    	this.levelView = levelView;
+    	this.workspace = workspace;
     }
 
-    /**
-     * @param ActionEvent e
-     */
-    public void actionPerformed(ActionEvent e) {
-        // TODO implement here
-    }
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) { /* Do nothing :( */ }
+
+	@Override
+	public void mouseExited(MouseEvent e) { /* Do nothing :( */ }
+
+	@Override
+	public void mousePressed(MouseEvent e) { /* Do nothing :( */ }
+
+	@Override
+	public void mouseReleased(MouseEvent e) { /* Do nothing :( */ }
 
 }

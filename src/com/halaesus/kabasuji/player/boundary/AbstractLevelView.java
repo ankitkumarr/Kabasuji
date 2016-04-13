@@ -7,8 +7,10 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -17,7 +19,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.halaesus.kabasuji.player.controller.ClickPieceInPalette;
+import com.halaesus.kabasuji.player.controller.FlipHInWorkspace;
+import com.halaesus.kabasuji.player.controller.FlipVInWorkspace;
 import com.halaesus.kabasuji.player.controller.ReturnToLevelSelector;
+import com.halaesus.kabasuji.player.controller.RotateCCInWorkspace;
+import com.halaesus.kabasuji.player.controller.RotateCWInWorkspace;
 import com.halaesus.kabasuji.player.entity.AbstractLevel;
 import com.halaesus.kabasuji.player.entity.Hexomino;
 import com.halaesus.kabasuji.player.entity.SplashModel;
@@ -27,6 +33,8 @@ import com.halaesus.kabasuji.utils.JLabelHelper;
 public class AbstractLevelView extends JPanel {
 
 	HashMap<Rectangle, MouseListener> clickMap;
+	ArrayList<Rectangle> bullpenPalettePiecesMap;
+	ArrayList<Rectangle> boardPiecesMap;
 	Application myApplication;
 	AbstractLevel level;	
 
@@ -37,6 +45,10 @@ public class AbstractLevelView extends JPanel {
 	private Image boardImage;
 	private Image paletteView;
 	private Image[] hexominoImages;
+	private Image rotateCCImage;
+	private Image rotateCWImage;
+	private Image flipVImage;
+	private Image flipHImage;
 	
 	JLabel levelInfo;
 	BufferedImage[] stars;
@@ -65,6 +77,9 @@ public class AbstractLevelView extends JPanel {
 		showLevelInfo();
 		// Calculate some scaled images for paintComponent function
 		calculateScaledImages();
+		// Set up Board Pieces Map and Bullpen Palette Pieces Map
+		setupBoardPiecesMap();
+		setupBullpenPiecesMap();
 	}
 
 	private void implementMouseListener() {
@@ -111,8 +126,12 @@ public class AbstractLevelView extends JPanel {
 			backButton = ImageIO.read(getClass().getResource("/resources/backButton.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH);
 			starShadow = ImageIO.read(getClass().getResource("/resources/starShadow.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH);
 			bullpenWindow = ImageIO.read(getClass().getResource("/resources/bullpenWindow.jpg")).getScaledInstance(-1, 612, Image.SCALE_SMOOTH);
-			boardImage = ImageIO.read(getClass().getResource("/resources/board.jpg")).getScaledInstance(656, 612, Image.SCALE_SMOOTH);
+			boardImage = ImageIO.read(getClass().getResource("/resources/board.jpg")).getScaledInstance(612, 612, Image.SCALE_SMOOTH);
 			paletteView = ImageIO.read(getClass().getResource("/resources/paletteWindow.jpg")).getScaledInstance(288, 210, Image.SCALE_SMOOTH);
+			rotateCCImage = ImageIO.read(getClass().getResource("/resources/rotateCC.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+			rotateCWImage = ImageIO.read(getClass().getResource("/resources/rotateCW.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+			flipVImage = ImageIO.read(getClass().getResource("/resources/flipHorizontal.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+			flipHImage = ImageIO.read(getClass().getResource("/resources/flipVertical.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
 			// Hexomino Images
 			hexominoImages = new Image[35];
 			for(int i = 0; i < 35; i++)
@@ -138,6 +157,8 @@ public class AbstractLevelView extends JPanel {
 		setupPalette(g);
 		// Set up hexomino views
 		setupHexominoes(g);
+		// Add palette controllers
+		setupPaletteControllers(g);
 	}
 
 	private void showBackToMainButton(Graphics g) {
@@ -167,7 +188,7 @@ public class AbstractLevelView extends JPanel {
 	
 	private void setupGameBoard(Graphics g) {
 		// Load up the board image in the middle of the two panels
-		g.drawImage(boardImage, 309, 80, null);
+		g.drawImage(boardImage, 330, 80, null);
 	}
 	
 	private void setupPalette(Graphics g) {
@@ -197,5 +218,36 @@ public class AbstractLevelView extends JPanel {
 				paletteColumn++; // We move to the next column
 		}
 	}
-
+	
+	private void setupPaletteControllers(Graphics g) {
+		// Load up all the images
+		g.drawImage(flipHImage, 1, 360, null);
+		g.drawImage(flipVImage, 214, 598, null);
+		g.drawImage(rotateCCImage, 210, 355, null);
+		g.drawImage(rotateCWImage, 1, 593, null);
+		// Add these to the HashMap
+		// TODO: clickMap.put(new Rectangle(1, 360, 90, 90), new FlipHInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		// TODO: clickMap.put(new Rectangle(214, 598, 90, 90), new FlipVInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		// TODO: clickMap.put(new Rectangle(210, 355, 90, 90), new RotateCCInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		// TODO: clickMap.put(new Rectangle(1, 593, 90, 90), new RotateCWInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+	}
+	
+	private void setupBoardPiecesMap() {
+		// Setup the ArrayList
+		boardPiecesMap = new ArrayList<Rectangle>();
+		// Now, map all the pieces on the board
+		for(int i = 0; i < 12; i++) // Iterate over 12 rows of the board
+			for(int j = 0; j < 12; j++) // Iterate over 12 columns of the board
+				boardPiecesMap.add(new Rectangle(330 + (51 * j), 80 + (51 * i), 51, 51));
+	}
+	
+	private void setupBullpenPiecesMap() {
+		// Set up the array list
+		bullpenPalettePiecesMap = new ArrayList<Rectangle>();
+		// Now, map them all out
+		for(int i = 0; i < 6; i++)
+			for(int j = 0; j < 6; j++)
+				bullpenPalettePiecesMap.add(new Rectangle(38 + (38 * i), 424 + (38 * j), 38, 38));
+	}
+	
 }

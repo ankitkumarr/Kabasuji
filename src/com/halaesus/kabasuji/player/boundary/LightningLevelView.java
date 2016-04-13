@@ -5,8 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -78,6 +76,7 @@ public class LightningLevelView extends AbstractLevelView {
 	}
 
 	private void setupCountdownTimer() {
+		// TODO: Check if this Timer should somehow be converted to a controller?
 		countdownTimer = new Timer(1000, new ActionListener() {
 		    public void actionPerformed(ActionEvent evt) {
 		        // STEP 1: Check time to see if user ran out of time
@@ -99,7 +98,6 @@ public class LightningLevelView extends AbstractLevelView {
 		    		timeRemaining.setText(String.valueOf(minutes).concat("m ").concat(String.valueOf(seconds).concat("s")));
 		    	// STEP 5: Force repaint of the label
 		    	timeRemaining.repaint();
-		    	System.out.println(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
 		    }
 		});
 		countdownTimer.setRepeats(true);

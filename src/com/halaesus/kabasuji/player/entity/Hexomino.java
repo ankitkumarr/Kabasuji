@@ -7,8 +7,15 @@ public class Hexomino {
     int count;
 
 	public Hexomino(int count, Piece piece, Workspace workspace) {
-        // TODO implement here
+        // Save the stuff
+		this.workspace = workspace;
+		this.piece = piece;
+		this.count = count;
     }
+	
+	public Piece getPiece() {
+		return piece;
+	}
 
     public int getCount() {
 		return count;

@@ -6,13 +6,10 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 
 import com.halaesus.kabasuji.builder.entity.SplashModel;
 
@@ -46,29 +43,40 @@ public class AbstractBuilderView extends JPanel { // you'll note this isn't actu
 		setLayout(null);
     }
 
-    public void showDialog(JFrame frame) {
+    public void showDialog(Application app) {
     	// options in drop down menu
 		String[] choices = {"Open from file", "New Puzzle Level",
 						"New Lightning Level", "New Release Level"};
 		
 		// create popup, store response as String
-		String action = (String) JOptionPane.showInputDialog(frame,
+		String action = (String) JOptionPane.showInputDialog(app,
 				"Open or create a new level", // text within popup
 				"Select an option", // window title
 				JOptionPane.QUESTION_MESSAGE, // icon
 				null,
 				choices,
 				choices[0]);
-		if (action == null) return;
+		if (action == null){ // no input
 			// TODO
-		else if (action.equals(choices[0])) return;
+			return;
+		}
+		else if (action.equals(choices[0])){ // open from file
 			// TODO
-		else if (action.equals(choices[1])) return;
-			// TODO
-		else if (action.equals(choices[2])) return;
-			// TODO
-		else if (action.equals(choices[3])) return;
-			// TODO
+			app.showPuzzleBuilderView();
+			return;
+		}
+		else if (action.equals(choices[1])){ // new puzzle
+			app.showPuzzleBuilderView();
+			return;
+		}
+		else if (action.equals(choices[2])){ // new lightning
+			app.showLightningBuilderView();
+			return;
+		}
+		else if (action.equals(choices[3])){ // new release
+			app.showReleaseBuilderView();
+			return;
+		}
     }
     
     protected void paintComponent(Graphics g) {

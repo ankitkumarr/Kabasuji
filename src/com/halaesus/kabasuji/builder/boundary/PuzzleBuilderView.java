@@ -32,10 +32,7 @@ public class PuzzleBuilderView extends AbstractBuilderView {
      */
     PuzzleLevel level;
 
-    /**
-     * @param PuzzleLevel aLevel
-     */
-    public PuzzleBuilderView(PuzzleLevel aLevel) {
+    public PuzzleBuilderView() {
         // TODO implement here
     }
 

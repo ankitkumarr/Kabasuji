@@ -62,10 +62,7 @@ public class LightningBuilderView extends AbstractBuilderView {
      */
     LightningLevel level;
 
-    /**
-     * @param LightningLevel aLevel
-     */
-    public LightningBuilderView(LightningLevel aLevel) {
+    public LightningBuilderView() {
         // TODO implement here
     }
 

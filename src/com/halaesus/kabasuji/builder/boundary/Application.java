@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -19,7 +20,6 @@ public class Application extends JFrame {
     Model masterModel;
     
     SplashView splashView;
-    AbstractBuilderView abv;
     PuzzleBuilderView pbv;
     LightningBuilderView lbv;
     ReleaseBuilderView rbv;
@@ -28,7 +28,6 @@ public class Application extends JFrame {
     	// Initialize fields
 		masterModel = m;
 		splashView = new SplashView(masterModel.getSplashModel());
-		abv = new AbstractBuilderView();
 		pbv = new PuzzleBuilderView();
 		lbv = new LightningBuilderView();
 		rbv = new ReleaseBuilderView();
@@ -41,7 +40,7 @@ public class Application extends JFrame {
 		setLocationRelativeTo(null); // Center in screen
 		
 		// Start on Splash Screen
-		showSplashScreen(0);
+		showSplashScreen(-1);
     }
     
     public static Application instance(Model m) {
@@ -65,11 +64,37 @@ public class Application extends JFrame {
 		currentView = splashView;
 		setContentPane(currentView);
 
-		if (time <= 0) return;
+		if (time < 0) return;
 		
 		Timer timer = new Timer(time, new ActionListener() {
 		    public void actionPerformed(ActionEvent evt) {
-		        Application.instance().showAbstractBuilderView();
+				// options in drop down menu
+				String[] choices = { "Open from file", "New Puzzle Level", "New Lightning Level", "New Release Level" };
+
+				// create popup, store response as String
+				String action = (String) JOptionPane.showInputDialog(
+						Application.instance(),
+						"Open or create a new level", // text within popup
+						"Select an option", // window title
+						JOptionPane.QUESTION_MESSAGE, // icon
+						null, choices, choices[0]);
+				
+				if (action == null) { // no input
+					Application.instance().showSplashScreen(0);
+					return;
+				} else if (action.equals(choices[0])) { // open from file
+					Application.instance().showPuzzleBuilderView(); // TODO
+					return;
+				} else if (action.equals(choices[1])) { // new puzzle
+					Application.instance().showPuzzleBuilderView();
+					return;
+				} else if (action.equals(choices[2])) { // new lightning
+					Application.instance().showLightningBuilderView();
+					return;
+				} else if (action.equals(choices[3])) { // new release
+					Application.instance().showReleaseBuilderView();
+					return;
+				}
 		    }
 		});
 		
@@ -77,11 +102,6 @@ public class Application extends JFrame {
 		timer.start();
 	}
 	
-	public void showAbstractBuilderView() {
-		currentView = abv;
-		setContentPane(currentView);
-		abv.showDialog(this);
-	}
 	
 	public void showPuzzleBuilderView() {
 		currentView = pbv;

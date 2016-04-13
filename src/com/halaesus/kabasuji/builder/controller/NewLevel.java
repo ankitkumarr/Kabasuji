@@ -1,36 +1,26 @@
 package com.halaesus.kabasuji.builder.controller;
 
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
+import com.halaesus.kabasuji.builder.boundary.Application;
 
 /**
  * 
  */
-public class NewLevel {
+public class NewLevel implements ActionListener {
+	
+    AbstractBuilderView builderView;
+    Application app;
 
-    /**
-     * Default constructor
-     */
-    public NewLevel() {
-    }
-
-    /**
-     * 
-     */
-    public AbstractBuilderView builderView;
-
-    /**
-     * @param AbstractBuilderView builderView
-     */
-    public NewLevel(AbstractBuilderView builderView) {
+    public NewLevel(AbstractBuilderView builderView, Application app) {
         // TODO implement here
+    	this.builderView = builderView;
+    	this.app = app;
     }
 
-    /**
-     * @param MouseEvent e
-     */
-    public void mouseClicked(MouseEvent e) {
+    public void actionPerformed(ActionEvent e) {
         // TODO implement here
     }
 

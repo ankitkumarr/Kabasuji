@@ -1,6 +1,7 @@
 package com.halaesus.kabasuji.builder.boundary;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.halaesus.kabasuji.builder.entity.Model;
@@ -14,6 +15,9 @@ public class Application extends JFrame {
     
     SplashView splashView;
     AbstractBuilderView abv;
+    PuzzleBuilderView pbv;
+    LightningBuilderView lbv;
+    ReleaseBuilderView rbv;
     
     public Application(Model m) {
 		// Basic GUI Stuff
@@ -27,6 +31,9 @@ public class Application extends JFrame {
 		// Initialize
 		splashView = new SplashView(masterModel.getSplashModel());
 		abv = new AbstractBuilderView();
+		pbv = new PuzzleBuilderView();
+		lbv = new LightningBuilderView();
+		rbv = new ReleaseBuilderView();
 		// Show Splash Screen
 		showSplashScreen();
     }
@@ -38,6 +45,24 @@ public class Application extends JFrame {
 	
 	public void showAbstractBuilderView() {
 		currentView = abv;
+		setContentPane(currentView);
+		abv.showDialog(this);
+	}
+	
+	public void showPuzzleBuilderView() {
+		currentView = pbv;
+		setContentPane(currentView);
+	}
+
+	
+	public void showLightningBuilderView() {
+		currentView = lbv;
+		setContentPane(currentView);
+	}
+
+	
+	public void showReleaseBuilderView() {
+		currentView = lbv;
 		setContentPane(currentView);
 	}
 }

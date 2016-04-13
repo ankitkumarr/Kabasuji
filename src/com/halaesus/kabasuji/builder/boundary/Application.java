@@ -40,25 +40,6 @@ public class Application extends JFrame {
 	public void showAbstractBuilderView() {
 		currentView = abv;
 		setContentPane(currentView);
-		String[] choices = {"Open from file", "New Puzzle Level",
-						"New Lightning Level", "New Release Level"};
-		
-		String action = (String) JOptionPane.showInputDialog(this,
-				"Open or create a new level",
-				"Select an option",
-				JOptionPane.QUESTION_MESSAGE,
-				null,
-				choices,
-				choices[0]);
-		if (action == null) return;
-			// TODO
-		if (action.equals(choices[0])) return;
-			// TODO
-		else if (action.equals(choices[1])) return;
-			// TODO
-		else if (action.equals(choices[2])) return;
-			// TODO
-		else if (action.equals(choices[3])) return;
-			// TODO
+		abv.showDialog(this);
 	}
 }

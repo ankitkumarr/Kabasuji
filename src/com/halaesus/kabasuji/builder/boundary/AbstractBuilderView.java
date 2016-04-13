@@ -38,20 +38,39 @@ public class AbstractBuilderView extends JPanel { // you'll note this isn't actu
     BufferedImage[] playerPaletteHexs;
     BufferedImage[] boardSquares;
     BufferedImage[] boardPieceSquares;
-
-    JOptionPane levelTypeSelector;
     
     public AbstractBuilderView() {
 		// Set GUI Bounds
 		setBounds(0, 0, 1280, 720);
 		// Set up LayoutManager to null
 		setLayout(null);
-		// Set up the popup that handles selecting the level type
-//		setupTypeSelectorFrame();
-//		levelTypeSelector.setVisible(true);
-		
     }
 
+    public void showDialog(JFrame frame) {
+    	// options in drop down menu
+		String[] choices = {"Open from file", "New Puzzle Level",
+						"New Lightning Level", "New Release Level"};
+		
+		// create popup, store response as String
+		String action = (String) JOptionPane.showInputDialog(frame,
+				"Open or create a new level", // text within popup
+				"Select an option", // window title
+				JOptionPane.QUESTION_MESSAGE, // icon
+				null,
+				choices,
+				choices[0]);
+		if (action == null) return;
+			// TODO
+		else if (action.equals(choices[0])) return;
+			// TODO
+		else if (action.equals(choices[1])) return;
+			// TODO
+		else if (action.equals(choices[2])) return;
+			// TODO
+		else if (action.equals(choices[3])) return;
+			// TODO
+    }
+    
     protected void paintComponent(Graphics g) {
 		super.paintComponent(g); // Let the JPanel do its stuff
 		// Render the background image
@@ -60,10 +79,5 @@ public class AbstractBuilderView extends JPanel { // you'll note this isn't actu
 		} catch (IOException e) {
 			// Don't render the background
 		}
-    }
-    
-    private void setupTypeSelectorFrame() {
-    	levelTypeSelector = new JOptionPane("Select Level Type");
-// TODO
     }
 }

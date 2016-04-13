@@ -2,6 +2,8 @@ package com.halaesus.kabasuji.builder.boundary;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,6 +17,7 @@ import com.halaesus.kabasuji.builder.boundary.SplashView;
 public class Application extends JFrame {
 	
 	static Application inst;
+	HashMap<String, BufferedImage> images;
 
     JPanel currentView;
     Model masterModel;
@@ -28,6 +31,7 @@ public class Application extends JFrame {
     	// Initialize fields
 		masterModel = m;
 		splashView = new SplashView(masterModel.getSplashModel());
+		images = new HashMap<String, BufferedImage>();
 		// TODO these were causing problems, make them on demand now
 //		pbv = new PuzzleBuilderView();
 //		lbv = new LightningBuilderView();
@@ -123,5 +127,13 @@ public class Application extends JFrame {
 			rbv = new ReleaseBuilderView();
 		currentView = rbv;
 		setContentPane(currentView);
+	}
+	
+	public BufferedImage getImage(String name) {
+		return images.get(name);
+	}
+	
+	public HashMap<String, BufferedImage> getAllImages() {
+		return images;
 	}
 }

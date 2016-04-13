@@ -4,10 +4,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import com.halaesus.kabasuji.builder.boundary.Application;
+import com.halaesus.kabasuji.builder.boundary.ImageLoader;
 import com.halaesus.kabasuji.builder.entity.Model;
 
 public class Main {
-	static final int splashTime = 3000;
+//	static final int splashTime = 3000;
 	
 	public static void main(String[] args) {
 		Model masterModel = new Model();
@@ -19,7 +20,8 @@ public class Main {
 			}      
 		});
 
+		(new ImageLoader()).execute();
 		app.setVisible(true);
-		app.showSplashScreen(splashTime);
+//		app.showSplashScreen(splashTime);
 	}
 }

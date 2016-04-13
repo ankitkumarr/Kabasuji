@@ -32,9 +32,11 @@ public abstract class AbstractBuilderView extends JPanel { // you'll note this I
 	JLabel[] playerHexsCount;
 
 	JPanel builderPalette;
+	JPanel playerPalette;
 
 	BufferedImage[] workspacePiece;
 	JButton[] builderPaletteHexBtns;
+	JButton[] playerPaletteHexBtns;
 	BufferedImage[] boardSquares;
 	BufferedImage[] boardPieceSquares;
 
@@ -86,7 +88,7 @@ public abstract class AbstractBuilderView extends JPanel { // you'll note this I
 			this.add(rotateCCBtn);
 
 			builderPalette = new JPanel();
-			builderPalette.setBounds(20, 91, 273, 200);
+			builderPalette.setBounds(17, 91, 273, 200);
 			builderPalette.setLayout(new GridLayout(5, 7));
 			this.add(builderPalette);
 
@@ -97,6 +99,20 @@ public abstract class AbstractBuilderView extends JPanel { // you'll note this I
 						(new ImageIcon(ImageIO.read(getClass().getResource("/resources/" + (i + 1) + ".jpg"))
 								.getScaledInstance(40, 40, Image.SCALE_SMOOTH))));
 				builderPalette.add(builderPaletteHexBtns[i]);
+			}
+			
+			playerPalette = new JPanel();
+			playerPalette.setBounds(977 + 7, 395 + 7, 273, 200);
+			playerPalette.setLayout(new GridLayout(5, 7));
+			this.add(playerPalette);
+
+			playerPaletteHexBtns = new JButton[35];
+
+			for (int i = 0; i < 35; i++) {
+				playerPaletteHexBtns[i] = new JButton(
+						(new ImageIcon(ImageIO.read(getClass().getResource("/resources/" + (i + 1) + ".jpg"))
+								.getScaledInstance(40, 40, Image.SCALE_SMOOTH))));
+				playerPalette.add(playerPaletteHexBtns[i]);
 			}
 
 		} catch (IOException e) {

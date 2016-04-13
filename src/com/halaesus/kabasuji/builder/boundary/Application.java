@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import com.halaesus.kabasuji.builder.entity.Model;
-
 import com.halaesus.kabasuji.builder.boundary.SplashView;
 
 @SuppressWarnings("serial")
@@ -26,21 +25,22 @@ public class Application extends JFrame {
     ReleaseBuilderView rbv;
     
     Application(Model m) {
-		// Basic GUI Stuff
-		setTitle("Kabasuji Builder by Team Halaesus");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1280, 720);
-		setResizable(false); // Cannot rescale the window
-		setLocationRelativeTo(null); // Center in screen
-		
+    	// Initialize fields
 		masterModel = m;
-		// Initialize
 		splashView = new SplashView(masterModel.getSplashModel());
 		abv = new AbstractBuilderView();
 		pbv = new PuzzleBuilderView();
 		lbv = new LightningBuilderView();
 		rbv = new ReleaseBuilderView();
-		// Show Splash Screen
+		
+		// Set up GUI
+		setTitle("Kabasuji Builder by Team Halaesus");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(1280, 720);
+		setResizable(false);
+		setLocationRelativeTo(null); // Center in screen
+		
+		// Start on Splash Screen
 		showSplashScreen(0);
     }
     
@@ -59,8 +59,7 @@ public class Application extends JFrame {
 		}
 		
 		return inst;
-	}	
-    
+	}
 
 	public void showSplashScreen(int time) {
 		currentView = splashView;
@@ -89,13 +88,11 @@ public class Application extends JFrame {
 		setContentPane(currentView);
 	}
 
-	
 	public void showLightningBuilderView() {
 		currentView = lbv;
 		setContentPane(currentView);
 	}
 
-	
 	public void showReleaseBuilderView() {
 		currentView = lbv;
 		setContentPane(currentView);

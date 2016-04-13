@@ -11,7 +11,8 @@ public class AbstractLevel {
     int levelIndex;
 
 	public AbstractLevel(File file) {
-        // TODO implement here
+        // TODO implement here; Random stuff done here
+		bullpen = new Bullpen();
     }
 
     public void loadLevel() {

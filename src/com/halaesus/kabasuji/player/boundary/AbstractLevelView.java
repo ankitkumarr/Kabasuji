@@ -17,6 +17,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import com.halaesus.kabasuji.player.controller.ClickPieceInPalette;
 import com.halaesus.kabasuji.player.controller.FlipHInWorkspace;
@@ -45,6 +46,7 @@ public class AbstractLevelView extends JPanel {
 	private Image boardImage;
 	private Image paletteView;
 	private Image[] hexominoImages;
+	private Image[] hexominoDisabledImages;
 	private Image rotateCCImage;
 	private Image rotateCWImage;
 	private Image flipVImage;
@@ -80,6 +82,35 @@ public class AbstractLevelView extends JPanel {
 		// Set up Board Pieces Map and Bullpen Palette Pieces Map
 		setupBoardPiecesMap();
 		setupBullpenPiecesMap();
+		// Set up Hexomino Count Labels
+		setuphexominoCountLabels();
+	}
+
+	private void setuphexominoCountLabels() {
+		// Set up Hexomino Count Labels
+		hexCount = new JLabel[35];
+		// Location Tracking for the Labels
+		int printRow = 0;
+		int printColumn = 0;
+		// Iterate over and set them all
+		for(int i = 0; i < 35; i++) {
+			// Set up the count label
+			hexCount[i] = new JLabel(String.valueOf(level.getLevelBullpen().getPalette().getHexomino(i).getCount()), SwingConstants.RIGHT);
+			hexCount[i].setOpaque(false);
+			hexCount[i].setBounds(40 + (39 * printColumn), 122 + (39 * printRow), 15, 15);
+			hexCount[i].setForeground(Color.GREEN);
+			// Resize text to fit stuff in
+			JLabelHelper.resizeTextBasedOnAvailableSize(hexCount[i]);
+			// Add it to the board
+			add(hexCount[i]);
+			
+			// Deal with the cycle overs of the rows and columns
+			if( (printColumn != 0) && (printColumn % 6 == 0) ) {
+				printRow += 1; // We move to the next row
+				printColumn = 0; // We start from the zeroth column
+			} else
+				printColumn++; // We move to the next column
+		}
 	}
 
 	private void implementMouseListener() {
@@ -134,8 +165,11 @@ public class AbstractLevelView extends JPanel {
 			flipHImage = ImageIO.read(getClass().getResource("/resources/flipVertical.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
 			// Hexomino Images
 			hexominoImages = new Image[35];
-			for(int i = 0; i < 35; i++)
+			hexominoDisabledImages = new Image[35];
+			for(int i = 0; i < 35; i++) {
 				hexominoImages[i] = ImageIO.read(getClass().getResource("/resources/" + (i + 1) + ".jpg")).getScaledInstance(39, 39, Image.SCALE_SMOOTH);
+				hexominoDisabledImages[i] = ImageIO.read(getClass().getResource("/resources/" + (i + 1) + "_disabled.jpg")).getScaledInstance(39, 39, Image.SCALE_SMOOTH);
+			}
 		} catch (IOException e) {
 			// Can't do anything
 		}
@@ -206,9 +240,13 @@ public class AbstractLevelView extends JPanel {
 			int x = 16 + (39 * paletteColumn);
 			int y = 98 + (39 * paletteRow);
 			// Add the image
-			g.drawImage(hexominoImages[i], x, y, null);
+			if( level.getLevelBullpen().getPalette().getHexomino(i).getCount() > 0 ) // If there are any pieces, show the colored piece image
+				g.drawImage(hexominoImages[i], x, y, null);
+			else // If there are no pieces, show the disabled piece image
+				g.drawImage(hexominoDisabledImages[i], x, y, null);
 			// Add it to the HashMap
-			// TODO: clickMap.put(new Rectangle(x, y, width, height), new ClickPieceInPalette(new Hexomino(), AbstractLevelView.this));
+			clickMap.put(new Rectangle(x, y, width, height), new ClickPieceInPalette(level.getLevelBullpen().getPalette().getHexomino(i), AbstractLevelView.this));
+			// TODO: Controller to check for count to be atleast 1 to invoke the job
 			
 			// Deal with the cycle overs of the rows and columns
 			if( (paletteColumn != 0) && (paletteColumn % 6 == 0) ) {
@@ -226,10 +264,10 @@ public class AbstractLevelView extends JPanel {
 		g.drawImage(rotateCCImage, 210, 355, null);
 		g.drawImage(rotateCWImage, 1, 593, null);
 		// Add these to the HashMap
-		// TODO: clickMap.put(new Rectangle(1, 360, 90, 90), new FlipHInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
-		// TODO: clickMap.put(new Rectangle(214, 598, 90, 90), new FlipVInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
-		// TODO: clickMap.put(new Rectangle(210, 355, 90, 90), new RotateCCInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
-		// TODO: clickMap.put(new Rectangle(1, 593, 90, 90), new RotateCWInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		clickMap.put(new Rectangle(1, 360, 90, 90), new FlipHInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		clickMap.put(new Rectangle(214, 598, 90, 90), new FlipVInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		clickMap.put(new Rectangle(210, 355, 90, 90), new RotateCCInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		clickMap.put(new Rectangle(1, 593, 90, 90), new RotateCWInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
 	}
 	
 	private void setupBoardPiecesMap() {

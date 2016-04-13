@@ -2,7 +2,7 @@ package com.halaesus.kabasuji.player.entity;
 
 public class Piece {
 
-    PieceSquare[] squares;
+    PieceSquare[] squares; 
     int pivotRow;
     int pivotCol;
     int color;

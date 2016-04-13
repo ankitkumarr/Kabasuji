@@ -45,8 +45,11 @@ public class LevelSelectorView extends JPanel {
 			// Create a new LevelThumbnailView
 			LevelThumbnailView toAdd = new LevelThumbnailView(levelThumbnail);
 			toAdd.setBounds(310 + (140 * levelThumbnailColumn++), 160 + (120 * levelThumbnailRow), 100, 100);
-			// Add a PlayLevel Controller on this LevelThumbnailView
-			toAdd.addMouseListener(new PlayLevel(levelThumbnail.getLevelData().produceLevel(), application));
+			//Check if the level is unlocked
+			if (toAdd.starsAchieved != -1 ) {
+				// Add a PlayLevel Controller on this LevelThumbnailView
+				toAdd.addMouseListener(new PlayLevel(levelThumbnail.getLevelData().produceLevel(), application));
+			}
 			// Now add it to the ArrayList<LevelThumbnail>
 			levelViews.add(toAdd);
 			// Place the LevelThumbnailView now

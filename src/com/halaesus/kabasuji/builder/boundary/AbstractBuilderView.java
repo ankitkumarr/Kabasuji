@@ -16,10 +16,7 @@ import javax.swing.JPanel;
 import com.halaesus.kabasuji.builder.entity.SplashModel;
 
 @SuppressWarnings("serial")
-public abstract class AbstractBuilderView extends JPanel { // you'll note this
-															// isn't
-	// actually an abstract
-	// class
+public abstract class AbstractBuilderView extends JPanel { // you'll note this IS actually an abstract class
 	JButton newBtn;
 	JButton saveBtn;
 	JButton openBtn;
@@ -46,7 +43,6 @@ public abstract class AbstractBuilderView extends JPanel { // you'll note this
 		setBounds(0, 0, 1280, 720);
 		// Set up LayoutManager to null
 		setLayout(null);
-		// Set up the popup that handles selecting the level type
 		try {
 			newBtn = new JButton("New");
 			newBtn.setFont(new Font("Arial", Font.PLAIN, 14));

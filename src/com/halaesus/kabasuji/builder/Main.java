@@ -7,7 +7,7 @@ import com.halaesus.kabasuji.builder.boundary.Application;
 import com.halaesus.kabasuji.builder.entity.Model;
 
 public class Main {
-	static final int splashTime = 2000;
+	static final int splashTime = 3000;
 	
 	public static void main(String[] args) {
 		Model masterModel = new Model();

@@ -7,7 +7,6 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import com.halaesus.kabasuji.player.entity.PieceSquare;
 import com.halaesus.kabasuji.player.controller.ClickPieceInPalette;
 import com.halaesus.kabasuji.player.controller.FlipHInWorkspace;
 import com.halaesus.kabasuji.player.controller.FlipVInWorkspace;
@@ -26,7 +26,7 @@ import com.halaesus.kabasuji.player.controller.ReturnToLevelSelector;
 import com.halaesus.kabasuji.player.controller.RotateCCInWorkspace;
 import com.halaesus.kabasuji.player.controller.RotateCWInWorkspace;
 import com.halaesus.kabasuji.player.entity.AbstractLevel;
-import com.halaesus.kabasuji.player.entity.Hexomino;
+import com.halaesus.kabasuji.player.entity.Piece;
 import com.halaesus.kabasuji.player.entity.SplashModel;
 import com.halaesus.kabasuji.utils.JLabelHelper;
 
@@ -193,6 +193,8 @@ public class AbstractLevelView extends JPanel {
 		setupHexominoes(g);
 		// Add palette controllers
 		setupPaletteControllers(g);
+		// Draw a piece in the Workspace if there is one there
+		drawWorkspacePiece(g);
 	}
 
 	private void showBackToMainButton(Graphics g) {
@@ -270,6 +272,29 @@ public class AbstractLevelView extends JPanel {
 		clickMap.put(new Rectangle(1, 593, 90, 90), new RotateCWInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
 	}
 	
+	private void drawWorkspacePiece(Graphics g) {
+		// Check if there is a piece in the workspace
+		if( level.getLevelBullpen().getWorkspace().pieceExists() ) {
+			// We gotta draw it out
+			Piece toBeDrawn = level.getLevelBullpen().getWorkspace().getPiece();
+			// Go over all the 6 PieceSquares within
+			for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
+				// Convert PivotRow and PivotCol to array index into bullpenPalettePiecesMap
+				int arrayIndex = (aPieceSquare.getRow() * 6) + aPieceSquare.getCol();
+				// Solve for the Rectange
+				Rectangle rectToDraw = bullpenPalettePiecesMap.get(arrayIndex);
+				// Save backup Graphics color
+				Color oldColor = g.getColor();
+				// Set new Color
+				g.setColor(toBeDrawn.getColor());
+				// Draw it out
+				g.fillRect(rectToDraw.x, rectToDraw.y, rectToDraw.width, rectToDraw.height);
+				// Reset the color
+				g.setColor(oldColor);
+			}
+		}
+	}
+	
 	private void setupBoardPiecesMap() {
 		// Setup the ArrayList
 		boardPiecesMap = new ArrayList<Rectangle>();
@@ -286,6 +311,11 @@ public class AbstractLevelView extends JPanel {
 		for(int i = 0; i < 6; i++)
 			for(int j = 0; j < 6; j++)
 				bullpenPalettePiecesMap.add(new Rectangle(38 + (38 * i), 424 + (38 * j), 38, 38));
+	}
+	
+	public void setPieceInWorkspace(Piece p) {
+		level.getLevelBullpen().getWorkspace().addPiece(p); // Add the piece to the Workspace of the Level Bullpen
+		repaint(); // Force a repaint
 	}
 	
 }

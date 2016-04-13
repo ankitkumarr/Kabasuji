@@ -48,7 +48,7 @@ public class ImageToGrayScale {
 		}
 	}
 
-	static public void main(String args[]) throws Exception {
-		ImageToGrayScale obj = new ImageToGrayScale();
+	public static void main(String args[]) throws Exception {
+		new ImageToGrayScale();
 	}
 }

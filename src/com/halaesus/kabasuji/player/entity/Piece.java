@@ -16,6 +16,14 @@ public class Piece {
     	this.pivotCol = pivotCol;
     	this.color = color;
     }
+    
+    public PieceSquare[] getPieceSquares() {
+    	return squares;
+    }
+    
+    public Color getColor() {
+    	return color;
+    }
 
     public void rotateCC() {
         // TODO implement here

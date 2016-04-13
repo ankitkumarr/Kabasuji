@@ -1,12 +1,12 @@
 package com.halaesus.kabasuji.player.entity;
 
-
 public class PieceSquare extends AbstractSquare {
    
     Piece parentPiece;
     boolean active;
     int row;
-    int col;
+
+	int col;
 
     public PieceSquare(boolean active, int row, int col) {
         this.active = active;
@@ -27,5 +27,13 @@ public class PieceSquare extends AbstractSquare {
 	public Piece getParentPiece() {
 		return parentPiece;
 	}	
+	
+    public int getRow() {
+		return row;
+	}
+
+	public int getCol() {
+		return col;
+	}
 
 }

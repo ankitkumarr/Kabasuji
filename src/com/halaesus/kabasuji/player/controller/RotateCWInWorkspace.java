@@ -1,44 +1,37 @@
 package com.halaesus.kabasuji.player.controller;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-import java.awt.event.ActionEvent;
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 import com.halaesus.kabasuji.player.entity.Workspace;
 
-/**
- * 
- */
-public class RotateCWInWorkspace {
+public class RotateCWInWorkspace implements MouseListener {
 
-    /**
-     * Default constructor
-     */
-    public RotateCWInWorkspace() {
-    }
-
-    /**
-     * 
-     */
+    AbstractLevelView levelView;
     Workspace workspace;
 
-    /**
-     * 
-     */
-    AbstractLevelView levelView;
-
-    /**
-     * @param Workspace workspace 
-     * @param AbstractLevelView levelView
-     */
     public RotateCWInWorkspace(Workspace workspace, AbstractLevelView levelView) {
-        // TODO implement here
+        // Store them right away
+    	this.levelView = levelView;
+    	this.workspace = workspace;
     }
 
-    /**
-     * @param ActionEvent e
-     */
-    public void actionPerformed(ActionEvent e) {
-        // TODO implement here
-    }
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) { /* Do nothing :( */ }
+
+	@Override
+	public void mouseExited(MouseEvent e) { /* Do nothing :( */ }
+
+	@Override
+	public void mousePressed(MouseEvent e) { /* Do nothing :( */ }
+
+	@Override
+	public void mouseReleased(MouseEvent e) { /* Do nothing :( */ }
 
 }

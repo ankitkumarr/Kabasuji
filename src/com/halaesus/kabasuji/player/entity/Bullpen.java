@@ -1,29 +1,20 @@
 package com.halaesus.kabasuji.player.entity;
 
-
-/**
- * 
- */
 public class Bullpen {
 
-    /**
-     * Default constructor
-     */
+    Workspace workspace;
+    Palette palette;
+	
     public Bullpen() {
+    	// TODO
     }
 
-    /**
-     * 
-     */
-    Palette palette;
+	public Workspace getWorkspace() {
+		return workspace;
+	}
 
-    /**
-     * 
-     */
-    Workspace workspace;
-
-
-
-
+	public Palette getPalette() {
+		return palette;
+	}    
 
 }

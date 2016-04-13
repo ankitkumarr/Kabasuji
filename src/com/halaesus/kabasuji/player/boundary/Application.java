@@ -25,14 +25,13 @@ public class Application extends JFrame {
 		setBounds(0, 0, 1280, 720);
 		setResizable(false); // Cannot rescale the window
 		setLocationRelativeTo(null); // Center in screen
-		
+		// Save the Master Model given to us
 		this.masterModel = masterModel;
 		// Initialize
 		splashView = new SplashView(masterModel.getSplashModel());
 		levelSelectorView = new LevelSelectorView(masterModel.getLevelSelectorModel(), Application.this);
 		// Show Splash Screen
 		showSplashScreen();
-		
 	}
 	
 	public void showSplashScreen() {

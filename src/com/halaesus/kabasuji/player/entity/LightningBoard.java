@@ -1,12 +1,10 @@
 package com.halaesus.kabasuji.player.entity;
 
-/**
- * 
- */
 public class LightningBoard extends AbstractBoard {
 
    
     public LightningBoard(BoardSquare[] squares) {
+    	super(squares);
         // TODO implement here
     }
 

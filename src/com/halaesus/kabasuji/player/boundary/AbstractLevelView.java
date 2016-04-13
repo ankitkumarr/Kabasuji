@@ -116,16 +116,48 @@ public class AbstractLevelView extends JPanel {
 	private void implementMouseListener() {
 		addMouseListener(new MouseListener() {
 			@Override
-			public void mouseReleased(MouseEvent e) { /* Do nothing */ }
+			public void mouseReleased(MouseEvent e) {
+				// Map coordinates in the Rectangles of the HashMap
+				for( Rectangle rectangle : clickMap.keySet() ) {
+					if( rectangle.contains(e.getX(), e.getY()) ) {
+						// Invoke the mouseReleased function
+						clickMap.get(rectangle).mouseReleased(e);
+					}
+				}
+			}
 			
 			@Override
-			public void mousePressed(MouseEvent e) { /* Do nothing */ }
+			public void mousePressed(MouseEvent e) {
+				// Map coordinates in the Rectangles of the HashMap
+				for( Rectangle rectangle : clickMap.keySet() ) {
+					if( rectangle.contains(e.getX(), e.getY()) ) {
+						// Invoke the mousePressed function
+						clickMap.get(rectangle).mousePressed(e);
+					}
+				}
+			}
 			
 			@Override
-			public void mouseExited(MouseEvent e) { /* Do nothing */ }
+			public void mouseExited(MouseEvent e) {
+				// Map coordinates in the Rectangles of the HashMap
+				for( Rectangle rectangle : clickMap.keySet() ) {
+					if( rectangle.contains(e.getX(), e.getY()) ) {
+						// Invoke the mouseExited function
+						clickMap.get(rectangle).mouseExited(e);
+					}
+				}
+			}
 			
 			@Override
-			public void mouseEntered(MouseEvent e) { /* Do nothing */ }
+			public void mouseEntered(MouseEvent e) {
+				// Map coordinates in the Rectangles of the HashMap
+				for( Rectangle rectangle : clickMap.keySet() ) {
+					if( rectangle.contains(e.getX(), e.getY()) ) {
+						// Invoke the mouseEntered function
+						clickMap.get(rectangle).mouseEntered(e);
+					}
+				}
+			}
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -281,7 +313,7 @@ public class AbstractLevelView extends JPanel {
 			for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
 				// Convert PivotRow and PivotCol to array index into bullpenPalettePiecesMap
 				int arrayIndex = (aPieceSquare.getRow() * 6) + aPieceSquare.getCol();
-				// Solve for the Rectange
+				// Solve for the Rectangle
 				Rectangle rectToDraw = bullpenPalettePiecesMap.get(arrayIndex);
 				// Save backup Graphics color
 				Color oldColor = g.getColor();

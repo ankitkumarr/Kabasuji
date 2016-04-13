@@ -28,9 +28,10 @@ public class Application extends JFrame {
     	// Initialize fields
 		masterModel = m;
 		splashView = new SplashView(masterModel.getSplashModel());
-		pbv = new PuzzleBuilderView();
-		lbv = new LightningBuilderView();
-		rbv = new ReleaseBuilderView();
+		// TODO these were causing problems, make them on demand now
+//		pbv = new PuzzleBuilderView();
+//		lbv = new LightningBuilderView();
+//		rbv = new ReleaseBuilderView();
 		
 		// Set up GUI
 		setTitle("Kabasuji Builder by Team Halaesus");
@@ -104,17 +105,23 @@ public class Application extends JFrame {
 	
 	
 	public void showPuzzleBuilderView() {
+		if (pbv == null)
+			pbv = new PuzzleBuilderView();
 		currentView = pbv;
 		setContentPane(currentView);
 	}
 
 	public void showLightningBuilderView() {
+		if (lbv == null)
+			lbv = new LightningBuilderView();
 		currentView = lbv;
 		setContentPane(currentView);
 	}
 
 	public void showReleaseBuilderView() {
-		currentView = lbv;
+		if (rbv == null)
+			rbv = new ReleaseBuilderView();
+		currentView = rbv;
 		setContentPane(currentView);
 	}
 }

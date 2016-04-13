@@ -6,64 +6,22 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-/**
- * 
- */
 public class LightningBuilderView extends AbstractBuilderView {
 
-
-    /**
-     * 
-     */
     JLabel timeRemLabel;
-
-    /**
-     * 
-     */
     JTextField minText;
-
-    /**
-     * 
-     */
     JTextField secText;
-
-    /**
-     * 
-     */
     JLabel minLabel;
-
-    /**
-     * 
-     */
     JLabel secLabel;
-
-    /**
-     * 
-     */
     JLabel randPiecesLabel;
-
-    /**
-     * 
-     */
     JTextField randPiecesText;
-
-    /**
-     * 
-     */
     JButton setTime;
-
-    /**
-     * 
-     */
     JButton setPiecesCount;
-
-    /**
-     * 
-     */
     LightningLevel level;
 
     public LightningBuilderView() {
         // TODO implement here
+    	super();
     }
 
 }

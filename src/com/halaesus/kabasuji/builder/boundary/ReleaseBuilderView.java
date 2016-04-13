@@ -25,5 +25,6 @@ public class ReleaseBuilderView extends AbstractBuilderView {
      */
     public ReleaseBuilderView() {
         // TODO implement here
+    	super();
     }
 }

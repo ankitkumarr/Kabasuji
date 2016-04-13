@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class PuzzleBuilderView extends AbstractBuilderView {
 
     JLabel movesLabel;
@@ -15,6 +16,7 @@ public class PuzzleBuilderView extends AbstractBuilderView {
 
     public PuzzleBuilderView() {
         // TODO implement here
+    	super();
     }
 
 }

@@ -15,12 +15,10 @@ public class Piece {
     	this.pivotRow = pivotRow;
     	this.pivotCol = pivotCol;
     	this.color = color;
-    	
-    	// TODO remove these center method and rotate methods from constructor. 
-    	// Only call when needed 
-    	center();
-    	//rotateCC();
-    	flipH();
+    }
+    
+    public Piece(Piece toCopy) {
+    	this(toCopy.pivotCol, toCopy.pivotRow, toCopy.color, toCopy.getPieceSquares());
     }
     
     public PieceSquare[] getPieceSquares() {
@@ -31,20 +29,17 @@ public class Piece {
     	return color;
     }
 
-
     public void flipH() {
     	swapCols();
     }
 
     public void flipV() {
         swapRows();
-    }
+    }    
     
-    public void setPivot(int row, int col){
-    	
+    public void setPivot(int row, int col){    	
     	this.pivotRow = row;
-    	this.pivotCol = col;
-    	
+    	this.pivotCol = col;    	
     }
     
     private void transpose(){
@@ -78,25 +73,21 @@ public class Piece {
     public void rotateCW(){
     	swapRows();
     	transpose();
-    }
-    
-    
-    
+    }  
+        
     // centers underlying PieceSquares within a 6x6 matrix.
-	public void center(){
+	public void centerPiece(){
 		PieceSquare[] centeredSquares = new PieceSquare[6];
 			int xMin = squares[0].getCol();
 			int xMax = squares[0].getCol();
 			int yMin = squares[0].getRow();
 			int yMax = squares[0].getRow();
-		
-	
+			
 			for (PieceSquare s: this.squares){
 				if (s.getCol() < xMin) xMin = s.getCol();
 				if (s.getCol() > xMax) xMax = s.getCol();
 				if (s.getRow() < yMin) yMin = s.getRow();
-				if (s.getRow() > yMax) yMax = s.getRow();
-				
+				if (s.getRow() > yMax) yMax = s.getRow();				
 			}
 			
 			int xDist = (0-xMin)/2 + (5-xMax)/2;

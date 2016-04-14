@@ -9,10 +9,15 @@ public class Bullpen {
 	
     public Bullpen() {
     	this.workspace = new Workspace();
-    	// TODO: All the hexominoes; For now its random stuff
+    	// TODO: All the count to the hexominoes; For now its random stuff
     	Hexomino[] hexominoes = new Hexomino[35];
-    	for(int i = 0; i < 35; i++)
-    		hexominoes[i] = new Hexomino(i, PieceGenerator.pieces[i], this.workspace);
+    	for(int i = 0; i < 35; i++) {
+    		Piece hexominoPiece = new Piece(PieceGenerator.pieces[i]);
+    		hexominoPiece.centerPiece(); // Center the copy of the Hexomino Piece
+    		// Now, add it to the Hexominoes class
+    		hexominoes[i] = new Hexomino(i, hexominoPiece, this.workspace);
+    	}
+    	// Set the palette up with the hexominoes
     	this.palette = new Palette(hexominoes);
     }
 

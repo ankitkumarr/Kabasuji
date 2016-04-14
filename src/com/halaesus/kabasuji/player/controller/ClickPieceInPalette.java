@@ -19,10 +19,10 @@ public class ClickPieceInPalette implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// Get the piece clicked on
-		Piece clickOnPiece = hexomino.getPiece();
 		// Check its count
 		if( hexomino.getCount() > 0 ) {
+			// Get the piece clicked on
+			Piece clickOnPiece = hexomino.getPiece();
 			// Add the piece to the LevelView
 			levelView.setPieceInWorkspace(clickOnPiece);
 		}

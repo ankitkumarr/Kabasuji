@@ -16,8 +16,11 @@ public class Piece {
     	this.pivotCol = pivotCol;
     	this.color = color;
     	
-    	// TODO remove the center method from constructor. Only call when needed
+    	// TODO remove these center method and rotate methods from constructor. 
+    	// Only call when needed 
     	center();
+    	//rotateCC();
+    	//flipV();
     }
     
     public PieceSquare[] getPieceSquares() {
@@ -28,20 +31,13 @@ public class Piece {
     	return color;
     }
 
-    public void rotateCC() {
-        // TODO implement here
-    }
-
-    public void rotateCW() {
-        // TODO implement here
-    }
 
     public void flipH() {
-        // TODO implement here
+    	swapRows();
     }
 
     public void flipV() {
-        // TODO implement here
+        swapCols();
     }
     
     public void setPivot(int row, int col){
@@ -50,6 +46,41 @@ public class Piece {
     	this.pivotCol = col;
     	
     }
+    
+    private void transpose(){
+    	for (PieceSquare s: this.squares){
+			int r = s.getRow();
+			int c = s.getCol();
+			s.setRow(c);
+			s.setCol(r);
+		}
+    }
+    
+    private void swapRows(){
+    	for (PieceSquare s: this.squares){
+			int r = s.getRow();	
+			s.setRow(Math.abs(5-r));
+		}
+    }
+    
+    private void swapCols(){
+    	for (PieceSquare s: this.squares){
+			int c = s.getCol();	
+			s.setCol(Math.abs(5-c));
+		}
+    }
+    
+    public void rotateCC(){
+    	transpose();
+    	swapRows();
+    }
+    
+    public void rotateCW(){
+    	swapRows();
+    	transpose();
+    }
+    
+    
     
     // centers underlying PieceSquares within a 6x6 matrix.
 	public void center(){
@@ -65,7 +96,7 @@ public class Piece {
 				if (s.getCol() < yMin) yMin = s.getCol();
 				if (s.getCol() > yMax) yMax = s.getCol();
 			}
-			
+			/* Depreciated method of centering
 			int width = xMax + 1 - xMin;
 			int height = yMax + 1 - yMin;
 			
@@ -74,6 +105,9 @@ public class Piece {
 			
 			int xDist = xTarg - xMin;
 			int yDist = yTarg - yMin;
+			*/
+			int xDist = (0-xMin)/2 + (5-xMax)/2;
+			int yDist = (0-yMin)/2 + (5-yMax)/2;
 			
 			for(int i = 0; i < 6; i++) {
 				centeredSquares[i]= new PieceSquare(true,
@@ -81,8 +115,11 @@ public class Piece {
 						squares[i].getCol() + yDist);
 			}
 	
-			squares = centeredSquares;
-		
+			squares = centeredSquares;	
 	}
+	
+	
+	
+	
 
 }

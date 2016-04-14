@@ -19,7 +19,11 @@ public class RotateCCInWorkspace implements MouseListener  {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO
+		// Perform the move
+		this.workspace.getPiece().rotateCC(); // Perform the Rotation
+		this.workspace.getPiece().centerPiece(); // Re-center the piece
+		// Repaint the AbsLevelView
+		this.levelView.repaint(); 
 	}
 
 	@Override

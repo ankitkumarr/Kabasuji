@@ -297,8 +297,8 @@ public class AbstractLevelView extends JPanel {
 		g.drawImage(rotateCCImage, 210, 355, null);
 		g.drawImage(rotateCWImage, 1, 593, null);
 		// Add these to the HashMap
-		clickMap.put(new Rectangle(1, 360, 90, 90), new FlipHInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
-		clickMap.put(new Rectangle(214, 598, 90, 90), new FlipVInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		clickMap.put(new Rectangle(1, 360, 90, 90), new FlipVInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		clickMap.put(new Rectangle(214, 598, 90, 90), new FlipHInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
 		clickMap.put(new Rectangle(210, 355, 90, 90), new RotateCCInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
 		clickMap.put(new Rectangle(1, 593, 90, 90), new RotateCWInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
 	}

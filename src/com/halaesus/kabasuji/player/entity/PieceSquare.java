@@ -35,5 +35,14 @@ public class PieceSquare extends AbstractSquare {
 	public int getCol() {
 		return col;
 	}
+	
+	// TODO: Remove these setters
+	public void setRow(int row) {
+		this.row = row;
+	}
+	
+	public void setCol(int col) {
+		this.col = col;
+	}
 
 }

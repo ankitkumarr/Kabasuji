@@ -302,6 +302,10 @@ public class AbstractLevelView extends JPanel {
 		clickMap.put(new Rectangle(214, 598, 90, 90), new FlipVInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
 		clickMap.put(new Rectangle(210, 355, 90, 90), new RotateCCInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
 		clickMap.put(new Rectangle(1, 593, 90, 90), new RotateCWInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		// TODO: Remove this code which draws rectangles on the board
+		for(int i = 0; i < 6; i++)
+			for(int j = 0; j < 6; j++)
+				g.drawRect(38 + (38 * i), 424 + (38 * j), 38, 38);
 	}
 	
 	private void drawWorkspacePiece(Graphics g) {

@@ -9,7 +9,7 @@ public class Piece {
     int pivotCol;
     Color color;
 
-    public Piece(int pivotRow, int pivotCol, Color color, PieceSquare squareMap[]) {
+    public Piece(int pivotCol, int pivotRow, Color color, PieceSquare squareMap[]) {
         // Save the data
     	this.squares = squareMap;
     	this.pivotRow = pivotRow;
@@ -20,7 +20,7 @@ public class Piece {
     	// Only call when needed 
     	center();
     	//rotateCC();
-    	//flipV();
+    	flipH();
     }
     
     public PieceSquare[] getPieceSquares() {
@@ -33,11 +33,11 @@ public class Piece {
 
 
     public void flipH() {
-    	swapRows();
+    	swapCols();
     }
 
     public void flipV() {
-        swapCols();
+        swapRows();
     }
     
     public void setPivot(int row, int col){
@@ -85,34 +85,27 @@ public class Piece {
     // centers underlying PieceSquares within a 6x6 matrix.
 	public void center(){
 		PieceSquare[] centeredSquares = new PieceSquare[6];
-			int xMin = squares[0].getRow();
-			int xMax = squares[0].getRow();
-			int yMin = squares[0].getCol();
-			int yMax = squares[0].getCol();
+			int xMin = squares[0].getCol();
+			int xMax = squares[0].getCol();
+			int yMin = squares[0].getRow();
+			int yMax = squares[0].getRow();
+		
 	
 			for (PieceSquare s: this.squares){
-				if (s.getRow() < xMin) xMin = s.getRow();
-				if (s.getRow() > xMax) xMax = s.getRow();
-				if (s.getCol() < yMin) yMin = s.getCol();
-				if (s.getCol() > yMax) yMax = s.getCol();
+				if (s.getCol() < xMin) xMin = s.getCol();
+				if (s.getCol() > xMax) xMax = s.getCol();
+				if (s.getRow() < yMin) yMin = s.getRow();
+				if (s.getRow() > yMax) yMax = s.getRow();
+				
 			}
-			/* Depreciated method of centering
-			int width = xMax + 1 - xMin;
-			int height = yMax + 1 - yMin;
 			
-			int xTarg = (6 - width)/2;
-			int yTarg = (6 - height)/2;
-			
-			int xDist = xTarg - xMin;
-			int yDist = yTarg - yMin;
-			*/
 			int xDist = (0-xMin)/2 + (5-xMax)/2;
 			int yDist = (0-yMin)/2 + (5-yMax)/2;
 			
 			for(int i = 0; i < 6; i++) {
 				centeredSquares[i]= new PieceSquare(true,
-						squares[i].getRow() + xDist,
-						squares[i].getCol() + yDist);
+						squares[i].getCol() + xDist,
+						squares[i].getRow() + yDist);
 			}
 	
 			squares = centeredSquares;	

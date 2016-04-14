@@ -5,16 +5,15 @@ public class PieceSquare extends AbstractSquare {
     Piece parentPiece;
     boolean active;
     int row;
-
 	int col;
 
-    public PieceSquare(boolean active, int row, int col) {
+    public PieceSquare(boolean active, int col, int row) {
         this.active = active;
         this.row = row;
         this.col = col;
     }
     
-    public PieceSquare(int row, int col) {
+    public PieceSquare(int col, int row) {
         this.active = true;
         this.row = row;
         this.col = col;

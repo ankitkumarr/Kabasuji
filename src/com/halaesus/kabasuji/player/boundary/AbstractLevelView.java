@@ -316,7 +316,7 @@ public class AbstractLevelView extends JPanel {
 			// Go over all the 6 PieceSquares within
 			for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
 				// Convert PivotRow and PivotCol to array index into bullpenPalettePiecesMap
-				int arrayIndex = (aPieceSquare.getRow() * 6) + aPieceSquare.getCol();
+				int arrayIndex = (aPieceSquare.getCol() * 6) + aPieceSquare.getRow();
 				// Solve for the Rectangle
 				Rectangle rectToDraw = bullpenPalettePiecesMap.get(arrayIndex);
 				// Save backup Graphics color

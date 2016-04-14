@@ -8,7 +8,7 @@ import com.halaesus.kabasuji.player.entity.PieceSquare;
 public class PieceGenerator {
 
 	private static PieceSquare pieceSquares[][] = new PieceSquare[][]{
-		{	// 1
+		{	// 1   // (col , row) = (x , y)
 			new PieceSquare(0, 0),
 			new PieceSquare(0, 1),
 			new PieceSquare(0, 2),

@@ -19,11 +19,14 @@ public class RotateCWInWorkspace implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// Perform the move
-		this.workspace.getPiece().rotateCW(); // Perform the Rotation
-		this.workspace.getPiece().centerPiece(); // Re-center the piece
-		// Repaint the AbsLevelView
-		this.levelView.repaint(); 
+		// First validate the move
+		if( this.workspace.getPiece() != null ) {
+			// Perform the move
+			this.workspace.getPiece().rotateCW(); // Perform the Rotation
+			this.workspace.getPiece().centerPiece(); // Re-center the piece
+			// Repaint the AbsLevelView
+			this.levelView.repaint(); 
+		}
 	}
 
 	@Override

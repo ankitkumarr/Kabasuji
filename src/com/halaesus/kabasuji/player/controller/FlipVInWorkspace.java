@@ -19,11 +19,14 @@ public class FlipVInWorkspace implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// Perform the move
-		this.workspace.getPiece().flipV(); // Perform the Flip
-		this.workspace.getPiece().centerPiece(); // Re-center the piece
-		// Repaint the AbsLevelView
-		this.levelView.repaint(); 
+		// First run a check
+		if( this.workspace.getPiece() != null ) {
+			// Perform the move
+			this.workspace.getPiece().flipV(); // Perform the Flip
+			this.workspace.getPiece().centerPiece(); // Re-center the piece
+			// Repaint the AbsLevelView
+			this.levelView.repaint();
+		}
 	}
 
 	@Override

@@ -8,10 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,14 +33,13 @@ import com.halaesus.kabasuji.player.entity.AbstractLevel;
 import com.halaesus.kabasuji.player.entity.Piece;
 import com.halaesus.kabasuji.player.entity.SplashModel;
 import com.halaesus.kabasuji.utils.JLabelHelper;
-import com.sun.org.apache.xml.internal.utils.SuballocatedByteVector;
 
 @SuppressWarnings("serial")
 public class AbstractLevelView extends JPanel {
 
 	// Initialization Variables
 	private boolean paintInitialized;
-	// View-based (UI and user interation based) variables
+	// View-based (UI and user interaction based) variables
 	HashMap<Rectangle, MouseListener> clickMap;
 	ArrayList<Rectangle> bullpenWorkspacePiecesMap;
 	ArrayList<Rectangle> boardPiecesMap;

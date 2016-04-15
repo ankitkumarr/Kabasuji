@@ -7,13 +7,10 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
-import org.w3c.dom.css.Rect;
-
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 import com.halaesus.kabasuji.player.entity.AbstractLevel;
 import com.halaesus.kabasuji.player.entity.Piece;
 import com.halaesus.kabasuji.player.entity.PieceSquare;
-import com.halaesus.kabasuji.player.entity.WorkspaceToBoardMove;
 
 public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotionListener{
 
@@ -87,6 +84,7 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 			level.setPieceBeingDragged(null);
 			// Check to snap to board and mutate the board
 			// TODO
+			// TODO: Create the move class to perform it as well
 		}
 	}
 

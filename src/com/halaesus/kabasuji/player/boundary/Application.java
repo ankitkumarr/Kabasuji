@@ -46,6 +46,7 @@ public class Application extends JFrame {
 	}
 	
 	public void showLevel(AbstractLevel theLevel) {
+		// TODO: Fix preserve of level stuff when the same level is shown
 		// Check the Level being passed to us
 		if( theLevel.getLevelType().equals("Lightning") ) {
 			currentView = new LightningLevelView(Application.this, (LightningLevel)theLevel);

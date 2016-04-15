@@ -1,58 +1,105 @@
 package com.halaesus.kabasuji.player.controller;
 
-
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+
+import org.w3c.dom.css.Rect;
+
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
+import com.halaesus.kabasuji.player.entity.AbstractLevel;
+import com.halaesus.kabasuji.player.entity.Piece;
+import com.halaesus.kabasuji.player.entity.PieceSquare;
 import com.halaesus.kabasuji.player.entity.WorkspaceToBoardMove;
 
-/**
- * 
- */
-public class DragPieceFromWorkspaceToBoard {
+public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotionListener{
 
-    /**
-     * Default constructor
-     */
-    public DragPieceFromWorkspaceToBoard() {
-    }
-
-    /**
-     * 
-     */
-    WorkspaceToBoardMove move;
-
-    /**
-     * 
-     */
+	AbstractLevel level;
     AbstractLevelView levelView;
 
-    /**
-     * @param WorkspaceToBoardMove move 
-     * @param AbstractLevelView levelView
-     */
-    public void DragPieceFromBoardToBullpen(WorkspaceToBoardMove move, AbstractLevelView levelView) {
-        // TODO implement here
+    public DragPieceFromWorkspaceToBoard(AbstractLevel theLevel, AbstractLevelView levelView) {
+    	// Save the information
+    	this.level = theLevel;
+    	this.levelView = levelView;
     }
 
-    /**
-     * @param MouseEvent e
-     */
-    public void mousePressed(MouseEvent e) {
-        // TODO implement here
-    }
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// If there is no piece to drag, do nothing
+		if( level.getLevelBullpen().getWorkspace().getPiece() == null )
+			return;
+		// Get all the Piece ke PieceSquares and find the tightest rectangle around the PieceSquares
+		Piece thePiece = level.getLevelBullpen().getWorkspace().getPiece();
+		PieceSquare[] squares = thePiece.getPieceSquares();
+		
+		int xMin = squares[0].getCol();
+		int xMax = squares[0].getCol();
+		int yMin = squares[0].getRow();
+		int yMax = squares[0].getRow();
+		
+		for (PieceSquare s: squares){
+			if (s.getCol() < xMin) xMin = s.getCol();
+			if (s.getCol() > xMax) xMax = s.getCol();
+			if (s.getRow() < yMin) yMin = s.getRow();
+			if (s.getRow() > yMax) yMax = s.getRow();				
+		}
+		// Solve for the Tightest Rect Top Left Point
+		ArrayList<Rectangle> bullpenPieceMap = this.levelView.getBullpenWorkspacePiecesMap();
+		Rectangle topLeftSolver = bullpenPieceMap.get((yMin * 12) + xMin);
+		int tlX = topLeftSolver.x;
+		int tlY = topLeftSolver.y;
+		Point topLeftPoint = new Point(tlX, tlY);
+		// See if the click lies on one of the PieceSquares
+		for( PieceSquare aPieceSquare : squares ) {
+			// Find this PieceSquare Rectangle
+			Rectangle rect = bullpenPieceMap.get((aPieceSquare.getCol() * 6) + aPieceSquare.getRow());
+			// If the click is on this rectangle, do further processing:
+			if( rect.contains(e.getX(), e.getY()) ) {
+				// Set necessary dragging stuff
+				this.level.setDraggingActive(true);
+				this.level.setDraggingDistToPointX((e.getX() - topLeftPoint.x) * 51 / 38);
+				this.level.setDraggingDistToPointY((e.getY() - topLeftPoint.y) * 51 / 38);
+				this.level.setPieceBeingDragged(new Piece(0, 0, thePiece.getColor(), thePiece.pushTopLeft()));
+				// Remove piece from Workspace
+				this.level.getLevelBullpen().getWorkspace().addPiece(null);
+			}
+		}
+	}
 
-    /**
-     * @param MouseEvent e
-     */
-    public void mouseDragged(MouseEvent e) {
-        // TODO implement here
-    }
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// Update start off the 6x6 Matrix point
+		this.level.setTopPointOfMatrix(new Point(e.getX() - this.level.getDraggingDistToPointX(),
+				                                 e.getY() - this.level.getDraggingDistToPointY()));
+		// Force the view to repaint
+		this.levelView.repaint();
+	}
 
-    /**
-     * @param MouseEvent e
-     */
-    public void mouseReleased(MouseEvent e) {
-        // TODO implement here
-    }
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// Stop the drag if it was happening
+		if( level.isDraggingActive() ) {
+			// If a piece was being dragged, then:
+			level.setDraggingActive(false);
+			level.setPieceBeingDragged(null);
+			// Check to snap to board and mutate the board
+			// TODO
+		}
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) { /* Nothing to do */ }
+
+	@Override
+	public void mouseClicked(MouseEvent e) { /* Nothing to do */ }
+
+	@Override
+	public void mouseEntered(MouseEvent e) { /* Nothing to do */ }
+
+	@Override
+	public void mouseExited(MouseEvent e) { /* Nothing to do */ }
 
 }

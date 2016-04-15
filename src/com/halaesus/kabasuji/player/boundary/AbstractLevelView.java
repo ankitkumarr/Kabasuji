@@ -1,12 +1,17 @@
 package com.halaesus.kabasuji.player.boundary;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +25,7 @@ import javax.swing.SwingConstants;
 
 import com.halaesus.kabasuji.player.entity.PieceSquare;
 import com.halaesus.kabasuji.player.controller.ClickPieceInPalette;
+import com.halaesus.kabasuji.player.controller.DragPieceFromWorkspaceToBoard;
 import com.halaesus.kabasuji.player.controller.FlipHInWorkspace;
 import com.halaesus.kabasuji.player.controller.FlipVInWorkspace;
 import com.halaesus.kabasuji.player.controller.ReturnToLevelSelector;
@@ -29,16 +35,20 @@ import com.halaesus.kabasuji.player.entity.AbstractLevel;
 import com.halaesus.kabasuji.player.entity.Piece;
 import com.halaesus.kabasuji.player.entity.SplashModel;
 import com.halaesus.kabasuji.utils.JLabelHelper;
+import com.sun.org.apache.xml.internal.utils.SuballocatedByteVector;
 
 @SuppressWarnings("serial")
 public class AbstractLevelView extends JPanel {
 
+	// Initialization Variables
+	private boolean paintInitialized;
+	// View-based (UI and user interation based) variables
 	HashMap<Rectangle, MouseListener> clickMap;
-	ArrayList<Rectangle> bullpenPalettePiecesMap;
+	ArrayList<Rectangle> bullpenWorkspacePiecesMap;
 	ArrayList<Rectangle> boardPiecesMap;
 	Application myApplication;
-	AbstractLevel level;	
-
+	AbstractLevel level;
+	// Image storage variables
 	private Image backgroundImage;
 	private Image backButton;
 	private Image starShadow;
@@ -51,7 +61,7 @@ public class AbstractLevelView extends JPanel {
 	private Image rotateCWImage;
 	private Image flipVImage;
 	private Image flipHImage;
-	
+	// View-based (UI Objects) variables
 	JLabel levelInfo;
 	BufferedImage[] stars;
 	BufferedImage[] hexButtons;
@@ -74,7 +84,7 @@ public class AbstractLevelView extends JPanel {
 		// Initialize HashMap
 		clickMap = new HashMap<Rectangle, MouseListener>();
 		// Implement MouseListener
-		implementMouseListener();
+		implementMouseListeners();
 		// Show Level Info
 		showLevelInfo();
 		// Calculate some scaled images for paintComponent function
@@ -84,6 +94,8 @@ public class AbstractLevelView extends JPanel {
 		setupBullpenPiecesMap();
 		// Set up Hexomino Count Labels
 		setuphexominoCountLabels();
+		// By default the paint hasn't occurred
+		paintInitialized = false;
 	}
 
 	private void setuphexominoCountLabels() {
@@ -113,7 +125,7 @@ public class AbstractLevelView extends JPanel {
 		}
 	}
 
-	private void implementMouseListener() {
+	private void implementMouseListeners() {
 		addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -170,6 +182,10 @@ public class AbstractLevelView extends JPanel {
 				}
 			}
 		});
+		// Add Listener for DragPieceFromWorkspaceToBoard
+		DragPieceFromWorkspaceToBoard dragW2Board = new DragPieceFromWorkspaceToBoard(this.level, AbstractLevelView.this);
+		addMouseListener(dragW2Board);
+		addMouseMotionListener(dragW2Board);
 	}
 	
 	private void showLevelInfo() {
@@ -226,14 +242,18 @@ public class AbstractLevelView extends JPanel {
 		// Add palette controllers
 		setupPaletteControllers(g);
 		// Draw a piece in the Workspace if there is one there
-		drawWorkspacePiece(g);
+		drawWorkspacePieceOrDraggingPiece(g);
+		// A next call to this, will not be an initialization call
+		paintInitialized = true; // TODO: Check if this should be here or in the entity
 	}
 
 	private void showBackToMainButton(Graphics g) {
 		// Load up the image
 		g.drawImage(backButton, 10, 15, null);
-		// Add it to the HashMap
-		clickMap.put(new Rectangle(10, 15, 60, 50), new ReturnToLevelSelector(myApplication));
+		// If this is the first paint:
+		if(!paintInitialized)
+			// Add it to the HashMap
+			clickMap.put(new Rectangle(10, 15, 60, 50), new ReturnToLevelSelector(myApplication));
 	}
 	
 	private void showUserStars(Graphics g) {
@@ -278,8 +298,10 @@ public class AbstractLevelView extends JPanel {
 				g.drawImage(hexominoImages[i], x, y, null);
 			else // If there are no pieces, show the disabled piece image
 				g.drawImage(hexominoDisabledImages[i], x, y, null);
-			// Add it to the HashMap
-			clickMap.put(new Rectangle(x, y, width, height), new ClickPieceInPalette(level.getLevelBullpen().getPalette().getHexomino(i), AbstractLevelView.this));
+			// If it is the first paint, then:
+			if(!paintInitialized)
+				// Add it to the HashMap
+				clickMap.put(new Rectangle(x, y, width, height), new ClickPieceInPalette(level.getLevelBullpen().getPalette().getHexomino(i), AbstractLevelView.this));
 			
 			// Deal with the cycle overs of the rows and columns
 			if( (paletteColumn != 0) && (paletteColumn % 6 == 0) ) {
@@ -291,19 +313,122 @@ public class AbstractLevelView extends JPanel {
 	}
 	
 	private void setupPaletteControllers(Graphics g) {
-		// Load up all the images
-		g.drawImage(flipHImage, 1, 360, null);
-		g.drawImage(flipVImage, 214, 598, null);
-		g.drawImage(rotateCCImage, 210, 355, null);
-		g.drawImage(rotateCWImage, 1, 593, null);
-		// Add these to the HashMap
-		clickMap.put(new Rectangle(1, 360, 90, 90), new FlipVInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
-		clickMap.put(new Rectangle(214, 598, 90, 90), new FlipHInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
-		clickMap.put(new Rectangle(210, 355, 90, 90), new RotateCCInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
-		clickMap.put(new Rectangle(1, 593, 90, 90), new RotateCWInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		// If there exists a piece in the Workspace, then:
+		if( this.level.getLevelBullpen().getWorkspace().getPiece() != null ) {
+			// Load up all the images
+			g.drawImage(flipHImage, 1, 360, null);
+			g.drawImage(flipVImage, 214, 598, null);
+			g.drawImage(rotateCCImage, 210, 355, null);
+			g.drawImage(rotateCWImage, 1, 593, null);
+		}
+		// If it is the first paint, then:
+		if(!paintInitialized) {
+			// Add these to the HashMap
+			clickMap.put(new Rectangle(1, 360, 90, 90), new FlipVInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+			clickMap.put(new Rectangle(214, 598, 90, 90), new FlipHInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+			clickMap.put(new Rectangle(210, 355, 90, 90), new RotateCCInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+			clickMap.put(new Rectangle(1, 593, 90, 90), new RotateCWInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		}
 	}
 	
-	private void drawWorkspacePiece(Graphics g) {
+	private void drawWorkspacePieceOrDraggingPiece(Graphics g) {
+		// If a piece is being dragged, we'd draw that first
+		// TODO Shift this to a different function; Detect 50% Board Square
+		if( this.level.isDraggingActive() ) {
+			Piece toBeDrawn = this.level.getPieceBeingDragged();
+			Point top6x6MatrixPoint = this.level.getTopPointOfMatrix();
+			// Solve for xMin, xMax and yMin, yMax within the 6x6
+			PieceSquare[] squares = toBeDrawn.getPieceSquares();
+			int xMin = squares[0].getCol();
+			int xMax = squares[0].getCol();
+			int yMin = squares[0].getRow();
+			int yMax = squares[0].getRow();
+			
+			for (PieceSquare s: squares){
+				if (s.getCol() < xMin) xMin = s.getCol();
+				if (s.getCol() > xMax) xMax = s.getCol();
+				if (s.getRow() < yMin) yMin = s.getRow();
+				if (s.getRow() > yMax) yMax = s.getRow();				
+			}
+			// Make the tightest piece rectangle
+			Rectangle tightPieceRect = new Rectangle((xMin * 51) + top6x6MatrixPoint.x, 
+					                                 (yMin * 51) + top6x6MatrixPoint.y, 
+					                                 (xMax - xMin + 1) * 51, 
+					                                 (yMax - yMin + 1) * 51);
+			
+			// Get the square on that board that collides with top of the 6x6 Matrix being dragged
+			boolean exitLoop = false; 
+			int i = 0, j = 0;
+			for(i = 0; i < 12; i++) {
+				for(j = 0; j < 12; j++) {
+					if( boardPiecesMap.get((12 * i) + j).contains(new Point(top6x6MatrixPoint.x, 
+							                                                top6x6MatrixPoint.y)) ) 
+					{
+						exitLoop = true;
+						break;
+					}
+				}
+				// Check
+				if(exitLoop) break;
+			}
+			
+			// Go over all the 6 PieceSquares within the Piece
+			for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
+				// Save backup Graphics color
+				Color oldColor = g.getColor();
+				// Set new Colors
+				Color origPieceColor = toBeDrawn.getColor();
+				Color pieceTransparentColor = new Color(origPieceColor.getRed(), 
+						                                origPieceColor.getGreen(), 
+						                                origPieceColor.getBlue(), 
+						                                200);
+
+				// TODO: Check if piece is on active board bounds. Use board ka boundsFunction
+				// Get entire board rectangle
+				int xMinB = boardPiecesMap.get(0).x;
+				int yMinB = boardPiecesMap.get(0).y;
+				int xMaxB = boardPiecesMap.get(143).x + boardPiecesMap.get(143).width;
+				int yMaxB = boardPiecesMap.get(143).y + boardPiecesMap.get(143).height;
+				
+				// If within on board: Check TL in in board bounds and BR in board bounds
+				Rectangle boardRect = new Rectangle(xMinB, yMinB, xMaxB - yMinB, yMaxB - yMinB);
+				if( boardRect.contains(tightPieceRect.x + tightPieceRect.width,
+						               tightPieceRect.y + tightPieceRect.height) &&
+					boardRect.contains(tightPieceRect.x, tightPieceRect.y))  {
+					
+					// Set transparent color and paint
+					g.setColor(pieceTransparentColor);
+					// Draw it out
+					g.fillRect(top6x6MatrixPoint.x + (aPieceSquare.getCol() * 51), 
+							   top6x6MatrixPoint.y + (aPieceSquare.getRow() * 51), 
+							   51, 51);
+					
+					// Draw outline on the board
+					// Create new Graphics Object
+					Graphics2D graphics2d = (Graphics2D)g;
+					// Dashed Stroke
+					float dash[] = {10.0f};
+					BasicStroke dashed = new BasicStroke(3.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
+					// Set Color
+					graphics2d.setColor(Color.WHITE);
+					graphics2d.setStroke(dashed);
+					// Draw it out on the board
+					Rectangle rect = boardPiecesMap.get((12 * (i + aPieceSquare.getRow())) + j + aPieceSquare.getCol());
+					graphics2d.draw(rect);
+				} else {
+					// Set solid color and paint
+					g.setColor(origPieceColor);
+					// Draw it out
+					g.fillRect(top6x6MatrixPoint.x + (aPieceSquare.getCol() * 51),
+							   top6x6MatrixPoint.y + (aPieceSquare.getRow() * 51), 
+							   51, 51);
+				}
+				// Revert Graphics object back to original
+				g.setColor(oldColor);
+			}
+			
+			return;
+		}
 		// Check if there is a piece in the workspace
 		if( level.getLevelBullpen().getWorkspace().pieceExists() ) {
 			// We gotta draw it out
@@ -313,7 +438,7 @@ public class AbstractLevelView extends JPanel {
 				// Convert PivotRow and PivotCol to array index into bullpenPalettePiecesMap
 				int arrayIndex = (aPieceSquare.getCol() * 6) + aPieceSquare.getRow();
 				// Solve for the Rectangle
-				Rectangle rectToDraw = bullpenPalettePiecesMap.get(arrayIndex);
+				Rectangle rectToDraw = bullpenWorkspacePiecesMap.get(arrayIndex);
 				// Save backup Graphics color
 				Color oldColor = g.getColor();
 				// Set new Color
@@ -327,6 +452,7 @@ public class AbstractLevelView extends JPanel {
 	}
 	
 	private void setupBoardPiecesMap() {
+		// TODO: Should this map be here?
 		// Setup the ArrayList
 		boardPiecesMap = new ArrayList<Rectangle>();
 		// Now, map all the pieces on the board
@@ -335,13 +461,21 @@ public class AbstractLevelView extends JPanel {
 				boardPiecesMap.add(new Rectangle(330 + (51 * j), 80 + (51 * i), 51, 51));
 	}
 	
+	public ArrayList<Rectangle> getBoardPiecesMap() {
+		return boardPiecesMap;
+	}
+	
 	private void setupBullpenPiecesMap() {
 		// Set up the array list
-		bullpenPalettePiecesMap = new ArrayList<Rectangle>();
+		bullpenWorkspacePiecesMap = new ArrayList<Rectangle>();
 		// Now, map them all out
 		for(int i = 0; i < 6; i++)
 			for(int j = 0; j < 6; j++)
-				bullpenPalettePiecesMap.add(new Rectangle(38 + (38 * i), 424 + (38 * j), 38, 38));
+				bullpenWorkspacePiecesMap.add(new Rectangle(38 + (38 * i), 424 + (38 * j), 38, 38));
+	}
+	
+	public ArrayList<Rectangle> getBullpenWorkspacePiecesMap() {
+		return bullpenWorkspacePiecesMap;
 	}
 	
 	public void setPieceInWorkspace(Piece p) {

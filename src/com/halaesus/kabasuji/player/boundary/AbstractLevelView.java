@@ -1,10 +1,8 @@
 package com.halaesus.kabasuji.player.boundary;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -12,7 +10,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -41,8 +38,8 @@ public class AbstractLevelView extends JPanel {
 	private boolean paintInitialized;
 	// View-based (UI and user interaction based) variables
 	HashMap<Rectangle, MouseListener> clickMap;
-	ArrayList<Rectangle> bullpenWorkspacePiecesMap;
-	ArrayList<Rectangle> boardPiecesMap;
+	Point bullpenPiecesBoardTopPoint;
+	Point boardPiecesTopPoint;
 	Application myApplication;
 	AbstractLevel level;
 	// Image storage variables
@@ -87,8 +84,8 @@ public class AbstractLevelView extends JPanel {
 		// Calculate some scaled images for paintComponent function
 		calculateScaledImages();
 		// Set up Board Pieces Map and Bullpen Palette Pieces Map
-		setupBoardPiecesMap();
-		setupBullpenPiecesMap();
+		setupBoardPiecesTopPoint();
+		setupBullpenPiecesBoardTopPoint();
 		// Set up Hexomino Count Labels
 		setuphexominoCountLabels();
 		// By default the paint hasn't occurred
@@ -331,7 +328,7 @@ public class AbstractLevelView extends JPanel {
 	private void drawWorkspacePieceOrDraggingPiece(Graphics g) {
 		// If a piece is being dragged, we'd draw that first
 		// TODO Shift this to a different function; Detect 50% Board Square
-		if( this.level.isDraggingActive() ) {
+		/* if( this.level.isDraggingActive() ) {
 			Piece toBeDrawn = this.level.getPieceBeingDragged();
 			Point top6x6MatrixPoint = this.level.getTopPointOfMatrix();
 			// Solve for xMin, xMax and yMin, yMax within the 6x6
@@ -425,17 +422,15 @@ public class AbstractLevelView extends JPanel {
 			}
 			
 			return;
-		}
+		} */
 		// Check if there is a piece in the workspace
 		if( level.getLevelBullpen().getWorkspace().pieceExists() ) {
 			// We gotta draw it out
 			Piece toBeDrawn = level.getLevelBullpen().getWorkspace().getPiece();
 			// Go over all the 6 PieceSquares within
 			for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
-				// Convert PivotRow and PivotCol to array index into bullpenPalettePiecesMap
-				int arrayIndex = (aPieceSquare.getCol() * 6) + aPieceSquare.getRow();
 				// Solve for the Rectangle
-				Rectangle rectToDraw = bullpenWorkspacePiecesMap.get(arrayIndex);
+				Rectangle rectToDraw = getBullpenWorkspacePieceRectangle(aPieceSquare.getRow(), aPieceSquare.getCol());
 				// Save backup Graphics color
 				Color oldColor = g.getColor();
 				// Set new Color
@@ -448,33 +443,27 @@ public class AbstractLevelView extends JPanel {
 		}
 	}
 	
-	private void setupBoardPiecesMap() {
-		// TODO: Should this map be here?
-		// Setup the ArrayList
-		boardPiecesMap = new ArrayList<Rectangle>();
-		// Now, map all the pieces on the board
-		for(int i = 0; i < 12; i++) // Iterate over 12 rows of the board
-			for(int j = 0; j < 12; j++) // Iterate over 12 columns of the board
-				boardPiecesMap.add(new Rectangle(330 + (51 * j), 80 + (51 * i), 51, 51));
+	private void setupBoardPiecesTopPoint() {
+		boardPiecesTopPoint = new Point(330, 80);
 	}
 	
-	public ArrayList<Rectangle> getBoardPiecesMap() {
-		return boardPiecesMap;
+	public Rectangle getBoardPieceRectangle(int row, int col) {
+		return new Rectangle(boardPiecesTopPoint.x + (51 * col), 
+				             boardPiecesTopPoint.y + (51 * row),
+				             51, 51);
 	}
 	
-	private void setupBullpenPiecesMap() {
-		// Set up the array list
-		bullpenWorkspacePiecesMap = new ArrayList<Rectangle>();
-		// Now, map them all out
-		for(int i = 0; i < 6; i++)
-			for(int j = 0; j < 6; j++)
-				bullpenWorkspacePiecesMap.add(new Rectangle(38 + (38 * i), 424 + (38 * j), 38, 38));
+	private void setupBullpenPiecesBoardTopPoint() {
+		bullpenPiecesBoardTopPoint = new Point(38, 424);
 	}
 	
-	public ArrayList<Rectangle> getBullpenWorkspacePiecesMap() {
-		return bullpenWorkspacePiecesMap;
+	public Rectangle getBullpenWorkspacePieceRectangle(int row, int col) {
+		return new Rectangle(bullpenPiecesBoardTopPoint.x + (38 * col), 
+				             bullpenPiecesBoardTopPoint.y + (38 * row), 
+				             38, 38);
 	}
 	
+	// TODO: Subject to removal
 	public void setPieceInWorkspace(Piece p) {
 		level.getLevelBullpen().getWorkspace().addPiece(p); // Add the piece to the Workspace of the Level Bullpen
 		repaint(); // Force a repaint

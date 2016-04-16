@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
 
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 import com.halaesus.kabasuji.player.entity.AbstractLevel;
@@ -44,22 +43,21 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 			if (s.getRow() > yMax) yMax = s.getRow();				
 		}
 		// Solve for the Tightest Rect Top Left Point
-		ArrayList<Rectangle> bullpenPieceMap = this.levelView.getBullpenWorkspacePiecesMap();
-		Rectangle topLeftSolver = bullpenPieceMap.get((yMin * 12) + xMin);
+		Rectangle topLeftSolver = this.levelView.getBullpenWorkspacePieceRectangle(yMin, xMin);
 		int tlX = topLeftSolver.x;
 		int tlY = topLeftSolver.y;
 		Point topLeftPoint = new Point(tlX, tlY);
 		// See if the click lies on one of the PieceSquares
 		for( PieceSquare aPieceSquare : squares ) {
 			// Find this PieceSquare Rectangle
-			Rectangle rect = bullpenPieceMap.get((aPieceSquare.getCol() * 6) + aPieceSquare.getRow());
+			Rectangle rect = this.levelView.getBullpenWorkspacePieceRectangle(aPieceSquare.getRow(), aPieceSquare.getCol());
 			// If the click is on this rectangle, do further processing:
 			if( rect.contains(e.getX(), e.getY()) ) {
 				// Set necessary dragging stuff
 				this.level.setDraggingActive(true);
 				this.level.setDraggingDistToPointX((e.getX() - topLeftPoint.x) * 51 / 38);
 				this.level.setDraggingDistToPointY((e.getY() - topLeftPoint.y) * 51 / 38);
-				this.level.setPieceBeingDragged(new Piece(0, 0, thePiece.getColor(), thePiece.pushTopLeft()));
+				this.level.setPieceBeingDragged(new Piece(thePiece.getColor(), thePiece.getOriginalPieceSquares()));
 				// Remove piece from Workspace
 				this.level.getLevelBullpen().getWorkspace().addPiece(null);
 			}

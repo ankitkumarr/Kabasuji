@@ -10,7 +10,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
@@ -20,7 +19,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 import com.halaesus.kabasuji.player.entity.PieceSquare;
 import com.halaesus.kabasuji.player.controller.ClickPieceInPalette;
@@ -62,7 +60,7 @@ public class AbstractLevelView extends JPanel {
 	// View-based (UI Objects) variables
 	JLabel levelInfo;
 	BufferedImage[] stars;
-	BufferedImage[] hexButtons;
+	HexominoButtonView[] hexominoButton;
 	JButton rotateCC;
 	JButton rotateCW;
 	JButton flipH;
@@ -88,10 +86,10 @@ public class AbstractLevelView extends JPanel {
 		// Set up Board Pieces Map and Bullpen Palette Pieces Top Point
 		setupBoardPiecesTopPoint();
 		setupBullpenPiecesBoardTopPoint();
-		// Set up Hexomino Count Labels
-		setuphexominoCountLabels();
 		// Set up hexomino button views
 		setupHexominoesButtons();
+		// Set up Hexomino Count Labels
+		setuphexominoCountLabels();
 		// By default the paint hasn't occurred
 		paintInitialized = false;
 	}
@@ -122,16 +120,6 @@ public class AbstractLevelView extends JPanel {
 		DragPieceFromWorkspaceToBoard dragWorkspaceToBoard = new DragPieceFromWorkspaceToBoard(this.level, AbstractLevelView.this);
 		addMouseListener(dragWorkspaceToBoard);
 		addMouseMotionListener(dragWorkspaceToBoard);
-		// Force a repaint on mouse motion
-		// TODO: See if this is really needed or not; and then add to Buttons too to prevent glitch
-		addMouseMotionListener(new MouseMotionListener() {
-			@Override
-			public void mouseMoved(MouseEvent e) {
-				AbstractLevelView.this.repaint(); // Re-paint the GUI
-			}
-			@Override
-			public void mouseDragged(MouseEvent e) { /* Do nothing */ }
-		});
 	}
 	
 	private void showLevelInfo() {
@@ -172,6 +160,8 @@ public class AbstractLevelView extends JPanel {
 	private void setupHexominoesButtons() {
 		int paletteRow = 0; // To keep track of positions on the board
 		int paletteColumn = 0;
+		// Initialize the array
+		hexominoButton = new HexominoButtonView[35];
 		// Iterate over all 35 hexominoes and add them to the board
 		for(int i = 0; i < 35; i++) {
 			// Set up coordinates
@@ -179,15 +169,15 @@ public class AbstractLevelView extends JPanel {
 			int x = 16 + (39 * paletteColumn);
 			int y = 98 + (39 * paletteRow);
 			// Add the button
-			JButton hexominoButton = null; // We will decide which one to add
 			if( level.getLevelBullpen().getPalette().getHexomino(i).getCount() > 0 ) // If there are any pieces, show the colored piece image
-				hexominoButton = new JButton(hexominoImages[i]);
+				hexominoButton[i] = new HexominoButtonView(hexominoImages[i]);
 			else // If there are no pieces, show the disabled piece image
-				hexominoButton = new JButton(hexominoDisabledImages[i]);
+				hexominoButton[i] = new HexominoButtonView(hexominoDisabledImages[i]);
 			// Add it to the GUI
-			hexominoButton.setBounds(x, y, width, height);
-			hexominoButton.addMouseListener(new ClickPieceInPalette(level.getLevelBullpen().getPalette().getHexomino(i), AbstractLevelView.this));
-			add(hexominoButton);
+			hexominoButton[i].setHexominoCount(level.getLevelBullpen().getPalette().getHexomino(i).getCount());
+			hexominoButton[i].setBounds(x, y, width, height);
+			hexominoButton[i].addMouseListener(new ClickPieceInPalette(level.getLevelBullpen().getPalette().getHexomino(i), AbstractLevelView.this));
+			add(hexominoButton[i]);
 			
 			// Deal with the cycle overs of the rows and columns
 			if( (paletteColumn != 0) && (paletteColumn % 6 == 0) ) {
@@ -199,29 +189,10 @@ public class AbstractLevelView extends JPanel {
 	}
 
 	private void setuphexominoCountLabels() {
-		// Set up Hexomino Count Labels
-		hexCount = new JLabel[35];
-		// Location Tracking for the Labels
-		int printRow = 0;
-		int printColumn = 0;
-		// Iterate over and set them all
+		// Go on and add the count labels to all of them
 		for(int i = 0; i < 35; i++) {
 			// Set up the count label
-			hexCount[i] = new JLabel(String.valueOf(level.getLevelBullpen().getPalette().getHexomino(i).getCount()), SwingConstants.RIGHT);
-			hexCount[i].setOpaque(false);
-			hexCount[i].setBounds(40 + (39 * printColumn), 122 + (39 * printRow), 15, 15);
-			hexCount[i].setForeground(Color.GREEN);
-			// Resize text to fit stuff in
-			JLabelHelper.resizeTextBasedOnAvailableSize(hexCount[i]);
-			// Add it to the board
-			add(hexCount[i]);
-			
-			// Deal with the cycle overs of the rows and columns
-			if( (printColumn != 0) && (printColumn % 6 == 0) ) {
-				printRow += 1; // We move to the next row
-				printColumn = 0; // We start from the zeroth column
-			} else
-				printColumn++; // We move to the next column
+			hexominoButton[i].setHexominoCount(level.getLevelBullpen().getPalette().getHexomino(i).getCount());
 		}
 	}
 
@@ -539,7 +510,6 @@ public class AbstractLevelView extends JPanel {
 				             38, 38);
 	}
 	
-	// TODO: Subject to removal
 	public void setPieceInWorkspace(Piece p) {
 		level.getLevelBullpen().getWorkspace().addPiece(p); // Add the piece to the Workspace of the Level Bullpen
 		repaint(); // Force a repaint

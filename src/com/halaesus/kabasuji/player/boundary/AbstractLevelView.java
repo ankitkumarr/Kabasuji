@@ -1,8 +1,10 @@
 package com.halaesus.kabasuji.player.boundary;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -226,19 +228,6 @@ public class AbstractLevelView extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g); // Let the JPanel do its stuff
-		/*
-		int printRow = 0;
-		int printColumn = 0;
-		for(int i = 0; i < 35; i++) {
-			g.fillRect(40 + (39 * printColumn), 122 + (39 * printRow), 15, 15);
-			// Deal with the cycle overs of the rows and columns
-			if( (printColumn != 0) && (printColumn % 6 == 0) ) {
-				printRow += 1; // We move to the next row
-				printColumn = 0; // We start from the zeroth column
-			} else
-				printColumn++; // We move to the next column
-		}
-		*/
 		// Render the background image
 		g.drawImage(backgroundImage, 0, 0, null);
 		// Render BackToMainButton and Level Number
@@ -292,6 +281,22 @@ public class AbstractLevelView extends JPanel {
 	private void setupGameBoard(Graphics g) {
 		// Load up the board image in the middle of the two panels
 		g.drawImage(boardImage, 330, 80, null);
+		
+		// Backup old Graphicss color
+		Color oldColor = g.getColor();
+		// Put in the new color
+		g.setColor(new Color(0, 0, 0, 180));
+		// Load up the inactive squares and fill them in
+		for(int r = 0; r < 12; r++) {
+			for(int c = 0; c < 12; c++) {
+				if( !this.level.getBoard().isActive(r, c) ) {
+					Rectangle boardRect = getBoardPieceRectangle(r, c);
+					g.fillRect(boardRect.x, boardRect.y, boardRect.width, boardRect.height);
+				}
+			}
+		}
+		// Revert back to old color
+		g.setColor(oldColor);
 	}
 	
 	private void setupPalette(Graphics g) {
@@ -349,6 +354,34 @@ public class AbstractLevelView extends JPanel {
 				// Check if the Piece falls within the right bounds and if it collides or not
 				if( !this.level.getBoard().doesCollide(toBeDrawn) && !this.level.getBoard().isOutsideBounds(toBeDrawn) ) {
 					// Draw the outline on the underlying board
+					// Iterate over all the Board Squares to see where to draw
+					Point checkPoint = new Point(topPointToDraw.x + 25, topPointToDraw.y + 25);
+					boolean exit = false; // To keep track if the loop should exit
+					// TODO: Control board overflow points; to the left of board, right of board
+					for(int r = 0; r < 12 && !exit; r++) {
+						for(int c = 0; c < 12 && !exit; c++) {
+							Rectangle boardRectangle = getBoardPieceRectangle(r, c);
+							// See if point lies there
+							if( boardRectangle.contains(checkPoint) ) {
+								// Create new Graphics Object
+								Graphics2D graphics2d = (Graphics2D)g;
+								// Dashed Stroke
+								float dash[] = {6.0f};
+								BasicStroke dashed = new BasicStroke(3.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
+								// Set Color
+								graphics2d.setColor(Color.WHITE);
+								graphics2d.setStroke(dashed);
+								// Go over each PieceSquare now
+								for( PieceSquare square : toBeDrawn.getPieceSquares() ) {
+									// Draw them out on the board
+									Rectangle rect = getBoardPieceRectangle(r + square.getRow(), c + square.getCol());
+									graphics2d.draw(rect);
+								}
+								// Finally, we're done painting, so exit the loop
+								exit = true;
+							}
+						}
+					}
 				}
 				
 			} else {

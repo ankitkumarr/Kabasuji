@@ -8,6 +8,10 @@ public class AbstractBoard {
     public AbstractBoard(BoardSquare[] square) {
         this.squares = square;
     }
+    
+    public boolean isActive(int row, int col) {
+    	return squares[(row * 12) + col].isActive();
+    }
 
     public boolean doesCollide(Piece p) {
     	return false;

@@ -20,6 +20,13 @@ public class AbstractLevel {
 	public AbstractLevel(File file) {
         // TODO implement here; Random stuff done here
 		bullpen = new Bullpen();
+		// BoardSquares
+		BoardSquare[] boardSquares = new BoardSquare[144];
+		for(int i = 0; i < 144; i++) {
+			boardSquares[i] = new BoardSquare(true);
+		}
+		// Board
+		board = new AbstractBoard(boardSquares);
     }
 
     public void loadLevel() {

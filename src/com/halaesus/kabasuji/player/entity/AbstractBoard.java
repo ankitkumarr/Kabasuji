@@ -6,7 +6,7 @@ public class AbstractBoard {
 	Piece pieces;
 
     public AbstractBoard(BoardSquare[] square) {
-        // TODO implement here
+        this.squares = square;
     }
 
     public boolean doesCollide(Piece p) {

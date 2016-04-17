@@ -12,10 +12,10 @@ public class AbstractLevel {
     int levelIndex;
     // Keep track of dragging stuff
     boolean isDraggingActive = false;
-    Piece pieceBeingDragged;
-    Point topPointOfMatrix;
+    Point topPointOfDraggingPiece;
     int draggingDistToPointX;
     int draggingDistToPointY;
+    Piece pieceBeingDragged;
 
 	public AbstractLevel(File file) {
         // TODO implement here; Random stuff done here
@@ -59,14 +59,6 @@ public class AbstractLevel {
 		this.pieceBeingDragged = pieceBeingDragged;
 	}
 
-	public Point getTopPointOfMatrix() {
-		return topPointOfMatrix;
-	}
-
-	public void setTopPointOfMatrix(Point topPointOfMatrix) {
-		this.topPointOfMatrix = topPointOfMatrix;
-	}
-
 	public int getDraggingDistToPointX() {
 		return draggingDistToPointX;
 	}
@@ -81,6 +73,14 @@ public class AbstractLevel {
 
 	public void setDraggingDistToPointY(int draggingDistToPointY) {
 		this.draggingDistToPointY = draggingDistToPointY;
+	}
+
+	public Point getTopPointOfDraggingPiece() {
+		return topPointOfDraggingPiece;
+	}
+
+	public void setTopPointOfDraggingPiece(Point topPointOfDraggingPiece) {
+		this.topPointOfDraggingPiece = topPointOfDraggingPiece;
 	}
 
 }

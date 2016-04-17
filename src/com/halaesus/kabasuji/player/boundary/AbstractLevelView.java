@@ -63,9 +63,7 @@ public class AbstractLevelView extends JPanel {
 	JButton rotateCW;
 	JButton flipH;
 	JButton flipV;
-	BufferedImage[] workspacePieceSquares;
 	BufferedImage[] boardPieceSquares;
-	BufferedImage[] boardSquares;
 	JLabel[] hexCount;
 	
 	public AbstractLevelView(Application application, AbstractLevel aLevel) {
@@ -177,9 +175,9 @@ public class AbstractLevelView extends JPanel {
 			}
 		});
 		// Add Listener for DragPieceFromWorkspaceToBoard
-		DragPieceFromWorkspaceToBoard dragW2Board = new DragPieceFromWorkspaceToBoard(this.level, AbstractLevelView.this);
-		addMouseListener(dragW2Board);
-		addMouseMotionListener(dragW2Board);
+		DragPieceFromWorkspaceToBoard dragWorkspaceToBoard = new DragPieceFromWorkspaceToBoard(this.level, AbstractLevelView.this);
+		addMouseListener(dragWorkspaceToBoard);
+		addMouseMotionListener(dragWorkspaceToBoard);
 	}
 	
 	private void showLevelInfo() {
@@ -235,8 +233,12 @@ public class AbstractLevelView extends JPanel {
 		setupHexominoes(g);
 		// Add palette controllers
 		setupPaletteControllers(g);
-		// Draw a piece in the Workspace if there is one there
-		drawWorkspacePieceOrDraggingPiece(g);
+		// Draw a dragging piece
+		if( this.level.isDraggingActive() )
+			drawDraggingPiece(g);
+		// Draw a piece in the Workspace if there is one there and no dragging active
+		if( !this.level.isDraggingActive() )
+			drawWorkspacePiece(g);
 		// A next call to this, will not be an initialization call
 		paintInitialized = true; // TODO: Check if this should be here or in the entity
 	}
@@ -325,12 +327,56 @@ public class AbstractLevelView extends JPanel {
 		}
 	}
 	
-	private void drawWorkspacePieceOrDraggingPiece(Graphics g) {
+	private void drawDraggingPiece(Graphics g) {
+		assert( this.level.isDraggingActive() == true ); // This function can only be called if there is a piece being dragged
 		// If a piece is being dragged, we'd draw that first
 		// TODO Shift this to a different function; Detect 50% Board Square
-		/* if( this.level.isDraggingActive() ) {
+		if( this.level.isDraggingActive() ) {
 			Piece toBeDrawn = this.level.getPieceBeingDragged();
-			Point top6x6MatrixPoint = this.level.getTopPointOfMatrix();
+			Point topPointToDraw = this.level.getTopPointOfDraggingPiece();
+			
+			// Check if Piece within board bounds
+			if( topPointToDraw.x >= boardPiecesTopPoint.x &&
+				topPointToDraw.y >= boardPiecesTopPoint.y ) {
+				
+				// We render the Piece Translucent and check for further board things
+				// Backup Graphics Color
+				Color oldColor = g.getColor();
+				// Save a new one
+				g.setColor(new Color(toBeDrawn.getColor().getRed(), 
+			                         toBeDrawn.getColor().getGreen(), 
+			                         toBeDrawn.getColor().getBlue(), 
+			                         200));
+				// Draw the PieceSquares
+				for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
+					g.fillRect(topPointToDraw.x + (aPieceSquare.getCol() * 51),
+							   topPointToDraw.y + (aPieceSquare.getRow() * 51), 
+							   51, 51);
+				}
+				// Revert back to the old color
+				g.setColor(oldColor);
+				// Check if the Piece falls within the right bounds and if it collides or not
+				
+				
+			} else {
+				
+				// We render the Piece normally
+				// Backup Graphics Color
+				Color oldColor = g.getColor();
+				// Save a new one
+				g.setColor(toBeDrawn.getColor());
+				// Draw the PieceSquares
+				for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
+					g.fillRect(topPointToDraw.x + (aPieceSquare.getCol() * 51),
+							   topPointToDraw.y + (aPieceSquare.getRow() * 51), 
+							   51, 51);
+				}
+				// Revert back to the old color
+				g.setColor(oldColor);
+				
+			}
+			
+			/* Point top6x6MatrixPoint = this.level.getTopPointOfMatrix();
 			// Solve for xMin, xMax and yMin, yMax within the 6x6
 			PieceSquare[] squares = toBeDrawn.getPieceSquares();
 			int xMin = squares[0].getCol();
@@ -421,8 +467,12 @@ public class AbstractLevelView extends JPanel {
 				g.setColor(oldColor);
 			}
 			
-			return;
-		} */
+			return; */
+		}
+	}
+	
+	private void drawWorkspacePiece(Graphics g) {
+		assert( this.level.isDraggingActive() == false ); // This function can only be called if there is no piece being dragged
 		// Check if there is a piece in the workspace
 		if( level.getLevelBullpen().getWorkspace().pieceExists() ) {
 			// We gotta draw it out

@@ -76,28 +76,28 @@ public class Piece {
     // centers underlying PieceSquares within a 6x6 matrix.
 	public void centerPiece(){
 		PieceSquare[] centeredSquares = new PieceSquare[6];
-			int xMin = squares[0].getCol();
-			int xMax = squares[0].getCol();
-			int yMin = squares[0].getRow();
-			int yMax = squares[0].getRow();
-			
-			for (PieceSquare s: this.squares){
-				if (s.getCol() < xMin) xMin = s.getCol();
-				if (s.getCol() > xMax) xMax = s.getCol();
-				if (s.getRow() < yMin) yMin = s.getRow();
-				if (s.getRow() > yMax) yMax = s.getRow();				
-			}
-			
-			int xDist = (0-xMin)/2 + (5-xMax)/2;
-			int yDist = (0-yMin)/2 + (5-yMax)/2;
-			
-			for(int i = 0; i < 6; i++) {
-				centeredSquares[i]= new PieceSquare(true,
-						squares[i].getCol() + xDist,
-						squares[i].getRow() + yDist);
-			}
-	
-			squares = centeredSquares;	
+		int xMin = squares[0].getCol();
+		int xMax = squares[0].getCol();
+		int yMin = squares[0].getRow();
+		int yMax = squares[0].getRow();
+		
+		for (PieceSquare s: this.squares){
+			if (s.getCol() < xMin) xMin = s.getCol();
+			if (s.getCol() > xMax) xMax = s.getCol();
+			if (s.getRow() < yMin) yMin = s.getRow();
+			if (s.getRow() > yMax) yMax = s.getRow();				
+		}
+		
+		int xDist = (0-xMin)/2 + (5-xMax)/2;
+		int yDist = (0-yMin)/2 + (5-yMax)/2;
+		
+		for(int i = 0; i < 6; i++) {
+			centeredSquares[i]= new PieceSquare(true,
+					squares[i].getCol() + xDist,
+					squares[i].getRow() + yDist);
+		}
+
+		squares = centeredSquares;	
 	}
 
 }

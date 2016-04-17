@@ -3,18 +3,19 @@ package com.halaesus.kabasuji.player.entity;
 public class PieceSquare extends AbstractSquare {
    
     Piece parentPiece;
-    boolean active;
     int row;
 	int col;
 
     public PieceSquare(boolean active, int col, int row) {
-        this.active = active;
+        super(active); // Let the super do its job
+        // Save this information
         this.row = row;
         this.col = col;
     }
     
     public PieceSquare(int col, int row) {
-        this.active = true;
+        super(true); // Let the super do its job
+        // Save this information
         this.row = row;
         this.col = col;
     }

@@ -27,37 +27,31 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 		// If there is no piece to drag, do nothing
 		if( level.getLevelBullpen().getWorkspace().getPiece() == null )
 			return;
-		// Get all the Piece ke PieceSquares and find the tightest rectangle around the PieceSquares
+		// Go over all the PieceSquares of the Workspace Piece and see if a click took place there
 		Piece thePiece = level.getLevelBullpen().getWorkspace().getPiece();
 		PieceSquare[] squares = thePiece.getPieceSquares();
 		
-		int xMin = squares[0].getCol();
-		int xMax = squares[0].getCol();
-		int yMin = squares[0].getRow();
-		int yMax = squares[0].getRow();
-		
-		for (PieceSquare s: squares){
-			if (s.getCol() < xMin) xMin = s.getCol();
-			if (s.getCol() > xMax) xMax = s.getCol();
-			if (s.getRow() < yMin) yMin = s.getRow();
-			if (s.getRow() > yMax) yMax = s.getRow();				
-		}
-		// Solve for the Tightest Rect Top Left Point
-		Rectangle topLeftSolver = this.levelView.getBullpenWorkspacePieceRectangle(yMin, xMin);
-		int tlX = topLeftSolver.x;
-		int tlY = topLeftSolver.y;
-		Point topLeftPoint = new Point(tlX, tlY);
-		// See if the click lies on one of the PieceSquares
 		for( PieceSquare aPieceSquare : squares ) {
-			// Find this PieceSquare Rectangle
-			Rectangle rect = this.levelView.getBullpenWorkspacePieceRectangle(aPieceSquare.getRow(), aPieceSquare.getCol());
-			// If the click is on this rectangle, do further processing:
-			if( rect.contains(e.getX(), e.getY()) ) {
-				// Set necessary dragging stuff
+			// Get the Rectangle for this PieceSquare
+			Rectangle pieceSquareRect = this.levelView.getBullpenWorkspacePieceRectangle(aPieceSquare.getRow(), aPieceSquare.getCol());
+			// See if the click is in the Rectangle
+			if( pieceSquareRect.contains(new Point(e.getX(), e.getY())) ) {
+				// Okay. The click was on this PieceSquare
+				// Solve for tightest bounding rectangle around the PieceSquares
+				int xMin = squares[0].getCol();
+				int yMin = squares[0].getRow();
+				
+				for( PieceSquare s: squares ){
+					if (s.getCol() < xMin) xMin = s.getCol();
+					if (s.getRow() < yMin) yMin = s.getRow();				
+				}
+				// Inform the Model
 				this.level.setDraggingActive(true);
-				this.level.setDraggingDistToPointX((e.getX() - topLeftPoint.x) * 51 / 38);
-				this.level.setDraggingDistToPointY((e.getY() - topLeftPoint.y) * 51 / 38);
 				this.level.setPieceBeingDragged(new Piece(thePiece.getColor(), thePiece.getOriginalPieceSquares()));
+				this.level.setTopPointOfDraggingPiece(new Point(this.levelView.getBullpenWorkspacePieceRectangle(yMin, xMin).x, 
+						                                        this.levelView.getBullpenWorkspacePieceRectangle(yMin, xMin).y));
+				this.level.setDraggingDistToPointX(e.getX() - this.levelView.getBullpenWorkspacePieceRectangle(yMin, xMin).x);
+				this.level.setDraggingDistToPointY(e.getY() - this.levelView.getBullpenWorkspacePieceRectangle(yMin, xMin).y);
 				// Remove piece from Workspace
 				this.level.getLevelBullpen().getWorkspace().addPiece(null);
 			}
@@ -66,9 +60,9 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// Update start off the 6x6 Matrix point
-		this.level.setTopPointOfMatrix(new Point(e.getX() - this.level.getDraggingDistToPointX(),
-				                                 e.getY() - this.level.getDraggingDistToPointY()));
+		// Form the new point to draw the Piece
+		this.level.setTopPointOfDraggingPiece(new Point(e.getX() - (int)(this.level.getDraggingDistToPointX() * 51 / 38), 
+				                                        e.getY() - (int)(this.level.getDraggingDistToPointY() * 51 / 38)));  // TODO: Remove scale up the drag difference
 		// Force the view to repaint
 		this.levelView.repaint();
 	}

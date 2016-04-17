@@ -22,9 +22,10 @@ public class ClickPieceInPalette implements MouseListener {
 		// Check its count
 		if( hexomino.getCount() > 0 ) {
 			// Get the piece clicked on
-			Piece clickOnPiece = hexomino.getPiece();
+			Piece clickOnPiece = new Piece(hexomino.getPiece());
+			clickOnPiece.centerPiece(); // Center this piece
 			// Add the piece to the LevelView
-			levelView.setPieceInWorkspace(clickOnPiece);
+			this.levelView.setPieceInWorkspace(clickOnPiece);
 		}
 	}
 

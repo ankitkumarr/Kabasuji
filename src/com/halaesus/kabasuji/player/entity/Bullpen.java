@@ -13,7 +13,6 @@ public class Bullpen {
     	Hexomino[] hexominoes = new Hexomino[35];
     	for(int i = 0; i < 35; i++) {
     		Piece hexominoPiece = new Piece(PieceGenerator.pieces[i]);
-    		hexominoPiece.centerPiece(); // Center the copy of the Hexomino Piece
     		// Now, add it to the Hexominoes class
     		hexominoes[i] = new Hexomino(i, hexominoPiece, this.workspace);
     	}

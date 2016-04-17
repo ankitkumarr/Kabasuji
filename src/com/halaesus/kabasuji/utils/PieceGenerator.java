@@ -7,6 +7,7 @@ import com.halaesus.kabasuji.player.entity.PieceSquare;
 
 public class PieceGenerator {
 
+	// TODO: Fix pieces to be placed at TopLeft
 	private static PieceSquare pieceSquares[][] = new PieceSquare[][]{
 		{	// 1   // (col , row) = (x , y)
 			new PieceSquare(0, 0),

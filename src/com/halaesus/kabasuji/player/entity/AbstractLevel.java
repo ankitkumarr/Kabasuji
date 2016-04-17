@@ -42,6 +42,10 @@ public class AbstractLevel {
     public Bullpen getLevelBullpen() {
     	return bullpen;
     }
+    
+    public AbstractBoard getBoard() {
+    	return board;
+    }
 
 	public boolean isDraggingActive() {
 		return isDraggingActive;

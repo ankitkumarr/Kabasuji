@@ -31,6 +31,7 @@ import com.halaesus.kabasuji.player.controller.RotateCWInWorkspace;
 import com.halaesus.kabasuji.player.entity.AbstractLevel;
 import com.halaesus.kabasuji.player.entity.Piece;
 import com.halaesus.kabasuji.player.entity.SplashModel;
+import com.halaesus.kabasuji.utils.JButtonHelper;
 import com.halaesus.kabasuji.utils.JLabelHelper;
 
 @SuppressWarnings("serial")
@@ -90,8 +91,37 @@ public class AbstractLevelView extends JPanel {
 		setupHexominoesButtons();
 		// Set up Hexomino Count Labels
 		setuphexominoCountLabels();
+		// Set up Palette Controllers
+		setupPaletteControllers();
 		// By default the paint hasn't occurred
 		paintInitialized = false;
+	}
+
+	private void setupPaletteControllers() {
+		// Create the FlipH Button
+		flipH = new JButton(new ImageIcon(flipHImage));
+		flipH.setBounds(214, 598, 90, 90);
+		flipH.addMouseListener(new FlipHInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		JButtonHelper.makeBackgroundTransparent(flipH);
+		add(flipH);
+		// Create the FlipV Button
+		flipV = new JButton(new ImageIcon(flipVImage));
+		flipV.setBounds(1, 360, 90, 90);
+		flipV.addMouseListener(new FlipVInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		JButtonHelper.makeBackgroundTransparent(flipV);
+		add(flipV);
+		// Create the RotateCC Button
+		rotateCC = new JButton(new ImageIcon(rotateCCImage));
+		rotateCC.setBounds(210, 355, 90, 90);
+		rotateCC.addMouseListener(new RotateCCInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		JButtonHelper.makeBackgroundTransparent(rotateCC);
+		add(rotateCC);
+		// Create the RotateCW Button
+		rotateCW = new JButton(new ImageIcon(rotateCWImage));
+		rotateCW.setBounds(1, 593, 90, 90);
+		rotateCW.addMouseListener(new RotateCWInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		JButtonHelper.makeBackgroundTransparent(rotateCW);
+		add(rotateCW);
 	}
 
 	private void implementMouseListeners() {
@@ -198,6 +228,9 @@ public class AbstractLevelView extends JPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
+		// Check if the Pallette Controllers should be shown or not
+		fixPalletteControllersVisibility();
+		// Now proceed to letting super do its job
 		super.paintComponent(g); // Let the JPanel do its stuff
 		// Render the background image
 		g.drawImage(backgroundImage, 0, 0, null);
@@ -210,8 +243,6 @@ public class AbstractLevelView extends JPanel {
 		// Set up the game board and palette
 		setupGameBoard(g);
 		setupPalette(g);
-		// Add palette controllers
-		setupPaletteControllers(g);
 		// Draw a dragging piece
 		if( this.level.isDraggingActive() )
 			drawDraggingPiece(g);
@@ -220,6 +251,20 @@ public class AbstractLevelView extends JPanel {
 			drawWorkspacePiece(g);
 		// A next call to this, will not be an initialization call
 		paintInitialized = true; // TODO: Check if this should be here or in the entity
+	}
+
+	private void fixPalletteControllersVisibility() {
+		if( this.level.getLevelBullpen().getWorkspace().getPiece() != null ) {
+			flipH.setVisible(true);
+			flipV.setVisible(true);
+			rotateCC.setVisible(true);
+			rotateCW.setVisible(true);
+		} else {
+			flipH.setVisible(false);
+			flipV.setVisible(false);
+			rotateCC.setVisible(false);
+			rotateCW.setVisible(false);
+		}
 	}
 
 	private void showBackToMainButton(Graphics g) {
@@ -253,7 +298,7 @@ public class AbstractLevelView extends JPanel {
 		// Load up the board image in the middle of the two panels
 		g.drawImage(boardImage, 330, 80, null);
 		
-		// Backup old Graphicss color
+		// Backup old Graphics color
 		Color oldColor = g.getColor();
 		// Put in the new color
 		g.setColor(new Color(0, 0, 0, 180));
@@ -275,7 +320,7 @@ public class AbstractLevelView extends JPanel {
 		g.drawImage(paletteView, 9, 90, null);
 	}
 	
-	private void setupPaletteControllers(Graphics g) {
+	private void setupPaletteControllersAA(Graphics g) {
 		// If there exists a piece in the Workspace, then:
 		if( this.level.getLevelBullpen().getWorkspace().getPiece() != null ) {
 			// Load up all the images

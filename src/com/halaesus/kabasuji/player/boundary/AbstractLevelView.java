@@ -320,25 +320,6 @@ public class AbstractLevelView extends JPanel {
 		g.drawImage(paletteView, 9, 90, null);
 	}
 	
-	private void setupPaletteControllersAA(Graphics g) {
-		// If there exists a piece in the Workspace, then:
-		if( this.level.getLevelBullpen().getWorkspace().getPiece() != null ) {
-			// Load up all the images
-			g.drawImage(flipHImage, 1, 360, null);
-			g.drawImage(flipVImage, 214, 598, null);
-			g.drawImage(rotateCCImage, 210, 355, null);
-			g.drawImage(rotateCWImage, 1, 593, null);
-		}
-		// If it is the first paint, then:
-		if(!paintInitialized) {
-			// Add these to the HashMap
-			clickMap.put(new Rectangle(1, 360, 90, 90), new FlipVInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
-			clickMap.put(new Rectangle(214, 598, 90, 90), new FlipHInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
-			clickMap.put(new Rectangle(210, 355, 90, 90), new RotateCCInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
-			clickMap.put(new Rectangle(1, 593, 90, 90), new RotateCWInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
-		}
-	}
-	
 	private void drawDraggingPiece(Graphics g) {
 		assert( this.level.isDraggingActive() == true ); // This function can only be called if there is a piece being dragged
 		// If a piece is being dragged, we'd draw that first
@@ -347,9 +328,28 @@ public class AbstractLevelView extends JPanel {
 			Piece toBeDrawn = this.level.getPieceBeingDragged();
 			Point topPointToDraw = this.level.getTopPointOfDraggingPiece();
 			
+			// Calculate tightest rectangle around PieceSquares
+			PieceSquare[] squares = toBeDrawn.getPieceSquares();
+			int xMax = squares[0].getCol();
+			int yMax = squares[0].getRow();
+			
+			for( PieceSquare s: squares ){
+				if (s.getCol() > xMax)
+					xMax = s.getCol(); // We found a new max, save it
+				if (s.getRow() > yMax)
+					yMax = s.getRow(); // We found a new max, save it
+			}
+			
+			Rectangle tighestPieceRectangle = new Rectangle(topPointToDraw.x, 
+					                                        topPointToDraw.y, 
+					                                        (xMax + 1) * 51, 
+					                                        (yMax + 1) * 51);
+			
+			// Calculate the Board Rectangle
+			Rectangle overallBoardRectangle = new Rectangle(boardPiecesTopPoint.x, boardPiecesTopPoint.y, 12 * 51, 12 * 51);
+			
 			// Check if Piece within board bounds
-			if( topPointToDraw.x >= boardPiecesTopPoint.x &&
-				topPointToDraw.y >= boardPiecesTopPoint.y ) {
+			if( overallBoardRectangle.contains(tighestPieceRectangle) ) {
 				
 				// We render the Piece Translucent and check for further board things
 				// Backup Graphics Color

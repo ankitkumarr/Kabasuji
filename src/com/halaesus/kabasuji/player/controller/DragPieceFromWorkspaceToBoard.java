@@ -47,7 +47,7 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 				}
 				// Inform the Model
 				this.level.setDraggingActive(true);
-				this.level.setPieceBeingDragged(new Piece(thePiece.getColor(), thePiece.getOriginalPieceSquares()));
+				this.level.setPieceBeingDragged(new Piece(thePiece.getColor(), thePiece.getPieceSquares()));
 				this.level.setTopPointOfDraggingPiece(new Point(this.levelView.getBullpenWorkspacePieceRectangle(yMin, xMin).x, 
 						                                        this.levelView.getBullpenWorkspacePieceRectangle(yMin, xMin).y));
 				this.level.setDraggingDistToPointX(e.getX() - this.levelView.getBullpenWorkspacePieceRectangle(yMin, xMin).x);
@@ -61,8 +61,8 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// Form the new point to draw the Piece
-		this.level.setTopPointOfDraggingPiece(new Point(e.getX() - (int)(this.level.getDraggingDistToPointX() * 51 / 38), 
-				                                        e.getY() - (int)(this.level.getDraggingDistToPointY() * 51 / 38)));  // TODO: Remove scale up the drag difference
+		this.level.setTopPointOfDraggingPiece(new Point(e.getX() - this.level.getDraggingDistToPointX(), 
+				                                        e.getY() - this.level.getDraggingDistToPointY()));
 		// Force the view to repaint
 		this.levelView.repaint();
 	}

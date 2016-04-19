@@ -314,11 +314,11 @@ public class AbstractLevelView extends JPanel {
 			
 			Rectangle tighestPieceRectangle = new Rectangle(topPointToDraw.x, 
 					                                        topPointToDraw.y, 
-					                                        (xMax + 1) * 51, 
-					                                        (yMax + 1) * 51);
+					                                        (xMax + 1) * 53, 
+					                                        (yMax + 1) * 53);
 			
 			// Calculate the Board Rectangle
-			Rectangle overallBoardRectangle = new Rectangle(boardPiecesTopPoint.x, boardPiecesTopPoint.y, 12 * 51, 12 * 51);
+			Rectangle overallBoardRectangle = new Rectangle(boardPiecesTopPoint.x, boardPiecesTopPoint.y, 12 * 53, 12 * 53);
 			
 			// Check if Piece within board bounds
 			if( overallBoardRectangle.contains(tighestPieceRectangle) ) {
@@ -333,9 +333,9 @@ public class AbstractLevelView extends JPanel {
 			                         200));
 				// Draw the PieceSquares
 				for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
-					g.fillRect(topPointToDraw.x + (aPieceSquare.getCol() * 51),
-							   topPointToDraw.y + (aPieceSquare.getRow() * 51), 
-							   51, 51);
+					g.fillRect(topPointToDraw.x + (aPieceSquare.getCol() * 53),
+							   topPointToDraw.y + (aPieceSquare.getRow() * 53), 
+							   53, 53);
 				}
 				// Revert back to the old color
 				g.setColor(oldColor);
@@ -381,9 +381,9 @@ public class AbstractLevelView extends JPanel {
 				g.setColor(toBeDrawn.getColor());
 				// Draw the PieceSquares
 				for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
-					g.fillRect(topPointToDraw.x + (aPieceSquare.getCol() * 51),
-							   topPointToDraw.y + (aPieceSquare.getRow() * 51), 
-							   51, 51);
+					g.fillRect(topPointToDraw.x + (aPieceSquare.getCol() * 53),
+							   topPointToDraw.y + (aPieceSquare.getRow() * 53), 
+							   53, 53);
 				}
 				// Revert back to the old color
 				g.setColor(oldColor);

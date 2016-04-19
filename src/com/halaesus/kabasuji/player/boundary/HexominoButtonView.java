@@ -21,7 +21,7 @@ public class HexominoButtonView extends JButton {
 		hexominoCount = -1;
 		// We gotta print the count label
 		theLabel = new JLabel(String.valueOf(hexominoCount), SwingConstants.RIGHT);
-		theLabel.setBounds(22, 22, 15, 15);
+		theLabel.setBounds(36, 36, 15, 15);
 		theLabel.setForeground(new Color(0, 100, 0));
 		// Make the text bold
 		Font labelFont = theLabel.getFont();

@@ -61,8 +61,8 @@ public class AbstractLevelView extends JPanel {
 	HexominoButtonView[] hexominoButton;
 	JButton rotateCC;
 	JButton rotateCW;
-	JButton flipH;
 	JButton flipV;
+	JButton flipH;
 	BufferedImage[] boardPieceSquares;
 	JLabel[] hexCount;
 	
@@ -95,27 +95,27 @@ public class AbstractLevelView extends JPanel {
 	}
 
 	private void setupPaletteControllers() {
-		// Create the FlipH Button
-		flipH = new JButton(new ImageIcon(flipHImage));
-		flipH.setBounds(214, 598, 90, 90);
-		flipH.addMouseListener(new FlipHInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
-		JButtonHelper.makeBackgroundTransparent(flipH);
-		add(flipH);
 		// Create the FlipV Button
 		flipV = new JButton(new ImageIcon(flipVImage));
-		flipV.setBounds(1, 360, 90, 90);
+		flipV.setBounds(230, 630, 90, 90);
 		flipV.addMouseListener(new FlipVInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
 		JButtonHelper.makeBackgroundTransparent(flipV);
 		add(flipV);
+		// Create the FlipH Button
+		flipH = new JButton(new ImageIcon(flipHImage));
+		flipH.setBounds(1, 400, 90, 90);
+		flipH.addMouseListener(new FlipHInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		JButtonHelper.makeBackgroundTransparent(flipH);
+		add(flipH);
 		// Create the RotateCC Button
 		rotateCC = new JButton(new ImageIcon(rotateCCImage));
-		rotateCC.setBounds(210, 355, 90, 90);
+		rotateCC.setBounds(230, 400, 90, 90);
 		rotateCC.addMouseListener(new RotateCCInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
 		JButtonHelper.makeBackgroundTransparent(rotateCC);
 		add(rotateCC);
 		// Create the RotateCW Button
 		rotateCW = new JButton(new ImageIcon(rotateCWImage));
-		rotateCW.setBounds(1, 593, 90, 90);
+		rotateCW.setBounds(1, 630, 90, 90);
 		rotateCW.addMouseListener(new RotateCWInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
 		JButtonHelper.makeBackgroundTransparent(rotateCW);
 		add(rotateCW);
@@ -167,14 +167,14 @@ public class AbstractLevelView extends JPanel {
 			starShadow = ImageIO.read(getClass().getResource("/resources/starShadow.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH);
 			rotateCCImage = ImageIO.read(getClass().getResource("/resources/rotateCC.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
 			rotateCWImage = ImageIO.read(getClass().getResource("/resources/rotateCW.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
-			flipVImage = ImageIO.read(getClass().getResource("/resources/flipHorizontal.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
-			flipHImage = ImageIO.read(getClass().getResource("/resources/flipVertical.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+			flipHImage = ImageIO.read(getClass().getResource("/resources/flipHorizontal.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+			flipVImage = ImageIO.read(getClass().getResource("/resources/flipVertical.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
 			// Hexomino Images
 			hexominoImages = new ImageIcon[35];
 			hexominoDisabledImages = new ImageIcon[35];
 			for(int i = 0; i < 35; i++) {
-				hexominoImages[i] = new ImageIcon(ImageIO.read(getClass().getResource("/resources/" + (i + 1) + ".jpg")).getScaledInstance(39, 39, Image.SCALE_SMOOTH));
-				hexominoDisabledImages[i] = new ImageIcon(ImageIO.read(getClass().getResource("/resources/" + (i + 1) + "_disabled.jpg")).getScaledInstance(39, 39, Image.SCALE_SMOOTH));
+				hexominoImages[i] = new ImageIcon(ImageIO.read(getClass().getResource("/resources/" + (i + 1) + ".jpg")).getScaledInstance(53, 53, Image.SCALE_SMOOTH));
+				hexominoDisabledImages[i] = new ImageIcon(ImageIO.read(getClass().getResource("/resources/" + (i + 1) + "_disabled.jpg")).getScaledInstance(53, 53, Image.SCALE_SMOOTH));
 			}
 		} catch (IOException e) {
 			// Can't do anything
@@ -189,9 +189,9 @@ public class AbstractLevelView extends JPanel {
 		// Iterate over all 35 hexominoes and add them to the board
 		for(int i = 0; i < 35; i++) {
 			// Set up coordinates
-			int width = 39; int height = 39;
-			int x = 16 + (39 * paletteColumn);
-			int y = 98 + (39 * paletteRow);
+			int width = 53; int height = 53;
+			int x = 1 + (53 * paletteColumn);
+			int y = 81 + (53 * paletteRow);
 			// Add the button
 			if( level.getLevelBullpen().getPalette().getHexomino(i).getCount() > 0 ) // If there are any pieces, show the colored piece image
 				hexominoButton[i] = new HexominoButtonView(hexominoImages[i]);
@@ -204,7 +204,7 @@ public class AbstractLevelView extends JPanel {
 			add(hexominoButton[i]);
 			
 			// Deal with the cycle overs of the rows and columns
-			if( (paletteColumn != 0) && (paletteColumn % 6 == 0) ) {
+			if( (paletteColumn != 0) && (paletteColumn % 5 == 0) ) {
 				paletteRow += 1; // We move to the next row
 				paletteColumn = 0; // We start from the zeroth column
 			} else
@@ -245,13 +245,13 @@ public class AbstractLevelView extends JPanel {
 
 	private void fixPalletteControllersVisibility() {
 		if( this.level.getLevelBullpen().getWorkspace().getPiece() != null ) {
-			flipH.setVisible(true);
 			flipV.setVisible(true);
+			flipH.setVisible(true);
 			rotateCC.setVisible(true);
 			rotateCW.setVisible(true);
 		} else {
-			flipH.setVisible(false);
 			flipV.setVisible(false);
+			flipH.setVisible(false);
 			rotateCC.setVisible(false);
 			rotateCW.setVisible(false);
 		}
@@ -508,23 +508,23 @@ public class AbstractLevelView extends JPanel {
 	}
 	
 	private void setupBoardPiecesTopPoint() {
-		boardPiecesTopPoint = new Point(330, 80);
+		boardPiecesTopPoint = new Point(320, 80);
 	}
 	
 	public Rectangle getBoardPieceRectangle(int row, int col) {
-		return new Rectangle(boardPiecesTopPoint.x + (51 * col), 
-				             boardPiecesTopPoint.y + (51 * row),
-				             51, 51);
+		return new Rectangle(boardPiecesTopPoint.x + (53 * col), 
+				             boardPiecesTopPoint.y + (53 * row),
+				             53, 53);
 	}
 	
 	private void setupBullpenPiecesBoardTopPoint() {
-		bullpenPiecesBoardTopPoint = new Point(38, 424);
+		bullpenPiecesBoardTopPoint = new Point(0, 399);
 	}
 	
 	public Rectangle getBullpenWorkspacePieceRectangle(int row, int col) {
-		return new Rectangle(bullpenPiecesBoardTopPoint.x + (38 * col), 
-				             bullpenPiecesBoardTopPoint.y + (38 * row), 
-				             38, 38);
+		return new Rectangle(bullpenPiecesBoardTopPoint.x + (53 * col), 
+				             bullpenPiecesBoardTopPoint.y + (53 * row), 
+				             53, 53);
 	}
 	
 	public void setPieceInWorkspace(Piece p) {

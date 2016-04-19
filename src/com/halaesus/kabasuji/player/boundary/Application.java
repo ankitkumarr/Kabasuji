@@ -24,11 +24,15 @@ public class Application extends JFrame {
 		// Basic GUI Stuff
 		setTitle("Kabasuji by Team Halaesus");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// TODO: setResizable(false); // Cannot rescale the window
+		setResizable(false); // Cannot rescale the window
 		// Set the size of the window
 		// REFERNECE: http://stackoverflow.com/a/5916271
 		setPreferredSize(new Dimension(1280, 720)); // Force the window to be 1280x720
 		pack(); // Force Swing to respect it
+		// Now, calculate the difference and set the new size
+		setPreferredSize(new Dimension(1280 + (1280 - getContentPane().getSize().width), 
+				                       720 + (720 - getContentPane().getSize().height)));
+		pack(); // Force Swing to resize
 		// Center in screen
 		setLocationRelativeTo(null); // Center in screen
 		// Save the Master Model given to us

@@ -7,6 +7,7 @@ import com.halaesus.kabasuji.player.entity.AbstractLevel;
 import com.halaesus.kabasuji.player.entity.LightningLevel;
 import com.halaesus.kabasuji.player.entity.Model;
 import com.halaesus.kabasuji.player.entity.PuzzleLevel;
+import com.halaesus.kabasuji.player.entity.ReleaseBoard;
 import com.halaesus.kabasuji.player.entity.ReleaseLevel;
 
 @SuppressWarnings("serial")

@@ -3,7 +3,8 @@ package com.halaesus.kabasuji.player.entity;
 import java.io.File;
 
 public class LightningLevel extends AbstractLevel {
-
+	
+	//LightningBoard lightningBoard;
     int numRandPieces;
     int elapsedTime;
     int maxTime;
@@ -14,6 +15,9 @@ public class LightningLevel extends AbstractLevel {
     	maxTime = 65; elapsedTime = 0; // TODO: Dummy values
     	// Set the game type in here
     	levelType = "Lightning";
+    	
+    	// TODO construct releaseBoard from file data
+    	board = new LightningBoard(null);
     }
 
     public int getTimeLeft() {

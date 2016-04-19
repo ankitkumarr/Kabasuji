@@ -99,5 +99,24 @@ public class Piece {
 
 		squares = centeredSquares;	
 	}
+	
+	public PieceSquare[] pushTopLeft() {
+		PieceSquare[] toReturn = Arrays.copyOf(squares, squares.length); // Make a copy as we'll be mutatin this copy
+		// Calculate the xMin, yMin and subtract that from all squares
+		int xMin = squares[0].getCol();
+		int yMin = squares[0].getRow();
+		
+		for(PieceSquare s: toReturn){
+			if (s.getCol() < xMin) xMin = s.getCol();
+			if (s.getRow() < yMin) yMin = s.getRow();			
+		}
+		// Remove this from all squares
+		for(int i = 0; i < toReturn.length; i++) {
+			toReturn[i].setCol(toReturn[i].getCol() - xMin);
+			toReturn[i].setRow(toReturn[i].getRow() - yMin);
+		}
+		// Finally, return the mutated PieceSquare[]
+		return toReturn;
+	}
 
 }

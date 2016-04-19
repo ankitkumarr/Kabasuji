@@ -45,15 +45,18 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 					if (s.getCol() < xMin) xMin = s.getCol();
 					if (s.getRow() < yMin) yMin = s.getRow();				
 				}
+				// Calculate Top_Left Rectangle Square
+				Rectangle topLeftPieceRect = this.levelView.getBullpenWorkspacePieceRectangle(yMin, xMin);
 				// Inform the Model
 				this.level.setDraggingActive(true);
-				this.level.setPieceBeingDragged(new Piece(thePiece.getColor(), thePiece.getPieceSquares()));
-				this.level.setTopPointOfDraggingPiece(new Point(this.levelView.getBullpenWorkspacePieceRectangle(yMin, xMin).x, 
-						                                        this.levelView.getBullpenWorkspacePieceRectangle(yMin, xMin).y));
-				this.level.setDraggingDistToPointX(e.getX() - this.levelView.getBullpenWorkspacePieceRectangle(yMin, xMin).x);
-				this.level.setDraggingDistToPointY(e.getY() - this.levelView.getBullpenWorkspacePieceRectangle(yMin, xMin).y);
+				this.level.setPieceBeingDragged(new Piece(thePiece.getColor(), thePiece.pushTopLeft()));
+				this.level.setTopPointOfDraggingPiece(new Point(topLeftPieceRect.x, topLeftPieceRect.y));
+				this.level.setDraggingDistToPointX(e.getX() - topLeftPieceRect.x);
+				this.level.setDraggingDistToPointY(e.getY() - topLeftPieceRect.y);
 				// Remove piece from Workspace
 				this.level.getLevelBullpen().getWorkspace().addPiece(null);
+				// Break out of the loop
+				break;
 			}
 		}
 	}

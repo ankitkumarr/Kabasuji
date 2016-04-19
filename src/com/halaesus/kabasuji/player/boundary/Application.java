@@ -1,5 +1,7 @@
 package com.halaesus.kabasuji.player.boundary;
 
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -22,8 +24,12 @@ public class Application extends JFrame {
 		// Basic GUI Stuff
 		setTitle("Kabasuji by Team Halaesus");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 1280, 720);
-		setResizable(false); // Cannot rescale the window
+		// TODO: setResizable(false); // Cannot rescale the window
+		// Set the size of the window
+		// REFERNECE: http://stackoverflow.com/a/5916271
+		setPreferredSize(new Dimension(1280, 720)); // Force the window to be 1280x720
+		pack(); // Force Swing to respect it
+		// Center in screen
 		setLocationRelativeTo(null); // Center in screen
 		// Save the Master Model given to us
 		this.masterModel = masterModel;

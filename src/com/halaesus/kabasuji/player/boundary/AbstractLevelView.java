@@ -49,9 +49,6 @@ public class AbstractLevelView extends JPanel {
 	private Image backgroundImage;
 	private Image backButton;
 	private Image starShadow;
-	private Image bullpenWindow;
-	private Image boardImage;
-	private Image paletteView;
 	private ImageIcon[] hexominoImages;
 	private ImageIcon[] hexominoDisabledImages;
 	private Image rotateCCImage;
@@ -165,12 +162,9 @@ public class AbstractLevelView extends JPanel {
 	
 	private void calculateScaledImages() {
 		try {
-			backgroundImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/playerBackground.jpg")).getScaledInstance(1280, -1, Image.SCALE_SMOOTH);
+			backgroundImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/gridWithBoard.jpg")).getScaledInstance(1280, -1, Image.SCALE_SMOOTH);
 			backButton = ImageIO.read(getClass().getResource("/resources/backButton.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH);
 			starShadow = ImageIO.read(getClass().getResource("/resources/starShadow.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH);
-			bullpenWindow = ImageIO.read(getClass().getResource("/resources/bullpenWindow.jpg")).getScaledInstance(-1, 612, Image.SCALE_SMOOTH);
-			boardImage = ImageIO.read(getClass().getResource("/resources/board.jpg")).getScaledInstance(612, 612, Image.SCALE_SMOOTH);
-			paletteView = ImageIO.read(getClass().getResource("/resources/paletteWindow.jpg")).getScaledInstance(288, 210, Image.SCALE_SMOOTH);
 			rotateCCImage = ImageIO.read(getClass().getResource("/resources/rotateCC.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
 			rotateCWImage = ImageIO.read(getClass().getResource("/resources/rotateCW.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
 			flipVImage = ImageIO.read(getClass().getResource("/resources/flipHorizontal.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
@@ -237,12 +231,8 @@ public class AbstractLevelView extends JPanel {
 		// Render BackToMainButton and Level Number
 		showBackToMainButton(g);
 		showUserStars(g);
-		// Setup left and right panels
-		setupLeftPanel(g);
-		setupRightPanel(g);
-		// Set up the game board and palette
+		// Set up the game board
 		setupGameBoard(g);
-		setupPalette(g);
 		// Draw a dragging piece
 		if( this.level.isDraggingActive() )
 			drawDraggingPiece(g);
@@ -269,11 +259,11 @@ public class AbstractLevelView extends JPanel {
 
 	private void showBackToMainButton(Graphics g) {
 		// Load up the image
-		g.drawImage(backButton, 10, 15, null);
+		g.drawImage(backButton, 10, 10, null);
 		// If this is the first paint:
 		if(!paintInitialized)
 			// Add it to the HashMap
-			clickMap.put(new Rectangle(10, 15, 60, 50), new ReturnToLevelSelector(myApplication));
+			clickMap.put(new Rectangle(10, 10, 60, 50), new ReturnToLevelSelector(myApplication));
 	}
 	
 	private void showUserStars(Graphics g) {
@@ -284,20 +274,7 @@ public class AbstractLevelView extends JPanel {
 		g.drawImage(starShadow, 1200, 9, null);
 	}
 	
-	private void setupLeftPanel(Graphics g) {
-		// Load up the left panel image
-		g.drawImage(bullpenWindow, 0, 80, null);
-	}
-	
-	private void setupRightPanel(Graphics g) {
-		// Load up the right panel image
-		g.drawImage(bullpenWindow, 968, 80, null);
-	}
-	
 	private void setupGameBoard(Graphics g) {
-		// Load up the board image in the middle of the two panels
-		g.drawImage(boardImage, 330, 80, null);
-		
 		// Backup old Graphics color
 		Color oldColor = g.getColor();
 		// Put in the new color
@@ -313,11 +290,6 @@ public class AbstractLevelView extends JPanel {
 		}
 		// Revert back to old color
 		g.setColor(oldColor);
-	}
-	
-	private void setupPalette(Graphics g) {
-		// Load up the palette board image in the left panel
-		g.drawImage(paletteView, 9, 90, null);
 	}
 	
 	private void drawDraggingPiece(Graphics g) {

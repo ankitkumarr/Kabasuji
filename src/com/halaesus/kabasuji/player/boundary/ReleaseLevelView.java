@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.*;
 
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
@@ -17,12 +16,11 @@ import com.halaesus.kabasuji.utils.JLabelHelper;
 public class ReleaseLevelView extends AbstractLevelView {
 
 	JLabel releaseModeLabel;
-	NumberBarView numberBar;
+	NumberBarView numberBarView;
 	Set<JLabel> numbers;
 	ReleaseLevel level;
 	ReleaseBoard rBoard;
 	
-
 	public ReleaseLevelView(Application anApplication, ReleaseLevel aLevel ) {
 		super(anApplication, aLevel);  // Let the super do its stuff
 		// Save the level
@@ -34,9 +32,7 @@ public class ReleaseLevelView extends AbstractLevelView {
 
 		numbers = new HashSet<JLabel>();
 		setupNumberLabels(rBoard.getReleaseNumbers());
-		numberBar = new NumberBarView();
-		
-		
+		numberBarView = new NumberBarView(level.getNumberBar());		
 	}
 
 	private void setupLevelTypeLabel() {
@@ -62,8 +58,8 @@ public class ReleaseLevelView extends AbstractLevelView {
 			if (num.getColor() == 3)n.setForeground(Color.CYAN);
 			n.setFont(releaseNumberFont);
 			this.numbers.add(n);
+			// Add it to the GUI
 			add(n);
-
 		}
 	}
 

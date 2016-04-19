@@ -14,6 +14,12 @@ public class ReleaseLevel extends AbstractLevel {
     	
     	// Set the game type in here
     	levelType = "Release";
+    	
+    	numberBar = new NumberBar();
+    }
+    
+        public NumberBar getNumberBar(){
+    	return this.numberBar;
     }
     
     

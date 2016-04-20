@@ -295,7 +295,6 @@ public class AbstractLevelView extends JPanel {
 	private void drawDraggingPiece(Graphics g) {
 		assert( this.level.isDraggingActive() == true ); // This function can only be called if there is a piece being dragged
 		// If a piece is being dragged, we'd draw that first
-		// TODO Shift this to a different function; Detect 50% Board Square
 		if( this.level.isDraggingActive() ) {
 			Piece toBeDrawn = this.level.getPieceBeingDragged();
 			Point topPointToDraw = this.level.getTopPointOfDraggingPiece();
@@ -345,7 +344,6 @@ public class AbstractLevelView extends JPanel {
 					// Iterate over all the Board Squares to see where to draw
 					Point checkPoint = new Point(topPointToDraw.x + 25, topPointToDraw.y + 25);
 					boolean exit = false; // To keep track if the loop should exit
-					// TODO: Control board overflow points; to the left of board, right of board
 					for(int r = 0; r < 12 && !exit; r++) {
 						for(int c = 0; c < 12 && !exit; c++) {
 							Rectangle boardRectangle = getBoardPieceRectangle(r, c);
@@ -389,99 +387,6 @@ public class AbstractLevelView extends JPanel {
 				g.setColor(oldColor);
 				
 			}
-			
-			/* Point top6x6MatrixPoint = this.level.getTopPointOfMatrix();
-			// Solve for xMin, xMax and yMin, yMax within the 6x6
-			PieceSquare[] squares = toBeDrawn.getPieceSquares();
-			int xMin = squares[0].getCol();
-			int xMax = squares[0].getCol();
-			int yMin = squares[0].getRow();
-			int yMax = squares[0].getRow();
-			
-			for (PieceSquare s: squares){
-				if (s.getCol() < xMin) xMin = s.getCol();
-				if (s.getCol() > xMax) xMax = s.getCol();
-				if (s.getRow() < yMin) yMin = s.getRow();
-				if (s.getRow() > yMax) yMax = s.getRow();				
-			}
-			// Make the tightest piece rectangle
-			Rectangle tightPieceRect = new Rectangle((xMin * 51) + top6x6MatrixPoint.x, 
-					                                 (yMin * 51) + top6x6MatrixPoint.y, 
-					                                 (xMax - xMin + 1) * 51, 
-					                                 (yMax - yMin + 1) * 51);
-			
-			// Get the square on that board that collides with top of the 6x6 Matrix being dragged
-			boolean exitLoop = false; 
-			int i = 0, j = 0;
-			for(i = 0; i < 12; i++) {
-				for(j = 0; j < 12; j++) {
-					if( boardPiecesMap.get((12 * i) + j).contains(new Point(top6x6MatrixPoint.x, 
-							                                                top6x6MatrixPoint.y)) ) 
-					{
-						exitLoop = true;
-						break;
-					}
-				}
-				// Check
-				if(exitLoop) break;
-			}
-			
-			// Go over all the 6 PieceSquares within the Piece
-			for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
-				// Save backup Graphics color
-				Color oldColor = g.getColor();
-				// Set new Colors
-				Color origPieceColor = toBeDrawn.getColor();
-				Color pieceTransparentColor = new Color(origPieceColor.getRed(), 
-						                                origPieceColor.getGreen(), 
-						                                origPieceColor.getBlue(), 
-						                                200);
-
-				// TODO: Check if piece is on active board bounds. Use board ka boundsFunction
-				// Get entire board rectangle
-				int xMinB = boardPiecesMap.get(0).x;
-				int yMinB = boardPiecesMap.get(0).y;
-				int xMaxB = boardPiecesMap.get(143).x + boardPiecesMap.get(143).width;
-				int yMaxB = boardPiecesMap.get(143).y + boardPiecesMap.get(143).height;
-				
-				// If within on board: Check TL in in board bounds and BR in board bounds
-				Rectangle boardRect = new Rectangle(xMinB, yMinB, xMaxB - yMinB, yMaxB - yMinB);
-				if( boardRect.contains(tightPieceRect.x + tightPieceRect.width,
-						               tightPieceRect.y + tightPieceRect.height) &&
-					boardRect.contains(tightPieceRect.x, tightPieceRect.y))  {
-					
-					// Set transparent color and paint
-					g.setColor(pieceTransparentColor);
-					// Draw it out
-					g.fillRect(top6x6MatrixPoint.x + (aPieceSquare.getCol() * 51), 
-							   top6x6MatrixPoint.y + (aPieceSquare.getRow() * 51), 
-							   51, 51);
-					
-					// Draw outline on the board
-					// Create new Graphics Object
-					Graphics2D graphics2d = (Graphics2D)g;
-					// Dashed Stroke
-					float dash[] = {10.0f};
-					BasicStroke dashed = new BasicStroke(3.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
-					// Set Color
-					graphics2d.setColor(Color.WHITE);
-					graphics2d.setStroke(dashed);
-					// Draw it out on the board
-					Rectangle rect = boardPiecesMap.get((12 * (i + aPieceSquare.getRow())) + j + aPieceSquare.getCol());
-					graphics2d.draw(rect);
-				} else {
-					// Set solid color and paint
-					g.setColor(origPieceColor);
-					// Draw it out
-					g.fillRect(top6x6MatrixPoint.x + (aPieceSquare.getCol() * 51),
-							   top6x6MatrixPoint.y + (aPieceSquare.getRow() * 51), 
-							   51, 51);
-				}
-				// Revert Graphics object back to original
-				g.setColor(oldColor);
-			}
-			
-			return; */
 		}
 	}
 	

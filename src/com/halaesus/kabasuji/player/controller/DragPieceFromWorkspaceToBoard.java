@@ -10,6 +10,7 @@ import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 import com.halaesus.kabasuji.player.entity.AbstractLevel;
 import com.halaesus.kabasuji.player.entity.Piece;
 import com.halaesus.kabasuji.player.entity.PieceSquare;
+import com.halaesus.kabasuji.player.entity.WorkspaceToBoardMove;
 
 public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotionListener{
 
@@ -74,9 +75,15 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 	public void mouseReleased(MouseEvent e) {
 		// Stop the drag if it was happening
 		if( level.isDraggingActive() ) {
+			// Create the move
+			WorkspaceToBoardMove theMove = new WorkspaceToBoardMove(this.levelView, this.level.getBoard(), this.level.getPieceBeingDragged(), this.level.getLevelBullpen());
+			// Now attempt the move
+			if( theMove.isValid(this.level) && theMove.doMove(this.level) ) {
+				// The move was performed
+			}
 			// If a piece was being dragged, then:
-			level.setDraggingActive(false);
-			level.setPieceBeingDragged(null);
+			// level.setDraggingActive(false);
+			// level.setPieceBeingDragged(null);
 			// Check to snap to board and mutate the board
 			// TODO
 			// TODO: Create the move class to perform it as well

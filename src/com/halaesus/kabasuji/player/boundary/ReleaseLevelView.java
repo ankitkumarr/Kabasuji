@@ -12,6 +12,9 @@ import com.halaesus.kabasuji.player.entity.ReleaseLevel;
 import com.halaesus.kabasuji.player.entity.ReleaseNumber;
 import com.halaesus.kabasuji.utils.JLabelHelper;
 
+/**
+ * @author Brian Keeley-DeBonis (bjkeeleydebonis@wpi.edu)
+ */
 @SuppressWarnings("serial")
 public class ReleaseLevelView extends AbstractLevelView {
 

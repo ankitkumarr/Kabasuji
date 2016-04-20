@@ -18,7 +18,7 @@ public class PuzzleLevel extends AbstractLevel {
     }
 
     public int getMovesLeft() {
-    	return 0;
+    	return 47;
         // TODO implement here
     }
 

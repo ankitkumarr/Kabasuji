@@ -11,11 +11,15 @@ import com.halaesus.kabasuji.player.entity.ReleaseNumber;
 
 //TODO make it so NumberBarView appears in the ReleaseLevelView UI
 
+/**
+ * @author Brian Keeley-DeBonis (bjkeeleydebonis@wpi.edu)
+ */
+
 @SuppressWarnings("serial")
 public class NumberBarView extends JPanel {
 	
 	NumberBar numberBar;
-	JLabel[] bars = new JLabel[18];
+	JLabel[][] bars = new JLabel[3][6];
 	
 	//private static final long serialVersionUID = -1510543478406922319L;
 
@@ -29,21 +33,23 @@ public class NumberBarView extends JPanel {
 	
 	private void setupNumberBarLabels() {
 		Font releaseNumberFont = new Font("releaseNumberFont", Font.BOLD, 35);
-		ReleaseNumber  rNumbers[] = numberBar.getNumbers();
-		for (int i = 0; i < 18; i++){
-			
-			JLabel n = new JLabel(Integer.toString(rNumbers[i].getValue()));
-			if (!rNumbers[i].getFound()) n.setText("");
-			n.setHorizontalAlignment(SwingConstants.CENTER);
-			n.setBounds(53 * (rNumbers[i].getValue()-1),
-					53 * (rNumbers[i].getColor()-1), 53, 53);
-			if (rNumbers[i].getColor() == 1)n.setForeground(Color.RED);
-			if (rNumbers[i].getColor() == 2)n.setForeground(Color.YELLOW);
-			if (rNumbers[i].getColor() == 3)n.setForeground(Color.CYAN);
-			n.setFont(releaseNumberFont);
-			this.bars[i] = n;
-			add(n);
+		ReleaseNumber  rNumbers[][] = numberBar.getNumbers();
+		
+		for (int j = 1; j <= 3; j++) {
+			for (int i = 1; i <= 6; i++) {
+				ReleaseNumber rn = rNumbers[j-1][i-1];
+				JLabel n = new JLabel(Integer.toString(rn.getValue()));
+				if (!rn.getCollected()) n.setText("");
+				n.setHorizontalAlignment(SwingConstants.CENTER);
+				n.setBounds(53 * (rn.getValue()-1),
+						53 * (rn.getColor()-1), 53, 53);
+				if (rn.getColor() == 1)n.setForeground(Color.RED);
+				if (rn.getColor() == 2)n.setForeground(Color.YELLOW);
+				if (rn.getColor() == 3)n.setForeground(Color.CYAN);
+				n.setFont(releaseNumberFont);
+				this.bars[j - 1][i - 1] = n;
+				add(n);
+			}
 		}
 	}
-	
 }

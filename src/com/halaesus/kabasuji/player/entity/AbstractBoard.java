@@ -1,9 +1,11 @@
 package com.halaesus.kabasuji.player.entity;
 
+import java.util.ArrayList;
+
 public class AbstractBoard {
 
 	BoardSquare[] squares;
-	Piece pieces;
+	ArrayList<Piece> pieces;
 
 	public AbstractBoard(BoardSquare[] square) {
 		// this.squares = square;
@@ -15,7 +17,8 @@ public class AbstractBoard {
 			boardSquares[i] = new BoardSquare(true);
 		}
 		this.squares = boardSquares;
-
+		// Initialize
+		this.pieces = new ArrayList<Piece>();
 	}
     
     public boolean isActive(int row, int col) {
@@ -23,8 +26,30 @@ public class AbstractBoard {
     }
 
     public boolean doesCollide(Piece p) {
+    	
+    	//This will store the squares 
+    	PieceSquare[] pSquares = p.getPieceSquares();
+    	
+    	//Iterating through each piece of the board
+    	for(Piece piece : pieces) {
+    		
+    		//Getting the piece suqares of each piece
+    		PieceSquare[] pieceSquares = piece.getPieceSquares();
+	    		for (int i = 0; i < 6 ; i++) {
+	    			
+	    			for (int j = 0; j < 6; j++) {
+	    			
+	    				//Comparing if the piecesquares are equal
+	    				if( (pSquares[i].getRow() == pieceSquares[j].getRow()) &&
+	    						(pSquares[i].getCol() == pieceSquares[j].getCol()))
+	    					return true;
+	    					
+	    			}
+    		
+	    		}
+    	}
+ 
     	return false;
-        // TODO implement here
     }
 
     public boolean isOutsideBounds(Piece p) {

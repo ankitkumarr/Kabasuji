@@ -83,17 +83,20 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 			WorkspaceToBoardMove theMove = new WorkspaceToBoardMove(this.levelView, this.level.getBoard(), this.level.getPieceBeingDragged(), this.level.getLevelBullpen());
 			// Now attempt the move
 			if( theMove.isValid(this.level) && theMove.doMove(this.level) ) {
-				// The move was performed
+				// The move was performed; Nothing to do
 			} else {
-				// The move wasn't performed; Stop the drag
-				level.setDraggingActive(false);
-				level.setDraggingDistToPointX(-1);
-				level.setDraggingDistToPointY(-1);
-				level.setPieceBeingDragged(null);
-				level.setTopPointOfDraggingPiece(null);
-				// Bring the piece back to the workspace
+				// The move wasn't performed; Bring the piece back to the workspace
 				this.level.getLevelBullpen().getWorkspace().addPiece(this.originalWorkspacePiece);
+				this.level.getLevelBullpen().getWorkspace().getPiece().centerPiece(); // Center it in the Workspace
 			}
+			// Stop the drag
+			level.setDraggingActive(false);
+			level.setDraggingDistToPointX(-1);
+			level.setDraggingDistToPointY(-1);
+			level.setPieceBeingDragged(null);
+			level.setTopPointOfDraggingPiece(null);
+			// Force a LevelView repaint
+			this.levelView.repaint();
 		}
 	}
 

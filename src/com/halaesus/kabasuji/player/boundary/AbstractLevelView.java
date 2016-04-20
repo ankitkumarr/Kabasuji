@@ -13,6 +13,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -233,6 +234,8 @@ public class AbstractLevelView extends JPanel {
 		showUserStars(g);
 		// Set up the game board
 		setupGameBoard(g);
+		// Draw all the board pieces
+		setupBoardPieces(g);
 		// Draw a dragging piece
 		if( this.level.isDraggingActive() )
 			drawDraggingPiece(g);
@@ -290,6 +293,26 @@ public class AbstractLevelView extends JPanel {
 		}
 		// Revert back to old color
 		g.setColor(oldColor);
+	}
+
+	private void setupBoardPieces(Graphics g) {
+		// Go over all the Pieces on the board and draw them out
+		for( Iterator<Piece> piecesIter = this.level.getBoard().getPieces(); piecesIter.hasNext();  ) {
+			// Grab the next piece from the iterator
+			Piece piece = piecesIter.next();
+			// Setup Graphics Color
+			Color oldColor = g.getColor();
+			g.setColor(piece.getColor());
+			// Go over all the PieceSquares and fill
+			for( PieceSquare pieceSquare : piece.getPieceSquares() ) {
+				// Get the rectangle to paint
+				Rectangle pieceRectangle = getBoardPieceRectangle(pieceSquare.getRow(), pieceSquare.getCol());
+				// Paint the rectangle
+				g.fillRect(pieceRectangle.x, pieceRectangle.y, pieceRectangle.width, pieceRectangle.height);
+			}
+			// Set Graphics back to original color
+			g.setColor(oldColor);
+		}
 	}
 	
 	private void drawDraggingPiece(Graphics g) {

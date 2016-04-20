@@ -1,6 +1,7 @@
 package com.halaesus.kabasuji.player.entity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class AbstractBoard {
 
@@ -61,4 +62,8 @@ public class AbstractBoard {
     	return this;    	
     }
 
+    public Iterator<Piece> getPieces() {
+    	return pieces.iterator();
+    }
+    
 }

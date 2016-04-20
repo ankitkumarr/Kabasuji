@@ -2,6 +2,7 @@ package com.halaesus.kabasuji.player.entity;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.Arrays;
 
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 
@@ -71,7 +72,35 @@ public class WorkspaceToBoardMove {
     	if( isValid(level) == false )
     		return false; // Also, the move should be valid for this function to be called
     	// Now, snap to the board at the location and update the underlying board
-    	return false; // TODO: Clean this up
+    	// STEP 1: Decrement Bullpen Count for the respective piece
+    	// TODO: Ask about ID Matching
+    	// STEP 2: Find the squares to snap to
+    	Point pushPoint = new Point(level.getTopPointOfDraggingPiece().x + 25, 
+    			                    level.getTopPointOfDraggingPiece().y + 25);
+    	boolean exit = false; // To keep track if the loop should exit
+		for(int r = 0; r < 12 && !exit; r++) {
+			for(int c = 0; c < 12 && !exit; c++) {
+				Rectangle boardRectangle = this.levelView.getBoardPieceRectangle(r, c);
+				// See if point lies there
+				if( boardRectangle.contains(pushPoint) ) {
+					Piece pieceDragged = level.getPieceBeingDragged();
+					PieceSquare[] pieceSquares = Arrays.copyOf(pieceDragged.getPieceSquares(), pieceDragged.getPieceSquares().length);
+					// Go over each PieceSquare now
+					for(int ctr = 0; ctr < pieceSquares.length; ctr++) {
+						// Update the row and col value
+						pieceSquares[ctr].col += c; // Add the board Column to the base Column
+						pieceSquares[ctr].row += r; // Add the board Row to the base Row
+					}
+					// Push the new piece to the board
+					// TODO: Remove transparency
+					level.getBoard().pieces.add(new Piece(pieceDragged.getColor(), pieceSquares));
+					// Finally, we're done painting, so exit the loop
+					exit = true;
+				}
+			}
+		}
+		// The move was successful, so:
+		return true;
     }
 
 }

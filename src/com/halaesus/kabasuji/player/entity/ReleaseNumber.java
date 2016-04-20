@@ -18,6 +18,11 @@ public class ReleaseNumber {
     public int getValue(){
     	return this.value;
     }
+    
+    public boolean getFound(){
+    	return this.found;    	
+    }
+    
     public void setFound(){
     	this.found = true;
     }

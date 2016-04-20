@@ -25,14 +25,15 @@ public class ReleaseLevelView extends AbstractLevelView {
 		super(anApplication, aLevel);  // Let the super do its stuff
 		// Save the level
 		level = aLevel;
-		
 		rBoard = (ReleaseBoard) aLevel.getBoard();
 		// Set up Puzzle Specific Layout Stuff
 		setupLevelTypeLabel();
 
 		numbers = new HashSet<JLabel>();
 		setupNumberLabels(rBoard.getReleaseNumbers());
-		numberBarView = new NumberBarView(level.getNumberBar());		
+		numberBarView = new NumberBarView(level.getNumberBar());
+		numberBarView.setBounds(324 + 53*12, 80, 53*6, 53*3);
+		add(numberBarView);
 	}
 
 	private void setupLevelTypeLabel() {
@@ -52,7 +53,7 @@ public class ReleaseLevelView extends AbstractLevelView {
 		for (ReleaseNumber num: rNumbers){
 			JLabel n = new JLabel(Integer.toString(num.getValue()));
 			n.setHorizontalAlignment(SwingConstants.CENTER);
-			n.setBounds(330 + 51 * num.getCol(), 80 + 51 * num.getRow(), 51, 51);
+			n.setBounds(320 + 53 * num.getCol(), 80 + 53 * num.getRow(), 53, 53);
 			if (num.getColor() == 1)n.setForeground(Color.RED);
 			if (num.getColor() == 2)n.setForeground(Color.YELLOW);
 			if (num.getColor() == 3)n.setForeground(Color.CYAN);

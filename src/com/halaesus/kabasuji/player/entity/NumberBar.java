@@ -43,7 +43,7 @@ public class NumberBar {
     
     // this function requires valid a valide ReleaseNumber to be passed in
     // a valid release number has an int value [1,6] and an int color [1,3]
-    public void addReleaseNumber(ReleaseNumber number){
+    public void addReleaseNumber(ReleaseNumber number) {
     	numbers[(number.getValue() * number.getColor()) - 1].setFound();
     }
 }

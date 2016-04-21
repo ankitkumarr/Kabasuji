@@ -1,58 +1,48 @@
 package com.halaesus.kabasuji.player.controller;
 
-
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
-import com.halaesus.kabasuji.player.entity.BoardToBoardMove;
+import com.halaesus.kabasuji.player.entity.AbstractLevel;
 
-/**
- * 
- */
-public class DragPieceFromBoardToBoard {
+public class DragPieceFromBoardToBoard implements MouseListener, MouseMotionListener {
 
-    /**
-     * Default constructor
-     */
-    public DragPieceFromBoardToBoard() {
-    }
-
-    /**
-     * 
-     */
-    BoardToBoardMove move;
-
-    /**
-     * 
-     */
     AbstractLevelView levelView;
+    AbstractLevel level;
 
-    /**
-     * @param BoardToBoardMove move 
-     * @param AbstractLevelView levelView
-     */
-    public DragPieceFromBoardToBoard(BoardToBoardMove move, AbstractLevelView levelView) {
-        // TODO implement here
+    public DragPieceFromBoardToBoard(AbstractLevel theLevel, AbstractLevelView levelView) {
+        // Save the information
+    	this.levelView = levelView;
+        this.level = theLevel;
     }
+    
+	@Override
+	public void mousePressed(MouseEvent e) {
+		
+	}
 
-    /**
-     * @param MouseEvent e
-     */
-    public void mousePressed(MouseEvent e) {
-        // TODO implement here
-    }
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		
+	}
 
-    /**
-     * @param MouseEvent e
-     */
-    public void mouseDragged(MouseEvent e) {
-        // TODO implement here
-    }
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		
+	}
 
-    /**
-     * @param MouseEvent e
-     */
-    public void mouseReleased(MouseEvent e) {
-        // TODO implement here
-    }
+	@Override
+	public void mouseClicked(MouseEvent e) { /* Nothing to do */ }
+
+	@Override
+	public void mouseEntered(MouseEvent e) { /* Nothing to do */ }
+
+	@Override
+	public void mouseExited(MouseEvent e) { /* Nothing to do */ }
+
+	@Override
+	public void mouseMoved(MouseEvent e) { /* Nothing to do */ }
 
 }

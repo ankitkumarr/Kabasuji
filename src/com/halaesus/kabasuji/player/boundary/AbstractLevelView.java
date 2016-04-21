@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 
 import com.halaesus.kabasuji.player.entity.PieceSquare;
 import com.halaesus.kabasuji.player.controller.ClickPieceInPalette;
+import com.halaesus.kabasuji.player.controller.DragPieceFromBoardToBoard;
 import com.halaesus.kabasuji.player.controller.DragPieceFromWorkspaceToBoard;
 import com.halaesus.kabasuji.player.controller.FlipHInWorkspace;
 import com.halaesus.kabasuji.player.controller.FlipVInWorkspace;
@@ -83,7 +84,7 @@ public class AbstractLevelView extends JPanel {
 		showLevelInfo();
 		// Calculate some scaled images for paintComponent function
 		calculateScaledImages();
-		// Set up Board Pieces Map and Bullpen Palette Pieces Top Point
+		// Set up Board Pieces Map and Bullpen Pallette Pieces Top Point
 		setupBoardPiecesTopPoint();
 		setupBullpenPiecesBoardTopPoint();
 		// Set up hexomino button views
@@ -149,6 +150,10 @@ public class AbstractLevelView extends JPanel {
 		DragPieceFromWorkspaceToBoard dragWorkspaceToBoard = new DragPieceFromWorkspaceToBoard(this.level, AbstractLevelView.this);
 		addMouseListener(dragWorkspaceToBoard);
 		addMouseMotionListener(dragWorkspaceToBoard);
+		// Add Listener for DragPieceFromBoardToBoard
+		DragPieceFromBoardToBoard dragBoardToBoard = new DragPieceFromBoardToBoard(this.level, AbstractLevelView.this);
+		addMouseListener(dragBoardToBoard);
+		addMouseMotionListener(dragBoardToBoard);
 	}
 	
 	private void showLevelInfo() {

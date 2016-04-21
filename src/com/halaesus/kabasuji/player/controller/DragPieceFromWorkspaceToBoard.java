@@ -14,9 +14,9 @@ import com.halaesus.kabasuji.player.entity.WorkspaceToBoardMove;
 
 public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotionListener{
 
-	AbstractLevel level;
     AbstractLevelView levelView;
-
+	AbstractLevel level;
+	
     public DragPieceFromWorkspaceToBoard(AbstractLevel theLevel, AbstractLevelView levelView) {
     	// Save the information
     	this.level = theLevel;

@@ -69,4 +69,8 @@ public class AbstractBoard {
     	return pieces.iterator();
     }
     
+    public void addPiece(Piece p) {
+    	this.pieces.add(p);
+    }
+    
 }

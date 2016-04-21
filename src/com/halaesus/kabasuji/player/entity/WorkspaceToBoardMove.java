@@ -74,7 +74,7 @@ public class WorkspaceToBoardMove {
 		if( snappedPiece == null )
 			return false; // We failed to snap to the board and hence the move wasn't completed
 		else
-			level.getBoard().pieces.add(snappedPiece); // Add the snapped Piece to the board
+			level.getBoard().addPiece(snappedPiece); // Add the snapped Piece to the board
     	// STEP 2: Decrement Bullpen Count for the respective piece
     	// TODO: Ask about ID Matching
 		// STEP 3: Mark underlying BoardSquares as filled

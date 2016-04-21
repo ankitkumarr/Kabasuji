@@ -150,6 +150,7 @@ public class AbstractLevelView extends JPanel {
 		DragPieceFromWorkspaceToBoard dragWorkspaceToBoard = new DragPieceFromWorkspaceToBoard(this.level, AbstractLevelView.this);
 		addMouseListener(dragWorkspaceToBoard);
 		addMouseMotionListener(dragWorkspaceToBoard);
+		// TODO: Level dependent implementation
 		// Add Listener for DragPieceFromBoardToBoard
 		DragPieceFromBoardToBoard dragBoardToBoard = new DragPieceFromBoardToBoard(this.level, AbstractLevelView.this);
 		addMouseListener(dragBoardToBoard);

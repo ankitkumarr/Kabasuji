@@ -5,6 +5,12 @@ import java.io.File;
 
 public class AbstractLevel {
 
+	// Some Constants
+	public static final int NO_DRAG_ACTIVE = -1;
+	public static final int DRAG_SOURCE_WORKSPACE = 1;
+	public static final int DRAG_SOURCE_BOARD = 2;
+	
+	// Level Specific Information
     AbstractBoard board;
     int starsAchieved;
     String levelType;
@@ -16,6 +22,7 @@ public class AbstractLevel {
     int draggingDistToPointX;
     int draggingDistToPointY;
     Piece pieceBeingDragged;
+    int dragSource = -1;
 
 	public AbstractLevel(File file) {
         // TODO implement here; Random stuff done here
@@ -94,6 +101,14 @@ public class AbstractLevel {
 
 	public void setTopPointOfDraggingPiece(Point topPointOfDraggingPiece) {
 		this.topPointOfDraggingPiece = topPointOfDraggingPiece;
+	}
+
+	public int getDragSource() {
+		return dragSource;
+	}
+
+	public void setDragSource(int dragSource) {
+		this.dragSource = dragSource;
 	}
 
 }

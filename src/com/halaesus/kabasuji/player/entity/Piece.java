@@ -106,7 +106,7 @@ public class Piece {
 	}
 	
 	public PieceSquare[] pushTopLeft() {
-		PieceSquare[] toReturn = Arrays.copyOf(squares, squares.length); // Make a copy as we'll be mutatin this copy
+		PieceSquare[] toReturn = Arrays.copyOf(squares, squares.length); // Make a copy as we'll be maintain this copy
 		// Calculate the xMin, yMin and subtract that from all squares
 		int xMin = squares[0].getCol();
 		int yMin = squares[0].getRow();

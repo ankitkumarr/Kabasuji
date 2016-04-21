@@ -50,12 +50,15 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 				Rectangle topLeftPieceRect = this.levelView.getBullpenWorkspacePieceRectangle(yMin, xMin);
 				// Inform the Model
 				this.level.setDraggingActive(true);
+				this.level.setDragSource(AbstractLevel.DRAG_SOURCE_WORKSPACE);
 				this.level.setPieceBeingDragged(new Piece(thePiece.getColor(), thePiece.pushTopLeft()));
 				this.level.setTopPointOfDraggingPiece(new Point(topLeftPieceRect.x, topLeftPieceRect.y));
 				this.level.setDraggingDistToPointX(e.getX() - topLeftPieceRect.x);
 				this.level.setDraggingDistToPointY(e.getY() - topLeftPieceRect.y);
 				// Remove piece from Workspace
 				this.level.getLevelBullpen().getWorkspace().addPiece(null);
+				// Force the LevelView to repaint
+				this.levelView.repaint();
 				// Break out of the loop
 				break;
 			}
@@ -64,17 +67,22 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// Form the new point to draw the Piece
-		this.level.setTopPointOfDraggingPiece(new Point(e.getX() - this.level.getDraggingDistToPointX(), 
-				                                        e.getY() - this.level.getDraggingDistToPointY()));
-		// Force the view to repaint
-		this.levelView.repaint();
+		// Only if the dragging is active, make the necessary changes
+		if( this.level.isDraggingActive() &&
+			this.level.getDragSource() == AbstractLevel.DRAG_SOURCE_WORKSPACE ) {
+			// Form the new point to draw the Piece
+			this.level.setTopPointOfDraggingPiece(new Point(e.getX() - this.level.getDraggingDistToPointX(), 
+					                                        e.getY() - this.level.getDraggingDistToPointY()));
+			// Force the view to repaint
+			this.levelView.repaint();
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// Stop the drag if it was happening
-		if( level.isDraggingActive() ) {
+		if( this.level.isDraggingActive() &&
+			this.level.getDragSource() == AbstractLevel.DRAG_SOURCE_WORKSPACE ) {
 			// Create the move
 			WorkspaceToBoardMove theMove = new WorkspaceToBoardMove(this.levelView, this.level.getBoard(), this.level.getPieceBeingDragged(), this.level.getLevelBullpen());
 			// Now attempt the move

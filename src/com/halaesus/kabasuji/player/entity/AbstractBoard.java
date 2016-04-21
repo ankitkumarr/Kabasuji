@@ -36,24 +36,31 @@ public class AbstractBoard {
     	
     	//Iterating through each piece of the board
     	for(Piece piece : pieces) {
-    		
-    		//Getting the piece suqares of each piece
+    		//Getting the piece Squares of each piece
     		PieceSquare[] pieceSquares = piece.getPieceSquares();
-	    		for (int i = 0; i < 6 ; i++) {
-	    			
-	    			System.out.println(pSquares[i].getRow() + " " + pSquares[i].getCol());
-	    			for (int j = 0; j < 6; j++) {
-	    				
-	    			
-	    				//Comparing if the piecesquares are equal
-	    				if( (pSquares[i].getRow() == pieceSquares[j].getRow()) &&
-	    						(pSquares[i].getCol() == pieceSquares[j].getCol()))
-	    					return true;
-	    					
-	    			}
-    		
-	    		}
+    		for (int i = 0; i < 6 ; i++) {
+    			for (int j = 0; j < 6; j++) {
+    				// Comparing if the PieceSquares are equal
+    				if( (pSquares[i].getRow() == pieceSquares[j].getRow()) &&
+    				    (pSquares[i].getCol() == pieceSquares[j].getCol()) )
+    					return true;
+    					
+    			}
+    		}
     	}
+		// TODO Remove
+		for( Piece pi : pieces ) {
+			System.out.print("Piece-DCF: ");
+			for( PieceSquare ps : pi.originalSquares ) {
+				System.out.print("R: " + ps.getRow() + "; C: " + ps.getCol() + "; ");
+			}
+			System.out.print("\n");
+		}
+		System.out.print("Piece-DCF-Incoming: ");
+		for( PieceSquare ps : p.originalSquares ) {
+			System.out.print("R: " + ps.getRow() + "; C: " + ps.getCol() + "; ");
+		}
+		System.out.print("\n");
  
     	return false;
     }

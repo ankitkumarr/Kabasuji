@@ -465,6 +465,11 @@ public class AbstractLevelView extends JPanel {
 				             53, 53);
 	}
 	
+	public Rectangle getBullpenBounds() {
+		// TODO: Fill this in
+		return null;
+	}
+	
 	public void setPieceInWorkspace(Piece p) {
 		level.getLevelBullpen().getWorkspace().addPiece(p); // Add the piece to the Workspace of the Level Bullpen
 		repaint(); // Force a repaint

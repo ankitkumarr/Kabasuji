@@ -131,10 +131,7 @@ public class DragPieceFromBoardToBoard implements MouseListener, MouseMotionList
 					                                        12 * this.levelView.getBoardPieceRectangle(0, 0).height);
 			
 			// STEP 3: Calculate the Bullpen Rectangle
-			Rectangle bullpenRectangle = new Rectangle(this.levelView.getBullpenWorkspacePieceRectangle(0, 0).x,
-													   this.levelView.getBullpenWorkspacePieceRectangle(0, 0).y,
-													   6 * 53, 6 * 53);
-			// TODO: Fix the bounds
+			Rectangle bullpenRectangle = this.levelView.getBullpenBounds();
 			
 			// STEP 4: Check where was it dropped
 			if( overallBoardRectangle.contains(tighestPieceRectangle) ) {

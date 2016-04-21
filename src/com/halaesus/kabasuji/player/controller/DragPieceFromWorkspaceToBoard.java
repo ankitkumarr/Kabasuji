@@ -84,7 +84,7 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 		if( this.level.isDraggingActive() &&
 			this.level.getDragSource() == AbstractLevel.DRAG_SOURCE_WORKSPACE ) {
 			// Create the move
-			WorkspaceToBoardMove theMove = new WorkspaceToBoardMove(this.levelView, this.level.getBoard(), this.level.getPieceBeingDragged(), this.level.getLevelBullpen());
+			WorkspaceToBoardMove theMove = new WorkspaceToBoardMove(this.levelView);
 			// Now attempt the move
 			if( theMove.isValid(this.level) && theMove.doMove(this.level) ) {
 				// The move was performed; Nothing to do

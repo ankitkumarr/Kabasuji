@@ -11,6 +11,7 @@ import com.halaesus.kabasuji.player.entity.Piece;
 import com.halaesus.kabasuji.player.entity.PieceSquare;
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 import com.halaesus.kabasuji.player.entity.AbstractLevel;
+import com.halaesus.kabasuji.player.entity.BoardToBoardMove;
 
 public class DragPieceFromBoardToBoard implements MouseListener, MouseMotionListener {
 
@@ -98,7 +99,6 @@ public class DragPieceFromBoardToBoard implements MouseListener, MouseMotionList
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO: Check where was it dropped, on board bounds or Bullpen Bounds
 		// Stop the drag if it was happening
 		if( this.level.isDraggingActive() &&
 			this.level.getDragSource() == AbstractLevel.DRAG_SOURCE_BOARD ) {
@@ -139,6 +139,15 @@ public class DragPieceFromBoardToBoard implements MouseListener, MouseMotionList
 			// STEP 4: Check where was it dropped
 			if( overallBoardRectangle.contains(tighestPieceRectangle) ) {
 				// It was dropped on the board itself; Spawn off the move
+				BoardToBoardMove theMove = new BoardToBoardMove(this.levelView);
+				// Now, attempt the move
+				if( theMove.isValid(this.level) && theMove.doMove(this.level, this.originalBoardPieceSquares) ) {
+					// The move was done; Nothing to do
+				} else {
+					// The move wasn't performed. Put the piece back to its original place
+					this.level.getBoard().addPiece(new Piece(this.level.getPieceBeingDragged().getColor(), originalBoardPieceSquares));
+					originalBoardPieceSquares = null; // Remove old piece squares
+				}
 			} else if( bullpenRectangle.contains(tighestPieceRectangle) ) {
 				
 			} else {
@@ -146,16 +155,15 @@ public class DragPieceFromBoardToBoard implements MouseListener, MouseMotionList
 				// Add the original piece back to the board
 				this.level.getBoard().addPiece(new Piece(this.level.getPieceBeingDragged().getColor(), originalBoardPieceSquares));
 				originalBoardPieceSquares = null; // Remove old piece squares
-				// Stop the drag
-				level.setDraggingActive(false);
-				level.setDraggingDistToPointX(-1);
-				level.setDraggingDistToPointY(-1);
-				level.setPieceBeingDragged(null);
-				level.setTopPointOfDraggingPiece(null);
-				// Force a LevelView repaint
-				this.levelView.repaint();
 			}
-			
+			// Nonetheless, stop the drag
+			level.setDraggingActive(false);
+			level.setDraggingDistToPointX(-1);
+			level.setDraggingDistToPointY(-1);
+			level.setPieceBeingDragged(null);
+			level.setTopPointOfDraggingPiece(null);
+			// Force a LevelView repaint
+			this.levelView.repaint();
 		}
 	}
 

@@ -10,7 +10,7 @@ public class WorkspaceToBoardMove {
 	
 	AbstractLevelView levelView;
 
-    public WorkspaceToBoardMove(AbstractLevelView levelView, AbstractBoard theBoard, Piece pieceDragged, Bullpen theBullpen) {
+    public WorkspaceToBoardMove(AbstractLevelView levelView) {
     	this.levelView = levelView;
     }
     

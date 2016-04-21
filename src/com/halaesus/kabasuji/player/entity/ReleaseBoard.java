@@ -6,7 +6,7 @@ public class ReleaseBoard extends AbstractBoard {
 
     Set<ReleaseNumber> numbers;
 
-	public ReleaseBoard(BoardSquare[] squares, Set<ReleaseNumber> numbers) {
+	public ReleaseBoard(BoardSquare[][] squares, Set<ReleaseNumber> numbers) {
 		super(squares);
 
 		// TODO remove this when we actually pass in releaseNumbers from a file

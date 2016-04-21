@@ -16,8 +16,6 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 
 	AbstractLevel level;
     AbstractLevelView levelView;
-    // TODO: Have this else add Piece ID
-    Piece originalWorkspacePiece;
 
     public DragPieceFromWorkspaceToBoard(AbstractLevel theLevel, AbstractLevelView levelView) {
     	// Save the information
@@ -33,8 +31,6 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 		// Go over all the PieceSquares of the Workspace Piece and see if a click took place there
 		Piece thePiece = level.getLevelBullpen().getWorkspace().getPiece();
 		PieceSquare[] squares = thePiece.getPieceSquares();
-		// TODO: Backup the workspace piece; Subject to removal
-		originalWorkspacePiece = new Piece(thePiece);
 		
 		for( PieceSquare aPieceSquare : squares ) {
 			// Get the Rectangle for this PieceSquare
@@ -86,7 +82,7 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 				// The move was performed; Nothing to do
 			} else {
 				// The move wasn't performed; Bring the piece back to the workspace
-				this.level.getLevelBullpen().getWorkspace().addPiece(this.originalWorkspacePiece);
+				this.level.getLevelBullpen().getWorkspace().addPiece(level.getPieceBeingDragged());
 				this.level.getLevelBullpen().getWorkspace().getPiece().centerPiece(); // Center it in the Workspace
 			}
 			// Stop the drag

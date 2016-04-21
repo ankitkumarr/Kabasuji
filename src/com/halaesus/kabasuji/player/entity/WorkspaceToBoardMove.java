@@ -8,18 +8,10 @@ import com.halaesus.kabasuji.utils.PieceHelper;
 
 public class WorkspaceToBoardMove {
 	
-	// TODO: Newly added ones
 	AbstractLevelView levelView;
-	// TODO: Old ones
-    AbstractBoard board;
-    Piece pieceDragged;
-    Bullpen bullpen;
 
     public WorkspaceToBoardMove(AbstractLevelView levelView, AbstractBoard theBoard, Piece pieceDragged, Bullpen theBullpen) {
     	this.levelView = levelView;
-    	this.board = theBoard; // TODO: Check with team if needed
-    	this.pieceDragged = pieceDragged;
-    	this.bullpen = theBullpen;
     }
     
     public boolean isValid(AbstractLevel level) {
@@ -77,14 +69,15 @@ public class WorkspaceToBoardMove {
     	if( isValid(level) == false )
     		return false; // Also, the move should be valid for this function to be called
     	// Now, snap to the board at the location and update the underlying board
-    	// STEP 1: Decrement Bullpen Count for the respective piece
-    	// TODO: Ask about ID Matching
-    	// STEP 2: Find the squares to snap to
+    	// STEP 1: Find the squares to snap to
 		Piece snappedPiece = PieceHelper.snapToNearestBoardSquare(level, this.levelView);
 		if( snappedPiece == null )
 			return false; // We failed to snap to the board and hence the move wasn't completed
 		else
 			level.getBoard().pieces.add(snappedPiece); // Add the snapped Piece to the board
+    	// STEP 2: Decrement Bullpen Count for the respective piece
+    	// TODO: Ask about ID Matching
+		
 		// The move was successful, so:
 		return true;
     }

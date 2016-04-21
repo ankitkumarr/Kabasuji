@@ -99,13 +99,13 @@ public class AbstractLevelView extends JPanel {
 	private void setupPaletteControllers() {
 		// Create the FlipV Button
 		flipV = new JButton(new ImageIcon(flipVImage));
-		flipV.setBounds(230, 630, 90, 90);
+		flipV.setBounds(1, 400, 90, 90);
 		flipV.addMouseListener(new FlipVInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
 		JButtonHelper.makeBackgroundTransparent(flipV);
 		add(flipV);
 		// Create the FlipH Button
 		flipH = new JButton(new ImageIcon(flipHImage));
-		flipH.setBounds(1, 400, 90, 90);
+		flipH.setBounds(230, 630, 90, 90);
 		flipH.addMouseListener(new FlipHInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
 		JButtonHelper.makeBackgroundTransparent(flipH);
 		add(flipH);

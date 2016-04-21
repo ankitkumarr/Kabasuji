@@ -12,8 +12,13 @@ public class Piece {
     public Piece(Color color, PieceSquare squareMap[]) {
         // Save the data
     	this.originalSquares = Arrays.copyOf(squareMap, squareMap.length);
-    	this.squares = squareMap;
     	this.color = color;
+    	
+    	// Make a fresh copy of the PieceSquares
+    	PieceSquare[] newPieceSquareArray = new PieceSquare[squareMap.length];
+    	for(int idx = 0; idx < squareMap.length; idx++)
+    		newPieceSquareArray[idx] = new PieceSquare(squareMap[idx]);
+    	this.squares = newPieceSquareArray;
     }
     
     public Piece(Piece toCopy) {

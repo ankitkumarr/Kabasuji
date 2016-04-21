@@ -2,9 +2,9 @@ package com.halaesus.kabasuji.player.entity;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.Arrays;
 
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
+import com.halaesus.kabasuji.utils.PieceHelper;
 
 public class WorkspaceToBoardMove {
 	
@@ -54,12 +54,17 @@ public class WorkspaceToBoardMove {
 		if( !overallBoardRectangle.contains(tighestPieceRectangle) )
 			return false; // Definitely not a valid move
 		
+		// Get the Piece that will Snap to the Board
+		Piece newPieceDragged = PieceHelper.snapToNearestBoardSquare(level, this.levelView);
+		if( newPieceDragged == null )
+			return false; // Failed to snap to the Board and hence, not a valid move
+
 		// Check if Piece overlaps
-		if( level.getBoard().doesCollide(pieceDragged) )
+		if( level.getBoard().doesCollide(newPieceDragged) )
 			return false; // We clash with some other piece and thus cannot complete the drag
 		
 		// Check if Piece is outside Active Board Bounds
-		if( level.getBoard().isOutsideBounds(pieceDragged) )
+		if( level.getBoard().isOutsideBounds(newPieceDragged) )
 			return false; // We are outside board active bounds and thus the drag cannot be completed
 		
 		// Finally, the move was valid, so:
@@ -75,30 +80,11 @@ public class WorkspaceToBoardMove {
     	// STEP 1: Decrement Bullpen Count for the respective piece
     	// TODO: Ask about ID Matching
     	// STEP 2: Find the squares to snap to
-    	Point pushPoint = new Point(level.getTopPointOfDraggingPiece().x + 25, 
-    			                    level.getTopPointOfDraggingPiece().y + 25);
-    	boolean exit = false; // To keep track if the loop should exit
-		for(int r = 0; r < 12 && !exit; r++) {
-			for(int c = 0; c < 12 && !exit; c++) {
-				Rectangle boardRectangle = this.levelView.getBoardPieceRectangle(r, c);
-				// See if point lies there
-				if( boardRectangle.contains(pushPoint) ) {
-					Piece pieceDragged = level.getPieceBeingDragged();
-					PieceSquare[] pieceSquares = Arrays.copyOf(pieceDragged.getPieceSquares(), pieceDragged.getPieceSquares().length);
-					// Go over each PieceSquare now
-					for(int ctr = 0; ctr < pieceSquares.length; ctr++) {
-						// Update the row and col value
-						pieceSquares[ctr].col += c; // Add the board Column to the base Column
-						pieceSquares[ctr].row += r; // Add the board Row to the base Row
-					}
-					// Push the new piece to the board
-					// TODO: Remove transparency
-					level.getBoard().pieces.add(new Piece(pieceDragged.getColor(), pieceSquares));
-					// Finally, we're done painting, so exit the loop
-					exit = true;
-				}
-			}
-		}
+		Piece snappedPiece = PieceHelper.snapToNearestBoardSquare(level, this.levelView);
+		if( snappedPiece == null )
+			return false; // We failed to snap to the board and hence the move wasn't completed
+		else
+			level.getBoard().pieces.add(snappedPiece); // Add the snapped Piece to the board
 		// The move was successful, so:
 		return true;
     }

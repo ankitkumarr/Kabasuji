@@ -20,6 +20,10 @@ public class PieceSquare extends AbstractSquare {
         this.col = col;
     }
     
+    public PieceSquare(PieceSquare toCopy) {
+    	this(toCopy.active, toCopy.col, toCopy.row);
+    }
+    
     public void setParentPiece(Piece parentPiece) {
 		this.parentPiece = parentPiece;
 	}
@@ -35,8 +39,7 @@ public class PieceSquare extends AbstractSquare {
 	public int getCol() {
 		return col;
 	}
-	
-	// TODO: Remove these setters
+
 	public void setRow(int row) {
 		this.row = row;
 	}

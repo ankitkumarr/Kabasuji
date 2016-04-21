@@ -34,6 +34,7 @@ import com.halaesus.kabasuji.player.entity.Piece;
 import com.halaesus.kabasuji.player.entity.SplashModel;
 import com.halaesus.kabasuji.utils.JButtonHelper;
 import com.halaesus.kabasuji.utils.JLabelHelper;
+import com.halaesus.kabasuji.utils.PieceHelper;
 
 @SuppressWarnings("serial")
 public class AbstractLevelView extends JPanel {
@@ -361,8 +362,11 @@ public class AbstractLevelView extends JPanel {
 				}
 				// Revert back to the old color
 				g.setColor(oldColor);
+				// Get the piece snapped to the board
+				Piece snappedPieceToBoard = PieceHelper.snapToNearestBoardSquare(this.level, AbstractLevelView.this);
 				// Check if the Piece falls within the right bounds and if it collides or not
-				if( !this.level.getBoard().doesCollide(toBeDrawn) && !this.level.getBoard().isOutsideBounds(toBeDrawn) ) {
+				if( !this.level.getBoard().doesCollide(snappedPieceToBoard) && 
+					!this.level.getBoard().isOutsideBounds(snappedPieceToBoard) ) {
 					// Draw the outline on the underlying board
 					// Iterate over all the Board Squares to see where to draw
 					Point checkPoint = new Point(topPointToDraw.x + 25, topPointToDraw.y + 25);

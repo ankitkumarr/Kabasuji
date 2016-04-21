@@ -5,17 +5,20 @@ import java.util.Iterator;
 
 public class AbstractBoard {
 
-	BoardSquare[] squares;
+	BoardSquare[][] squares;
 	ArrayList<Piece> pieces;
 
-	public AbstractBoard(BoardSquare[] square) {
+	public AbstractBoard(BoardSquare[][] square) {
 		// this.squares = square;
 		
 		// TODO remove this when we actually pass in board squares from a file
 		// BoardSquares
-		BoardSquare[] boardSquares = new BoardSquare[144];
-		for (int i = 0; i < 144; i++) {
-			boardSquares[i] = new BoardSquare(true);
+		BoardSquare[][] boardSquares = new BoardSquare[12][12];
+		for (int i = 0; i < 12; i++) {
+			for (int j = 0; j < 12; j++) {
+				boardSquares[i][j] = new BoardSquare(true);
+			}
+			
 		}
 		this.squares = boardSquares;
 		// Initialize
@@ -23,7 +26,7 @@ public class AbstractBoard {
 	}
     
     public boolean isActive(int row, int col) {
-    	return squares[(row * 12) + col].isActive();
+    	return squares[row][col].isActive();
     }
 
     public boolean doesCollide(Piece p) {
@@ -38,7 +41,9 @@ public class AbstractBoard {
     		PieceSquare[] pieceSquares = piece.getPieceSquares();
 	    		for (int i = 0; i < 6 ; i++) {
 	    			
+	    			System.out.println(pSquares[i].getRow() + " " + pSquares[i].getCol());
 	    			for (int j = 0; j < 6; j++) {
+	    				
 	    			
 	    				//Comparing if the piecesquares are equal
 	    				if( (pSquares[i].getRow() == pieceSquares[j].getRow()) &&
@@ -54,6 +59,14 @@ public class AbstractBoard {
     }
 
     public boolean isOutsideBounds(Piece p) {
+    	
+    	PieceSquare[] pSquares = p.getPieceSquares();
+    	for (int i = 0; i < p.getPieceSquares().length; i++)
+    	{
+    		
+    		if(!(squares[pSquares[i].getCol()][pSquares[i].getRow()].active))
+    			return true;
+    	}
     	return false;
         // TODO implement here
     }

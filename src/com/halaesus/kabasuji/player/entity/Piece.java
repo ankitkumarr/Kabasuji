@@ -6,12 +6,14 @@ import java.util.Arrays;
 public class Piece {
 
 	PieceSquare[] originalSquares;
+	Hexomino parentHexomino;
     PieceSquare[] squares; 
     Color color;
 
-    public Piece(Color color, PieceSquare squareMap[]) {
+    public Piece(Color color, PieceSquare squareMap[], Hexomino parentHexomino) {
         // Save the data
     	this.originalSquares = Arrays.copyOf(squareMap, squareMap.length);
+    	this.parentHexomino = parentHexomino;
     	this.color = color;
     	
     	// Make a fresh copy of the PieceSquares
@@ -22,7 +24,7 @@ public class Piece {
     }
     
     public Piece(Piece toCopy) {
-    	this(toCopy.color, toCopy.getPieceSquares());
+    	this(toCopy.color, toCopy.getPieceSquares(), toCopy.parentHexomino);
     }
     
     public PieceSquare[] getOriginalPieceSquares() {
@@ -35,6 +37,14 @@ public class Piece {
     
     public Color getColor() {
     	return color;
+    }
+    
+    public void setParentHexomino(Hexomino parentHexomino) {
+    	this.parentHexomino = parentHexomino;
+    }
+    
+    public Hexomino getParentHexomino() {
+    	return this.parentHexomino;
     }
 
     public void flipH() {

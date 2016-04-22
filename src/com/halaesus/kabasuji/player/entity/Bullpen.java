@@ -15,6 +15,8 @@ public class Bullpen {
     		Piece hexominoPiece = new Piece(PieceGenerator.pieces[i]);
     		// Now, add it to the Hexominoes class
     		hexominoes[i] = new Hexomino(i, hexominoPiece, this.workspace);
+    		// Set reference to the Hexomino
+    		hexominoes[i].getPiece().setParentHexomino(hexominoes[i]);
     	}
     	// Set the palette up with the hexominoes
     	this.palette = new Palette(hexominoes);

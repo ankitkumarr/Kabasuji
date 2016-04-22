@@ -70,7 +70,7 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 					// Inform the Model
 					this.level.setDraggingActive(true);
 					this.level.setDragSource(AbstractLevel.DRAG_SOURCE_BOARD);
-					this.level.setPieceBeingDragged(new Piece(aPiece.getColor(), aPiece.pushTopLeft()));
+					this.level.setPieceBeingDragged(new Piece(aPiece.getColor(), aPiece.pushTopLeft(), aPiece.getParentHexomino()));
 					this.level.setTopPointOfDraggingPiece(new Point(topLeftPieceRect.x, topLeftPieceRect.y));
 					this.level.setDraggingDistToPointX(e.getX() - topLeftPieceRect.x);
 					this.level.setDraggingDistToPointY(e.getY() - topLeftPieceRect.y);
@@ -170,7 +170,7 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 					// The move was done; Nothing to do
 				} else {
 					// The move wasn't performed. Put the piece back to its original place
-					this.level.getBoard().addPiece(new Piece(this.level.getPieceBeingDragged().getColor(), originalBoardPieceSquares));
+					this.level.getBoard().addPiece(new Piece(this.level.getPieceBeingDragged().getColor(), originalBoardPieceSquares, this.level.getPieceBeingDragged().getParentHexomino()));
 					originalBoardPieceSquares = null; // Remove old piece squares
 				}
 			} else if( bullpenRectangle.contains(tighestPieceRectangle) ) {
@@ -181,13 +181,13 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 					// The move was done; Nothing has to be done
 				} else {
 					// The move wasn't performed :( Put the piece back to where it was picked from
-					this.level.getBoard().addPiece(new Piece(this.level.getPieceBeingDragged().getColor(), originalBoardPieceSquares));
+					this.level.getBoard().addPiece(new Piece(this.level.getPieceBeingDragged().getColor(), originalBoardPieceSquares, this.level.getPieceBeingDragged().getParentHexomino()));
 					originalBoardPieceSquares = null; // Remove old piece squares
 				}
 			} else {
 				// It wasn't dropped on a valid location. Place the piece back to its source
 				// Add the original piece back to the board
-				this.level.getBoard().addPiece(new Piece(this.level.getPieceBeingDragged().getColor(), originalBoardPieceSquares));
+				this.level.getBoard().addPiece(new Piece(this.level.getPieceBeingDragged().getColor(), originalBoardPieceSquares, this.level.getPieceBeingDragged().getParentHexomino()));
 				originalBoardPieceSquares = null; // Remove old piece squares
 			}
 			// Nonetheless, stop the drag

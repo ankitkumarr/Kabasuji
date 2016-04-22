@@ -8,15 +8,18 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 @SuppressWarnings("serial")
 public class HexominoButtonView extends JButton {
 
 	private int hexominoCount;
 	private JLabel theLabel;
+	private Icon inactiveIcon;
+	private Icon activeIcon;
 	
-	public HexominoButtonView(Icon icon) {
-		super(icon); // Let the do its stuff
+	public HexominoButtonView(Icon activeIcon, Icon inactiveIcon) {
+		super(inactiveIcon); // Let the do its stuff with the inactive icon
 		this.setLayout(null); // We'd prefer a null layout
 		hexominoCount = -1;
 		// We gotta print the count label
@@ -30,6 +33,9 @@ public class HexominoButtonView extends JButton {
 		add(theLabel);
 		// Hide it though as count = -1
 		theLabel.setVisible(false);
+		// Save the icons
+		this.activeIcon = activeIcon;
+		this.inactiveIcon = inactiveIcon;
 	}
 
 	public void setHexominoCount(int hexominoCount) {
@@ -37,10 +43,35 @@ public class HexominoButtonView extends JButton {
 		// Update Label Text
 		theLabel.setText(String.valueOf(hexominoCount));
 		// Set the necessary visibility
-		if( hexominoCount >= 0 )
+		if( hexominoCount > 0 ) {
+			
 			theLabel.setVisible(true);
-		else
+			// Change the icon to an ActiveIcon if it is an Inactive icon
+			if( this.getIcon() == inactiveIcon ) {
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						HexominoButtonView.this.setIcon(activeIcon);
+						//HexominoButtonView.this.repaint();
+					}
+				});
+			}
+			
+		} else {
+			
 			theLabel.setVisible(false);
+			// Change the icon to an InactiveIcon if it is an Active Icon
+			if( this.getIcon() == activeIcon ) {
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						HexominoButtonView.this.setIcon(inactiveIcon);
+						//HexominoButtonView.this.repaint();
+					}
+				});
+			}
+			
+		}
 		// Request a repaint
 		repaint();
 	}

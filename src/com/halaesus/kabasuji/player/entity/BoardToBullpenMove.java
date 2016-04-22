@@ -55,7 +55,7 @@ public class BoardToBullpenMove {
 		for( PieceSquare aPieceSquare : originalPieceSquares )
 			level.getBoard().squares[aPieceSquare.getRow()][aPieceSquare.getCol()].filled = false;
 		// STEP 2: Increment Bullpen Count for the respective piece
-		// TODO: Ask about ID Matching
+		level.getPieceBeingDragged().getParentHexomino().setCount(level.getPieceBeingDragged().getParentHexomino().getCount() + 1);
 		
 		// The move was successful, so:
 		return true;

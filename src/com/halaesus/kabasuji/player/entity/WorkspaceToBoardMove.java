@@ -76,7 +76,7 @@ public class WorkspaceToBoardMove {
 		else
 			level.getBoard().addPiece(snappedPiece); // Add the snapped Piece to the board
     	// STEP 2: Decrement Bullpen Count for the respective piece
-    	// TODO: Ask about ID Matching
+    	level.getPieceBeingDragged().getParentHexomino().setCount(level.getPieceBeingDragged().getParentHexomino().getCount() - 1);
 		// STEP 3: Mark underlying BoardSquares as filled
 		for( PieceSquare aPieceSquare : snappedPiece.getPieceSquares() ) {
 			level.getBoard().squares[aPieceSquare.getRow()][aPieceSquare.getCol()].filled = true;

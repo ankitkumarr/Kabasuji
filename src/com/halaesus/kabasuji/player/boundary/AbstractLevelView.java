@@ -205,10 +205,7 @@ public class AbstractLevelView extends JPanel {
 			int x = 1 + (53 * paletteColumn);
 			int y = 81 + (53 * paletteRow);
 			// Add the button
-			if( level.getLevelBullpen().getPalette().getHexomino(i).getCount() > 0 ) // If there are any pieces, show the colored piece image
-				hexominoButton[i] = new HexominoButtonView(hexominoImages[i]);
-			else // If there are no pieces, show the disabled piece image
-				hexominoButton[i] = new HexominoButtonView(hexominoDisabledImages[i]);
+			hexominoButton[i] = new HexominoButtonView(hexominoImages[i], hexominoDisabledImages[i]);
 			// Add it to the GUI
 			hexominoButton[i].setHexominoCount(level.getLevelBullpen().getPalette().getHexomino(i).getCount());
 			hexominoButton[i].setBounds(x, y, width, height);
@@ -377,6 +374,7 @@ public class AbstractLevelView extends JPanel {
 	protected void paintComponent(Graphics g) {
 		// Check if the Pallette Controllers should be shown or not
 		fixPalletteControllersVisibility();
+		fixHexominoButtonCount();
 		// Now proceed to letting super do its job
 		super.paintComponent(g); // Let the JPanel do its stuff
 		// Render the background image
@@ -406,6 +404,13 @@ public class AbstractLevelView extends JPanel {
 			rotateCC.setVisible(false);
 			rotateCW.setVisible(false);
 		}
+	}
+
+	private void fixHexominoButtonCount() {
+		// Set the Hexomino Count only if the Count has changed (to prevent excessive Swing repainting)
+		for(int i = 0; i < 35; i++)
+			if( hexominoButton[i].getHexominoCount() != level.getLevelBullpen().getPalette().getHexomino(i).getCount() )
+				hexominoButton[i].setHexominoCount(level.getLevelBullpen().getPalette().getHexomino(i).getCount());
 	}
 
 	private void showBackToMainButton(Graphics g) {

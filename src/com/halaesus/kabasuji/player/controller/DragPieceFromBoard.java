@@ -94,6 +94,31 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 			// Form the new point to draw the Piece
 			this.level.setTopPointOfDraggingPiece(new Point(e.getX() - this.level.getDraggingDistToPointX(), 
 					                                        e.getY() - this.level.getDraggingDistToPointY()));
+			
+			// Check if the Piece is in the Bullpen Bounds
+			// STEP 1: Calculate tightest rectangle around PieceSquares
+			PieceSquare[] squares = this.level.getPieceBeingDragged().getPieceSquares();
+			int xMax = squares[0].getCol();
+			int yMax = squares[0].getRow();
+			
+			for( PieceSquare s: squares ){
+				if (s.getCol() > xMax)
+					xMax = s.getCol(); // We found a new max, save it
+				if (s.getRow() > yMax)
+					yMax = s.getRow(); // We found a new max, save it
+			}
+			
+			Rectangle tighestPieceRectangle = new Rectangle(this.level.getTopPointOfDraggingPiece().x, 
+					                                        this.level.getTopPointOfDraggingPiece().y, 
+					                                        (xMax + 1) * 53, 
+					                                        (yMax + 1) * 53);
+			
+			// STEP 2: Now check if the piece is in the Bullpen Bounds and make the necessary settings
+			if( this.levelView.getBullpenBounds().contains(tighestPieceRectangle) )
+				level.setPieceOverBullpen(true); // The piece is on the Bullpen Bounds
+			else
+				level.setPieceOverBullpen(false); // The piece is not on the Bullpen Bounds
+			
 			// Force the view to repaint
 			this.levelView.repaint();
 			
@@ -167,6 +192,7 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 			}
 			// Nonetheless, stop the drag
 			level.setDraggingActive(false);
+			level.setPieceOverBullpen(false);
 			level.setDraggingDistToPointX(-1);
 			level.setDraggingDistToPointY(-1);
 			level.setPieceBeingDragged(null);

@@ -18,7 +18,8 @@ public class AbstractLevel {
     int levelIndex;
     // Keep track of dragging stuff
     boolean isDraggingActive = false;
-    Point topPointOfDraggingPiece;
+    boolean pieceOverBullpen = false;
+	Point topPointOfDraggingPiece;
     int draggingDistToPointX;
     int draggingDistToPointY;
     Piece pieceBeingDragged;
@@ -61,8 +62,6 @@ public class AbstractLevel {
     	return bullpen;
     }
     
-  
-
 	public boolean isDraggingActive() {
 		return isDraggingActive;
 	}
@@ -109,6 +108,14 @@ public class AbstractLevel {
 
 	public void setDragSource(int dragSource) {
 		this.dragSource = dragSource;
+	}
+	
+    public boolean isPieceOverBullpen() {
+		return pieceOverBullpen;
+	}
+
+	public void setPieceOverBullpen(boolean pieceOverBullpen) {
+		this.pieceOverBullpen = pieceOverBullpen;
 	}
 
 }

@@ -95,6 +95,7 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 			}
 			// Stop the drag
 			level.setDraggingActive(false);
+			level.setPieceOverBullpen(false);
 			level.setDraggingDistToPointX(-1);
 			level.setDraggingDistToPointY(-1);
 			level.setPieceBeingDragged(null);

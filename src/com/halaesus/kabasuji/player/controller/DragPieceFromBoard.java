@@ -14,13 +14,13 @@ import com.halaesus.kabasuji.player.entity.AbstractLevel;
 import com.halaesus.kabasuji.player.entity.BoardToBoardMove;
 import com.halaesus.kabasuji.player.entity.BoardToBullpenMove;
 
-public class DragPieceFromBoardToBoard implements MouseListener, MouseMotionListener {
+public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 
     AbstractLevelView levelView;
     PieceSquare[] originalBoardPieceSquares;
     AbstractLevel level;
 
-    public DragPieceFromBoardToBoard(AbstractLevel theLevel, AbstractLevelView levelView) {
+    public DragPieceFromBoard(AbstractLevel theLevel, AbstractLevelView levelView) {
         // Save the information
     	this.levelView = levelView;
         this.level = theLevel;

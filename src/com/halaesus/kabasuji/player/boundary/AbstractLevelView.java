@@ -23,7 +23,7 @@ import javax.swing.JPanel;
 
 import com.halaesus.kabasuji.player.entity.PieceSquare;
 import com.halaesus.kabasuji.player.controller.ClickPieceInPalette;
-import com.halaesus.kabasuji.player.controller.DragPieceFromBoardToBoard;
+import com.halaesus.kabasuji.player.controller.DragPieceFromBoard;
 import com.halaesus.kabasuji.player.controller.DragPieceFromWorkspaceToBoard;
 import com.halaesus.kabasuji.player.controller.FlipHInWorkspace;
 import com.halaesus.kabasuji.player.controller.FlipVInWorkspace;
@@ -152,7 +152,7 @@ public class AbstractLevelView extends JPanel {
 		addMouseMotionListener(dragWorkspaceToBoard);
 		// TODO: Level dependent implementation
 		// Add Listener for DragPieceFromBoardToBoard
-		DragPieceFromBoardToBoard dragBoardToBoard = new DragPieceFromBoardToBoard(this.level, AbstractLevelView.this);
+		DragPieceFromBoard dragBoardToBoard = new DragPieceFromBoard(this.level, AbstractLevelView.this);
 		addMouseListener(dragBoardToBoard);
 		addMouseMotionListener(dragBoardToBoard);
 	}
@@ -246,7 +246,7 @@ public class AbstractLevelView extends JPanel {
 		// Draw a dragging piece
 		if( this.level.isDraggingActive() )
 			drawDraggingPiece(g);
-		// Draw a piece in the Workspace if there is one there and no dragging active
+		// Draw a piece in the Workspace
 		drawWorkspacePiece(g);
 		// A next call to this, will not be an initialization call
 		paintInitialized = true; // TODO: Check if this should be here or in the entity

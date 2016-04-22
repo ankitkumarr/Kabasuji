@@ -466,8 +466,7 @@ public class AbstractLevelView extends JPanel {
 	}
 	
 	public Rectangle getBullpenBounds() {
-		// TODO: Fill this in
-		return null;
+		return new Rectangle(0, 80, 320, 640);
 	}
 	
 	public void setPieceInWorkspace(Piece p) {

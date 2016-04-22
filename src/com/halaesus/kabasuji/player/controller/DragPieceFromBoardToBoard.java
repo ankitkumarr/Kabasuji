@@ -48,7 +48,9 @@ public class DragPieceFromBoardToBoard implements MouseListener, MouseMotionList
 				Rectangle pieceSquareRect = this.levelView.getBoardPieceRectangle(aPieceSquare.getRow(), aPieceSquare.getCol());
 				if( pieceSquareRect.contains(mouseClickLocation) ) {
 					// The click landed on this location
-					boardPieces.remove(); // Remove this piece from the Board
+					try {
+						boardPieces.remove(); // Remove this piece from the Board
+					} catch(IllegalStateException exp) { /* For some reason we couldn't remove th piece from the Board */ }
 					// Backup the Original Board PieceSquares
 					originalBoardPieceSquares = new PieceSquare[aPiece.getPieceSquares().length];
 					for(int idx = 0; idx < aPiece.getPieceSquares().length; idx++)

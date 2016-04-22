@@ -247,8 +247,7 @@ public class AbstractLevelView extends JPanel {
 		if( this.level.isDraggingActive() )
 			drawDraggingPiece(g);
 		// Draw a piece in the Workspace if there is one there and no dragging active
-		if( !this.level.isDraggingActive() )
-			drawWorkspacePiece(g);
+		drawWorkspacePiece(g);
 		// A next call to this, will not be an initialization call
 		paintInitialized = true; // TODO: Check if this should be here or in the entity
 	}
@@ -325,106 +324,103 @@ public class AbstractLevelView extends JPanel {
 	private void drawDraggingPiece(Graphics g) {
 		assert( this.level.isDraggingActive() == true ); // This function can only be called if there is a piece being dragged
 		// If a piece is being dragged, we'd draw that first
-		if( this.level.isDraggingActive() ) {
-			Piece toBeDrawn = this.level.getPieceBeingDragged();
-			Point topPointToDraw = this.level.getTopPointOfDraggingPiece();
+		Piece toBeDrawn = this.level.getPieceBeingDragged();
+		Point topPointToDraw = this.level.getTopPointOfDraggingPiece();
+		
+		// Calculate tightest rectangle around PieceSquares
+		PieceSquare[] squares = toBeDrawn.getPieceSquares();
+		int xMax = squares[0].getCol();
+		int yMax = squares[0].getRow();
+		
+		for( PieceSquare s: squares ){
+			if (s.getCol() > xMax)
+				xMax = s.getCol(); // We found a new max, save it
+			if (s.getRow() > yMax)
+				yMax = s.getRow(); // We found a new max, save it
+		}
+		
+		Rectangle tighestPieceRectangle = new Rectangle(topPointToDraw.x, 
+				                                        topPointToDraw.y, 
+				                                        (xMax + 1) * 53, 
+				                                        (yMax + 1) * 53);
+		
+		// Calculate the Board Rectangle
+		Rectangle overallBoardRectangle = new Rectangle(boardPiecesTopPoint.x, boardPiecesTopPoint.y, 12 * 53, 12 * 53);
+		
+		// Check if Piece within board bounds
+		if( overallBoardRectangle.contains(tighestPieceRectangle) ) {
 			
-			// Calculate tightest rectangle around PieceSquares
-			PieceSquare[] squares = toBeDrawn.getPieceSquares();
-			int xMax = squares[0].getCol();
-			int yMax = squares[0].getRow();
-			
-			for( PieceSquare s: squares ){
-				if (s.getCol() > xMax)
-					xMax = s.getCol(); // We found a new max, save it
-				if (s.getRow() > yMax)
-					yMax = s.getRow(); // We found a new max, save it
+			// We render the Piece Translucent and check for further board things
+			// Backup Graphics Color
+			Color oldColor = g.getColor();
+			// Save a new one
+			g.setColor(new Color(toBeDrawn.getColor().getRed(), 
+		                         toBeDrawn.getColor().getGreen(), 
+		                         toBeDrawn.getColor().getBlue(), 
+		                         200));
+			// Draw the PieceSquares
+			for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
+				g.fillRect(topPointToDraw.x + (aPieceSquare.getCol() * 53),
+						   topPointToDraw.y + (aPieceSquare.getRow() * 53), 
+						   53, 53);
 			}
-			
-			Rectangle tighestPieceRectangle = new Rectangle(topPointToDraw.x, 
-					                                        topPointToDraw.y, 
-					                                        (xMax + 1) * 53, 
-					                                        (yMax + 1) * 53);
-			
-			// Calculate the Board Rectangle
-			Rectangle overallBoardRectangle = new Rectangle(boardPiecesTopPoint.x, boardPiecesTopPoint.y, 12 * 53, 12 * 53);
-			
-			// Check if Piece within board bounds
-			if( overallBoardRectangle.contains(tighestPieceRectangle) ) {
-				
-				// We render the Piece Translucent and check for further board things
-				// Backup Graphics Color
-				Color oldColor = g.getColor();
-				// Save a new one
-				g.setColor(new Color(toBeDrawn.getColor().getRed(), 
-			                         toBeDrawn.getColor().getGreen(), 
-			                         toBeDrawn.getColor().getBlue(), 
-			                         200));
-				// Draw the PieceSquares
-				for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
-					g.fillRect(topPointToDraw.x + (aPieceSquare.getCol() * 53),
-							   topPointToDraw.y + (aPieceSquare.getRow() * 53), 
-							   53, 53);
-				}
-				// Revert back to the old color
-				g.setColor(oldColor);
-				// Get the piece snapped to the board
-				Piece snappedPieceToBoard = PieceHelper.snapToNearestBoardSquare(this.level, AbstractLevelView.this);
-				// Check if the Piece falls within the right bounds and if it collides or not
-				if( !this.level.getBoard().doesCollide(snappedPieceToBoard) && 
-					!this.level.getBoard().isOutsideBounds(snappedPieceToBoard) ) {
-					// Draw the outline on the underlying board
-					// Iterate over all the Board Squares to see where to draw
-					Point checkPoint = new Point(topPointToDraw.x + 25, topPointToDraw.y + 25);
-					boolean exit = false; // To keep track if the loop should exit
-					for(int r = 0; r < 12 && !exit; r++) {
-						for(int c = 0; c < 12 && !exit; c++) {
-							Rectangle boardRectangle = getBoardPieceRectangle(r, c);
-							// See if point lies there
-							if( boardRectangle.contains(checkPoint) ) {
-								// Create new Graphics Object
-								Graphics2D graphics2d = (Graphics2D)g;
-								// Dashed Stroke
-								float dash[] = {6.0f};
-								BasicStroke dashed = new BasicStroke(3.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
-								// Set Color
-								graphics2d.setColor(Color.WHITE);
-								graphics2d.setStroke(dashed);
-								// Go over each PieceSquare now
-								for( PieceSquare square : toBeDrawn.getPieceSquares() ) {
-									// Draw them out on the board
-									Rectangle rect = getBoardPieceRectangle(r + square.getRow(), c + square.getCol());
-									graphics2d.draw(rect);
-								}
-								// Finally, we're done painting, so exit the loop
-								exit = true;
+			// Revert back to the old color
+			g.setColor(oldColor);
+			// Get the piece snapped to the board
+			Piece snappedPieceToBoard = PieceHelper.snapToNearestBoardSquare(this.level, AbstractLevelView.this);
+			// Check if the Piece falls within the right bounds and if it collides or not
+			if( !this.level.getBoard().doesCollide(snappedPieceToBoard) && 
+				!this.level.getBoard().isOutsideBounds(snappedPieceToBoard) ) {
+				// Draw the outline on the underlying board
+				// Iterate over all the Board Squares to see where to draw
+				Point checkPoint = new Point(topPointToDraw.x + 25, topPointToDraw.y + 25);
+				boolean exit = false; // To keep track if the loop should exit
+				for(int r = 0; r < 12 && !exit; r++) {
+					for(int c = 0; c < 12 && !exit; c++) {
+						Rectangle boardRectangle = getBoardPieceRectangle(r, c);
+						// See if point lies there
+						if( boardRectangle.contains(checkPoint) ) {
+							// Create new Graphics Object
+							Graphics2D graphics2d = (Graphics2D)g;
+							// Dashed Stroke
+							float dash[] = {6.0f};
+							BasicStroke dashed = new BasicStroke(3.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
+							// Set Color
+							graphics2d.setColor(Color.WHITE);
+							graphics2d.setStroke(dashed);
+							// Go over each PieceSquare now
+							for( PieceSquare square : toBeDrawn.getPieceSquares() ) {
+								// Draw them out on the board
+								Rectangle rect = getBoardPieceRectangle(r + square.getRow(), c + square.getCol());
+								graphics2d.draw(rect);
 							}
+							// Finally, we're done painting, so exit the loop
+							exit = true;
 						}
 					}
 				}
-				
-			} else {
-				
-				// We render the Piece normally
-				// Backup Graphics Color
-				Color oldColor = g.getColor();
-				// Save a new one
-				g.setColor(toBeDrawn.getColor());
-				// Draw the PieceSquares
-				for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
-					g.fillRect(topPointToDraw.x + (aPieceSquare.getCol() * 53),
-							   topPointToDraw.y + (aPieceSquare.getRow() * 53), 
-							   53, 53);
-				}
-				// Revert back to the old color
-				g.setColor(oldColor);
-				
 			}
+			
+		} else {
+			
+			// We render the Piece normally
+			// Backup Graphics Color
+			Color oldColor = g.getColor();
+			// Save a new one
+			g.setColor(toBeDrawn.getColor());
+			// Draw the PieceSquares
+			for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
+				g.fillRect(topPointToDraw.x + (aPieceSquare.getCol() * 53),
+						   topPointToDraw.y + (aPieceSquare.getRow() * 53), 
+						   53, 53);
+			}
+			// Revert back to the old color
+			g.setColor(oldColor);
+			
 		}
 	}
 	
 	private void drawWorkspacePiece(Graphics g) {
-		assert( this.level.isDraggingActive() == false ); // This function can only be called if there is no piece being dragged
 		// Check if there is a piece in the workspace
 		if( level.getLevelBullpen().getWorkspace().pieceExists() ) {
 			// We gotta draw it out

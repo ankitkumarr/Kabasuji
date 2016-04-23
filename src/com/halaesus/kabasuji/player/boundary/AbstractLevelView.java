@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -468,6 +469,57 @@ public class AbstractLevelView extends JPanel {
 		}
 	}
 	
+	public void drawHighlight(Graphics g, Piece toBeDrawn) {
+		// Add a highlight and shadow to our Piece - Brian KD
+
+		Graphics2D g2d = (Graphics2D) g.create();
+		// create our settings for line
+		int strokeWidth = 6;
+		Stroke strokeStyle = new BasicStroke(strokeWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND);
+		g2d.setStroke(strokeStyle);
+
+		for (PieceSquare aPieceSquare : toBeDrawn.getPieceSquares()) {
+			// creates a copy of the Graphics instance
+
+			// get the boundary information of the current square to draw
+			// highlights
+			Rectangle squareRect = getBullpenWorkspacePieceRectangle(aPieceSquare.getRow(), aPieceSquare.getCol());
+
+			// add the right shadow
+			Color rightShadow = toBeDrawn.getColor().darker();
+			if (toBeDrawn.noSquareRight(aPieceSquare)) {
+				g2d.setColor(rightShadow);
+				g2d.drawLine(squareRect.x + (int) squareRect.getWidth() - strokeWidth / 2,
+						squareRect.y + strokeWidth / 2, squareRect.x + (int) squareRect.getWidth() - strokeWidth / 2,
+						squareRect.y + strokeWidth / 2 + (int) squareRect.getHeight());
+			}
+			// add the right highlight
+			Color rightHighlight = toBeDrawn.getColor().brighter();
+			if (toBeDrawn.noSquareLeft(aPieceSquare)) {
+				g2d.setColor(rightHighlight);
+				g2d.drawLine(squareRect.x + strokeWidth / 2, squareRect.y + strokeWidth / 2,
+						squareRect.x + strokeWidth / 2, squareRect.y + strokeWidth / 2 + (int) squareRect.getHeight());
+			}
+			// add the top highlight
+			Color highlight = toBeDrawn.getColor().brighter().brighter();
+			if (toBeDrawn.noSquareAbove(aPieceSquare)) {
+				g2d.setColor(highlight);
+				g2d.drawLine(squareRect.x + strokeWidth / 2, squareRect.y + strokeWidth / 2,
+						squareRect.x + (int) squareRect.getWidth() - strokeWidth / 2, squareRect.y + strokeWidth / 2);
+			}
+			// add the bottom shadow
+			Color bottomShadow = toBeDrawn.getColor().darker().darker();
+			if (toBeDrawn.noSquareBelow(aPieceSquare)) {
+				g2d.setColor(bottomShadow);
+				g2d.drawLine(squareRect.x + strokeWidth / 2,
+						squareRect.y + strokeWidth / 2 + (int) squareRect.getHeight(),
+						squareRect.x + (int) squareRect.getWidth() - strokeWidth / 2,
+						squareRect.y + strokeWidth / 2 + (int) squareRect.getHeight());
+			}
+		}
+		g2d.dispose();
+	}
+	
 	private void drawWorkspacePiece(Graphics g) {
 		// Check if there is a piece in the workspace
 		if( level.getLevelBullpen().getWorkspace().pieceExists() ) {
@@ -486,6 +538,7 @@ public class AbstractLevelView extends JPanel {
 				// Reset the color
 				g.setColor(oldColor);
 			}
+			drawHighlight(g, toBeDrawn);
 		}
 	}
 	

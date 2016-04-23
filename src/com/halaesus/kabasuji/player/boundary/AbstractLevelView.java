@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -275,6 +276,9 @@ public class AbstractLevelView extends JPanel {
 		Piece toBeDrawn = this.level.getPieceBeingDragged();
 		Point topPointToDraw = this.level.getTopPointOfDraggingPiece();
 		
+		// for bevel effect
+		ArrayList<Rectangle> bevelRects = new ArrayList<Rectangle>();
+		
 		// Calculate tightest rectangle around PieceSquares
 		PieceSquare[] squares = toBeDrawn.getPieceSquares();
 		int xMax = squares[0].getCol();
@@ -308,10 +312,17 @@ public class AbstractLevelView extends JPanel {
 		                         200));
 			// Draw the PieceSquares
 			for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
-				g.fillRect(topPointToDraw.x + (aPieceSquare.getCol() * 53),
-						   topPointToDraw.y + (aPieceSquare.getRow() * 53), 
-						   53, 53);
+				int x, y, width, height;
+				x = topPointToDraw.x + (aPieceSquare.getCol() * 53);
+				y = topPointToDraw.y + (aPieceSquare.getRow() * 53);
+				width = 53;
+				height = 53;		
+				g.fillRect(x, y, width, height);
+				// fill our arrray of rectangles for bevel effect
+				bevelRects.add(new Rectangle(x, y, width, height));
 			}
+			PieceHelper.drawBevel(g, toBeDrawn, bevelRects);
+						
 			// Revert back to the old color
 			g.setColor(oldColor);
 			// Get the piece snapped to the board
@@ -361,12 +372,19 @@ public class AbstractLevelView extends JPanel {
 		                         200));
 			// Draw the PieceSquares
 			for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
-				g.fillRect(topPointToDraw.x + (aPieceSquare.getCol() * 53),
-						   topPointToDraw.y + (aPieceSquare.getRow() * 53), 
-						   53, 53);
+				int x, y, width, height;
+				x = topPointToDraw.x + (aPieceSquare.getCol() * 53);
+				y = topPointToDraw.y + (aPieceSquare.getRow() * 53);
+				width = 53;
+				height = 53;		
+				g.fillRect(x, y, width, height);
+				// fill our arrray of rectangles for bevel effect
+				bevelRects.add(new Rectangle(x, y, width, height));
 			}
 			// Revert back to the old color
 			g.setColor(oldColor);
+			
+			PieceHelper.drawBevel(g, toBeDrawn, bevelRects);
 			
 		}
 	}
@@ -458,67 +476,21 @@ public class AbstractLevelView extends JPanel {
 			Color oldColor = g.getColor();
 			g.setColor(piece.getColor());
 			// Go over all the PieceSquares and fill
+			ArrayList<Rectangle> bevelRects = new ArrayList<Rectangle>();
 			for( PieceSquare pieceSquare : piece.getPieceSquares() ) {
 				// Get the rectangle to paint
 				Rectangle pieceRectangle = getBoardPieceRectangle(pieceSquare.getRow(), pieceSquare.getCol());
 				// Paint the rectangle
 				g.fillRect(pieceRectangle.x, pieceRectangle.y, pieceRectangle.width, pieceRectangle.height);
-			}
+				// add to our bevelRect
+				bevelRects.add(pieceRectangle);
+				}
+			PieceHelper.drawBevel(g, piece, bevelRects);
 			// Set Graphics back to original color
 			g.setColor(oldColor);
 		}
 	}
-	
-	public void drawHighlight(Graphics g, Piece toBeDrawn) {
-		// Add a highlight and shadow to our Piece - Brian KD
 
-		Graphics2D g2d = (Graphics2D) g.create();
-		// create our settings for line
-		int strokeWidth = 6;
-		Stroke strokeStyle = new BasicStroke(strokeWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND);
-		g2d.setStroke(strokeStyle);
-
-		for (PieceSquare aPieceSquare : toBeDrawn.getPieceSquares()) {
-			// creates a copy of the Graphics instance
-
-			// get the boundary information of the current square to draw
-			// highlights
-			Rectangle squareRect = getBullpenWorkspacePieceRectangle(aPieceSquare.getRow(), aPieceSquare.getCol());
-
-			// add the right shadow
-			Color rightShadow = toBeDrawn.getColor().darker();
-			if (toBeDrawn.noSquareRight(aPieceSquare)) {
-				g2d.setColor(rightShadow);
-				g2d.drawLine(squareRect.x + (int) squareRect.getWidth() - strokeWidth / 2,
-						squareRect.y + strokeWidth / 2, squareRect.x + (int) squareRect.getWidth() - strokeWidth / 2,
-						squareRect.y + strokeWidth / 2 + (int) squareRect.getHeight());
-			}
-			// add the right highlight
-			Color rightHighlight = toBeDrawn.getColor().brighter();
-			if (toBeDrawn.noSquareLeft(aPieceSquare)) {
-				g2d.setColor(rightHighlight);
-				g2d.drawLine(squareRect.x + strokeWidth / 2, squareRect.y + strokeWidth / 2,
-						squareRect.x + strokeWidth / 2, squareRect.y + strokeWidth / 2 + (int) squareRect.getHeight());
-			}
-			// add the top highlight
-			Color highlight = toBeDrawn.getColor().brighter().brighter();
-			if (toBeDrawn.noSquareAbove(aPieceSquare)) {
-				g2d.setColor(highlight);
-				g2d.drawLine(squareRect.x + strokeWidth / 2, squareRect.y + strokeWidth / 2,
-						squareRect.x + (int) squareRect.getWidth() - strokeWidth / 2, squareRect.y + strokeWidth / 2);
-			}
-			// add the bottom shadow
-			Color bottomShadow = toBeDrawn.getColor().darker().darker();
-			if (toBeDrawn.noSquareBelow(aPieceSquare)) {
-				g2d.setColor(bottomShadow);
-				g2d.drawLine(squareRect.x + strokeWidth / 2,
-						squareRect.y + strokeWidth / 2 + (int) squareRect.getHeight(),
-						squareRect.x + (int) squareRect.getWidth() - strokeWidth / 2,
-						squareRect.y + strokeWidth / 2 + (int) squareRect.getHeight());
-			}
-		}
-		g2d.dispose();
-	}
 	
 	private void drawWorkspacePiece(Graphics g) {
 		// Check if there is a piece in the workspace
@@ -526,9 +498,12 @@ public class AbstractLevelView extends JPanel {
 			// We gotta draw it out
 			Piece toBeDrawn = level.getLevelBullpen().getWorkspace().getPiece();
 			// Go over all the 6 PieceSquares within
+			
+			ArrayList <Rectangle> bevelRects = new ArrayList<Rectangle>();
 			for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
 				// Solve for the Rectangle
 				Rectangle rectToDraw = getBullpenWorkspacePieceRectangle(aPieceSquare.getRow(), aPieceSquare.getCol());
+				bevelRects.add(rectToDraw);				
 				// Save backup Graphics color
 				Color oldColor = g.getColor();
 				// Set new Color
@@ -537,8 +512,9 @@ public class AbstractLevelView extends JPanel {
 				g.fillRect(rectToDraw.x, rectToDraw.y, rectToDraw.width, rectToDraw.height);
 				// Reset the color
 				g.setColor(oldColor);
+				
 			}
-			drawHighlight(g, toBeDrawn);
+			PieceHelper.drawBevel(g, toBeDrawn, bevelRects);
 		}
 	}
 	

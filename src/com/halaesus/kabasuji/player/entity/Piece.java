@@ -135,7 +135,6 @@ public class Piece {
 	}
 	
 	public boolean noSquareAbove(PieceSquare source){
-		if (source.getRow() == 0) return true;
 		for (PieceSquare s: this.squares){
 			if (source.getRow() -1 == s.getRow()
 					&& source.getCol() == s.getCol())return false;
@@ -144,7 +143,6 @@ public class Piece {
 	}
 	
 	public boolean noSquareBelow(PieceSquare source){
-		if (source.getRow() == 5) return true;
 		for (PieceSquare s: this.squares){
 			if (source.getRow() +1 == s.getRow()
 					&& source.getCol() == s.getCol())return false;
@@ -153,7 +151,6 @@ public class Piece {
 	}
 	
 	public boolean noSquareRight(PieceSquare source){
-		if (source.getCol() == 5) return true;
 		for (PieceSquare s: this.squares){
 			if (source.getRow() == s.getRow()
 					&& source.getCol() + 1 == s.getCol())return false;
@@ -162,7 +159,6 @@ public class Piece {
 	}
 
 	public boolean noSquareLeft(PieceSquare source){
-		if (source.getCol() == 0) return true;
 		for (PieceSquare s: this.squares){
 			if (source.getRow() == s.getRow()
 					&& source.getCol() - 1 == s.getCol())return false;

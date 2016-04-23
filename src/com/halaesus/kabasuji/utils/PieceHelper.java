@@ -1,7 +1,14 @@
 package com.halaesus.kabasuji.utils;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Stroke;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 import com.halaesus.kabasuji.player.entity.AbstractLevel;
@@ -39,5 +46,57 @@ public class PieceHelper {
 		else
 			return null; // No changes were made :(
 	}
+	
+	public static void drawBevel(Graphics g, Piece toBeDrawn, ArrayList<Rectangle> bevelRects) {
+		// Add a highlight and shadow to our Piece - Brian KD
+
+		Graphics2D g2d = (Graphics2D) g.create();
+		// create our settings for line
+		int strokeWidth = 6;
+		Stroke strokeStyle = new BasicStroke(strokeWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND);
+		g2d.setStroke(strokeStyle);
+
+		Iterator<Rectangle> rectIterator = bevelRects.iterator();
+		
+		for (PieceSquare aPieceSquare : toBeDrawn.getPieceSquares()) {
+			// creates a copy of the Graphics instance
+
+			Rectangle squareRect = rectIterator.next();
+			
+			// add the right shadow
+			Color rightShadow = toBeDrawn.getColor().darker();
+			if (toBeDrawn.noSquareRight(aPieceSquare)) {
+				g2d.setColor(rightShadow);
+				g2d.drawLine(squareRect.x + (int) squareRect.getWidth() - strokeWidth / 2,
+						squareRect.y + strokeWidth / 2, squareRect.x + (int) squareRect.getWidth() - strokeWidth / 2,
+						squareRect.y + strokeWidth / 2 + (int) squareRect.getHeight());
+			}
+			// add the left highlight
+			Color rightHighlight = toBeDrawn.getColor().brighter();
+			if (toBeDrawn.noSquareLeft(aPieceSquare)) {
+				g2d.setColor(rightHighlight);
+				g2d.drawLine(squareRect.x + strokeWidth / 2, squareRect.y + strokeWidth / 2,
+						squareRect.x + strokeWidth / 2, squareRect.y + strokeWidth / 2 + (int) squareRect.getHeight());
+			}
+			// add the top highlight
+			Color highlight = toBeDrawn.getColor().brighter().brighter();
+			if (toBeDrawn.noSquareAbove(aPieceSquare)) {
+				g2d.setColor(highlight);
+				g2d.drawLine(squareRect.x + strokeWidth / 2, squareRect.y + strokeWidth / 2,
+						squareRect.x + (int) squareRect.getWidth() - strokeWidth / 2, squareRect.y + strokeWidth / 2);
+			}
+			// add the bottom shadow
+			Color bottomShadow = toBeDrawn.getColor().darker().darker();
+			if (toBeDrawn.noSquareBelow(aPieceSquare)) {
+				g2d.setColor(bottomShadow);
+				g2d.drawLine(squareRect.x + strokeWidth / 2,
+						squareRect.y + strokeWidth / 2 + (int) squareRect.getHeight(),
+						squareRect.x + (int) squareRect.getWidth() - strokeWidth / 2,
+						squareRect.y + strokeWidth / 2 + (int) squareRect.getHeight());
+			}
+		}
+		g2d.dispose();
+	}
+
 	
 }

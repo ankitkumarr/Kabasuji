@@ -12,13 +12,14 @@ public class PuzzleLevel extends AbstractLevel {
     	super(file);
     	// Set the game type in here
     	levelType = "Puzzle";
-    	
+    	// TODO: Remove Dummy Values
+    	allowedMoves = 47; usedMoves = 0;
     	// TODO construct releaseBoard from file data
     	board = new PuzzleBoard(null);
     }
 
     public int getMovesLeft() {
-    	return 47;
+    	return (allowedMoves - usedMoves);
         // TODO implement here
     }
     
@@ -26,20 +27,17 @@ public class PuzzleLevel extends AbstractLevel {
 
 	@Override
 	public void newPieceDropped(Piece p) {
-		// TODO Auto-generated method stub
-		
+		usedMoves++; // The user has used one extra move
 	}
 
 	@Override
 	public void boardPieceUpdated(PieceSquare[] oldPieceSquares, Piece newPiece) {
-		// TODO Auto-generated method stub
-		
+		usedMoves++; // The user has used one extra move
 	}
 
 	@Override
 	public void boardPieceRemoved(Piece p) {
-		// TODO Auto-generated method stub
-		
+		usedMoves++; // The user has used one extra move
 	}
 
 }

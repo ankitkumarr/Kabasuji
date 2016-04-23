@@ -25,7 +25,6 @@ import javax.swing.JPanel;
 
 import com.halaesus.kabasuji.player.entity.PieceSquare;
 import com.halaesus.kabasuji.player.controller.ClickPieceInPalette;
-import com.halaesus.kabasuji.player.controller.DragPieceFromBoard;
 import com.halaesus.kabasuji.player.controller.DragPieceFromWorkspaceToBoard;
 import com.halaesus.kabasuji.player.controller.FlipHInWorkspace;
 import com.halaesus.kabasuji.player.controller.FlipVInWorkspace;
@@ -154,11 +153,6 @@ public abstract class AbstractLevelView extends JPanel {
 		DragPieceFromWorkspaceToBoard dragWorkspaceToBoard = new DragPieceFromWorkspaceToBoard(this.level, AbstractLevelView.this);
 		addMouseListener(dragWorkspaceToBoard);
 		addMouseMotionListener(dragWorkspaceToBoard);
-		// TODO: Level dependent implementation
-		// Add Listener for DragPieceFromBoard
-		DragPieceFromBoard dragFromBoard = new DragPieceFromBoard(this.level, AbstractLevelView.this);
-		addMouseListener(dragFromBoard);
-		addMouseMotionListener(dragFromBoard);
 	}
 	
 	private void showLevelInfo() {

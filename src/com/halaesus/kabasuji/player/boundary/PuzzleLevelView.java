@@ -62,8 +62,10 @@ public class PuzzleLevelView extends AbstractLevelView {
 	protected void paintComponent(Graphics g) {
 		// Fix the Allowed Moves Label if necessary
 		// TODO: See what to do if the user ran out of moves
-		if( Integer.valueOf(this.allowedMovesLabel.getText().substring(7)) != this.level.getMovesLeft() )
+		if( Integer.valueOf(this.allowedMovesLabel.getText().substring(7)) != this.level.getMovesLeft() ) {
 			this.allowedMovesLabel.setText("Moves: " + this.level.getMovesLeft()); // Refresh the view
+			JLabelHelper.resizeTextBasedOnAvailableSize(allowedMovesLabel);
+		}
 		// Let the super do its painting now
 		super.paintComponent(g);
 	}

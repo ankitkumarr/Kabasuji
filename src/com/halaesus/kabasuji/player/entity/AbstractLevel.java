@@ -119,6 +119,7 @@ public abstract class AbstractLevel {
 	}
 	
 	// Abstract Functions
+	public abstract int getStarsAchieved();
 	public abstract void newPieceDropped(Piece p);
 	public abstract void boardPieceUpdated(PieceSquare[] oldPieceSquares, Piece newPiece);
 	public abstract void boardPieceRemoved(Piece p);

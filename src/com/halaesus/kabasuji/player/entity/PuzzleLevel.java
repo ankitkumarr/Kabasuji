@@ -25,6 +25,11 @@ public class PuzzleLevel extends AbstractLevel {
     
     // Abstract Methods Filler
 
+    @Override
+    public int getStarsAchieved() {
+    	return 0; // TODO: Fill this in
+    }
+    
 	@Override
 	public void newPieceDropped(Piece p) {
 		usedMoves++; // The user has used one extra move
@@ -37,7 +42,7 @@ public class PuzzleLevel extends AbstractLevel {
 
 	@Override
 	public void boardPieceRemoved(Piece p) {
-		usedMoves++; // The user has used one extra move
+		// TODO: Check if this count as a move
 	}
 
 }

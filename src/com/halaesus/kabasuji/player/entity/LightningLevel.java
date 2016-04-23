@@ -34,6 +34,31 @@ public class LightningLevel extends AbstractLevel {
 
     // Abstract Methods Filler
     
+    @Override
+    public int getStarsAchieved() {
+    	int activeSquares = 0;
+    	int markedSquares = 0;
+    	// Calculate the number of active and filled squares
+    	for(int r = 0; r < 12; r++) {
+    		for(int c = 0; c < 12; c++) {
+    			if( this.board.isActive(r, c) )
+    				activeSquares++; // We just got an active square
+    			if( this.board.isFilled(r, c) )
+    				markedSquares++; // We just got a filled (marked) square
+    		}
+    	}
+    	// Now return based on what the user has achieved
+    	if( activeSquares == markedSquares )
+    		return 3;
+    	else if( (activeSquares - markedSquares) <= 6 )
+    		return 2;
+    	else if( (activeSquares - markedSquares) <= 12 )
+    		return 1;
+    	else {
+			return 0;
+		}
+    }
+    
 	@Override
 	public void newPieceDropped(Piece p) {
 		// Remove the Piece from the Board

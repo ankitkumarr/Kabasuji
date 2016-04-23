@@ -52,6 +52,7 @@ public abstract class AbstractLevelView extends JPanel {
 	// Image storage variables
 	private Image backgroundImage;
 	private Image backButton;
+	private Image starGold;
 	private Image starShadow;
 	private ImageIcon[] hexominoImages;
 	private ImageIcon[] hexominoDisabledImages;
@@ -63,7 +64,6 @@ public abstract class AbstractLevelView extends JPanel {
 	private Image flipHImage;
 	// View-based (UI Objects) variables
 	JLabel levelInfo;
-	BufferedImage[] stars;
 	HexominoButtonView[] hexominoButton;
 	JButton rotateCC;
 	JButton rotateCW;
@@ -170,6 +170,7 @@ public abstract class AbstractLevelView extends JPanel {
 		try {
 			backgroundImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/gridWithBoard.jpg")).getScaledInstance(1280, -1, Image.SCALE_SMOOTH);
 			backButton = ImageIO.read(getClass().getResource("/resources/backButton.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+			starGold = ImageIO.read(getClass().getResource("/resources/starGold.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH);
 			starShadow = ImageIO.read(getClass().getResource("/resources/starShadow.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH);
 			rotateCCImage = ImageIO.read(getClass().getResource("/resources/rotateCC.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
 			rotateCWImage = ImageIO.read(getClass().getResource("/resources/rotateCW.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
@@ -442,11 +443,25 @@ public abstract class AbstractLevelView extends JPanel {
 	}
 	
 	private void showUserStars(Graphics g) {
-		stars = new BufferedImage[3];
+		int starsAchieved = this.level.getStarsAchieved();
 		// Load up the images
-		g.drawImage(starShadow, 1040, 9, null);
-		g.drawImage(starShadow, 1120, 9, null);
-		g.drawImage(starShadow, 1200, 9, null);
+		if( starsAchieved == 3 ) {
+			g.drawImage(starGold, 1040, 9, null);
+			g.drawImage(starGold, 1120, 9, null);
+			g.drawImage(starGold, 1200, 9, null);
+		} else if( starsAchieved == 2 ) {
+			g.drawImage(starGold, 1040, 9, null);
+			g.drawImage(starGold, 1120, 9, null);
+			g.drawImage(starShadow, 1200, 9, null);
+		} else if( starsAchieved == 1 ) {
+			g.drawImage(starGold, 1040, 9, null);
+			g.drawImage(starShadow, 1120, 9, null);
+			g.drawImage(starShadow, 1200, 9, null);
+		} else if( starsAchieved == 0 ) {
+			g.drawImage(starShadow, 1040, 9, null);
+			g.drawImage(starShadow, 1120, 9, null);
+			g.drawImage(starShadow, 1200, 9, null);
+		}
 	}
 	
 	private void setupGameBoard(Graphics g) {

@@ -12,6 +12,8 @@ public class AbstractLevel {
      * Default constructor
      */
     public AbstractLevel() {
+    	
+    	bullpen = new Bullpen();
     }
 
     /**
@@ -59,6 +61,10 @@ public class AbstractLevel {
     public boolean saveFile(File file) {
         // TODO implement here
     	return false; // stub
+    }
+    
+    public Bullpen getLevelBullpen(){
+    	return bullpen;
     }
 
 }

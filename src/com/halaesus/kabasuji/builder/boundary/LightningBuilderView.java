@@ -19,9 +19,9 @@ public class LightningBuilderView extends AbstractBuilderView {
     JButton setPiecesCount;
     LightningLevel level;
 
-    public LightningBuilderView() {
+    public LightningBuilderView(Application application, AbstractLevel aLevel) {
         // TODO implement here
-    	super();
+    	super(application, aLevel);
     }
 
 }

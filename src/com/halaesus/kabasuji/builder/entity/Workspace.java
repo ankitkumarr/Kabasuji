@@ -30,7 +30,16 @@ public class Workspace {
      * @param Piece p
      */
     public void addPiece(Piece p) {
-        // TODO implement here
+        
+    	this.piece = p;
+    }
+    
+    public boolean pieceExists() {
+		return (piece != null);
+	}
+    
+    public Piece getPiece(){
+    	return piece;
     }
 
 }

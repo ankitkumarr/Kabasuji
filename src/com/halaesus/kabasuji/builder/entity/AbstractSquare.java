@@ -27,7 +27,7 @@ public class AbstractSquare {
      * @param boolean active
      */
     public AbstractSquare(boolean active) {
-        // TODO implement here
+        this.active = active;
     }
 
 }

@@ -35,7 +35,13 @@ public class Hexomino {
      * @param Workspace workspace
      */
     public Hexomino(int count, Piece piece, Workspace workspace) {
-        // TODO implement here
+       this.count = count;
+       this.piece = new Piece(piece);
+       this.workspace = workspace;
+    }
+    
+    public Piece getPiece() {
+    	return piece;
     }
 
 }

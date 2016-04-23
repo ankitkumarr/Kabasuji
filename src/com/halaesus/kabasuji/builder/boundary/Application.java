@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import com.halaesus.kabasuji.builder.entity.AbstractLevel;
 import com.halaesus.kabasuji.builder.entity.Model;
 import com.halaesus.kabasuji.builder.boundary.SplashView;
 
@@ -105,22 +106,25 @@ public class Application extends JFrame {
 	
 	
 	public void showPuzzleBuilderView() {
-		if (pbv == null)
-			pbv = new PuzzleBuilderView();
+		if (pbv == null) {
+			AbstractLevel alevel = new AbstractLevel();
+			pbv = new PuzzleBuilderView(Application.this, alevel); }
 		currentView = pbv;
 		setContentPane(currentView);
 	}
 
 	public void showLightningBuilderView() {
-		if (lbv == null)
-			lbv = new LightningBuilderView();
+		if (lbv == null) {
+			AbstractLevel alevel = new AbstractLevel();
+			lbv = new LightningBuilderView(Application.this, alevel); }
 		currentView = lbv;
 		setContentPane(currentView);
 	}
 
 	public void showReleaseBuilderView() {
-		if (rbv == null)
-			rbv = new ReleaseBuilderView();
+		if (rbv == null) {
+			AbstractLevel alevel = new AbstractLevel();
+			rbv = new ReleaseBuilderView(Application.this, alevel); }
 		currentView = rbv;
 		setContentPane(currentView);
 	}

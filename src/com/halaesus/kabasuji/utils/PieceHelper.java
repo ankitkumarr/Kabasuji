@@ -47,7 +47,7 @@ public class PieceHelper {
 			return null; // No changes were made :(
 	}
 	
-	public static void drawBevel(Graphics g, Piece toBeDrawn, ArrayList<Rectangle> bevelRects) {
+	public static void drawBevel(Graphics g, Piece toBeDrawn, ArrayList<Rectangle> bevelRects, int opacity) {
 		// Add a highlight and shadow to our Piece - Brian KD
 
 		Graphics2D g2d = (Graphics2D) g.create();
@@ -64,7 +64,8 @@ public class PieceHelper {
 			Rectangle squareRect = rectIterator.next();
 			
 			// add the right shadow
-			Color rightShadow = toBeDrawn.getColor().darker();
+			Color rightShadow = toBeDrawn.getColor().darker(); 
+			rightShadow = new Color(rightShadow.getRed(),rightShadow.getGreen(),rightShadow.getBlue(),opacity);
 			if (toBeDrawn.noSquareRight(aPieceSquare)) {
 				g2d.setColor(rightShadow);
 				g2d.drawLine(squareRect.x + (int) squareRect.getWidth() - strokeWidth / 2,
@@ -73,6 +74,7 @@ public class PieceHelper {
 			}
 			// add the left highlight
 			Color rightHighlight = toBeDrawn.getColor().brighter();
+			rightHighlight = new Color(rightHighlight.getRed(),rightHighlight.getGreen(),rightHighlight.getBlue(),opacity);
 			if (toBeDrawn.noSquareLeft(aPieceSquare)) {
 				g2d.setColor(rightHighlight);
 				g2d.drawLine(squareRect.x + strokeWidth / 2, squareRect.y + strokeWidth / 2,
@@ -80,6 +82,7 @@ public class PieceHelper {
 			}
 			// add the top highlight
 			Color highlight = toBeDrawn.getColor().brighter().brighter();
+			highlight = new Color(highlight.getRed(),highlight.getGreen(),highlight.getBlue(),opacity);
 			if (toBeDrawn.noSquareAbove(aPieceSquare)) {
 				g2d.setColor(highlight);
 				g2d.drawLine(squareRect.x + strokeWidth / 2, squareRect.y + strokeWidth / 2,
@@ -87,6 +90,7 @@ public class PieceHelper {
 			}
 			// add the bottom shadow
 			Color bottomShadow = toBeDrawn.getColor().darker().darker();
+			bottomShadow = new Color(bottomShadow.getRed(),bottomShadow.getGreen(),bottomShadow.getBlue(),opacity);
 			if (toBeDrawn.noSquareBelow(aPieceSquare)) {
 				g2d.setColor(bottomShadow);
 				g2d.drawLine(squareRect.x + strokeWidth / 2,

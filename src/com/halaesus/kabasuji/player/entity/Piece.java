@@ -165,5 +165,25 @@ public class Piece {
 		}	
 		return true;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if( o == null )
+			return false;
+		if( !(o instanceof Piece) )
+			return false;
+		// Now check for equality
+		Piece other = (Piece)o;
+		if( !this.color.equals(other.color) )
+			return false;
+		for( int i = 0; i < this.squares.length; i++ )
+			if( ( this.squares[i].getRow() != other.squares[i].getRow() ) ||
+				( this.squares[i].getCol() != other.squares[i].getCol() ) )
+				return false;
+		if( !this.parentHexomino.equals(other.parentHexomino) )
+			return false;
+		// Everything is the same
+		return true;
+	}
 
 }

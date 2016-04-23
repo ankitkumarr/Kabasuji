@@ -3,6 +3,7 @@ package com.halaesus.kabasuji.player.boundary;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -106,6 +107,23 @@ public class LightningLevelView extends AbstractLevelView {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g); // Let the super do its painting first
+		// Now, paint the marked squares as Light Gray
+		// Backup the color from Graphics
+		Color oldColor = g.getColor();
+		// Save a new color
+		g.setColor(new Color(84, 84, 84, 150));
+		// Fill out the squares
+		for(int r = 0; r < 12; r++) {
+			for(int c = 0; c < 12; c++) {
+				if( this.level.getBoard().isFilled(r, c) ) {
+					// Only if it is filled, fill in the rectangle
+					Rectangle toFill = this.getBoardPieceRectangle(r, c);
+					g.fillRect(toFill.x, toFill.y, toFill.width, toFill.height);
+				}
+			}
+		}
+		// Restore the Graphics Color
+		g.setColor(oldColor);
 	}
 
 }

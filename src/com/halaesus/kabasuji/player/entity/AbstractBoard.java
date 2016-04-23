@@ -18,7 +18,6 @@ public class AbstractBoard {
 			for (int j = 0; j < 12; j++) {
 				boardSquares[i][j] = new BoardSquare(true);
 			}
-			
 		}
 		this.squares = boardSquares;
 		// Initialize
@@ -27,6 +26,10 @@ public class AbstractBoard {
     
     public boolean isActive(int row, int col) {
     	return squares[row][col].isActive();
+    }
+    
+    public boolean isFilled(int row, int col) {
+    	return squares[row][col].isFilled();
     }
 
     public boolean doesCollide(Piece p) {

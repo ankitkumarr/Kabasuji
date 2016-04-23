@@ -32,4 +32,25 @@ public class LightningLevel extends AbstractLevel {
     	elapsedTime = 0;
     }
 
+    // Abstract Methods Filler
+    
+	@Override
+	public void newPieceDropped(Piece p) {
+		// Remove the Piece from the Board
+		this.board.pieces.remove(p);
+	}
+
+	@Override
+	public void boardPieceUpdated(PieceSquare[] oldPieceSquares, Piece newPiece) {
+		// This should never be called on the LightningLevel as once a Piece is
+		//  dropped, it gets soaked by the board and no longer exists.
+	}
+
+	@Override
+	public void boardPieceRemoved(Piece p) {
+		// This should never be called on the LightningLevel either because once a
+		//  Piece is dropped, it gets soaked by the board and no longer exists to
+		//  be removed.
+	}
+
 }

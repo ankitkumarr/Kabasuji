@@ -3,7 +3,7 @@ package com.halaesus.kabasuji.player.entity;
 import java.awt.Point;
 import java.io.File;
 
-public class AbstractLevel {
+public abstract class AbstractLevel {
 
 	// Some Constants
 	public static final int NO_DRAG_ACTIVE = -1;
@@ -117,5 +117,10 @@ public class AbstractLevel {
 	public void setPieceOverBullpen(boolean pieceOverBullpen) {
 		this.pieceOverBullpen = pieceOverBullpen;
 	}
+	
+	// Abstract Functions
+	public abstract void newPieceDropped(Piece p);
+	public abstract void boardPieceUpdated(PieceSquare[] oldPieceSquares, Piece newPiece);
+	public abstract void boardPieceRemoved(Piece p);
 
 }

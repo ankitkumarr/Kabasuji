@@ -21,5 +21,25 @@ public class PuzzleLevel extends AbstractLevel {
     	return 47;
         // TODO implement here
     }
+    
+    // Abstract Methods Filler
+
+	@Override
+	public void newPieceDropped(Piece p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void boardPieceUpdated(PieceSquare[] oldPieceSquares, Piece newPiece) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void boardPieceRemoved(Piece p) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

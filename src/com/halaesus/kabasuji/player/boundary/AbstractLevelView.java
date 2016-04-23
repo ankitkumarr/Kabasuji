@@ -40,7 +40,7 @@ import com.halaesus.kabasuji.utils.JLabelHelper;
 import com.halaesus.kabasuji.utils.PieceHelper;
 
 @SuppressWarnings("serial")
-public class AbstractLevelView extends JPanel {
+public abstract class AbstractLevelView extends JPanel {
 
 	// Initialization Variables
 	private boolean paintInitialized;
@@ -341,6 +341,9 @@ public class AbstractLevelView extends JPanel {
 						if( boardRectangle.contains(checkPoint) ) {
 							// Create new Graphics Object
 							Graphics2D graphics2d = (Graphics2D)g;
+							// Backup old stroke and color
+							Stroke oldStroke = graphics2d.getStroke();
+							Color prevColor = graphics2d.getColor();
 							// Dashed Stroke
 							float dash[] = {6.0f};
 							BasicStroke dashed = new BasicStroke(3.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
@@ -353,6 +356,9 @@ public class AbstractLevelView extends JPanel {
 								Rectangle rect = getBoardPieceRectangle(r + square.getRow(), c + square.getCol());
 								graphics2d.draw(rect);
 							}
+							// Reset the color and stroke
+							graphics2d.setColor(prevColor);
+							graphics2d.setStroke(oldStroke);
 							// Finally, we're done painting, so exit the loop
 							exit = true;
 						}
@@ -453,7 +459,7 @@ public class AbstractLevelView extends JPanel {
 		// Backup old Graphics color
 		Color oldColor = g.getColor();
 		// Put in the new color
-		g.setColor(new Color(0, 0, 0, 180));
+		g.setColor(new Color(0, 0, 0));
 		// Load up the inactive squares and fill them in
 		for(int r = 0; r < 12; r++) {
 			for(int c = 0; c < 12; c++) {

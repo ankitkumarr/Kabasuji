@@ -63,16 +63,16 @@ public class BoardToBoardMove {
 		return true;
     }
 
-    public boolean doMove(AbstractLevel level, PieceSquare[] originalPieceSquares) {
+    public Piece doMove(AbstractLevel level, PieceSquare[] originalPieceSquares) {
     	if( level.isDraggingActive() == false )
-    		return false; // An active drag needs to be in place for this function to be called
+    		return null; // An active drag needs to be in place for this function to be called
     	if( isValid(level) == false )
-    		return false; // Also, the move should be valid for this function to be called
+    		return null; // Also, the move should be valid for this function to be called
     	// Now, snap to the board at the location and update the underlying board
     	// STEP 1: Find the squares to snap to
 		Piece snappedPiece = PieceHelper.snapToNearestBoardSquare(level, this.levelView);
 		if( snappedPiece == null )
-			return false; // We failed to snap to the board and hence the move wasn't completed
+			return null; // We failed to snap to the board and hence the move wasn't completed
 		else
 			level.getBoard().addPiece(snappedPiece); // Add the snapped Piece to the board
 		// STEP 2: Mark original BoardSquares as not filled
@@ -83,7 +83,7 @@ public class BoardToBoardMove {
 			level.getBoard().squares[aPieceSquare.getRow()][aPieceSquare.getCol()].filled = true;
 		
 		// The move was successful, so:
-		return true;
+		return snappedPiece;
     }
 
 }

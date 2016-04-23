@@ -166,8 +166,9 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 				// It was dropped on the board itself; Spawn off the move
 				BoardToBoardMove theMove = new BoardToBoardMove(this.levelView);
 				// Now, attempt the move
-				if( theMove.isValid(this.level) && theMove.doMove(this.level, this.originalBoardPieceSquares) ) {
-					// The move was done; Nothing to do
+				if( theMove.isValid(this.level) ) {
+					// The move is valid; Perform the move and let the underlying board know about this
+					this.level.boardPieceUpdated(this.originalBoardPieceSquares, theMove.doMove(this.level, this.originalBoardPieceSquares));
 				} else {
 					// The move wasn't performed. Put the piece back to its original place
 					this.level.getBoard().addPiece(new Piece(this.level.getPieceBeingDragged().getColor(), originalBoardPieceSquares, this.level.getPieceBeingDragged().getParentHexomino()));
@@ -177,8 +178,9 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 				// It was dropped on the Bullpen; Spawn off the move
 				BoardToBullpenMove theMove = new BoardToBullpenMove(this.levelView);
 				// Now attempt the move
-				if( theMove.isValid(this.level) && theMove.doMove(this.level, this.originalBoardPieceSquares) ) {
-					// The move was done; Nothing has to be done
+				if( theMove.isValid(this.level) ) {
+					// The move is valid; Perform the move and let the underlying board know about this
+					this.level.boardPieceRemoved(theMove.doMove(this.level, this.originalBoardPieceSquares));
 				} else {
 					// The move wasn't performed :( Put the piece back to where it was picked from
 					this.level.getBoard().addPiece(new Piece(this.level.getPieceBeingDragged().getColor(), originalBoardPieceSquares, this.level.getPieceBeingDragged().getParentHexomino()));

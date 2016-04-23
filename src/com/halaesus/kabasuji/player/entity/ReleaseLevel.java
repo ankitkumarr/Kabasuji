@@ -21,7 +21,25 @@ public class ReleaseLevel extends AbstractLevel {
         public NumberBar getNumberBar(){
     	return this.numberBar;
     }
-    
-    
+        
+     // Abstract Methods Filler
+
+    @Override
+	public void newPieceDropped(Piece p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void boardPieceUpdated(PieceSquare[] oldPieceSquares, Piece newPiece) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void boardPieceRemoved(Piece p) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

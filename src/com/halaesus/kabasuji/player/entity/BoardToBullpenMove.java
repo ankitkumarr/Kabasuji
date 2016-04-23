@@ -44,11 +44,11 @@ public class BoardToBullpenMove {
 		return true;
     }
 
-    public boolean doMove(AbstractLevel level, PieceSquare[] originalPieceSquares) {
+    public Piece doMove(AbstractLevel level, PieceSquare[] originalPieceSquares) {
 		if( level.isDraggingActive() == false )
-			return false; // An active drag needs to be in place for this function to be called
+			return null; // An active drag needs to be in place for this function to be called
 		if( isValid(level) == false )
-			return false; // Also, the move should be valid for this function to be called
+			return null; // Also, the move should be valid for this function to be called
     	
 		// Remove the piece from the board and return
 		// STEP 1: Mark original BoardSquares as not filled
@@ -58,7 +58,7 @@ public class BoardToBullpenMove {
 		level.getPieceBeingDragged().getParentHexomino().setCount(level.getPieceBeingDragged().getParentHexomino().getCount() + 1);
 		
 		// The move was successful, so:
-		return true;
+		return level.getPieceBeingDragged();
     }
 
 }

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 import com.halaesus.kabasuji.player.entity.PuzzleLevel;
 import com.halaesus.kabasuji.utils.JLabelHelper;
@@ -38,8 +39,10 @@ public class PuzzleLevelView extends AbstractLevelView {
 	
 	private void setupAllowedMovesLabel() {
 		// Create the label
+	
 		allowedMovesLabel = new JLabel("Moves: " + level.getMovesLeft());
-		allowedMovesLabel.setBounds(500, 10, 350, 60);
+		allowedMovesLabel.setBounds(320 + 53 * 12, 80, 324, 60);
+		allowedMovesLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		allowedMovesLabel.setForeground(Color.ORANGE);
 		allowedMovesLabel.setFont(new Font(allowedMovesLabel.getFont().getName(),
 				Font.BOLD, allowedMovesLabel.getFont().getSize()));

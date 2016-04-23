@@ -315,7 +315,7 @@ public abstract class AbstractLevelView extends JPanel {
 				// fill our arrray of rectangles for bevel effect
 				bevelRects.add(new Rectangle(x, y, width, height));
 			}
-			PieceHelper.drawBevel(g, toBeDrawn, bevelRects);
+			PieceHelper.drawBevel(g, toBeDrawn, bevelRects, 200);
 						
 			// Revert back to the old color
 			g.setColor(oldColor);
@@ -384,7 +384,7 @@ public abstract class AbstractLevelView extends JPanel {
 			// Revert back to the old color
 			g.setColor(oldColor);
 			
-			PieceHelper.drawBevel(g, toBeDrawn, bevelRects);
+			PieceHelper.drawBevel(g, toBeDrawn, bevelRects, 200);
 			
 		}
 	}
@@ -485,7 +485,7 @@ public abstract class AbstractLevelView extends JPanel {
 				// add to our bevelRect
 				bevelRects.add(pieceRectangle);
 				}
-			PieceHelper.drawBevel(g, piece, bevelRects);
+			PieceHelper.drawBevel(g, piece, bevelRects, 255);
 			// Set Graphics back to original color
 			g.setColor(oldColor);
 		}
@@ -514,7 +514,7 @@ public abstract class AbstractLevelView extends JPanel {
 				g.setColor(oldColor);
 				
 			}
-			PieceHelper.drawBevel(g, toBeDrawn, bevelRects);
+			PieceHelper.drawBevel(g, toBeDrawn, bevelRects, 255);
 		}
 	}
 	

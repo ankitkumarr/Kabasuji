@@ -18,7 +18,7 @@ import com.halaesus.kabasuji.utils.JLabelHelper;
 @SuppressWarnings("serial")
 public class LevelSelectorView extends JPanel {
 
-	LinkedList<LevelThumbnailView> levelViews;
+	ArrayList<LevelThumbnailView> levelViews;
 	LevelSelector levelSelector;
 	JLabel levelSelectorLabel;
 	Application application;
@@ -31,7 +31,7 @@ public class LevelSelectorView extends JPanel {
 		setBounds(0, 0, 1280, 720);
 		setLayout(null);
 		// Initialize
-		levelViews = new LinkedList<LevelThumbnailView>();
+		levelViews = new ArrayList<LevelThumbnailView>();
 		// Initialize GUI elements
 		initialize();
 	}
@@ -48,7 +48,7 @@ public class LevelSelectorView extends JPanel {
 			//Check if the level is unlocked
 			if (toAdd.starsAchieved != -1 ) {
 				// Add a PlayLevel Controller on this LevelThumbnailView
-				toAdd.addMouseListener(new PlayLevel(levelThumbnail.getLevelData().produceLevel(), application));
+				toAdd.addMouseListener(new PlayLevel(levelThumbnail.getLevelData().getLevel(), application));
 			}
 			// Now add it to the ArrayList<LevelThumbnail>
 			levelViews.add(toAdd);

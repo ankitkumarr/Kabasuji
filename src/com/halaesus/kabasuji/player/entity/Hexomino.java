@@ -1,11 +1,15 @@
 package com.halaesus.kabasuji.player.entity;
 
-public class Hexomino {
+import java.io.Serializable;
 
-    Workspace workspace;
+public class Hexomino implements Serializable{
+
+	private static final long serialVersionUID = 985952431306602018L;
+	Workspace workspace;
     Piece piece;
     int count;
 
+    public Hexomino(){}
 	public Hexomino(int count, Piece piece, Workspace workspace) {
         // Save the stuff
 		this.workspace = workspace;

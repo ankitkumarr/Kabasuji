@@ -1,7 +1,13 @@
 package com.halaesus.kabasuji.player.entity;
 
-public class Workspace {
+import java.io.Serializable;
 
+public class Workspace implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6591614362145782463L;
 	Piece piece;
 	
     public Workspace() {

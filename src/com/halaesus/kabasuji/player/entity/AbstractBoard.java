@@ -24,7 +24,18 @@ public class AbstractBoard {
 		this.pieces = new ArrayList<Piece>();
 	}
     
-    public boolean isActive(int row, int col) {
+    public AbstractBoard() {
+    	BoardSquare[][] boardSquares = new BoardSquare[12][12];
+		for (int i = 0; i < 12; i++) {
+			for (int j = 0; j < 12; j++) {
+				boardSquares[i][j] = new BoardSquare(true);
+			}
+		}
+		this.squares = boardSquares;
+		this.pieces = new ArrayList<Piece>();
+	}
+
+	public boolean isActive(int row, int col) {
     	return squares[row][col].isActive();
     }
     

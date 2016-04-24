@@ -6,18 +6,21 @@ public class LevelData {
 
     int levelIndex;
     String levelType;
-    String levelName;
-    String fileName;
+ //   String levelName; // we dont need this unless we are supporting custom level names
+   // String fileName;
+    
+    AbstractLevel level; // this is our actual level, could be release, puzzle, etc
 
-    public LevelData(int index, String type, String name, String fileName) {
+    public LevelData(int index, String type, AbstractLevel level) {
         this.levelIndex = index;
         this.levelType = type;
-        this.levelName = name;
-        this.fileName = fileName;
+      //  this.levelName = "blah";
+        //this.fileName = fileName;
+        this.level = level;
     }
 
-    public AbstractLevel loadLevel() {
-    	return null;
+    public AbstractLevel getLevel() {
+    	return level;
     }
 
 	public int getLevelIndex() {
@@ -28,25 +31,21 @@ public class LevelData {
 		return levelType;
 	}
 
-	public String getLevelName() {
-		return levelName;
-	}
-
-	public String getFileName() {
-		return fileName;
-	}
-
+	//public String getFileName() {
+	//	return fileName;
+	//}
+/*
 	public AbstractLevel produceLevel() {
 		// TODO: Parse the file and return the correct Level Type. For now I'm returning a dummy level
 		// return new AbstractLevel(new File(fileName));
 		if( levelType.equals("Lightning") )
-			return new LightningLevel(new File(fileName));
+			return new LightningLevel();
 		else if( levelType.equals("Puzzle") )
-			return new PuzzleLevel(new File(fileName));
+			return new PuzzleLevel();
 		else if( levelType.equals("Release") )
-			return new ReleaseLevel(new File(fileName));
+			return new ReleaseLevel();
 		// If nothing matches, return a generic AbstractLevel
 		return null;
 	}
-
+*/
 }

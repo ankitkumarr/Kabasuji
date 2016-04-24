@@ -17,7 +17,7 @@ public class LevelSelector {
 	public LevelSelector(PlayerProgress playerProgress) {
 		this.playerProgress = playerProgress;
 		// Grab the levels and the stars
-		LevelList levels = this.playerProgress.levels;
+		LevelList levels = this.playerProgress.levelList;
 		ArrayList<Integer> starsEarned = this.playerProgress.starsEarned;
 		// Initialize some stuff
 		thumbnails = new ArrayList<LevelThumbnail>();
@@ -25,7 +25,15 @@ public class LevelSelector {
 		int idx = 0;
 		for( Iterator<LevelData> iterator = levels.getIterator(); iterator.hasNext(); idx++) {
 			// Create a new LevelThumbnail Model and add it to the ArrayList
-			thumbnails.add(new LevelThumbnail(iterator.next(), starsEarned.get(idx)));
+
+			// TODO This is a hacky fix to serious problem -BrianKD
+			// by default say no stars
+			// because what if there are more levels than there are stars (user created more levels)
+			// then we get a runtime exception
+			int stars = -1;
+			if (idx < starsEarned.size() ) stars = starsEarned.get(idx);
+			if (idx < 3) stars = 0; // the first three levels should always be playable
+			thumbnails.add(new LevelThumbnail(iterator.next(), stars));
 		}
 		// Get the background image
 		try {

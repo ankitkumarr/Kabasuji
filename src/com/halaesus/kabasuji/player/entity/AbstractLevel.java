@@ -25,20 +25,17 @@ public abstract class AbstractLevel {
     Piece pieceBeingDragged;
     int dragSource = -1;
 
-	public AbstractLevel(File file) {
+	public AbstractLevel() {
         // TODO implement here; Random stuff done here
 		bullpen = new Bullpen();
-	/*	// BoardSquares
-		BoardSquare[] boardSquares = new BoardSquare[144];
-		for(int i = 0; i < 144; i++) {
-			boardSquares[i] = new BoardSquare(true);
-		}
-		// Board
-		board = new AbstractBoard(boardSquares);*/
     }
 
     public void loadLevel() {
         // TODO implement here
+    }
+    
+    public void setLevelIndex(int levelIndex) {
+        this.levelIndex = levelIndex;
     }
     
     public AbstractBoard getBoard(){

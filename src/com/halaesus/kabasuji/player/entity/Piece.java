@@ -1,10 +1,15 @@
 package com.halaesus.kabasuji.player.entity;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Piece {
+public class Piece implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1481804395541418903L;
 	PieceSquare[] originalSquares;
 	Hexomino parentHexomino;
     PieceSquare[] squares; 
@@ -22,6 +27,8 @@ public class Piece {
     		newPieceSquareArray[idx] = new PieceSquare(squareMap[idx]);
     	this.squares = newPieceSquareArray;
     }
+    
+    public Piece(){}
     
     public Piece(Piece toCopy) {
     	this(toCopy.color, toCopy.getPieceSquares(), toCopy.parentHexomino);

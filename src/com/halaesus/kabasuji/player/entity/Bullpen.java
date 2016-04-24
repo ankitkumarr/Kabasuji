@@ -1,11 +1,16 @@
 package com.halaesus.kabasuji.player.entity;
 
+import java.io.Serializable;
+
 import com.halaesus.kabasuji.utils.PieceGenerator;
 
-public class Bullpen {
+public class Bullpen implements Serializable {
 
-    Workspace workspace;
+
+	private static final long serialVersionUID = 1578699169144445639L;
+	Workspace workspace;
     Palette palette;
+    
 	
     public Bullpen() {
     	this.workspace = new Workspace();

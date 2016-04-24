@@ -20,7 +20,7 @@ public class ReleaseLevelView extends AbstractLevelView {
 
 	JLabel releaseModeLabel;
 	NumberBarView numberBarView;
-	Set<JLabel> numbers;
+	ArrayList<JLabel> numbers;
 	ReleaseLevel level;
 	ReleaseBoard rBoard;
 	
@@ -32,7 +32,7 @@ public class ReleaseLevelView extends AbstractLevelView {
 		// Set up Puzzle Specific Layout Stuff
 		setupLevelTypeLabel();
 
-		numbers = new HashSet<JLabel>();
+		numbers = new ArrayList<JLabel>();
 		setupNumberLabels(rBoard.getReleaseNumbers());
 		numberBarView = new NumberBarView(level.getNumberBar());
 		numberBarView.setBounds(324 + 53*12, 80, 53*6, 53*3);
@@ -50,7 +50,7 @@ public class ReleaseLevelView extends AbstractLevelView {
 		add(releaseModeLabel);
 	}
 	
-	private void setupNumberLabels(Set<ReleaseNumber> rNumbers) {
+	private void setupNumberLabels(ArrayList<ReleaseNumber> rNumbers) {
 		Font releaseNumberFont = new Font("releaseNumberFont", Font.BOLD, 35);
 		
 		for (ReleaseNumber num: rNumbers){

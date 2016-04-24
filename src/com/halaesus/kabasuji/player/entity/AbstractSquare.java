@@ -9,6 +9,10 @@ public class AbstractSquare {
         this.active = active;
     }
 
+	public AbstractSquare() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public boolean isActive() {
 		return active;
 	}

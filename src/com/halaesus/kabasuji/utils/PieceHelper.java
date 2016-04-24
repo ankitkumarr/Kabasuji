@@ -70,7 +70,7 @@ public class PieceHelper {
 				g2d.setColor(rightShadow);
 				g2d.drawLine(squareRect.x + (int) squareRect.getWidth() - strokeWidth / 2,
 						squareRect.y + strokeWidth / 2, squareRect.x + (int) squareRect.getWidth() - strokeWidth / 2,
-						squareRect.y + strokeWidth / 2 + (int) squareRect.getHeight());
+						squareRect.y - strokeWidth / 2 + (int) squareRect.getHeight());
 			}
 			// add the left highlight
 			Color rightHighlight = toBeDrawn.getColor().brighter();
@@ -78,7 +78,7 @@ public class PieceHelper {
 			if (toBeDrawn.noSquareLeft(aPieceSquare)) {
 				g2d.setColor(rightHighlight);
 				g2d.drawLine(squareRect.x + strokeWidth / 2, squareRect.y + strokeWidth / 2,
-						squareRect.x + strokeWidth / 2, squareRect.y + strokeWidth / 2 + (int) squareRect.getHeight());
+						squareRect.x + strokeWidth / 2, squareRect.y - strokeWidth / 2 + (int) squareRect.getHeight());
 			}
 			// add the top highlight
 			Color highlight = toBeDrawn.getColor().brighter().brighter();
@@ -94,9 +94,9 @@ public class PieceHelper {
 			if (toBeDrawn.noSquareBelow(aPieceSquare)) {
 				g2d.setColor(bottomShadow);
 				g2d.drawLine(squareRect.x + strokeWidth / 2,
-						squareRect.y + strokeWidth / 2 + (int) squareRect.getHeight(),
+						squareRect.y - strokeWidth / 2 + (int) squareRect.getHeight(),
 						squareRect.x + (int) squareRect.getWidth() - strokeWidth / 2,
-						squareRect.y + strokeWidth / 2 + (int) squareRect.getHeight());
+						squareRect.y - strokeWidth / 2 + (int) squareRect.getHeight());
 			}
 		}
 		g2d.dispose();

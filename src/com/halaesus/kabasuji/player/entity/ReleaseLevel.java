@@ -6,8 +6,8 @@ public class ReleaseLevel extends AbstractLevel {
   
 	NumberBar numberBar;
 	//ReleaseBoard releaseBoard;
-	public  ReleaseLevel(File file) {
-		super(file);
+	public  ReleaseLevel() {
+		super();
 		
 		// TODO construct releaseBoard from file data
 		board = new ReleaseBoard(null, null); 
@@ -46,5 +46,16 @@ public class ReleaseLevel extends AbstractLevel {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public MementoReleaseLevel getState() {
+		return new MementoReleaseLevel(this.levelIndex, this.board, this.bullpen);
+	}
+    
+	public void restore(MementoReleaseLevel m) {
+		this.board = m.releaseBoard;
+		this.bullpen = m.bullpen;
+		this.levelIndex = m.levelIndex;
+	}
+	
 
 }

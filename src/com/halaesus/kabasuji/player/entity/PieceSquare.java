@@ -1,11 +1,19 @@
 package com.halaesus.kabasuji.player.entity;
 
-public class PieceSquare extends AbstractSquare {
+import java.io.Serializable;
+
+public class PieceSquare extends AbstractSquare implements Serializable {
    
-    Piece parentPiece;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6645552999785416327L;
+	Piece parentPiece;
     int row;
 	int col;
 
+	public PieceSquare(){super();}
+	
     public PieceSquare(boolean active, int col, int row) {
         super(active); // Let the super do its job
         // Save this information

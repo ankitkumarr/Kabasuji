@@ -9,10 +9,11 @@ public class LightningLevel extends AbstractLevel {
     int elapsedTime;
     int maxTime;
 
-    public LightningLevel(File file) {
-    	super(file);
+    public LightningLevel() {
+    	super();
+    	
     	// Read from file
-    	maxTime = 65; elapsedTime = 0; // TODO: Dummy values
+    	maxTime = 75; elapsedTime = 0; // TODO: Dummy values
     	// Set the game type in here
     	levelType = "Lightning";
     	
@@ -76,6 +77,20 @@ public class LightningLevel extends AbstractLevel {
 		// This should never be called on the LightningLevel either because once a
 		//  Piece is dropped, it gets soaked by the board and no longer exists to
 		//  be removed.
+	}
+	
+	
+	public MementoLightningLevel getState() {
+		return new MementoLightningLevel(this.levelIndex, this.numRandPieces, this.maxTime, this.board, this.bullpen);
+	}
+	
+    
+	public void restore(MementoLightningLevel m) {
+		this.levelIndex = m.levelIndex;
+		this.numRandPieces = m.numRandPieces;
+		this.maxTime = m.maxTime;
+		this.board = m.lightningBoard;
+		this.bullpen = m.bullpen;
 	}
 
 }

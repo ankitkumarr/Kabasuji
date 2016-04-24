@@ -157,7 +157,7 @@ public abstract class AbstractLevelView extends JPanel {
 	
 	private void showLevelInfo() {
 		// Create the label
-		levelInfo = new JLabel("Level ".concat(String.valueOf(level.getLevelIndex() + 1)));
+		levelInfo = new JLabel("Level ".concat(String.valueOf(level.getLevelIndex())));
 		levelInfo.setBounds(750, 10, 200, 60);
 		levelInfo.setForeground(Color.ORANGE);
 		levelInfo.setFont(new Font(levelInfo.getFont().getName(), Font.BOLD, levelInfo.getFont().getSize()));

@@ -1,9 +1,17 @@
 package com.halaesus.kabasuji.player.entity;
 
-public class LightningBoard extends AbstractBoard {
+import java.io.Serializable;
+
+public class LightningBoard extends AbstractBoard implements Serializable {
 
    
-    public LightningBoard(BoardSquare[][] squares) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8527273711373557838L;
+
+
+	public LightningBoard(BoardSquare[][] squares) {
     	super(squares);
         // TODO implement here
     }

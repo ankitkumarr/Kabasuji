@@ -198,25 +198,25 @@ public abstract class AbstractBuilderView extends JPanel { // you'll note this I
 		// Create the FlipV Button
 		flipVBtn = new JButton(new ImageIcon(flipVImage));
 		flipVBtn.setBounds(1, 400, 90, 90);
-		//flipVBtn.addMouseListener(new FlipVInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		flipVBtn.addMouseListener(new FlipVInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractBuilderView.this));
 		JButtonHelper.makeBackgroundTransparent(flipVBtn);
 		add(flipVBtn);
 		// Create the FlipH Button
 		flipHBtn = new JButton(new ImageIcon(flipHImage));
 		flipHBtn.setBounds(230, 630, 90, 90);
-		//flipHBtn.addMouseListener(new FlipHInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		flipHBtn.addMouseListener(new FlipHInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractBuilderView.this));
 		JButtonHelper.makeBackgroundTransparent(flipHBtn);
 		add(flipHBtn);
 		// Create the RotateCC Button
 		rotateCCBtn = new JButton(new ImageIcon(rotateCCImage));
 		rotateCCBtn.setBounds(230, 400, 90, 90);
-		//rotateCCBtn.addMouseListener(new RotateCCInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		rotateCCBtn.addMouseListener(new RotateCCInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractBuilderView.this));
 		JButtonHelper.makeBackgroundTransparent(rotateCCBtn);
 		add(rotateCCBtn);
 		// Create the RotateCW Button
 		rotateCWBtn = new JButton(new ImageIcon(rotateCWImage));
 		rotateCWBtn.setBounds(1, 630, 90, 90);
-		//rotateCWBtn.addMouseListener(new RotateCWInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		rotateCWBtn.addMouseListener(new RotateCWInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractBuilderView.this));
 		JButtonHelper.makeBackgroundTransparent(rotateCWBtn);
 		add(rotateCWBtn);
 	}

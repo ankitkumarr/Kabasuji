@@ -30,7 +30,7 @@ public class AbstractBoard {
      * @param BoardSquare[144] boardSquares
      */
     public AbstractBoard(BoardSquare[] boardSquares) {
-        // TODO implement here
+        this.boardSquares = boardSquares;
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.halaesus.kabasuji.builder.boundary;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -10,7 +11,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import com.halaesus.kabasuji.builder.entity.AbstractLevel;
 import com.halaesus.kabasuji.builder.entity.Model;
+import com.halaesus.kabasuji.builder.boundary.Application;
 import com.halaesus.kabasuji.builder.boundary.SplashView;
 
 @SuppressWarnings("serial")
@@ -40,8 +43,26 @@ public class Application extends JFrame {
 		// Set up GUI
 		setTitle("Kabasuji Builder by Team Halaesus");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1280, 720);
+		//TODO: setSize(1280, 720);
+		
+		
 		setResizable(false);
+		setPreferredSize(new Dimension(1280, 720)); // Force the window to be 1280x720
+		pack(); // Force Swing to respect it
+		// Now, calculate the difference and set the new size
+		setPreferredSize(new Dimension(1280 + (1280 - getContentPane().getSize().width), 
+				                       720 + (720 - getContentPane().getSize().height)));
+		pack(); // Force Swing to resize
+		// Center in screen
+		setLocationRelativeTo(null); // Center in screen
+		// Save the Master Model given to us
+		// Initialize
+		splashView = new SplashView(masterModel.getSplashModel());
+		//levelSelectorView = new LevelSelectorView(masterModel.getLevelSelectorModel(), Application.this);
+		// Show Splash Screen
+		//showSplashScreen();
+		
+		
 		setLocationRelativeTo(null); // Center in screen
 		
 		// Start on Splash Screen
@@ -109,22 +130,25 @@ public class Application extends JFrame {
 	
 	
 	public void showPuzzleBuilderView() {
-		if (pbv == null)
-			pbv = new PuzzleBuilderView();
+		if (pbv == null) {
+			AbstractLevel alevel = new AbstractLevel();
+			pbv = new PuzzleBuilderView(Application.this, alevel); }
 		currentView = pbv;
 		setContentPane(currentView);
 	}
 
 	public void showLightningBuilderView() {
-		if (lbv == null)
-			lbv = new LightningBuilderView();
+		if (lbv == null) {
+			AbstractLevel alevel = new AbstractLevel();
+			lbv = new LightningBuilderView(Application.this, alevel); }
 		currentView = lbv;
 		setContentPane(currentView);
 	}
 
 	public void showReleaseBuilderView() {
-		if (rbv == null)
-			rbv = new ReleaseBuilderView();
+		if (rbv == null) {
+			AbstractLevel alevel = new AbstractLevel();
+			rbv = new ReleaseBuilderView(Application.this, alevel); }
 		currentView = rbv;
 		setContentPane(currentView);
 	}

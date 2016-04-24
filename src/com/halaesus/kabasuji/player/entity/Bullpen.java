@@ -1,12 +1,25 @@
 package com.halaesus.kabasuji.player.entity;
 
+import com.halaesus.kabasuji.utils.PieceGenerator;
+
 public class Bullpen {
 
     Workspace workspace;
     Palette palette;
 	
     public Bullpen() {
-    	// TODO
+    	this.workspace = new Workspace();
+    	// TODO: All the count to the hexominoes; For now its random stuff
+    	Hexomino[] hexominoes = new Hexomino[35];
+    	for(int i = 0; i < 35; i++) {
+    		Piece hexominoPiece = new Piece(PieceGenerator.pieces[i]);
+    		// Now, add it to the Hexominoes class
+    		hexominoes[i] = new Hexomino(i, hexominoPiece, this.workspace);
+    		// Set reference to the Hexomino
+    		hexominoes[i].getPiece().setParentHexomino(hexominoes[i]);
+    	}
+    	// Set the palette up with the hexominoes
+    	this.palette = new Palette(hexominoes);
     }
 
 	public Workspace getWorkspace() {

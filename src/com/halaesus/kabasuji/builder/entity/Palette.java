@@ -10,8 +10,7 @@ public class Palette {
     /**
      * Default constructor
      */
-    public Palette() {
-    }
+    
 
     /**
      * 
@@ -23,7 +22,11 @@ public class Palette {
      * @param Hexominos[35] hex
      */
     public Palette(Hexomino[] hex) {
-        // TODO implement here
+        this.hexominos = hex;
+    }
+    
+    public Hexomino getHexomino(int i){
+    	return hexominos[i];
     }
 
 }

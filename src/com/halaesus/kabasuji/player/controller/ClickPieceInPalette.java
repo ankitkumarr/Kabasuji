@@ -1,16 +1,16 @@
 package com.halaesus.kabasuji.player.controller;
 
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 import com.halaesus.kabasuji.player.entity.Hexomino;
+import com.halaesus.kabasuji.player.entity.Piece;
 
 public class ClickPieceInPalette implements MouseListener {
 
-    Hexomino hexomino;
     AbstractLevelView levelView;
+    Hexomino hexomino;
     
     public ClickPieceInPalette(Hexomino hexomino, AbstractLevelView levelView) {
     	this.levelView = levelView;
@@ -19,7 +19,14 @@ public class ClickPieceInPalette implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("Clicked Hexomino #" + hexomino.getCount()); // TODO
+		// Check its count
+		if( hexomino.getCount() > 0 ) {
+			// Get the piece clicked on
+			Piece clickOnPiece = new Piece(hexomino.getPiece());
+			clickOnPiece.centerPiece(); // Center this piece
+			// Add the piece to the LevelView
+			this.levelView.setPieceInWorkspace(clickOnPiece);
+		}
 	}
 
 	@Override

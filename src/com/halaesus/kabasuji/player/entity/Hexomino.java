@@ -11,6 +11,9 @@ public class Hexomino {
 		this.workspace = workspace;
 		this.piece = piece;
 		this.count = count;
+		// Setup Parent Piece relationship in here
+		for(int i = 0; i < this.piece.getPieceSquares().length; i++)
+			this.piece.getPieceSquares()[i].setParentPiece(this.piece);
     }
 	
 	public Piece getPiece() {
@@ -20,5 +23,9 @@ public class Hexomino {
     public int getCount() {
 		return count;
 	}
+    
+    public void setCount(int count) {
+    	this.count = count;
+    }
 
 }

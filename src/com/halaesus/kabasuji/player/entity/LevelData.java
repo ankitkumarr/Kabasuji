@@ -46,7 +46,7 @@ public class LevelData {
 		else if( levelType.equals("Release") )
 			return new ReleaseLevel(new File(fileName));
 		// If nothing matches, return a generic AbstractLevel
-		return new AbstractLevel(new File(fileName));
+		return null;
 	}
 
 }

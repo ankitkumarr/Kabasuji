@@ -3,7 +3,8 @@ package com.halaesus.kabasuji.player.entity;
 import java.io.File;
 
 public class PuzzleLevel extends AbstractLevel {
-
+	
+	//PuzzleBoard puzzleBoard;
     int allowedMoves;
     int usedMoves;
 
@@ -11,11 +12,37 @@ public class PuzzleLevel extends AbstractLevel {
     	super(file);
     	// Set the game type in here
     	levelType = "Puzzle";
+    	// TODO: Remove Dummy Values
+    	allowedMoves = 47; usedMoves = 0;
+    	// TODO construct releaseBoard from file data
+    	board = new PuzzleBoard(null);
     }
 
     public int getMovesLeft() {
-    	return 0;
+    	return (allowedMoves - usedMoves);
         // TODO implement here
     }
+    
+    // Abstract Methods Filler
+
+    @Override
+    public int getStarsAchieved() {
+    	return 0; // TODO: Fill this in
+    }
+    
+	@Override
+	public void newPieceDropped(Piece p) {
+		usedMoves++; // The user has used one extra move
+	}
+
+	@Override
+	public void boardPieceUpdated(PieceSquare[] oldPieceSquares, Piece newPiece) {
+		usedMoves++; // The user has used one extra move
+	}
+
+	@Override
+	public void boardPieceRemoved(Piece p) {
+		// TODO: Check if this count as a move
+	}
 
 }

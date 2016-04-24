@@ -1,6 +1,8 @@
 package com.halaesus.kabasuji.builder.controller;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
 import com.halaesus.kabasuji.builder.entity.*;
@@ -8,37 +10,52 @@ import com.halaesus.kabasuji.builder.entity.*;
 /**
  * 
  */
-public class FlipHInWorkspace {
+public class FlipHInWorkspace implements MouseListener {
 
-    /**
-     * Default constructor
-     */
-    public FlipHInWorkspace() {
-    }
 
-    /**
-     * 
-     */
     Workspace workspace;
-
-    /**
-     * 
-     */
     AbstractBuilderView builderView;
 
-    /**
-     * @param Workspace workspace 
-     * @param AbstractBuilderView builderView
-     */
+
     public FlipHInWorkspace(Workspace workspace, AbstractBuilderView builderView) {
-        // TODO implement here
+        this.workspace = workspace;
+        this.builderView = builderView;
     }
 
-    /**
-     * @param ActionEvent e
-     */
-    public void actionPerformed(ActionEvent e) {
-        // TODO implement here
-    }
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// First validate the move
+				if( this.workspace.getPiece() != null ) {
+					// Perform the move
+					this.workspace.getPiece().flipH(); // Perform the Flip
+					this.workspace.getPiece().centerPiece(); // Re-center the piece
+					// Repaint the AbsLevelView
+					this.builderView.repaint();
+				}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

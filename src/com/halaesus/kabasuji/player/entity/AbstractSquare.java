@@ -1,32 +1,28 @@
 package com.halaesus.kabasuji.player.entity;
 
-
-/**
- * 
- */
 public class AbstractSquare {
 
-    /**
-     * Default constructor
-     */
-    public AbstractSquare() {
-    }
-
-    /**
-     * 
-     */
     boolean active;
-
-    /**
-     * 
-     */
     int color;
 
-    /**
-     * @param boolean active
-     */
     public AbstractSquare(boolean active) {
-        // TODO implement here
+        this.active = active;
     }
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public int getColor() {
+		return color;
+	}
+
+	public void setColor(int color) {
+		this.color = color;
+	}
 
 }

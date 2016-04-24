@@ -23,8 +23,8 @@ public class ReleaseBuilderView extends AbstractBuilderView {
     /**
      * @param ReleaseLevel aLevel
      */
-    public ReleaseBuilderView() {
+    public ReleaseBuilderView(Application application, AbstractLevel aLevel) {
         // TODO implement here
-    	super();
+    	super(application, aLevel);
     }
 }

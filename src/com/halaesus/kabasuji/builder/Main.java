@@ -11,8 +11,8 @@ public class Main {
 //	static final int splashTime = 3000;
 	
 	public static void main(String[] args) {
-		Model masterModel = new Model();
-		final Application app = Application.instance(masterModel);
+		Model model = new Model();
+		final Application app = Application.instance(model);
 
 		app.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {

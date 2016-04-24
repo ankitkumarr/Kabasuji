@@ -67,6 +67,7 @@ public class Application extends JFrame {
 		
 		// Start on Splash Screen
 		showSplashScreen(-1);
+//		pack();
     }
     
     public static Application instance(Model m) {

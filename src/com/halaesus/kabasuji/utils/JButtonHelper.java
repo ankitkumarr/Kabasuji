@@ -10,5 +10,4 @@ public class JButtonHelper {
 		theButton.setOpaque(false);
 		theButton.setContentAreaFilled(false);
 	}
-	
 }

@@ -1,5 +1,6 @@
 package com.halaesus.kabasuji.builder.boundary;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -14,6 +15,8 @@ public class SplashView extends JPanel {
 
 	public SplashView(SplashModel splashModel) {
 		this.splashModel = splashModel;
+
+		setPreferredSize(new Dimension(1280, 720));
 	}
 
 	@Override

@@ -3,7 +3,12 @@ package com.halaesus.kabasuji.player.entity;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class AbstractBoard {
+/**
+ * 
+ * @author Corey Dixon
+ *
+ */
+public abstract class AbstractBoard {
 
 	BoardSquare[][] squares;
 	ArrayList<Piece> pieces;
@@ -23,6 +28,7 @@ public class AbstractBoard {
 		// Initialize
 		this.pieces = new ArrayList<Piece>();
 	}
+    public abstract AbstractBoardMemento generateMemento();
     
     public boolean isActive(int row, int col) {
     	return squares[row][col].isActive();

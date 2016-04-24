@@ -1,10 +1,18 @@
 package com.halaesus.kabasuji.player.entity;
 
 import java.io.File;
+import java.io.Serializable;
 
-public class LevelData {
 
-    int levelIndex;
+/**
+ * 
+ * @author Corey Dixon
+ *
+ */
+public class LevelData implements Serializable, Comparable<LevelData> {
+
+	private static final long serialVersionUID = -2749227260904434774L;
+	int levelIndex;
     String levelType;
     String levelName;
     String fileName;
@@ -47,6 +55,11 @@ public class LevelData {
 			return new ReleaseLevel(new File(fileName));
 		// If nothing matches, return a generic AbstractLevel
 		return null;
+	}
+
+	@Override
+	public int compareTo(LevelData other) {
+		return levelIndex - other.levelIndex;
 	}
 
 }

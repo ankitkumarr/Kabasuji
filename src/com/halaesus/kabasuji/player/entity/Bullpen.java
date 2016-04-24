@@ -2,6 +2,11 @@ package com.halaesus.kabasuji.player.entity;
 
 import com.halaesus.kabasuji.utils.PieceGenerator;
 
+/**
+ * 
+ * @author Corey Dixon
+ *
+ */
 public class Bullpen {
 
     Workspace workspace;
@@ -20,6 +25,11 @@ public class Bullpen {
     	}
     	// Set the palette up with the hexominoes
     	this.palette = new Palette(hexominoes);
+    }
+    
+    public Bullpen(Palette palette) {
+    	workspace = new Workspace();
+    	this.palette = palette;
     }
 
 	public Workspace getWorkspace() {

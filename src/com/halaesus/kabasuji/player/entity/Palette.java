@@ -1,8 +1,16 @@
 package com.halaesus.kabasuji.player.entity;
 
-public class Palette {
+import java.io.Serializable;
 
-    Hexomino[] hexominoes;
+/**
+ * 
+ * @author Corey Dixon
+ *
+ */
+public class Palette implements Serializable{
+
+	private static final long serialVersionUID = 6907929958555099610L;
+	Hexomino[] hexominoes;
 
     public Palette(Hexomino[] hexs) {
         this.hexominoes = hexs;

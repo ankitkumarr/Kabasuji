@@ -3,6 +3,11 @@ package com.halaesus.kabasuji.player.entity;
 import java.awt.Point;
 import java.io.File;
 
+/**
+ * 
+ * @author Corey Dixon
+ *
+ */
 public abstract class AbstractLevel {
 
 	// Some Constants
@@ -36,11 +41,14 @@ public abstract class AbstractLevel {
 		// Board
 		board = new AbstractBoard(boardSquares);*/
     }
-
-    public void loadLevel() {
-        // TODO implement here
-    }
+	
+	public AbstractLevel(AbstractLevelMemento memento) {
+		board = memento.board.generateBoard();
+		bullpen = new Bullpen(memento.palette);
+	}
     
+	public abstract AbstractLevelMemento generateMemento();
+	
     public AbstractBoard getBoard(){
     	return this.board;
     }

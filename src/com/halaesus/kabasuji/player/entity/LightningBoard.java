@@ -1,5 +1,10 @@
 package com.halaesus.kabasuji.player.entity;
 
+/**
+ * 
+ * @author Corey Dixon
+ *
+ */
 public class LightningBoard extends AbstractBoard {
 
    
@@ -20,6 +25,12 @@ public class LightningBoard extends AbstractBoard {
     	return 0;
         // TODO implement here
     }
+
+
+	@Override
+	public AbstractBoardMemento generateMemento() {
+		return new LightningBoardMemento(squares);
+	}
     
     
 

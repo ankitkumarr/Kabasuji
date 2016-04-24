@@ -1,15 +1,17 @@
 package com.halaesus.kabasuji.player.entity;
 
-
+import java.io.Serializable;
 
 /**
  * Representation for a ReleaseNumber for ReleaseLevel.
  * <p>
  * The valid numbers are 1 through 6. There are only 3 valid colors, 1, 2, and 3.
- * @author Brian Keeley-DeBonis (bjkeeleydebonis@wpi.edu)
+ * @author Brian Keeley-DeBonis (bjkeeleydebonis@wpi.edu), Corey Dixon
  */
-public class ReleaseNumber {
-    boolean collected; // has this number been collected by the player?
+public class ReleaseNumber implements Serializable {
+
+	private static final long serialVersionUID = -5097755564606845686L;
+	boolean collected; // has this number been collected by the player?
     int color; // 1 = red ,2 = green ,3 = yellow
     int col;
     int row;
@@ -22,8 +24,7 @@ public class ReleaseNumber {
     	this.row = row;  	
     	this.collected = false;
     }
-    
-    
+        
     public int getValue(){
     	return this.value;
     }

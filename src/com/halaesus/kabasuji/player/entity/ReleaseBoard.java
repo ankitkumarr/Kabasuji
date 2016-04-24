@@ -1,7 +1,11 @@
 package com.halaesus.kabasuji.player.entity;
 import java.util.*;
 
-
+/**
+ * 
+ * @author Corey Dixon
+ *
+ */
 public class ReleaseBoard extends AbstractBoard {
 
     Set<ReleaseNumber> numbers;
@@ -21,5 +25,10 @@ public class ReleaseBoard extends AbstractBoard {
     public Set<ReleaseNumber> getReleaseNumbers(){
     	return numbers;  	
     }
+
+	@Override
+	public AbstractBoardMemento generateMemento() {
+		return new ReleaseBoardMemento(squares, numbers);
+	}
     
 }

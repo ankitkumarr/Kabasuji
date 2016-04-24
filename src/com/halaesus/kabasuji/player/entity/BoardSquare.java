@@ -1,8 +1,16 @@
 package com.halaesus.kabasuji.player.entity;
 
-public class BoardSquare extends AbstractSquare {
+import java.io.Serializable;
 
-    boolean filled;
+/**
+ * 
+ * @author Corey Dixon
+ *
+ */
+public class BoardSquare extends AbstractSquare implements Serializable{
+
+	private static final long serialVersionUID = -3708147432756262459L;
+	boolean filled;
     boolean hint;
 
     public BoardSquare(boolean active) {

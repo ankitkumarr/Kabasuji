@@ -2,6 +2,11 @@ package com.halaesus.kabasuji.player.entity;
 
 import java.io.File;
 
+/**
+ * 
+ * @author Corey Dixon
+ *
+ */
 public class ReleaseLevel extends AbstractLevel {
   
 	NumberBar numberBar;
@@ -15,6 +20,11 @@ public class ReleaseLevel extends AbstractLevel {
 		// Set the game type in here
 		levelType = "Release";
 		
+		numberBar = new NumberBar();
+	}
+	
+	public ReleaseLevel(ReleaseLevelMemento memento) {
+		super(memento);
 		numberBar = new NumberBar();
 	}
 	
@@ -45,6 +55,11 @@ public class ReleaseLevel extends AbstractLevel {
 	public void boardPieceRemoved(Piece p) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public AbstractLevelMemento generateMemento() {
+		return new ReleaseLevelMemento(board.generateMemento(), bullpen.palette);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.halaesus.kabasuji.builder.boundary;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,6 +11,7 @@ import javax.swing.Timer;
 
 import com.halaesus.kabasuji.builder.entity.AbstractLevel;
 import com.halaesus.kabasuji.builder.entity.Model;
+import com.halaesus.kabasuji.builder.boundary.Application;
 import com.halaesus.kabasuji.builder.boundary.SplashView;
 
 @SuppressWarnings("serial")
@@ -37,8 +39,26 @@ public class Application extends JFrame {
 		// Set up GUI
 		setTitle("Kabasuji Builder by Team Halaesus");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1280, 720);
+		//TODO: setSize(1280, 720);
+		
+		
 		setResizable(false);
+		setPreferredSize(new Dimension(1280, 720)); // Force the window to be 1280x720
+		pack(); // Force Swing to respect it
+		// Now, calculate the difference and set the new size
+		setPreferredSize(new Dimension(1280 + (1280 - getContentPane().getSize().width), 
+				                       720 + (720 - getContentPane().getSize().height)));
+		pack(); // Force Swing to resize
+		// Center in screen
+		setLocationRelativeTo(null); // Center in screen
+		// Save the Master Model given to us
+		// Initialize
+		splashView = new SplashView(masterModel.getSplashModel());
+		//levelSelectorView = new LevelSelectorView(masterModel.getLevelSelectorModel(), Application.this);
+		// Show Splash Screen
+		//showSplashScreen();
+		
+		
 		setLocationRelativeTo(null); // Center in screen
 		
 		// Start on Splash Screen

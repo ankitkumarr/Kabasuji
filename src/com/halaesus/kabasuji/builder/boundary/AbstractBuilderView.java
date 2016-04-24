@@ -17,11 +17,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.halaesus.kabasuji.builder.entity.SplashModel;
-import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
-import com.halaesus.kabasuji.player.controller.FlipHInWorkspace;
-import com.halaesus.kabasuji.player.controller.FlipVInWorkspace;
-import com.halaesus.kabasuji.player.controller.RotateCCInWorkspace;
-import com.halaesus.kabasuji.player.controller.RotateCWInWorkspace;
+import com.halaesus.kabasuji.builder.controller.FlipHInWorkspace;
+import com.halaesus.kabasuji.builder.controller.FlipVInWorkspace;
+import com.halaesus.kabasuji.builder.controller.RotateCCInWorkspace;
+import com.halaesus.kabasuji.builder.controller.RotateCWInWorkspace;
 import com.halaesus.kabasuji.utils.JButtonHelper;
 import com.halaesus.kabasuji.builder.entity.PieceSquare;
 import com.halaesus.kabasuji.builder.entity.Piece;
@@ -65,7 +64,6 @@ public abstract class AbstractBuilderView extends JPanel { // you'll note this I
 	private ImageIcon[] hexominoImages;
 	private Image backgroundImage;
 	private Image backButton;
-	private Image starGold;
 	private Image rotateCCImage;
 	private Image rotateCWImage;
 	private Image flipHImage;
@@ -106,6 +104,7 @@ public abstract class AbstractBuilderView extends JPanel { // you'll note this I
 			redoBtn.setBounds(10 + 60 * 4, 15, 60, 60);
 			this.add(redoBtn);
 
+			/**
 			flipHBtn = new JButton((new ImageIcon(ImageIO.read(getClass().getResource("/resources/flipHorizontal.png"))
 					.getScaledInstance(60, 60, Image.SCALE_SMOOTH))));
 			flipHBtn.setBounds(230, 615, 60, 60);
@@ -125,6 +124,7 @@ public abstract class AbstractBuilderView extends JPanel { // you'll note this I
 					.getScaledInstance(60, 60, Image.SCALE_SMOOTH))));
 			rotateCCBtn.setBounds(230, 395, 60, 60);
 			this.add(rotateCCBtn);
+			**/
 
 			//builderPalette = new JPanel();
 			//builderPalette.setBounds(17, 91, 273, 200);
@@ -160,6 +160,7 @@ public abstract class AbstractBuilderView extends JPanel { // you'll note this I
 			}
 			calculateScaledImages();
 			setupHexominoesButtons();
+			setupPaletteControllers();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -192,34 +193,34 @@ public abstract class AbstractBuilderView extends JPanel { // you'll note this I
 		}
 	}
 	
-	/**
+	
 	private void setupPaletteControllers() {
 		// Create the FlipV Button
 		flipVBtn = new JButton(new ImageIcon(flipVImage));
 		flipVBtn.setBounds(1, 400, 90, 90);
-		flipVBtn.addMouseListener(new FlipVInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
-		JButtonHelper.makeBackgroundTransparent(flipV);
-		add(flipV);
+		//flipVBtn.addMouseListener(new FlipVInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		JButtonHelper.makeBackgroundTransparent(flipVBtn);
+		add(flipVBtn);
 		// Create the FlipH Button
 		flipHBtn = new JButton(new ImageIcon(flipHImage));
 		flipHBtn.setBounds(230, 630, 90, 90);
-		flipHBtn.addMouseListener(new FlipHInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
-		JButtonHelper.makeBackgroundTransparent(flipH);
-		add(flipH);
+		//flipHBtn.addMouseListener(new FlipHInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		JButtonHelper.makeBackgroundTransparent(flipHBtn);
+		add(flipHBtn);
 		// Create the RotateCC Button
 		rotateCCBtn = new JButton(new ImageIcon(rotateCCImage));
 		rotateCCBtn.setBounds(230, 400, 90, 90);
-		rotateCCBtn.addMouseListener(new RotateCCInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
-		JButtonHelper.makeBackgroundTransparent(rotateCC);
-		add(rotateCC);
+		//rotateCCBtn.addMouseListener(new RotateCCInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		JButtonHelper.makeBackgroundTransparent(rotateCCBtn);
+		add(rotateCCBtn);
 		// Create the RotateCW Button
 		rotateCWBtn = new JButton(new ImageIcon(rotateCWImage));
 		rotateCWBtn.setBounds(1, 630, 90, 90);
-		rotateCWBtn.addMouseListener(new RotateCWInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
-		JButtonHelper.makeBackgroundTransparent(rotateCW);
-		add(rotateCW);
+		//rotateCWBtn.addMouseListener(new RotateCWInWorkspace(this.level.getLevelBullpen().getWorkspace(), AbstractLevelView.this));
+		JButtonHelper.makeBackgroundTransparent(rotateCWBtn);
+		add(rotateCWBtn);
 	}
-	**/
+	
 	
 	private void setupHexominoesButtons() {
 		int paletteRow = 0; // To keep track of positions on the board

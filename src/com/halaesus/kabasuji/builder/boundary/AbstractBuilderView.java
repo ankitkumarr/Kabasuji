@@ -1,7 +1,6 @@
 package com.halaesus.kabasuji.builder.boundary;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -57,8 +56,8 @@ public abstract class AbstractBuilderView extends JPanel { // you'll note this I
 	Application application;
 	AbstractLevel level;
 	
-	private JButton[] hexominoButton;
-	private ImageIcon[] hexominoImages;
+//	private JButton[] hexominoButton;
+//	private ImageIcon[] hexominoImages;
 //	private Image backgroundImage;
 //	private Image backButton;
 //	private Image rotateCCImage;
@@ -102,23 +101,31 @@ public abstract class AbstractBuilderView extends JPanel { // you'll note this I
 
 		// handle workspace buttons
 		flipHBtn = new JButton(new ImageIcon(Application.instance().getImage("flipHorizontal.png")
-				.getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-		flipHBtn.setBounds(230, 615, 60, 60);
+				.getScaledInstance(90, 90, Image.SCALE_SMOOTH)));
+		flipHBtn.setBounds(230, 630, 90, 90);
+		flipHBtn.setOpaque(false);
+		flipHBtn.setContentAreaFilled(false);
 		this.add(flipHBtn);
 
 		flipVBtn = new JButton(new ImageIcon(Application.instance().getImage("flipVertical.png")
-				.getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-		flipVBtn.setBounds(10, 395, 60, 60);
+				.getScaledInstance(90, 90, Image.SCALE_SMOOTH)));
+		flipVBtn.setBounds(1, 400, 90, 90);
+		flipVBtn.setOpaque(false);
+		flipVBtn.setContentAreaFilled(false);
 		this.add(flipVBtn);
 
 		rotateCWBtn = new JButton(new ImageIcon(Application.instance().getImage("rotateCW.png")
-				.getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-		rotateCWBtn.setBounds(10, 615, 60, 60);
+				.getScaledInstance(90, 90, Image.SCALE_SMOOTH)));
+		rotateCWBtn.setBounds(1, 630, 90, 90);
+		rotateCWBtn.setOpaque(false);
+		rotateCWBtn.setContentAreaFilled(false);
 		this.add(rotateCWBtn);
 
 		rotateCCBtn = new JButton(new ImageIcon(Application.instance().getImage("rotateCC.png")
-				.getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-		rotateCCBtn.setBounds(230, 395, 60, 60);
+				.getScaledInstance(90, 90, Image.SCALE_SMOOTH)));
+		rotateCCBtn.setBounds(230, 400, 90, 90);
+		rotateCCBtn.setOpaque(false);
+		rotateCCBtn.setContentAreaFilled(false);
 		this.add(rotateCCBtn);
 
 //
@@ -163,18 +170,19 @@ public abstract class AbstractBuilderView extends JPanel { // you'll note this I
 
 		// set up the palette used for building
 		builderPalette = new JPanel();
-		builderPalette.setBounds(17, 91, 273, 200);
-//		builderPalette.setBounds(1, 91, 318, 318);
-		builderPalette.setLayout(new GridLayout(5, 7));
-//		builderPalette.setLayout(new GridLayout(6, 6));
+//		builderPalette.setBounds(17, 91, 273, 200);
+		builderPalette.setBounds(8, 88, 304, 304);
+//		builderPalette.setLayout(new GridLayout(5, 7));
+		builderPalette.setLayout(new GridLayout(6, 6));
 //		builderPalette.setLayout(null);
+		builderPalette.setBackground(new Color(56, 83, 90));
 		this.add(builderPalette);
 
 		builderPaletteHexBtns = new JButton[35];
 		for (int i = 0; i < 35; i++) {
 			builderPaletteHexBtns[i] = new JButton(
 					new ImageIcon(Application.instance().getImage((i + 1) + ".jpg")
-							.getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+							.getScaledInstance(51, 51, Image.SCALE_SMOOTH)));
 			builderPaletteHexBtns[i].addMouseListener(
 					new ClickPieceInPalette(level.getLevelBullpen().getPalette().getHexomino(i), this));
 			builderPalette.add(builderPaletteHexBtns[i]);
@@ -182,8 +190,9 @@ public abstract class AbstractBuilderView extends JPanel { // you'll note this I
 		
 		// set up the other palette
 		playerPalette = new JPanel();
-		playerPalette.setBounds(977 + 7, 395 + 7, 273, 200);
-		playerPalette.setLayout(new GridLayout(5, 7));
+		playerPalette.setBounds(968, 408, 304, 304);
+		playerPalette.setLayout(new GridLayout(6, 6));
+		playerPalette.setBackground(new Color(56, 83, 90));
 		this.add(playerPalette);
 
 		playerPaletteHexBtns = new JButton[35];
@@ -191,7 +200,7 @@ public abstract class AbstractBuilderView extends JPanel { // you'll note this I
 		for (int i = 0; i < 35; i++) {
 			playerPaletteHexBtns[i] = new JButton(
 					new ImageIcon(Application.instance().getImage((i + 1) + ".jpg")
-							.getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+							.getScaledInstance(51, 51, Image.SCALE_SMOOTH)));
 			playerPalette.add(playerPaletteHexBtns[i]);
 		}
 		
@@ -295,40 +304,40 @@ public abstract class AbstractBuilderView extends JPanel { // you'll note this I
 	}
 	
 	
-	private void setupHexominoesButtons() {
-		int paletteRow = 0; // To keep track of positions on the board
-		int paletteColumn = 0;
-		// Initialize the array
-		hexominoButton = new JButton[35];
-		// Iterate over all 35 hexominoes and add them to the board
-		for(int i = 0; i < 35; i++) {
-			// Set up coordinates
-			int width = 53; int height = 53;
-			int x = 1 + (53 * paletteColumn);
-			int y = 81 + (53 * paletteRow);
-			// Add the button
-			hexominoButton[i] = new JButton(hexominoImages[i]);
-			// Add it to the GUI
-			hexominoButton[i].setBounds(x, y, width, height);
-			hexominoButton[i].addMouseListener(new ClickPieceInPalette(level.getLevelBullpen().getPalette().getHexomino(i), AbstractBuilderView.this));
-			add(hexominoButton[i]);
-			
-			// Deal with the cycle overs of the rows and columns
-			if( (paletteColumn != 0) && (paletteColumn % 5 == 0) ) {
-				paletteRow += 1; // We move to the next row
-				paletteColumn = 0; // We start from the zeroth column
-			} else
-				paletteColumn++; // We move to the next column
-		}
-	}
+//	private void setupHexominoesButtons() {
+//		int paletteRow = 0; // To keep track of positions on the board
+//		int paletteColumn = 0;
+//		// Initialize the array
+//		hexominoButton = new JButton[35];
+//		// Iterate over all 35 hexominoes and add them to the board
+//		for(int i = 0; i < 35; i++) {
+//			// Set up coordinates
+//			int width = 53; int height = 53;
+//			int x = 1 + (53 * paletteColumn);
+//			int y = 81 + (53 * paletteRow);
+//			// Add the button
+//			hexominoButton[i] = new JButton(hexominoImages[i]);
+//			// Add it to the GUI
+//			hexominoButton[i].setBounds(x, y, width, height);
+//			hexominoButton[i].addMouseListener(new ClickPieceInPalette(level.getLevelBullpen().getPalette().getHexomino(i), AbstractBuilderView.this));
+//			add(hexominoButton[i]);
+//			
+//			// Deal with the cycle overs of the rows and columns
+//			if( (paletteColumn != 0) && (paletteColumn % 5 == 0) ) {
+//				paletteRow += 1; // We move to the next row
+//				paletteColumn = 0; // We start from the zeroth column
+//			} else
+//				paletteColumn++; // We move to the next column
+//		}
+//	}
 
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g); // Let the JPanel do its stuff
-		g.drawImage(Application.instance().getImage("playerBackground.jpg")
+		g.drawImage(Application.instance().getImage("gridWithBoard.jpg")
 				.getScaledInstance(1280, -1, Image.SCALE_SMOOTH), 0, 0, null);
-		g.drawImage(Application.instance().getImage("board.jpg").
-				getScaledInstance(656, 612, Image.SCALE_SMOOTH), 309, 80, null);
-		drawWorkspace(g);
+//		g.drawImage(Application.instance().getImage("board.jpg").
+//				getScaledInstance(656, 612, Image.SCALE_SMOOTH), 309, 80, null);
+//		drawWorkspace(g);
 		drawWorkspacePiece(g);
 
 //		drawPlayerPalette(g);

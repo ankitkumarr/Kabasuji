@@ -18,5 +18,4 @@ public class PuzzleBuilderView extends AbstractBuilderView {
         // TODO implement here
     	super(application, aLevel);
     }
-
 }

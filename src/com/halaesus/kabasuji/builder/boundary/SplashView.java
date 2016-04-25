@@ -21,8 +21,7 @@ public class SplashView extends JPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		super.paintComponent(g); // Let the super do its job
+		super.paintComponent(g);
 		g.drawImage(splashModel.getSplashImage().getScaledInstance(1280, -1, Image. SCALE_SMOOTH), 0, 0, null);
 	}
-
 }

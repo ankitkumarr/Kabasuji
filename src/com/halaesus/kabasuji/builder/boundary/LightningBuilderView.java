@@ -6,8 +6,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class LightningBuilderView extends AbstractBuilderView {
-
     JLabel timeRemLabel;
     JTextField minText;
     JTextField secText;
@@ -23,5 +23,4 @@ public class LightningBuilderView extends AbstractBuilderView {
         // TODO implement here
     	super(application, aLevel);
     }
-
 }

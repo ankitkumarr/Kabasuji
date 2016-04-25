@@ -35,17 +35,10 @@ public class Application extends JFrame {
 		masterModel = m;
 		splashView = new SplashView(masterModel.getSplashModel());
 		images = new HashMap<String, BufferedImage>();
-		// TODO these were causing problems, make them on demand now
-//		pbv = new PuzzleBuilderView();
-//		lbv = new LightningBuilderView();
-//		rbv = new ReleaseBuilderView();
 		
 		// Set up GUI
 		setTitle("Kabasuji Builder by Team Halaesus");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//TODO: setSize(1280, 720);
-		
-		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		setResizable(false);
 		setPreferredSize(new Dimension(1280, 720)); // Force the window to be 1280x720
 		pack(); // Force Swing to respect it
@@ -55,19 +48,12 @@ public class Application extends JFrame {
 		pack(); // Force Swing to resize
 		// Center in screen
 		setLocationRelativeTo(null); // Center in screen
-		// Save the Master Model given to us
+
 		// Initialize
 		splashView = new SplashView(masterModel.getSplashModel());
-		//levelSelectorView = new LevelSelectorView(masterModel.getLevelSelectorModel(), Application.this);
-		// Show Splash Screen
-		//showSplashScreen();
-		
-		
-//		setLocationRelativeTo(null); // Center in screen
 		
 		// Start on Splash Screen
 		showSplashScreen(-1);
-//		pack();
     }
     
     public static Application instance(Model m) {
@@ -97,7 +83,7 @@ public class Application extends JFrame {
 		    public void actionPerformed(ActionEvent evt) {
 				// options in drop down menu
 				String[] choices = { "Open from file", "New Puzzle Level", "New Lightning Level", "New Release Level" };
-
+				
 				// create popup, store response as String
 				String action = (String) JOptionPane.showInputDialog(
 						Application.instance(),

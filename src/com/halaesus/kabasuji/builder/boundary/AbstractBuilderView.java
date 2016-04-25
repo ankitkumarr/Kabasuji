@@ -14,16 +14,16 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.halaesus.kabasuji.builder.entity.PieceSquare;
+import com.halaesus.kabasuji.builder.entity.Piece;
+import com.halaesus.kabasuji.builder.entity.AbstractLevel;
+import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
+import com.halaesus.kabasuji.builder.boundary.Application;
 import com.halaesus.kabasuji.builder.controller.FlipHInWorkspace;
 import com.halaesus.kabasuji.builder.controller.FlipVInWorkspace;
 import com.halaesus.kabasuji.builder.controller.RotateCCInWorkspace;
 import com.halaesus.kabasuji.builder.controller.RotateCWInWorkspace;
-import com.halaesus.kabasuji.builder.entity.PieceSquare;
-import com.halaesus.kabasuji.builder.entity.Piece;
-import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
-import com.halaesus.kabasuji.builder.boundary.Application;
 import com.halaesus.kabasuji.builder.controller.ClickPieceInPalette;
-import com.halaesus.kabasuji.builder.entity.AbstractLevel;
 
 @SuppressWarnings("serial")
 public abstract class AbstractBuilderView extends JPanel {
@@ -69,8 +69,6 @@ public abstract class AbstractBuilderView extends JPanel {
 		setupWorkspace();
 		setupBuilderPalette();
 		setupPlayerPalette();
-		
-		setupPaletteControllers();
 	}
 	
 	private void setupTopBar() {
@@ -95,11 +93,12 @@ public abstract class AbstractBuilderView extends JPanel {
 		redoBtn.setBounds(75 * 4, 0, 75, 75);
 		this.add(redoBtn);
 	}
-	
+
 	private void setupWorkspace() {
 		flipHBtn = new JButton(new ImageIcon(Application.instance().getImage("flipHorizontal.png")
 				.getScaledInstance(90, 90, Image.SCALE_SMOOTH)));
 		flipHBtn.setBounds(230, 630, 90, 90);
+		flipHBtn.addMouseListener(new FlipHInWorkspace(level.getLevelBullpen().getWorkspace(), this));
 		flipHBtn.setOpaque(false);
 		flipHBtn.setContentAreaFilled(false);
 		this.add(flipHBtn);
@@ -107,6 +106,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		flipVBtn = new JButton(new ImageIcon(Application.instance().getImage("flipVertical.png")
 				.getScaledInstance(90, 90, Image.SCALE_SMOOTH)));
 		flipVBtn.setBounds(1, 400, 90, 90);
+		flipVBtn.addActionListener(new FlipVInWorkspace(level.getLevelBullpen().getWorkspace(), this));
 		flipVBtn.setOpaque(false);
 		flipVBtn.setContentAreaFilled(false);
 		this.add(flipVBtn);
@@ -114,6 +114,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		rotateCWBtn = new JButton(new ImageIcon(Application.instance().getImage("rotateCW.png")
 				.getScaledInstance(90, 90, Image.SCALE_SMOOTH)));
 		rotateCWBtn.setBounds(1, 630, 90, 90);
+		rotateCWBtn.addMouseListener(new RotateCWInWorkspace(level.getLevelBullpen().getWorkspace(), this));
 		rotateCWBtn.setOpaque(false);
 		rotateCWBtn.setContentAreaFilled(false);
 		this.add(rotateCWBtn);
@@ -121,6 +122,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		rotateCCBtn = new JButton(new ImageIcon(Application.instance().getImage("rotateCC.png")
 				.getScaledInstance(90, 90, Image.SCALE_SMOOTH)));
 		rotateCCBtn.setBounds(230, 400, 90, 90);
+		rotateCCBtn.addMouseListener(new RotateCCInWorkspace(level.getLevelBullpen().getWorkspace(), this));
 		rotateCCBtn.setOpaque(false);
 		rotateCCBtn.setContentAreaFilled(false);
 		this.add(rotateCCBtn);
@@ -161,13 +163,6 @@ public abstract class AbstractBuilderView extends JPanel {
 		}
 	}
 	
-	private void setupPaletteControllers() {
-		flipVBtn.addMouseListener(new FlipVInWorkspace(level.getLevelBullpen().getWorkspace(), this));
-		flipHBtn.addMouseListener(new FlipHInWorkspace(level.getLevelBullpen().getWorkspace(), this));
-		rotateCCBtn.addMouseListener(new RotateCCInWorkspace(level.getLevelBullpen().getWorkspace(), this));
-		rotateCWBtn.addMouseListener(new RotateCWInWorkspace(level.getLevelBullpen().getWorkspace(), this));
-	}
-	
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(Application.instance().getImage("gridWithBoard.jpg")
@@ -183,7 +178,7 @@ public abstract class AbstractBuilderView extends JPanel {
 					// Go over all the 6 PieceSquares within
 					for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
 						// Solve for the Rectangle
-						Rectangle rectToDraw = getBullpenWorkspacePieceRectangle(aPieceSquare.getRow(), aPieceSquare.getCol());
+						Rectangle rectToDraw = getBullpenWorkspacePieceRectangle(aPieceSquare.getCol(), aPieceSquare.getRow());
 						// Save backup Graphics color
 						Color oldColor = g.getColor();
 						// Set new Color

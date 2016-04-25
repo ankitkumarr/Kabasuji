@@ -1,6 +1,7 @@
 package com.halaesus.kabasuji.builder.controller;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -10,7 +11,7 @@ import com.halaesus.kabasuji.builder.entity.*;
 /**
  * 
  */
-public class FlipVInWorkspace implements MouseListener {
+public class FlipVInWorkspace implements ActionListener {
 
   
     Workspace workspace;
@@ -22,7 +23,7 @@ public class FlipVInWorkspace implements MouseListener {
         this.builderView = builderView;
     }
 
-
+/**
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// First run a check
@@ -58,5 +59,16 @@ public class FlipVInWorkspace implements MouseListener {
 		// TODO Auto-generated method stub
 		
 	}
+*/
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if( this.workspace.getPiece() != null ) {
+			// Perform the move
+			this.workspace.getPiece().flipV(); // Perform the Flip
+			this.workspace.getPiece().centerPiece(); // Re-center the piece
+			// Repaint the AbsLevelView
+			this.builderView.repaint();
+		}
+	}
 }

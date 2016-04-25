@@ -8,8 +8,6 @@ import com.halaesus.kabasuji.builder.boundary.ImageLoader;
 import com.halaesus.kabasuji.builder.entity.Model;
 
 public class Main {
-//	static final int splashTime = 3000;
-	
 	public static void main(String[] args) {
 		Model model = new Model();
 		final Application app = Application.instance(model);
@@ -22,6 +20,5 @@ public class Main {
 
 		(new ImageLoader()).execute();
 		app.setVisible(true);
-//		app.showSplashScreen(splashTime);
 	}
 }

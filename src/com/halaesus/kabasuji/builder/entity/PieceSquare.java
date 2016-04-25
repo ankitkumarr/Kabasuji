@@ -26,7 +26,7 @@ public class PieceSquare extends AbstractSquare {
 
     int col;
 
-    public PieceSquare(boolean activem, int row, int col) {
+    public PieceSquare(boolean activem, int col, int row) {
         super(activem);
         this.row = row;
         this.col = col;
@@ -55,5 +55,4 @@ public class PieceSquare extends AbstractSquare {
 	public void setCol(int col) {
 		this.col = col;
 	}
-
 }

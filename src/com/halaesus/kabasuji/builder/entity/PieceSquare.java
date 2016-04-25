@@ -7,11 +7,6 @@ import com.halaesus.kabasuji.builder.entity.PieceSquare;
  */
 public class PieceSquare extends AbstractSquare {
 
-    /**
-     * Default constructor
-     */
-    public PieceSquare() {
-    }
     
     public PieceSquare(int col, int row) {
         super(true); // Let the super do its job
@@ -25,26 +20,12 @@ public class PieceSquare extends AbstractSquare {
     }
     
 
-    /**
-     * 
-     */
     Piece parentPiece;
 
-    /**
-     * 
-     */
     int row;
 
-    /**
-     * 
-     */
     int col;
 
-    /**
-     * @param boolean activem 
-     * @param int row 
-     * @param int col
-     */
     public PieceSquare(boolean activem, int row, int col) {
         super(activem);
         this.row = row;

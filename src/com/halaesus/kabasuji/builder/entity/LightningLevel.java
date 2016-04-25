@@ -8,32 +8,14 @@ import java.io.File;
  */
 public class LightningLevel extends AbstractLevel {
 
-    /**
-     * Default constructor
-     */
-    public LightningLevel() {
-    }
-
-    /**
-     * 
-     */
+    
     int time;
-
-    /**
-     * 
-     */
     int randPieces;
-
-    /**
-     * @param int levelIndex
-     */
+    
     public LightningLevel(int levelIndex) {
-        // TODO implement here
+ 
     }
 
-    /**
-     * @param File file
-     */
     public LightningLevel(File file) {
         // TODO implement here
     }

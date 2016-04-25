@@ -1,71 +1,25 @@
 package com.halaesus.kabasuji.builder.controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
-import com.halaesus.kabasuji.builder.entity.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import com.halaesus.kabasuji.builder.entity.Hexomino;
+import com.halaesus.kabasuji.builder.entity.Piece;
 
-/**
- * 
- */
-public class ClickPieceInPalette implements MouseListener {
-
-    /**
-     * 
-     */
+public class ClickPieceInPalette implements ActionListener {
     Hexomino hexomino;
-
-    /**
-     * 
-     */
     AbstractBuilderView builderView;
 
-    /**
-     * @param Hexomino hexomino 
-     * @param AbstractBuilderView builderView
-     */
     public ClickPieceInPalette(Hexomino hexomino, AbstractBuilderView builderView) {
         this.hexomino = hexomino;
         this.builderView = builderView;
     }
 
-    /**
-     * @param MouseEvent e
-     */
-    
-    //TODO: Not done yet
-    public void mouseClicked(MouseEvent e) {
-        
-    	// Get the piece clicked on
+	@Override
+	public void actionPerformed(ActionEvent e) {
 		Piece clickOnPiece = new Piece(hexomino.getPiece());
-		clickOnPiece.centerPiece(); // Center this piece
-		// Add the piece to the LevelView
+		clickOnPiece.centerPiece();
 		this.builderView.setPieceInWorkspace(clickOnPiece);
-		
-    }
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

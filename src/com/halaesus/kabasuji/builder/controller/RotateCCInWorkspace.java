@@ -1,72 +1,27 @@
 package com.halaesus.kabasuji.builder.controller;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.ActionListener;
 
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
-import com.halaesus.kabasuji.builder.entity.*;
+import com.halaesus.kabasuji.builder.entity.Workspace;
+import com.halaesus.kabasuji.builder.entity.Piece;
 
-/**
- * 
- */
-public class RotateCCInWorkspace implements MouseListener  {
+public class RotateCCInWorkspace implements ActionListener  {
+    Piece piece;
+    AbstractBuilderView builderView;
 
-    /**
-     * 
-     */
-    Workspace workspace;
-
-    /**
-     * 
-     */
-    AbstractBuilderView builder;
-
-    /**
-     * @param Workspace workspace 
-     * @param AbstractBuilderView builderView
-     */
     public RotateCCInWorkspace(Workspace workspace, AbstractBuilderView builderView) {
-       this.workspace= workspace;
-       this.builder = builderView;
+    	this.piece = workspace.getPiece();
+    	this.builderView = builderView;
     }
 
-    /**
-     * @param ActionEvent e
-     */
-    public void mouseClicked(MouseEvent e) {
-		// First validate the move
-		if( this.workspace.getPiece() != null ) {
-			// Perform the move
-			this.workspace.getPiece().rotateCC(); // Perform the Rotation
-			this.workspace.getPiece().centerPiece(); // Re-center the piece
-			// Repaint the AbsLevelView
-			this.builder.repaint();
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (piece != null) {
+			piece.rotateCC();
+			piece.centerPiece();
+			this.builderView.repaint();
 		}
 	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

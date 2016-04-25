@@ -27,15 +27,25 @@ import com.halaesus.kabasuji.builder.controller.ClickPieceInPalette;
 
 @SuppressWarnings("serial")
 public abstract class AbstractBuilderView extends JPanel {
+	Application application;
+	AbstractLevel level;
+	
+	// top bar buttons
 	JButton newBtn;
 	JButton saveBtn;
 	JButton openBtn;
 	JButton undoBtn;
 	JButton redoBtn;
+	
+	// workspace buttons
 	JButton flipHBtn;
 	JButton flipVBtn;
 	JButton rotateCCBtn;
 	JButton rotateCWBtn;
+
+	// palette buttons
+	JButton[] builderPaletteHexBtns;
+	JButton[] playerPaletteHexBtns;
 	
 	Point bullpenPiecesBoardTopPoint;
 	Point boardPiecesTopPoint;
@@ -46,16 +56,7 @@ public abstract class AbstractBuilderView extends JPanel {
 
 	JPanel builderPalette;
 	JPanel playerPalette;
-
-	BufferedImage[] workspacePiece;
-	JButton[] builderPaletteHexBtns;
-	JButton[] playerPaletteHexBtns;
-	BufferedImage[] boardSquares;
-	BufferedImage[] boardPieceSquares;
 	
-	Application application;
-	AbstractLevel level;
-
 	public AbstractBuilderView(Application application, AbstractLevel aLevel) {
 		this.application = application;
 		level = aLevel;
@@ -98,7 +99,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		flipHBtn = new JButton(new ImageIcon(Application.instance().getImage("flipHorizontal.png")
 				.getScaledInstance(90, 90, Image.SCALE_SMOOTH)));
 		flipHBtn.setBounds(230, 630, 90, 90);
-		flipHBtn.addMouseListener(new FlipHInWorkspace(level.getLevelBullpen().getWorkspace(), this));
+		flipHBtn.addActionListener(new FlipHInWorkspace(level.getLevelBullpen().getWorkspace(), this));
 		flipHBtn.setOpaque(false);
 		flipHBtn.setContentAreaFilled(false);
 		this.add(flipHBtn);
@@ -114,7 +115,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		rotateCWBtn = new JButton(new ImageIcon(Application.instance().getImage("rotateCW.png")
 				.getScaledInstance(90, 90, Image.SCALE_SMOOTH)));
 		rotateCWBtn.setBounds(1, 630, 90, 90);
-		rotateCWBtn.addMouseListener(new RotateCWInWorkspace(level.getLevelBullpen().getWorkspace(), this));
+		rotateCWBtn.addActionListener(new RotateCWInWorkspace(level.getLevelBullpen().getWorkspace(), this));
 		rotateCWBtn.setOpaque(false);
 		rotateCWBtn.setContentAreaFilled(false);
 		this.add(rotateCWBtn);
@@ -122,7 +123,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		rotateCCBtn = new JButton(new ImageIcon(Application.instance().getImage("rotateCC.png")
 				.getScaledInstance(90, 90, Image.SCALE_SMOOTH)));
 		rotateCCBtn.setBounds(230, 400, 90, 90);
-		rotateCCBtn.addMouseListener(new RotateCCInWorkspace(level.getLevelBullpen().getWorkspace(), this));
+		rotateCCBtn.addActionListener(new RotateCCInWorkspace(level.getLevelBullpen().getWorkspace(), this));
 		rotateCCBtn.setOpaque(false);
 		rotateCCBtn.setContentAreaFilled(false);
 		this.add(rotateCCBtn);
@@ -140,7 +141,7 @@ public abstract class AbstractBuilderView extends JPanel {
 			builderPaletteHexBtns[i] = new JButton(
 					new ImageIcon(Application.instance().getImage((i + 1) + ".jpg")
 							.getScaledInstance(51, 51, Image.SCALE_SMOOTH)));
-			builderPaletteHexBtns[i].addMouseListener(
+			builderPaletteHexBtns[i].addActionListener(
 					new ClickPieceInPalette(level.getLevelBullpen().getPalette().getHexomino(i), this));
 			builderPalette.add(builderPaletteHexBtns[i]);
 		}

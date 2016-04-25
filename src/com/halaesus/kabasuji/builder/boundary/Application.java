@@ -63,10 +63,11 @@ public class Application extends JFrame {
 		//showSplashScreen();
 		
 		
-		setLocationRelativeTo(null); // Center in screen
+//		setLocationRelativeTo(null); // Center in screen
 		
 		// Start on Splash Screen
 		showSplashScreen(-1);
+//		pack();
     }
     
     public static Application instance(Model m) {

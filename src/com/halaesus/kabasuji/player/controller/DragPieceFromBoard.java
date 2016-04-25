@@ -168,7 +168,16 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 				// Now, attempt the move
 				if( theMove.isValid(this.level) ) {
 					// The move is valid; Perform the move and let the underlying board know about this
-					this.level.boardPieceUpdated(this.originalBoardPieceSquares, theMove.doMove(this.level, this.originalBoardPieceSquares));
+					Piece finalPiece = theMove.doMove(this.level, this.originalBoardPieceSquares);
+					// Check if the Final Piece location is different from the original location or not
+					boolean locationChanged = false;
+					for(int idx = 0; idx < this.originalBoardPieceSquares.length; idx++)
+						if( ( this.originalBoardPieceSquares[idx].getRow() != finalPiece.getPieceSquares()[idx].getRow() ) ||
+							( this.originalBoardPieceSquares[idx].getCol() != finalPiece.getPieceSquares()[idx].getCol() ) )
+							locationChanged = true;
+					// Only if the location changed, inform the board of this move to have happened
+					if( locationChanged == true )
+						this.level.boardPieceUpdated(this.originalBoardPieceSquares, finalPiece);
 				} else {
 					// The move wasn't performed. Put the piece back to its original place
 					this.level.getBoard().addPiece(new Piece(this.level.getPieceBeingDragged().getColor(), originalBoardPieceSquares, this.level.getPieceBeingDragged().getParentHexomino()));

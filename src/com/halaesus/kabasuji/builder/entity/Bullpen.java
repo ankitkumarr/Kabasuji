@@ -7,15 +7,8 @@ import com.halaesus.kabasuji.builder.entity.Workspace;
 import com.halaesus.kabasuji.utils.BuilderPieceGenerator;
 
 
-/**
- * 
- */
 public class Bullpen {
 
-    /**
-     * Default constructor
-     * 
-     */
 	
 	 Palette palette;
 

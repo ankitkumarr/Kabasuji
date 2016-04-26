@@ -15,6 +15,7 @@ public class PuzzleLevelMemento extends AbstractLevelMemento {
 	public PuzzleLevelMemento() {
 		super();
 		allowedMoves = 0;
+		board = new PuzzleBoardMemento();
 	}
 
 	public PuzzleLevelMemento(AbstractBoardMemento board, PaletteMemento palette, int allowedMoves) {

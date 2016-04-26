@@ -13,6 +13,7 @@ public class ReleaseLevelMemento extends AbstractLevelMemento {
 	
 	public ReleaseLevelMemento() {
 		super();
+		board = new ReleaseBoardMemento();
 	}
 
 	/**

@@ -14,6 +14,7 @@ public class LightningLevelMemento extends AbstractLevelMemento {
 	
 	public LightningLevelMemento() {
 		super();
+		board = new LightningBoardMemento();
 		maxTime = 60;
 	}
 	

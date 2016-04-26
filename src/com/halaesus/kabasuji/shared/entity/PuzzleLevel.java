@@ -21,7 +21,11 @@ public class PuzzleLevel extends AbstractLevel {
 		allowedMoves = 47;
 		usedMoves = 0;
 		// TODO construct releaseBoard from file data
-		board = new PuzzleBoard(null);
+		BoardSquare[][] squares = new BoardSquare[12][12];
+		for(int r = 0; r < 12; r++)
+			for(int c = 0; c < 12; c++)
+				squares[r][c] = new BoardSquare(true);
+		board = new PuzzleBoard(squares);
 	}
 
 	public PuzzleLevel(PuzzleLevelMemento memento) {

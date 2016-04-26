@@ -23,7 +23,11 @@ public class LightningLevel extends AbstractLevel {
 		levelType = "Lightning";
 
 		// TODO construct releaseBoard from file data
-		board = new LightningBoard(null);
+		BoardSquare[][] squares = new BoardSquare[12][12];
+		for(int r = 0; r < 12; r++)
+			for(int c = 0; c < 12; c++)
+				squares[r][c] = new BoardSquare(true);
+		board = new LightningBoard(squares);
 	}
 
 	public LightningLevel(LightningLevelMemento memento) {

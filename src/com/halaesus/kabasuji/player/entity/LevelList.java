@@ -19,7 +19,7 @@ import java.util.List;
 public class LevelList implements Serializable {
 
 	private static final long serialVersionUID = -3275134577117921160L;
-	List<LevelData> levels;
+	ArrayList<LevelData> levels;
 
 	public LevelList() {
 		// Initialize
@@ -95,12 +95,14 @@ public class LevelList implements Serializable {
 		}
 	}
 	
-	public int newLevel(String name, String levelType) {
+	// TODO remove memento parameter and create a default one on the fly
+	// TODO add default constructor to momentos
+	public int newLevel(String name, String levelType, AbstractLevelMemento memento) {
 		LevelData ld;
-		int index = levels.size();
+		int index = levels.size(); // TODO add random number to name and check if already exists to prevent overwriting
 		ld = new LevelData(index, name, levelType, name + ".ser");
 		levels.add(ld);
-		saveList();
+		overwriteLevel(memento, index);
 		return index;
 	}
 	
@@ -117,6 +119,8 @@ public class LevelList implements Serializable {
 		saveList();
 	}
 	
+	// TODO prevent other classes from changing level
+	// should only use newLevel
 	public void addLevelData(LevelData levelData) {
 		levels.add(levelData);
 	}
@@ -128,5 +132,15 @@ public class LevelList implements Serializable {
 	public Iterator<LevelData> getIterator() {
 		return levels.iterator();
 	}
-
+	
+	public LevelData[] getArray() {
+		return (LevelData[]) levels.toArray();
+	}
+	
+	public void swapIndexes(int src, int tar) {
+		levels.get(src).levelIndex = tar;
+		levels.get(tar).levelIndex = src;
+		Collections.sort(levels);
+		saveList();
+	}
 }

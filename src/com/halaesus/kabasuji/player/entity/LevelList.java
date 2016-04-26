@@ -9,11 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
-import com.halaesus.kabasuji.builder.boundary.LightningBuilderView;
-import com.halaesus.kabasuji.builder.boundary.PuzzleBuilderView;
-import com.halaesus.kabasuji.builder.boundary.ReleaseBuilderView;
 import com.halaesus.kabasuji.shared.AbstractLevel;
 import com.halaesus.kabasuji.shared.AbstractLevelMemento;
 import com.halaesus.kabasuji.shared.LightningLevelMemento;

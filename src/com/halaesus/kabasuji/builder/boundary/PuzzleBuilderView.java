@@ -1,12 +1,11 @@
 package com.halaesus.kabasuji.builder.boundary;
 
-import com.halaesus.kabasuji.builder.entity.*;
-import com.halaesus.kabasuji.shared.AbstractLevel;
-import com.halaesus.kabasuji.shared.PuzzleLevel;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import com.halaesus.kabasuji.shared.AbstractLevel;
+import com.halaesus.kabasuji.shared.PuzzleLevel;
 
 @SuppressWarnings("serial")
 public class PuzzleBuilderView extends AbstractBuilderView {

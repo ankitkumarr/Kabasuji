@@ -1,21 +1,14 @@
 package com.halaesus.kabasuji.builder.boundary;
 
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 import com.halaesus.kabasuji.shared.AbstractLevel;
 import com.halaesus.kabasuji.shared.Model;
-import com.halaesus.kabasuji.shared.PuzzleLevel;
-import com.halaesus.kabasuji.builder.boundary.Application;
-import com.halaesus.kabasuji.builder.boundary.SplashView;
 
 @SuppressWarnings("serial")
 public class Application extends JFrame {

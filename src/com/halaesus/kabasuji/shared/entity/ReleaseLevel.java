@@ -48,20 +48,41 @@ public class ReleaseLevel extends AbstractLevel {
     
     @Override
 	public void newPieceDropped(Piece p) {
-		// TODO Auto-generated method stub
-		
+		// Once a Piece is dropped, update the NumberBar and hence the NumberBarView
+    	for(int r = 0; r < 12; r++) {
+    		for(int c = 0; c < 12; c++) {
+    			// See if a Piece exists on that BoardSquare
+    			boolean isFilled = this.board.isFilled(r, c);
+    			if( isFilled ) {
+    				// Now go over all the ReleaseNumbers and see if there is something
+    				//  for this (r, c) pair
+    				for( ReleaseNumber[] rowReleaseNumbers : this.numberBar.numbers ) {
+    					for( ReleaseNumber aReleaseNumber : rowReleaseNumbers ) {
+							// TODO
+							System.out.println(aReleaseNumber.getRow() + " " + aReleaseNumber.getCol());
+    						// Check if the row and col matches
+    						if( (aReleaseNumber.getCol() == c) &&
+    							(aReleaseNumber.getRow() == r) ) {
+    							// Add it to the NumberBar
+    							this.numberBar.addReleaseNumber(aReleaseNumber);
+    						}
+    					}
+    				}
+    			}
+    		}
+    	}
 	}
 
 	@Override
 	public void boardPieceUpdated(PieceSquare[] oldPieceSquares, Piece newPiece) {
-		// TODO Auto-generated method stub
-		
+		// This should not be allowed as in the ReleaseLevel once a piece is placed,
+		// it cannot be moved around.
 	}
 
 	@Override
 	public void boardPieceRemoved(Piece p) {
-		// TODO Auto-generated method stub
-		
+		// This should not be allowed as in the ReleaseLevel once a piece is placed, 
+		// it cannot be removed.
 	}
 
 	@Override

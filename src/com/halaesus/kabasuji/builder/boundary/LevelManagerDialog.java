@@ -99,9 +99,8 @@ public class LevelManagerDialog extends JDialog {
 							JButton newButton = new JButton("New");
 							newButton.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
-									// TODO call levelList.newLevel()
-									NewLevelDialog.main(levelList);
 									dispose();
+									NewLevelDialog.main(LevelManagerDialog.this); // can't just say "this" b/c we're inside the ActionListener
 								}
 							});
 							{

@@ -24,7 +24,7 @@ import java.beans.PropertyChangeEvent;
 
 @SuppressWarnings("serial")
 public class NewLevelDialog extends JDialog {
-	LevelList levelList; // passed in from the LevelManagerDialog
+	LevelManagerDialog parent;
 	String selectedType;
 
 	private final JPanel contentPanel = new JPanel();
@@ -33,9 +33,9 @@ public class NewLevelDialog extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(LevelList ll) {
+	public static void main(LevelManagerDialog parent) {
 		try {
-			NewLevelDialog dialog = new NewLevelDialog(ll);
+			NewLevelDialog dialog = new NewLevelDialog(parent);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -46,8 +46,8 @@ public class NewLevelDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public NewLevelDialog(LevelList ll) {
-		levelList = ll;
+	public NewLevelDialog(LevelManagerDialog parent) {
+		this.parent = parent;
 		selectedType = "Puzzle";
 		
 		setTitle("New Level");
@@ -113,9 +113,10 @@ public class NewLevelDialog extends JDialog {
 						String name = txtNamefield.getText();
 						if (name == null || name.length() == 0) return; // user must enter a name
 						
-						int idx = levelList.newLevel(name, selectedType);
-						Application.instance().show(levelList.loadLevel(idx), selectedType);
+						int idx = parent.levelList.newLevel(name, selectedType);
+						Application.instance().show(parent.levelList.loadLevel(idx), selectedType);
 						dispose();
+						parent.dispose();
 					}
 				});
 				okButton.setActionCommand("OK");

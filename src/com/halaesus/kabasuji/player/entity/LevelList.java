@@ -11,8 +11,14 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import com.halaesus.kabasuji.builder.boundary.LightningBuilderView;
+import com.halaesus.kabasuji.builder.boundary.PuzzleBuilderView;
+import com.halaesus.kabasuji.builder.boundary.ReleaseBuilderView;
 import com.halaesus.kabasuji.shared.AbstractLevel;
 import com.halaesus.kabasuji.shared.AbstractLevelMemento;
+import com.halaesus.kabasuji.shared.LightningLevelMemento;
+import com.halaesus.kabasuji.shared.PuzzleLevelMemento;
+import com.halaesus.kabasuji.shared.ReleaseLevelMemento;
 
 /**
  * 
@@ -98,13 +104,22 @@ public class LevelList implements Serializable {
 		}
 	}
 	
-	// TODO remove memento parameter and create a default one on the fly
-	// TODO add default constructor to momentos
-	public int newLevel(String name, String levelType, AbstractLevelMemento memento) {
+	public int newLevel(String name, String levelType) {
+		AbstractLevelMemento memento;
 		LevelData ld;
 		int index = levels.size(); // TODO add random number to name and check if already exists to prevent overwriting
 		ld = new LevelData(index, name, levelType, name + ".ser");
 		levels.add(ld);
+		if (levelType.toUpperCase().equals("PUZZLE")) {
+			memento = new PuzzleLevelMemento();
+		} else if (levelType.toUpperCase().equals("LIGHTNING")) {
+			memento = new LightningLevelMemento();
+		} else if (levelType.toUpperCase().equals("RELEASE")) {
+			memento = new ReleaseLevelMemento();
+		}
+		else
+			return -1; // TODO throw exception instead?
+		
 		overwriteLevel(memento, index);
 		return index;
 	}

@@ -77,6 +77,7 @@ public class LevelManagerDialog extends JDialog {
 							public void actionPerformed(ActionEvent e) {
 								Application.instance().show(levelList.loadLevel(levelListView.getSelectedIndex()),
 										levelList.getLevelType(levelListView.getSelectedIndex()));
+								dispose();
 							}
 						});
 						JButton upButton = new JButton("Up");

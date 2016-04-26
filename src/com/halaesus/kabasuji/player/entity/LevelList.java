@@ -162,7 +162,6 @@ public class LevelList implements Serializable {
 	}
 	
 	public String getLevelType(int index) {
-		System.out.println(levels.get(index).levelType);
 		return levels.get(index).levelType;
 	}
 }

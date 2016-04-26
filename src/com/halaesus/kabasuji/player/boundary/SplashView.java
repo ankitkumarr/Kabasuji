@@ -5,7 +5,7 @@ import java.awt.Image;
 
 import javax.swing.JPanel;
 
-import com.halaesus.kabasuji.player.entity.SplashModel;
+import com.halaesus.kabasuji.shared.SplashModel;
 
 @SuppressWarnings("serial")
 public class SplashView extends JPanel {

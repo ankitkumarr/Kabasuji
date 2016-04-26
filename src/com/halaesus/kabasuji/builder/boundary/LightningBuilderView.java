@@ -1,6 +1,7 @@
 package com.halaesus.kabasuji.builder.boundary;
 
-import com.halaesus.kabasuji.builder.entity.*;
+import com.halaesus.kabasuji.shared.AbstractLevel;
+import com.halaesus.kabasuji.shared.LightningLevel;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;

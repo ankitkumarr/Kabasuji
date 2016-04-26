@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
-import com.halaesus.kabasuji.player.entity.Workspace;
+import com.halaesus.kabasuji.shared.Workspace;
 
 public class FlipHInWorkspace implements MouseListener {
 

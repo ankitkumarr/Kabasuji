@@ -4,8 +4,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
-import com.halaesus.kabasuji.player.entity.Hexomino;
-import com.halaesus.kabasuji.player.entity.Piece;
+import com.halaesus.kabasuji.shared.Hexomino;
+import com.halaesus.kabasuji.shared.Piece;
 
 public class ClickPieceInPalette implements MouseListener {
 

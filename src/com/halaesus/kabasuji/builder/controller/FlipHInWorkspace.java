@@ -4,20 +4,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
-import com.halaesus.kabasuji.builder.entity.Workspace;
-import com.halaesus.kabasuji.builder.entity.Piece;
+import com.halaesus.kabasuji.shared.Workspace;
+import com.halaesus.kabasuji.shared.Piece;
 
 public class FlipHInWorkspace implements ActionListener {
-    Piece piece;
+    Workspace workspace;
     AbstractBuilderView builderView;
 
     public FlipHInWorkspace(Workspace workspace, AbstractBuilderView builderView) {
-        this.piece = workspace.getPiece();
+        this.workspace = workspace;
         this.builderView = builderView;
     }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		Piece piece = workspace.getPiece();
 		if (piece != null) {
 			piece.flipH();
 			piece.centerPiece();

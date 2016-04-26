@@ -3,6 +3,9 @@ package com.halaesus.kabasuji.builder.entity;
 
 import java.util.*;
 
+import com.halaesus.kabasuji.shared.AbstractLevel;
+import com.halaesus.kabasuji.shared.IMove;
+
 /**
  * 
  */

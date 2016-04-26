@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import com.halaesus.kabasuji.player.controller.DragPieceFromBoard;
-import com.halaesus.kabasuji.player.entity.PuzzleLevel;
+import com.halaesus.kabasuji.shared.PuzzleLevel;
 import com.halaesus.kabasuji.utils.JLabelHelper;
 
 @SuppressWarnings("serial")

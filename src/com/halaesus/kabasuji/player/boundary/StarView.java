@@ -1,6 +1,6 @@
 package com.halaesus.kabasuji.player.boundary;
 
-import com.halaesus.kabasuji.player.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.AbstractLevel;
 
 /**
  * 

@@ -8,6 +8,8 @@ import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 
+import com.halaesus.kabasuji.shared.SplashModel;
+
 public class LevelSelector {
 
 	ArrayList<LevelThumbnail> thumbnails;

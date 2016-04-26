@@ -1,6 +1,8 @@
 package com.halaesus.kabasuji.builder.entity;
 
-
+import com.halaesus.kabasuji.shared.AbstractLevel;
+import com.halaesus.kabasuji.shared.NumberBar;
+import com.halaesus.kabasuji.shared.ReleaseNumber;
 
 public class NumberFromBoardToNumberBarMove {
 

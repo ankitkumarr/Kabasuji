@@ -7,9 +7,9 @@ import java.util.*;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import com.halaesus.kabasuji.player.entity.ReleaseBoard;
-import com.halaesus.kabasuji.player.entity.ReleaseLevel;
-import com.halaesus.kabasuji.player.entity.ReleaseNumber;
+import com.halaesus.kabasuji.shared.ReleaseBoard;
+import com.halaesus.kabasuji.shared.ReleaseLevel;
+import com.halaesus.kabasuji.shared.ReleaseNumber;
 import com.halaesus.kabasuji.utils.JLabelHelper;
 
 /**

@@ -4,6 +4,9 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
+import com.halaesus.kabasuji.shared.AbstractLevel;
+import com.halaesus.kabasuji.shared.Piece;
+import com.halaesus.kabasuji.shared.PieceSquare;
 import com.halaesus.kabasuji.utils.PieceHelper;
 
 public class WorkspaceToBoardMove {
@@ -79,7 +82,7 @@ public class WorkspaceToBoardMove {
     	level.getPieceBeingDragged().getParentHexomino().setCount(level.getPieceBeingDragged().getParentHexomino().getCount() - 1);
 		// STEP 3: Mark underlying BoardSquares as filled
 		for( PieceSquare aPieceSquare : snappedPiece.getPieceSquares() ) {
-			level.getBoard().squares[aPieceSquare.getRow()][aPieceSquare.getCol()].filled = true;
+			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setFilled(true);
 		}
 		
 		// The move was successful, so:

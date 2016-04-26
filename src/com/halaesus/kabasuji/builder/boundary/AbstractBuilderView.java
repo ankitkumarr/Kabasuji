@@ -13,9 +13,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.halaesus.kabasuji.builder.entity.PieceSquare;
-import com.halaesus.kabasuji.builder.entity.Piece;
-import com.halaesus.kabasuji.builder.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.PieceSquare;
+import com.halaesus.kabasuji.shared.Piece;
+import com.halaesus.kabasuji.shared.AbstractLevel;
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
 import com.halaesus.kabasuji.builder.boundary.Application;
 import com.halaesus.kabasuji.builder.controller.FlipHInWorkspace;
@@ -194,6 +194,12 @@ public abstract class AbstractBuilderView extends JPanel {
 	public Rectangle getBullpenWorkspacePieceRectangle(int row, int col) {
 		return new Rectangle(bullpenPiecesBoardTopPoint.x + (53 * row), 
 				             bullpenPiecesBoardTopPoint.y + (53 * col), 
+				             53, 53);
+	}
+	
+	public Rectangle getBoardPieceRectangle(int row, int col) {
+		return new Rectangle(boardPiecesTopPoint.x + (53 * col), 
+				             boardPiecesTopPoint.y + (53 * row),
 				             53, 53);
 	}
 

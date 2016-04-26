@@ -4,7 +4,7 @@ import java.io.File;
 
 /**
  * 
- * @author Corey Dixon
+ * @author Corey Dixon, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  *
  */
 public class ReleaseLevel extends AbstractLevel {
@@ -43,7 +43,8 @@ public class ReleaseLevel extends AbstractLevel {
 
     @Override
     public int getStarsAchieved() {
-    	return 0; // TODO: Fix this
+    	int setsCompleted = this.numberBar.setsFound();
+    	return setsCompleted; // The number of sets completed is equal to the number of sets found
     }
     
     @Override

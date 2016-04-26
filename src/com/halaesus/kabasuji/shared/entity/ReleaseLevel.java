@@ -56,17 +56,13 @@ public class ReleaseLevel extends AbstractLevel {
     			if( isFilled ) {
     				// Now go over all the ReleaseNumbers and see if there is something
     				//  for this (r, c) pair
-    				for( ReleaseNumber[] rowReleaseNumbers : this.numberBar.numbers ) {
-    					for( ReleaseNumber aReleaseNumber : rowReleaseNumbers ) {
-							// TODO
-							System.out.println(aReleaseNumber.getRow() + " " + aReleaseNumber.getCol());
-    						// Check if the row and col matches
-    						if( (aReleaseNumber.getCol() == c) &&
-    							(aReleaseNumber.getRow() == r) ) {
-    							// Add it to the NumberBar
-    							this.numberBar.addReleaseNumber(aReleaseNumber);
-    						}
-    					}
+    				for( ReleaseNumber aReleaseNumber : ((ReleaseBoard)this.board).numbers ) {
+						// Check if the row and col matches
+						if( (aReleaseNumber.getCol() == c) &&
+							(aReleaseNumber.getRow() == r) ) {
+							// Add it to the NumberBar
+							this.numberBar.addReleaseNumber(aReleaseNumber);
+						}
     				}
     			}
     		}

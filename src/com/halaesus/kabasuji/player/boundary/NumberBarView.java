@@ -12,7 +12,7 @@ import com.halaesus.kabasuji.shared.entity.NumberBar;
 import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 
 /**
- * @author Brian Keeley-DeBonis (bjkeeleydebonis@wpi.edu)
+ * @author Brian Keeley-DeBonis (bjkeeleydebonis@wpi.edu), Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
 
 @SuppressWarnings("serial")

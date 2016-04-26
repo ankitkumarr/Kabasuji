@@ -78,66 +78,8 @@ public class Application extends JFrame {
 
 		if (time < 0) return;
 		
-//		Timer timer = new Timer(time, new ActionListener() {
-//		    public void actionPerformed(ActionEvent evt) {
-//				// options in drop down menu
-//				String[] choices = { "Open from file", "New Puzzle Level", "New Lightning Level", "New Release Level" };
-//				
-//				// create popup, store response as String
-//				String action = (String) JOptionPane.showInputDialog(
-//						Application.instance(),
-//						"Open or create a new level", // text within popup
-//						"Select an option", // window title
-//						JOptionPane.QUESTION_MESSAGE, // icon
-//						null, choices, choices[0]);
-//				
-//				if (action == null) { // no input
-//					Application.instance().showSplashScreen(0);
-//					return;
-//				} else if (action.equals(choices[0])) { // open from file
-//					Application.instance().showPuzzleBuilderView(); // TODO
-//					return;
-//				} else if (action.equals(choices[1])) { // new puzzle
-//					Application.instance().showPuzzleBuilderView();
-//					return;
-//				} else if (action.equals(choices[2])) { // new lightning
-//					Application.instance().showLightningBuilderView();
-//					return;
-//				} else if (action.equals(choices[3])) { // new release
-//					Application.instance().showReleaseBuilderView();
-//					return;
-//				}
-//		    }
-//		});
-//		
-//		timer.setRepeats(false);
-//		timer.start();
+		LevelManagerDialog.main(null);
 	}
-	
-	
-//	public void showPuzzleBuilderView() {
-//		if (pbv == null) {
-//			AbstractLevel alevel = new PuzzleLevel();
-//			pbv = new PuzzleBuilderView(Application.this, alevel); }
-//		currentView = pbv;
-//		setContentPane(currentView);
-//	}
-//
-//	public void showLightningBuilderView() {
-//		if (lbv == null) {
-//			AbstractLevel alevel = new AbstractLevel();
-//			lbv = new LightningBuilderView(Application.this, alevel); }
-//		currentView = lbv;
-//		setContentPane(currentView);
-//	}
-//
-//	public void showReleaseBuilderView() {
-//		if (rbv == null) {
-//			AbstractLevel alevel = new AbstractLevel();
-//			rbv = new ReleaseBuilderView(Application.this, alevel); }
-//		currentView = rbv;
-//		setContentPane(currentView);
-//	}
 	
 	public void show(AbstractLevel level, String type) {
 		if (type.toUpperCase().equals("PUZZLE")) {

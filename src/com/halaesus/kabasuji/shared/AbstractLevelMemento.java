@@ -15,8 +15,11 @@ public abstract class AbstractLevelMemento implements Serializable{
 	AbstractBoardMemento board;
 	Palette palette;
 	
+	public AbstractLevelMemento() {
+		palette = new Palette();
+	}
 	
-	AbstractLevelMemento(AbstractBoardMemento board, Palette palette) {
+	public AbstractLevelMemento(AbstractBoardMemento board, Palette palette) {
 		this.board = board;
 		this.palette = palette;
 	}

@@ -8,8 +8,12 @@ package com.halaesus.kabasuji.shared;
  *
  */
 public class LightningBoardMemento extends AbstractBoardMemento {
+	
+	public LightningBoardMemento() {
+		super();
+	}
 
-	LightningBoardMemento(BoardSquare[][] squares) {
+	public LightningBoardMemento(BoardSquare[][] squares) {
 		super(squares);
 	}
 

@@ -13,21 +13,12 @@ public abstract class AbstractBoard {
 	private BoardSquare[][] squares;
 	ArrayList<Piece> pieces;
 
-	public AbstractBoard(BoardSquare[][] square) {
-		// this.squares = square;
-		
-		// TODO remove this when we actually pass in board squares from a file
-		// BoardSquares
-		BoardSquare[][] boardSquares = new BoardSquare[12][12];
-		for (int i = 0; i < 12; i++) {
-			for (int j = 0; j < 12; j++) {
-				boardSquares[i][j] = new BoardSquare(true);
-			}
-		}
-		this.squares = boardSquares;
+	public AbstractBoard(BoardSquare[][] squares) {
+		this.squares = squares;
 		// Initialize
 		this.pieces = new ArrayList<Piece>();
 	}
+	
     public abstract AbstractBoardMemento generateMemento();
     
     public boolean isActive(int row, int col) {

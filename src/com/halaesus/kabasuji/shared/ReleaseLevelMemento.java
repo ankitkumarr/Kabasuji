@@ -10,6 +10,10 @@ package com.halaesus.kabasuji.shared;
 public class ReleaseLevelMemento extends AbstractLevelMemento {
 
 	private static final long serialVersionUID = 7891441750308402781L;
+	
+	public ReleaseLevelMemento() {
+		super();
+	}
 
 	/**
 	 * @param board

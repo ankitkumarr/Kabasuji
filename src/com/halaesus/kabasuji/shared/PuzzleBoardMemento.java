@@ -10,8 +10,12 @@ package com.halaesus.kabasuji.shared;
 public class PuzzleBoardMemento extends AbstractBoardMemento {
 
 	private static final long serialVersionUID = -403476375991445415L;
+	
+	public PuzzleBoardMemento() {
+		super();
+	}
 
-	PuzzleBoardMemento(BoardSquare[][] squares) {
+	public PuzzleBoardMemento(BoardSquare[][] squares) {
 		super(squares);
 	}
 

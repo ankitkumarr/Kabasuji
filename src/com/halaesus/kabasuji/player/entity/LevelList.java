@@ -106,7 +106,7 @@ public class LevelList implements Serializable {
 		AbstractLevelMemento memento;
 		LevelData ld;
 		int index = levels.size();
-		ld = new LevelData(index, name, levelType, name + ((int) Math.random() * 10000) + ".ser");
+		ld = new LevelData(index, levelType, name, name + ((int) Math.random() * 10000) + ".ser");
 		levels.add(ld);
 		if (levelType.toUpperCase().equals("PUZZLE")) {
 			memento = new PuzzleLevelMemento();
@@ -162,6 +162,7 @@ public class LevelList implements Serializable {
 	}
 	
 	public String getLevelType(int index) {
+		System.out.println(levels.get(index).levelType);
 		return levels.get(index).levelType;
 	}
 }

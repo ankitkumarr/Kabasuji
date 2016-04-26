@@ -1,9 +1,9 @@
 package com.halaesus.kabasuji.builder.entity;
 
-import com.halaesus.kabasuji.shared.AbstractLevel;
-import com.halaesus.kabasuji.shared.Bullpen;
-import com.halaesus.kabasuji.shared.Palette;
-import com.halaesus.kabasuji.shared.Piece;
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.Bullpen;
+import com.halaesus.kabasuji.shared.entity.Palette;
+import com.halaesus.kabasuji.shared.entity.Piece;
 
 public class WorkspaceToPlayerPaletteMove {
 

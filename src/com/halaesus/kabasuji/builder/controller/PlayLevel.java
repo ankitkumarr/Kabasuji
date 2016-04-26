@@ -3,7 +3,7 @@ package com.halaesus.kabasuji.builder.controller;
 import java.awt.event.ActionEvent;
 
 import com.halaesus.kabasuji.builder.boundary.Application;
-import com.halaesus.kabasuji.shared.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 
 /**
  * 

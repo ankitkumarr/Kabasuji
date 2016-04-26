@@ -2,8 +2,8 @@ package com.halaesus.kabasuji.utils;
 
 import java.awt.Color;
 
-import com.halaesus.kabasuji.shared.Piece;
-import com.halaesus.kabasuji.shared.PieceSquare;
+import com.halaesus.kabasuji.shared.entity.Piece;
+import com.halaesus.kabasuji.shared.entity.PieceSquare;
 
 public class PieceGenerator {
 

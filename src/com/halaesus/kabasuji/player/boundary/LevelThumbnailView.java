@@ -13,7 +13,7 @@ import javax.swing.SwingConstants;
 
 import com.halaesus.kabasuji.player.entity.LevelData;
 import com.halaesus.kabasuji.player.entity.LevelThumbnail;
-import com.halaesus.kabasuji.shared.SplashModel;
+import com.halaesus.kabasuji.shared.entity.SplashModel;
 
 @SuppressWarnings("serial")
 public class LevelThumbnailView extends JPanel {

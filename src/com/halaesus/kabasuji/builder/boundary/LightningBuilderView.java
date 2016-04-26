@@ -1,11 +1,11 @@
 package com.halaesus.kabasuji.builder.boundary;
 
-import com.halaesus.kabasuji.shared.AbstractLevel;
-import com.halaesus.kabasuji.shared.LightningLevel;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.LightningLevel;
 
 @SuppressWarnings("serial")
 public class LightningBuilderView extends AbstractBuilderView {

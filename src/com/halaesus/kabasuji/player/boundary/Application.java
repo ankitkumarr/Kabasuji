@@ -5,11 +5,11 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.halaesus.kabasuji.shared.AbstractLevel;
-import com.halaesus.kabasuji.shared.LightningLevel;
-import com.halaesus.kabasuji.shared.Model;
-import com.halaesus.kabasuji.shared.PuzzleLevel;
-import com.halaesus.kabasuji.shared.ReleaseLevel;
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.LightningLevel;
+import com.halaesus.kabasuji.shared.entity.Model;
+import com.halaesus.kabasuji.shared.entity.PuzzleLevel;
+import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
 
 @SuppressWarnings("serial")
 public class Application extends JFrame {

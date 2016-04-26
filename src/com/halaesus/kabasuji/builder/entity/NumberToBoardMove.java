@@ -1,8 +1,8 @@
 package com.halaesus.kabasuji.builder.entity;
 
-import com.halaesus.kabasuji.shared.AbstractBoard;
-import com.halaesus.kabasuji.shared.AbstractLevel;
-import com.halaesus.kabasuji.shared.ReleaseNumber;
+import com.halaesus.kabasuji.shared.entity.AbstractBoard;
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 
 public class NumberToBoardMove {
 

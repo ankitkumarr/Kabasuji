@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-import com.halaesus.kabasuji.shared.LightningLevel;
+import com.halaesus.kabasuji.shared.entity.LightningLevel;
 import com.halaesus.kabasuji.utils.JLabelHelper;
 
 @SuppressWarnings("serial")

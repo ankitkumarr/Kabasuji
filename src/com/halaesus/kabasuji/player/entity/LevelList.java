@@ -105,8 +105,8 @@ public class LevelList implements Serializable {
 	public int newLevel(String name, String levelType) {
 		AbstractLevelMemento memento;
 		LevelData ld;
-		int index = levels.size(); // TODO add random number to name and check if already exists to prevent overwriting
-		ld = new LevelData(index, name, levelType, name + ".ser");
+		int index = levels.size();
+		ld = new LevelData(index, name, levelType, name + ((int) Math.random() * 10000) + ".ser");
 		levels.add(ld);
 		if (levelType.toUpperCase().equals("PUZZLE")) {
 			memento = new PuzzleLevelMemento();

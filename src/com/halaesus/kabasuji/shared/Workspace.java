@@ -2,10 +2,23 @@ package com.halaesus.kabasuji.shared;
 
 public class Workspace {
 
+	private static Workspace ws;
+	
 	Piece piece;
 	
-    public Workspace() {
-    	// TODO
+    private Workspace() {
+    	
+    }
+    
+    public static Workspace resetInstance() {
+    	ws = new Workspace();
+		return ws;
+    }
+    
+    public static Workspace instance() {
+    	if(ws == null)
+    		ws = new Workspace();
+    	return ws;
     }
 
     public void removePiece() {

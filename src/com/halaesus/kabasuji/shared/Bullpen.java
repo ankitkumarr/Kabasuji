@@ -13,13 +13,13 @@ public class Bullpen {
     Palette palette;
 	
     public Bullpen() {
-    	this.workspace = new Workspace();
+    	this.workspace = Workspace.resetInstance();
     	// TODO: All the count to the hexominoes; For now its random stuff
     	Hexomino[] hexominoes = new Hexomino[35];
     	for(int i = 0; i < 35; i++) {
     		Piece hexominoPiece = new Piece(PieceGenerator.pieces[i]);
     		// Now, add it to the Hexominoes class
-    		hexominoes[i] = new Hexomino(i, hexominoPiece, this.workspace);
+    		hexominoes[i] = new Hexomino(i, hexominoPiece);
     		// Set reference to the Hexomino
     		hexominoes[i].getPiece().setParentHexomino(hexominoes[i]);
     	}
@@ -28,7 +28,7 @@ public class Bullpen {
     }
     
     public Bullpen(Palette palette) {
-    	workspace = new Workspace();
+    	workspace = Workspace.resetInstance();
     	this.palette = palette;
     }
 

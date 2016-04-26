@@ -1,14 +1,17 @@
 package com.halaesus.kabasuji.shared;
 
+/**
+ * 
+ * @author Corey Dixon
+ *
+ */
 public class Hexomino {
 
-    Workspace workspace;
     Piece piece;
     int count;
 
-	public Hexomino(int count, Piece piece, Workspace workspace) {
+	public Hexomino(int count, Piece piece) {
         // Save the stuff
-		this.workspace = workspace;
 		this.piece = piece;
 		this.count = count;
 		// Setup Parent Piece relationship in here

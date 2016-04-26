@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 
-public class BoardToBullpenMove {
+public class BoardToBullpenMove implements IMove {
 
     AbstractLevelView levelView;
 

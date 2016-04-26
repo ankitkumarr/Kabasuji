@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 import com.halaesus.kabasuji.utils.PieceHelper;
 
-public class BoardToBoardMove {
+public class BoardToBoardMove implements IMove {
 
     AbstractLevelView levelView;
 

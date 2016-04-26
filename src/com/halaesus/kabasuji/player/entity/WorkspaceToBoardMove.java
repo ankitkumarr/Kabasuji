@@ -5,11 +5,12 @@ import java.awt.Rectangle;
 
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.IMove;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
 import com.halaesus.kabasuji.utils.PieceHelper;
 
-public class WorkspaceToBoardMove {
+public class WorkspaceToBoardMove implements IMove {
 	
 	AbstractLevelView levelView;
 
@@ -66,7 +67,7 @@ public class WorkspaceToBoardMove {
 		return true;
     }
 
-    public Piece doMove(AbstractLevel level) {
+    public Piece doMove(AbstractLevel level, PieceSquare[] originalPieceSquares) {
     	if( level.isDraggingActive() == false )
     		return null; // An active drag needs to be in place for this function to be called
     	if( isValid(level) == false )

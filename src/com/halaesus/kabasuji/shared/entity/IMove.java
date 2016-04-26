@@ -1,30 +1,8 @@
 package com.halaesus.kabasuji.shared.entity;
 
-/**
- * 
- */
-public class IMove {
+public interface IMove {
 
-    /**
-     * Default constructor
-     */
-    public IMove() {
-    }
-
-    /**
-     * @param AbstractLevel level
-     */
-    public boolean doMove(AbstractLevel level) {
-    	return false;
-        // TODO implement here
-    }
-
-    /**
-     * @param AbstractLevel level
-     */
-    public boolean isValid(AbstractLevel level) {
-    	return false;
-        // TODO implement here
-    }
+    public boolean isValid(AbstractLevel level);
+    public Piece doMove(AbstractLevel level, PieceSquare[] originalPieceSquares);
 
 }

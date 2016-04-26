@@ -88,10 +88,8 @@ public class LightningLevel extends AbstractLevel {
 
 	@Override
 	public void boardPieceRemoved(Piece p) {
-		// This should never be called on the LightningLevel either because once
-		// a
-		// Piece is dropped, it gets soaked by the board and no longer exists to
-		// be removed.
+		// This should never be called on the LightningLevel either because once a
+		// Piece is dropped, it gets soaked by the board and no longer exists to be removed.
 	}
 
 	@Override

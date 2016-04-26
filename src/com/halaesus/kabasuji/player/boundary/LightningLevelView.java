@@ -14,11 +14,20 @@ import javax.swing.Timer;
 import com.halaesus.kabasuji.shared.entity.LightningLevel;
 import com.halaesus.kabasuji.utils.JLabelHelper;
 
+/**
+ * 
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ *
+ */
+
 @SuppressWarnings("serial")
 public class LightningLevelView extends AbstractLevelView {
 
+	protected static final int WARNING_THRESHOLD = 10;
+	
 	LightningLevel level;
 	Timer countdownTimer;
+	Timer warningTimer;
 	
 	JLabel lightningModeLabel;
 	JLabel timeRemaining;
@@ -48,15 +57,17 @@ public class LightningLevelView extends AbstractLevelView {
 		// Reset time in level
 		level.resetElapsedTime();
 		// Start up the countdown timer
-		if( countdownTimer != null ) {
+		if( countdownTimer != null && countdownTimer.isRunning() ) {
 			countdownTimer.stop();
 			countdownTimer.start(); // Restart for the first time the timer
 		} else {
 			setupCountdownTimer(); // Create the timer
 			countdownTimer.start(); // Start the timer for the first time
 		}
+		// Set up the Warning Timer
+		setupWarningTimer(); 
 	}
-	
+
 	private void setupTimeRemainingLabel() {
 		// Calculate some values
 		int seconds = level.getTimeLeft() % 60;
@@ -99,9 +110,27 @@ public class LightningLevelView extends AbstractLevelView {
 		    		timeRemaining.setText(String.valueOf(minutes).concat("m ").concat(String.valueOf(seconds).concat("s")));
 		    	// STEP 5: Force repaint of the label
 		    	timeRemaining.repaint();
+		    	// STEP 6: Determine if the red warning timer has to be spawned off
+		    	if( (level.getTimeLeft() < WARNING_THRESHOLD) && !warningTimer.isRunning() )
+		    		warningTimer.start();
 		    }
 		});
 		countdownTimer.setRepeats(true);
+	}
+	
+	private void setupWarningTimer() {
+		warningTimer = new Timer(250, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// STEP: Check the color of the Time Remaining Label and change as necessary
+				if( timeRemaining.getForeground() == Color.ORANGE )
+					timeRemaining.setForeground(Color.RED);
+				else if( timeRemaining.getForeground() == Color.RED )
+					timeRemaining.setForeground(Color.ORANGE);
+				// STEP: Force a label repaint
+				timeRemaining.repaint();
+			}
+		});
 	}
 
 	@Override

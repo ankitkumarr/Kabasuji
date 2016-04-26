@@ -1,4 +1,4 @@
-package com.halaesus.kabasuji.shared;
+package com.halaesus.kabasuji.shared.entity;
 
 /**
  * Representation for a NumberBar for ReleaseLevel.

@@ -5,7 +5,7 @@ import java.awt.event.WindowEvent;
 
 import com.halaesus.kabasuji.builder.boundary.Application;
 import com.halaesus.kabasuji.builder.boundary.ImageLoader;
-import com.halaesus.kabasuji.shared.Model;
+import com.halaesus.kabasuji.shared.entity.Model;
 
 public class Main {
 	public static void main(String[] args) {

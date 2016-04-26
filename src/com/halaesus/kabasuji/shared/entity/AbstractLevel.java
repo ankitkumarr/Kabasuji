@@ -1,4 +1,4 @@
-package com.halaesus.kabasuji.shared;
+package com.halaesus.kabasuji.shared.entity;
 
 import java.awt.Point;
 import java.io.File;

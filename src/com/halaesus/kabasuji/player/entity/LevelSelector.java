@@ -8,7 +8,7 @@ import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 
-import com.halaesus.kabasuji.shared.SplashModel;
+import com.halaesus.kabasuji.shared.entity.SplashModel;
 
 public class LevelSelector {
 

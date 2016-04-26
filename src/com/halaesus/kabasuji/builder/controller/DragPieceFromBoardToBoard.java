@@ -3,7 +3,7 @@ package com.halaesus.kabasuji.builder.controller;
 import java.awt.event.MouseEvent;
 
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
-import com.halaesus.kabasuji.shared.BoardToBoardMove;
+import com.halaesus.kabasuji.shared.entity.BoardToBoardMove;
 
 /**
  * 

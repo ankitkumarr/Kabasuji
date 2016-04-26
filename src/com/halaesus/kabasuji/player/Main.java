@@ -8,7 +8,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.Timer;
 
 import com.halaesus.kabasuji.player.boundary.Application;
-import com.halaesus.kabasuji.shared.Model;
+import com.halaesus.kabasuji.shared.entity.Model;
 
 public class Main {
 	

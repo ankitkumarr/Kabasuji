@@ -3,7 +3,7 @@ package com.halaesus.kabasuji.builder.controller;
 import java.awt.event.MouseEvent;
 
 import com.halaesus.kabasuji.builder.boundary.LightningBuilderView;
-import com.halaesus.kabasuji.shared.LightningLevel;
+import com.halaesus.kabasuji.shared.entity.LightningLevel;
 
 /**
  * 

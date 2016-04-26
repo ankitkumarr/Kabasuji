@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import com.halaesus.kabasuji.player.boundary.Application;
-import com.halaesus.kabasuji.shared.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 
 public class PlayLevel implements MouseListener {
 	

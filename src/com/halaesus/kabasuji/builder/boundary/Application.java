@@ -7,8 +7,8 @@ import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.halaesus.kabasuji.shared.AbstractLevel;
-import com.halaesus.kabasuji.shared.Model;
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.Model;
 
 @SuppressWarnings("serial")
 public class Application extends JFrame {

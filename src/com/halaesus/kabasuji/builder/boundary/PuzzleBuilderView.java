@@ -4,8 +4,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import com.halaesus.kabasuji.shared.AbstractLevel;
-import com.halaesus.kabasuji.shared.PuzzleLevel;
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.PuzzleLevel;
 
 @SuppressWarnings("serial")
 public class PuzzleBuilderView extends AbstractBuilderView {

@@ -6,8 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import com.halaesus.kabasuji.shared.NumberBar;
-import com.halaesus.kabasuji.shared.ReleaseNumber;
+import com.halaesus.kabasuji.shared.entity.NumberBar;
+import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 
 //TODO make it so NumberBarView appears in the ReleaseLevelView UI
 

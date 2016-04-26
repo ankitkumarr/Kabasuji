@@ -3,10 +3,10 @@ package com.halaesus.kabasuji.player.entity;
 import java.io.File;
 import java.io.Serializable;
 
-import com.halaesus.kabasuji.shared.AbstractLevel;
-import com.halaesus.kabasuji.shared.LightningLevel;
-import com.halaesus.kabasuji.shared.PuzzleLevel;
-import com.halaesus.kabasuji.shared.ReleaseLevel;
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.LightningLevel;
+import com.halaesus.kabasuji.shared.entity.PuzzleLevel;
+import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
 
 
 /**

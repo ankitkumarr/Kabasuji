@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-import com.halaesus.kabasuji.shared.AbstractLevel;
-import com.halaesus.kabasuji.shared.AbstractLevelMemento;
-import com.halaesus.kabasuji.shared.LightningLevelMemento;
-import com.halaesus.kabasuji.shared.PuzzleLevelMemento;
-import com.halaesus.kabasuji.shared.ReleaseLevelMemento;
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.AbstractLevelMemento;
+import com.halaesus.kabasuji.shared.entity.LightningLevelMemento;
+import com.halaesus.kabasuji.shared.entity.PuzzleLevelMemento;
+import com.halaesus.kabasuji.shared.entity.ReleaseLevelMemento;
 
 /**
  * 

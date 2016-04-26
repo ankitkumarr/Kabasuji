@@ -2,8 +2,8 @@ package com.halaesus.kabasuji.builder.boundary;
 
 import java.awt.image.BufferedImage;
 
-import com.halaesus.kabasuji.shared.AbstractLevel;
-import com.halaesus.kabasuji.shared.ReleaseLevel;
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
 
 @SuppressWarnings("serial")
 public class ReleaseBuilderView extends AbstractBuilderView {

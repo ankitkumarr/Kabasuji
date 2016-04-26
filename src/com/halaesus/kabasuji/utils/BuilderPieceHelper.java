@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
-import com.halaesus.kabasuji.shared.AbstractLevel;
-import com.halaesus.kabasuji.shared.Piece;
-import com.halaesus.kabasuji.shared.PieceSquare;
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.Piece;
+import com.halaesus.kabasuji.shared.entity.PieceSquare;
 
 public class BuilderPieceHelper {
 

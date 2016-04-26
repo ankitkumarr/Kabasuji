@@ -3,7 +3,7 @@ package com.halaesus.kabasuji.builder.controller;
 import java.awt.event.MouseEvent;
 
 import com.halaesus.kabasuji.builder.boundary.PuzzleBuilderView;
-import com.halaesus.kabasuji.shared.PuzzleLevel;
+import com.halaesus.kabasuji.shared.entity.PuzzleLevel;
 
 /**
  * 

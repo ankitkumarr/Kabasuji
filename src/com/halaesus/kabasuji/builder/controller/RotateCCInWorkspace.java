@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
-import com.halaesus.kabasuji.shared.Workspace;
-import com.halaesus.kabasuji.shared.Piece;
+import com.halaesus.kabasuji.shared.entity.Piece;
+import com.halaesus.kabasuji.shared.entity.Workspace;
 
 public class RotateCCInWorkspace implements ActionListener  {
     Workspace workspace;

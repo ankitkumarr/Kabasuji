@@ -7,12 +7,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.Iterator;
 
-import com.halaesus.kabasuji.shared.AbstractLevel;
-import com.halaesus.kabasuji.shared.BoardToBoardMove;
-import com.halaesus.kabasuji.shared.BoardToBullpenMove;
-import com.halaesus.kabasuji.shared.Piece;
-import com.halaesus.kabasuji.shared.PieceSquare;
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.BoardToBoardMove;
+import com.halaesus.kabasuji.shared.entity.BoardToBullpenMove;
+import com.halaesus.kabasuji.shared.entity.Piece;
+import com.halaesus.kabasuji.shared.entity.PieceSquare;
 
 public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 

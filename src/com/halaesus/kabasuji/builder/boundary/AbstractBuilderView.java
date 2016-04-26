@@ -13,15 +13,15 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.halaesus.kabasuji.shared.PieceSquare;
-import com.halaesus.kabasuji.shared.Piece;
-import com.halaesus.kabasuji.shared.AbstractLevel;
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
 import com.halaesus.kabasuji.builder.boundary.Application;
 import com.halaesus.kabasuji.builder.controller.FlipHInWorkspace;
 import com.halaesus.kabasuji.builder.controller.FlipVInWorkspace;
 import com.halaesus.kabasuji.builder.controller.RotateCCInWorkspace;
 import com.halaesus.kabasuji.builder.controller.RotateCWInWorkspace;
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.Piece;
+import com.halaesus.kabasuji.shared.entity.PieceSquare;
 import com.halaesus.kabasuji.builder.controller.ClickPieceInPalette;
 
 @SuppressWarnings("serial")

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.halaesus.kabasuji.shared;
+package com.halaesus.kabasuji.shared.entity;
 
 import java.util.HashSet;
 import java.util.Set;

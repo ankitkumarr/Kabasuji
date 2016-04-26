@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
-import com.halaesus.kabasuji.shared.Hexomino;
-import com.halaesus.kabasuji.shared.Piece;
+import com.halaesus.kabasuji.shared.entity.Hexomino;
+import com.halaesus.kabasuji.shared.entity.Piece;
 
 public class ClickPieceInPalette implements ActionListener {
     Hexomino hexomino;

@@ -87,6 +87,7 @@ public class LevelManagerDialog extends JDialog {
 								if (selectedIndex > 0) {
 									levelList.swapIndexes(selectedIndex, selectedIndex - 1);
 									populateLevelListView();
+									levelListView.setSelectedIndex(selectedIndex - 1);
 								}
 							}
 						});
@@ -109,9 +110,10 @@ public class LevelManagerDialog extends JDialog {
 								downButton.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										int selectedIndex = levelListView.getSelectedIndex();
-										if (selectedIndex < levelListView.getMaxSelectionIndex()) {
+										if (selectedIndex < levelListView.getModel().getSize()) {
 											levelList.swapIndexes(selectedIndex, selectedIndex + 1);
 											populateLevelListView();
+											levelListView.setSelectedIndex(selectedIndex + 1);
 										}
 									}
 								});

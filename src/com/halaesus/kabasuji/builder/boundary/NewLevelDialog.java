@@ -44,7 +44,7 @@ public class NewLevelDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public NewLevelDialog(LevelManagerDialog parent) {
+	public NewLevelDialog(final LevelManagerDialog parent) {
 		this.parent = parent;
 		selectedType = "Puzzle";
 		
@@ -86,7 +86,7 @@ public class NewLevelDialog extends JDialog {
 			contentPanel.add(lblLevelType, gbc_lblLevelType);
 		}
 		{
-			JComboBox<String> comboBox = new JComboBox<String>();
+			final JComboBox<String> comboBox = new JComboBox<String>();
 			comboBox.addPropertyChangeListener(new PropertyChangeListener() {
 				public void propertyChange(PropertyChangeEvent arg0) {
 					selectedType = (String) comboBox.getSelectedItem();

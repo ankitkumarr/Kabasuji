@@ -1,8 +1,11 @@
 package com.halaesus.kabasuji.shared;
 
-public class AbstractSquare {
+import java.io.Serializable;
 
-    boolean active;
+public class AbstractSquare implements Serializable{
+
+	private static final long serialVersionUID = 1328718228720205152L;
+	boolean active;
     int color;
 
     public AbstractSquare(boolean active) {

@@ -7,6 +7,9 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.halaesus.kabasuji.player.entity.LevelList;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -16,8 +19,13 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
+@SuppressWarnings("serial")
 public class NewLevelDialog extends JDialog {
+	LevelList levelList; // passed in from the LevelManagerDialog
+	String selectedType;
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNamefield;
@@ -25,9 +33,9 @@ public class NewLevelDialog extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(LevelList ll) {
 		try {
-			NewLevelDialog dialog = new NewLevelDialog();
+			NewLevelDialog dialog = new NewLevelDialog(ll);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -38,7 +46,10 @@ public class NewLevelDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public NewLevelDialog() {
+	public NewLevelDialog(LevelList ll) {
+		levelList = ll;
+		selectedType = "Puzzle";
+		
 		setTitle("New Level");
 		setBounds(100, 100, 300, 200);
 		getContentPane().setLayout(new BorderLayout());
@@ -77,8 +88,13 @@ public class NewLevelDialog extends JDialog {
 			contentPanel.add(lblLevelType, gbc_lblLevelType);
 		}
 		{
-			JComboBox comboBox = new JComboBox();
-			comboBox.setModel(new DefaultComboBoxModel(new String[] {"Puzzle", "Lightning", "Release"}));
+			JComboBox<String> comboBox = new JComboBox<String>();
+			comboBox.addPropertyChangeListener(new PropertyChangeListener() {
+				public void propertyChange(PropertyChangeEvent arg0) {
+					selectedType = (String) comboBox.getSelectedItem();
+				}
+			});
+			comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Puzzle", "Lightning", "Release"}));
 			GridBagConstraints gbc_comboBox = new GridBagConstraints();
 			gbc_comboBox.insets = new Insets(0, 0, 0, 5);
 			gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -96,6 +112,10 @@ public class NewLevelDialog extends JDialog {
 					public void actionPerformed(ActionEvent arg0) {
 						String name = txtNamefield.getText();
 						if (name == null || name.length() == 0) return; // user must enter a name
+						
+						int idx = levelList.newLevel(name, selectedType);
+						Application.instance().show(levelList.loadLevel(idx), selectedType);
+						dispose();
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -109,5 +129,4 @@ public class NewLevelDialog extends JDialog {
 			}
 		}
 	}
-
 }

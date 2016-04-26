@@ -100,7 +100,7 @@ public class LevelManagerDialog extends JDialog {
 							newButton.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 									// TODO call levelList.newLevel()
-									NewLevelDialog.main(null);
+									NewLevelDialog.main(levelList);
 								}
 							});
 							{
@@ -149,5 +149,4 @@ public class LevelManagerDialog extends JDialog {
 	private void populateLevelListView() {
 		levelListView.setListData(levelList.getArray());
 	}
-
 }

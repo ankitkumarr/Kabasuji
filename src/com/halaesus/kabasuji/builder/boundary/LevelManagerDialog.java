@@ -40,7 +40,7 @@ public class LevelManagerDialog extends JDialog {
 	 */
 	public LevelManagerDialog() {
 		levelList = LevelList.loadList();
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 319, 449);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -56,41 +56,59 @@ public class LevelManagerDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton upButton = new JButton("Up");
+				upButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int selectedIndex = levelListView.getSelectedIndex();
+						if(selectedIndex > 0) {
+							levelList.swapIndexes(selectedIndex, selectedIndex - 1);
+							populateLevelListView();
+						}
+					}
+				});
 				buttonPane.add(upButton);
 			}
 			{
 				JButton downButton = new JButton("Down");
+				downButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int selectedIndex = levelListView.getSelectedIndex();
+						if(selectedIndex < levelListView.getMaxSelectionIndex()) {
+							levelList.swapIndexes(selectedIndex, selectedIndex + 1);
+							populateLevelListView();
+						}
+					}
+				});
 				buttonPane.add(downButton);
 			}
 			{
-				JButton deleteButton = new JButton("Delete");
-				buttonPane.add(deleteButton);
-			}
-			{
 				JButton newButton = new JButton("New");
+				newButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						// TODO call levelList.newLevel()
+					}
+				});
 				buttonPane.add(newButton);
 			}
 			{
-				JButton openButton = new JButton("Open");
-				openButton.addActionListener(new ActionListener() {
+				JButton editButton = new JButton("Edit");
+				editButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// TODO call Application.show()
 						levelList.loadLevel(levelListView.getSelectedIndex());
 					}
 				});
-				openButton.setActionCommand("OPEN");
-				buttonPane.add(openButton);
-				getRootPane().setDefaultButton(openButton);
+				buttonPane.add(editButton);
+				getRootPane().setDefaultButton(editButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						dispose();
+				JButton deleteButton = new JButton("Delete");
+				deleteButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						levelList.deleteLevel(levelListView.getSelectedIndex());
+						populateLevelListView();
 					}
 				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				buttonPane.add(deleteButton);
 			}
 		}
 	}

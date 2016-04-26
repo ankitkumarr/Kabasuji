@@ -21,7 +21,7 @@ import java.awt.Insets;
 public class LevelManagerDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	
+
 	JList<LevelData> levelListView;
 	LevelList levelList;
 
@@ -75,15 +75,15 @@ public class LevelManagerDialog extends JDialog {
 						JButton editButton = new JButton("Edit");
 						editButton.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								// TODO call Application.show()
-								levelList.loadLevel(levelListView.getSelectedIndex());
+								Application.instance().show(levelList.loadLevel(levelListView.getSelectedIndex()),
+										levelList.getLevelType(levelListView.getSelectedIndex()));
 							}
 						});
 						JButton upButton = new JButton("Up");
 						upButton.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								int selectedIndex = levelListView.getSelectedIndex();
-								if(selectedIndex > 0) {
+								if (selectedIndex > 0) {
 									levelList.swapIndexes(selectedIndex, selectedIndex - 1);
 									populateLevelListView();
 								}
@@ -101,6 +101,7 @@ public class LevelManagerDialog extends JDialog {
 								public void actionPerformed(ActionEvent e) {
 									// TODO call levelList.newLevel()
 									NewLevelDialog.main(levelList);
+									dispose();
 								}
 							});
 							{
@@ -108,7 +109,7 @@ public class LevelManagerDialog extends JDialog {
 								downButton.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										int selectedIndex = levelListView.getSelectedIndex();
-										if(selectedIndex < levelListView.getMaxSelectionIndex()) {
+										if (selectedIndex < levelListView.getMaxSelectionIndex()) {
 											levelList.swapIndexes(selectedIndex, selectedIndex + 1);
 											populateLevelListView();
 										}
@@ -145,7 +146,7 @@ public class LevelManagerDialog extends JDialog {
 			}
 		}
 	}
-	
+
 	private void populateLevelListView() {
 		levelListView.setListData(levelList.getArray());
 	}

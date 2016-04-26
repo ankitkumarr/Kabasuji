@@ -119,6 +119,7 @@ public class LevelList implements Serializable {
 			return -1; // TODO throw exception instead?
 		
 		overwriteLevel(memento, index);
+		saveList();
 		return index;
 	}
 	
@@ -158,5 +159,9 @@ public class LevelList implements Serializable {
 		levels.get(tar).levelIndex = src;
 		Collections.sort(levels);
 		saveList();
+	}
+	
+	public String getLevelType(int index) {
+		return levels.get(index).levelType;
 	}
 }

@@ -36,8 +36,10 @@ public class LevelList implements Serializable {
 			in = new ObjectInputStream(new FileInputStream("levelindex.ser"));
 			return (LevelList) in.readObject();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// Shhh... you didn't see this. We don't know who wrote it...
+			LevelList list = new LevelList();
+//			list.levels.add(new LevelData(0, "", "", ""));
+			return list;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -137,7 +139,7 @@ public class LevelList implements Serializable {
 	}
 	
 	public LevelData[] getArray() {
-		return (LevelData[]) levels.toArray();
+		return levels.toArray(new LevelData[1]);
 	}
 	
 	public void swapIndexes(int src, int tar) {

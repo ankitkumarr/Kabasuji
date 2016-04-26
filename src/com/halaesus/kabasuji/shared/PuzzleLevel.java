@@ -58,7 +58,7 @@ public class PuzzleLevel extends AbstractLevel {
 
 	@Override
 	public AbstractLevelMemento generateMemento() {
-		return new PuzzleLevelMemento(board.generateMemento(), bullpen.palette, allowedMoves);
+		return new PuzzleLevelMemento(board.generateMemento(), bullpen.palette.generateMemento(), allowedMoves);
 	}
 
 }

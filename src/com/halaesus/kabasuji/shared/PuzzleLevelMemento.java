@@ -17,7 +17,7 @@ public class PuzzleLevelMemento extends AbstractLevelMemento {
 		allowedMoves = 0;
 	}
 
-	public PuzzleLevelMemento(AbstractBoardMemento board, Palette palette, int allowedMoves) {
+	public PuzzleLevelMemento(AbstractBoardMemento board, PaletteMemento palette, int allowedMoves) {
 		super(board, palette);
 		this.allowedMoves = allowedMoves;
 	}

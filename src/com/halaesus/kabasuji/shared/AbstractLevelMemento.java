@@ -13,13 +13,13 @@ public abstract class AbstractLevelMemento implements Serializable{
 	
 	private static final long serialVersionUID = 2031176011519301247L;
 	AbstractBoardMemento board;
-	Palette palette;
+	PaletteMemento palette;
 	
 	public AbstractLevelMemento() {
-		palette = new Palette();
+		palette = new PaletteMemento();
 	}
 	
-	public AbstractLevelMemento(AbstractBoardMemento board, Palette palette) {
+	public AbstractLevelMemento(AbstractBoardMemento board, PaletteMemento palette) {
 		this.board = board;
 		this.palette = palette;
 	}

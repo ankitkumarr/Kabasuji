@@ -20,7 +20,7 @@ public class ReleaseLevelMemento extends AbstractLevelMemento {
 	 * @param palette
 	 */
 	public ReleaseLevelMemento(AbstractBoardMemento board, Palette palette) {
-		super(board, palette);
+		super(board, palette.generateMemento());
 	}
 
 	@Override

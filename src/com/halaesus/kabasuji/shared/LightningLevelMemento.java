@@ -18,7 +18,7 @@ public class LightningLevelMemento extends AbstractLevelMemento {
 	}
 	
 	public LightningLevelMemento(AbstractBoardMemento board, Palette palette, int maxTime) {
-		super(board, palette);
+		super(board, palette.generateMemento());
 		this.maxTime = maxTime;
 	}
 

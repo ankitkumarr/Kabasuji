@@ -44,7 +44,7 @@ public abstract class AbstractLevel {
 	
 	public AbstractLevel(AbstractLevelMemento memento) {
 		board = memento.board.generateBoard();
-		bullpen = new Bullpen(memento.palette);
+		bullpen = new Bullpen(memento.palette.generatePalette());
 	}
     
 	public abstract AbstractLevelMemento generateMemento();

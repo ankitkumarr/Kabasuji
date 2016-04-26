@@ -69,10 +69,6 @@ public abstract class AbstractBoard {
     	
     	return false;
     }
-    
-    public AbstractBoard getBoard(){
-    	return this;
-    }
 
     public Iterator<Piece> getPieces() {
     	return pieces.iterator();

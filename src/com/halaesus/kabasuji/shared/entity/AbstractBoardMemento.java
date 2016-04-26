@@ -19,6 +19,7 @@ public abstract class AbstractBoardMemento implements Serializable {
 		for (int i = 0; i < 12; i++) {
 			for (int j = 0; j < 12; j++) {
 				squares[i][j] = new BoardSquare(true);
+				squares[i][j].active = false;
 			}
 		}
 	}

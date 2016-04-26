@@ -140,7 +140,7 @@ public class LightningLevelView extends AbstractLevelView {
 		// Backup the color from Graphics
 		Color oldColor = g.getColor();
 		// Save a new color
-		g.setColor(new Color(84, 84, 84, 150));
+		g.setColor(new Color(50, 31, 34, 225));
 		// Fill out the squares
 		for(int r = 0; r < 12; r++) {
 			for(int c = 0; c < 12; c++) {

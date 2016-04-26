@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Random;
 
 import com.halaesus.kabasuji.shared.AbstractLevel;
 import com.halaesus.kabasuji.shared.AbstractLevelMemento;
@@ -106,7 +107,9 @@ public class LevelList implements Serializable {
 		AbstractLevelMemento memento;
 		LevelData ld;
 		int index = levels.size();
-		ld = new LevelData(index, levelType, name, name + ((int) Math.random() * 10000) + ".ser");
+		Random rand = new Random();
+		rand.setSeed(System.nanoTime());
+		ld = new LevelData(index, levelType, name, name + rand.nextInt(10000) + ".ser");
 		levels.add(ld);
 		if (levelType.toUpperCase().equals("PUZZLE")) {
 			memento = new PuzzleLevelMemento();

@@ -3,6 +3,8 @@ package com.halaesus.kabasuji.player.boundary;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -18,10 +20,13 @@ import com.halaesus.kabasuji.shared.entity.SplashModel;
 @SuppressWarnings("serial")
 public class LevelThumbnailView extends JPanel {
 
+	protected boolean mouseHovered;
+	
 	LevelThumbnail levelThumbnail;
 	LevelData levelData;
 	BufferedImage[] stars;
-	BufferedImage levelTypeImage;
+	Image levelTypeImageSmall;
+	Image levelTypeImageBig;
 	JLabel levelNumberLabel;
 	int starsAchieved;
 
@@ -32,23 +37,32 @@ public class LevelThumbnailView extends JPanel {
 		this.starsAchieved = levelThumbnail.getStarsEarned();
 		// Set up the basic GUI layouting stuff
 		setLayout(null); // We will place all the things on the GUI by ourselves
+		setOpaque(false); // We are looking for a transparent background
 		// Initialize
 		initialize();
+		// Set up Mouse Hover Listener
+		setupMouseHoverListener();
 	}
 
 	private void initialize() {
 		// Initialize the required puzzle image
-		levelTypeImage = null;
+		levelTypeImageBig = null;
 		try {
-			if( starsAchieved == -1 )
-				levelTypeImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/levelLockedThumbnail.png"));
-			else
-				if( levelData.getLevelType().equals("Lightning") )
-					levelTypeImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/lightningThumbnail.png"));
-				else if( levelData.getLevelType().equals("Puzzle") )
-					levelTypeImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/puzzleThumbnail.png"));
-				else if( levelData.getLevelType().equals("Release") )
-					levelTypeImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/releaseThumbnail.png"));
+			if( starsAchieved == -1 ) {
+				levelTypeImageSmall = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/levelLockedThumbnail.png")).getScaledInstance(60, 60, Image. SCALE_SMOOTH);
+				levelTypeImageBig = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/levelLockedThumbnail.png")).getScaledInstance(90, 90, Image. SCALE_SMOOTH);
+			} else {
+				if( levelData.getLevelType().equals("Lightning") ) {
+					levelTypeImageSmall = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/lightningThumbnail.png")).getScaledInstance(60, 60, Image. SCALE_SMOOTH);
+					levelTypeImageBig = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/lightningThumbnail.png")).getScaledInstance(90, 90, Image. SCALE_SMOOTH);
+				} else if( levelData.getLevelType().equals("Puzzle") ) {
+					levelTypeImageSmall = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/puzzleThumbnail.png")).getScaledInstance(60, 60, Image. SCALE_SMOOTH);
+					levelTypeImageBig = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/puzzleThumbnail.png")).getScaledInstance(90, 90, Image. SCALE_SMOOTH);
+				} else if( levelData.getLevelType().equals("Release") ) {
+					levelTypeImageSmall = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/releaseThumbnail.png")).getScaledInstance(60, 60, Image. SCALE_SMOOTH);
+					levelTypeImageBig = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/releaseThumbnail.png")).getScaledInstance(90, 90, Image. SCALE_SMOOTH);
+				}
+			}
 		} catch(IOException e) {
 			// We cannot do anything :(
 		}
@@ -89,11 +103,43 @@ public class LevelThumbnailView extends JPanel {
 		}
 	}
 
+	private void setupMouseHoverListener() {
+		// Set up Feedback Listener
+		this.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) { /* Do nothing */ }
+			@Override
+			public void mousePressed(MouseEvent e) { /* Do nothing */ }
+			@Override
+			public void mouseClicked(MouseEvent e) { /* Do nothing */ }
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				if(mouseHovered) {
+					mouseHovered = false; // The mouse is no longer on this View
+					LevelThumbnailView.this.repaint(); // Force a repaint
+				}
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				if(!mouseHovered) {
+					mouseHovered = true; // The mouse is on this View
+					LevelThumbnailView.this.repaint(); // Force a repaint
+				}
+			}
+		});
+	}
+
 	@Override
 	protected void paintComponent(Graphics g) {
+		super.paintComponent(g); // Let the super do its stuff
 		// Paint the levelTypeImage
-		if(levelTypeImage != null)
-			g.drawImage(levelTypeImage.getScaledInstance(80, 80, Image. SCALE_SMOOTH), 10, 10, null);
+		if(levelTypeImageBig != null)
+			if(mouseHovered)
+				g.drawImage(levelTypeImageBig, 5, 5, null);
+			else
+				g.drawImage(levelTypeImageSmall, 20, 20, null);
 		// Also paint the stars
 		for(int i = 0; i < 3; i++)
 			if(stars[i] != null)

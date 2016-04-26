@@ -1,5 +1,6 @@
 package com.halaesus.kabasuji.player.entity;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -127,10 +128,15 @@ public class LevelList implements Serializable {
 	}
 	
 	public void deleteLevel(int index) {
-		for(int i = 0; i < levels.size(); i++) {
+		for(int i = index; i < levels.size(); i++) {
 			if(levels.get(i).levelIndex == index) {
+				LevelData ld = levels.get(i);
+				File file = new File(ld.fileName);
+				if(file.exists())
+					file.delete();
 				levels.remove(i);
-				levels.get(i).levelIndex -= 1;
+				if(i < levels.size())
+					levels.get(i).levelIndex -= 1;
 			}
 			else if(levels.get(i).levelIndex > index) {
 				levels.get(i).levelIndex -= 1;

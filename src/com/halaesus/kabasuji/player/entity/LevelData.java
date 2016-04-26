@@ -61,5 +61,11 @@ public class LevelData implements Serializable, Comparable<LevelData> {
 	public int compareTo(LevelData other) {
 		return levelIndex - other.levelIndex;
 	}
+	
+	@Override
+	public String toString() {
+		return "" + levelIndex + " " + levelName;
+	}
+	
 
 }

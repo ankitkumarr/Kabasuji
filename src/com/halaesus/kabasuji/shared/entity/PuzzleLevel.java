@@ -7,12 +7,11 @@ import com.halaesus.kabasuji.shared.memento.PuzzleLevelMemento;
 
 /**
  * 
- * @author Corey Dixon
+ * @author Corey Dixon, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  *
  */
 public class PuzzleLevel extends AbstractLevel {
 
-	// PuzzleBoard puzzleBoard;
 	int allowedMoves;
 	int usedMoves;
 
@@ -44,7 +43,13 @@ public class PuzzleLevel extends AbstractLevel {
 
 	@Override
 	public int getStarsAchieved() {
-		return 0; // TODO: Fill this in
+		int currentHexominoCount = 0;
+		for(int idx = 0; idx < 35; idx++)
+			currentHexominoCount += this.getLevelBullpen().getPalette().getHexomino(idx).getCount();
+		// Compare and return
+		if( 0 <= currentHexominoCount && currentHexominoCount <= 2 )
+			return (3 - currentHexominoCount);
+		return 0; // Else, do this line!
 	}
 
 	@Override
@@ -59,7 +64,7 @@ public class PuzzleLevel extends AbstractLevel {
 
 	@Override
 	public void boardPieceRemoved(Piece p) {
-		// TODO: Check if this count as a move
+		// Nothing has to be done if a Piece has been removed from the board
 	}
 	
 	public int getallowedMoves() {

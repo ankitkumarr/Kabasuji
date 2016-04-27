@@ -38,6 +38,11 @@ import com.halaesus.kabasuji.utils.JButtonHelper;
 import com.halaesus.kabasuji.utils.JLabelHelper;
 import com.halaesus.kabasuji.utils.PieceHelper;
 
+/**
+ * 
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ *
+ */
 @SuppressWarnings("serial")
 public abstract class AbstractLevelView extends JPanel {
 

@@ -7,7 +7,7 @@ import com.halaesus.kabasuji.shared.memento.AbstractLevelMemento;
 
 /**
  * 
- * @author Corey Dixon
+ * @author Corey Dixon, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  *
  */
 public abstract class AbstractLevel {
@@ -126,6 +126,10 @@ public abstract class AbstractLevel {
 
 	public void setPieceOverBullpen(boolean pieceOverBullpen) {
 		this.pieceOverBullpen = pieceOverBullpen;
+	}
+	
+	public boolean hasWon() {
+		return (getStarsAchieved() == 3);
 	}
 	
 	// Abstract Functions

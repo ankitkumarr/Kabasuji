@@ -12,10 +12,12 @@ import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -29,12 +31,12 @@ import com.halaesus.kabasuji.builder.controller.LaunchLevelManager;
 import com.halaesus.kabasuji.builder.controller.RotateCCInWorkspace;
 import com.halaesus.kabasuji.builder.controller.RotateCWInWorkspace;
 import com.halaesus.kabasuji.builder.controller.SaveToFile;
-import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 import com.halaesus.kabasuji.builder.controller.DragPieceFromBoard;
 import com.halaesus.kabasuji.builder.controller.DragPieceFromWorkspaceToBoard;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
+import com.halaesus.kabasuji.shared.entity.SplashModel;
 import com.halaesus.kabasuji.utils.BuilderPieceHelper;
 import com.halaesus.kabasuji.utils.JLabelHelper;
 import com.halaesus.kabasuji.utils.PieceHelper;
@@ -71,6 +73,8 @@ public abstract class AbstractBuilderView extends JPanel {
 
 	JPanel builderPalette;
 	JPanel playerPalette;
+	
+	private Image backgroundImage;
 
 	HashMap<Rectangle, MouseListener> clickMap;
 	
@@ -83,6 +87,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		setBounds(0, 0, 1280, 720);
 		setLayout(null);
 		
+		scalebackground();
 		setupTopBar();
 		setupWorkspace();
 		setupBuilderPalette();
@@ -396,8 +401,10 @@ public abstract class AbstractBuilderView extends JPanel {
 
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(Application.instance().getImage("gridWithBoard.jpg")
-				.getScaledInstance(1280, -1, Image.SCALE_SMOOTH), 0, 0, null);
+		//g.drawImage(Application.instance().getImage("gridWithBoard.jpg")         ///Slows down the application
+				//.getScaledInstance(1280, -1, Image.SCALE_SMOOTH), 0, 0, null);
+		
+		g.drawImage(backgroundImage, 0, 0, null);
 
 		// Set up the game board
 		setupGameBoard(g);
@@ -495,5 +502,14 @@ public abstract class AbstractBuilderView extends JPanel {
 	public void setPieceInWorkspace(Piece p) {
 		level.getLevelBullpen().getWorkspace().addPiece(p); // Add the piece to the Workspace of the Level Bullpen
 		repaint(); // Force a repaint
+	}
+	
+	public void scalebackground() {
+		try {
+			backgroundImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/gridWithBoard.jpg")).getScaledInstance(1280, -1, Image.SCALE_SMOOTH);
+		} catch (IOException e) {
+			
+			//Oh well!
+		}
 	}
 }

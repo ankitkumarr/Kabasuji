@@ -8,8 +8,6 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.halaesus.kabasuji.player.entity.LevelList;
-
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -46,7 +44,7 @@ public class NewLevelDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public NewLevelDialog(LevelManagerDialog parent) {
+	public NewLevelDialog(final LevelManagerDialog parent) {
 		this.parent = parent;
 		selectedType = "Puzzle";
 		
@@ -88,7 +86,7 @@ public class NewLevelDialog extends JDialog {
 			contentPanel.add(lblLevelType, gbc_lblLevelType);
 		}
 		{
-			JComboBox<String> comboBox = new JComboBox<String>();
+			final JComboBox<String> comboBox = new JComboBox<String>();
 			comboBox.addPropertyChangeListener(new PropertyChangeListener() {
 				public void propertyChange(PropertyChangeEvent arg0) {
 					selectedType = (String) comboBox.getSelectedItem();

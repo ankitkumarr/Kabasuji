@@ -1,7 +1,11 @@
 /**
  * 
  */
-package com.halaesus.kabasuji.shared.entity;
+package com.halaesus.kabasuji.shared.memento;
+
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.Palette;
+import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
 
 /**
  * @author Corey Dixon

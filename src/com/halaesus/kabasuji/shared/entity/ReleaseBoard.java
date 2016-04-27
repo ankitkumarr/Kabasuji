@@ -1,6 +1,9 @@
 package com.halaesus.kabasuji.shared.entity;
 import java.util.*;
 
+import com.halaesus.kabasuji.shared.memento.AbstractBoardMemento;
+import com.halaesus.kabasuji.shared.memento.ReleaseBoardMemento;
+
 /**
  * 
  * @author Corey Dixon
@@ -16,9 +19,13 @@ public class ReleaseBoard extends AbstractBoard {
 		// TODO remove this when we actually pass in releaseNumbers from a file
 		// ReleaseNumbers
 		this.numbers = new HashSet<ReleaseNumber>();
-		this.numbers.add(new ReleaseNumber(5, 1, 5, 5));
+		// TODO: Add all the numbers; When saving is done, read from the file
+		for(int i = 0; i < 3; i++)
+			for(int val = 0; val < 6; val++)
+				this.numbers.add(new ReleaseNumber(val + 1, i + 1, i * 3, val));
+		/* this.numbers.add(new ReleaseNumber(5, 1, 5, 5));
 		this.numbers.add(new ReleaseNumber(1, 2, 3, 5));
-		this.numbers.add(new ReleaseNumber(6, 3, 5, 8));
+		this.numbers.add(new ReleaseNumber(6, 3, 5, 8)); */
 		//
 	}
 

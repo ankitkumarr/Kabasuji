@@ -2,9 +2,12 @@ package com.halaesus.kabasuji.shared.entity;
 
 import java.io.File;
 
+import com.halaesus.kabasuji.shared.memento.AbstractLevelMemento;
+import com.halaesus.kabasuji.shared.memento.ReleaseLevelMemento;
+
 /**
  * 
- * @author Corey Dixon
+ * @author Corey Dixon, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  *
  */
 public class ReleaseLevel extends AbstractLevel {
@@ -21,6 +24,13 @@ public class ReleaseLevel extends AbstractLevel {
 		levelType = "Release";
 		
 		numberBar = new NumberBar();
+		
+		// Setup the board; TODO: Clear up board loop
+		BoardSquare[][] squares = new BoardSquare[12][12];
+		for(int r = 0; r < 12; r++)
+			for(int c = 0; c < 12; c++)
+				squares[r][c] = new BoardSquare(true);
+		board = new ReleaseBoard(squares, null);
 	}
 	
 	public ReleaseLevel(ReleaseLevelMemento memento) {
@@ -36,25 +46,43 @@ public class ReleaseLevel extends AbstractLevel {
 
     @Override
     public int getStarsAchieved() {
-    	return 0; // TODO: Fix this
+    	int setsCompleted = this.numberBar.setsFound();
+    	return setsCompleted; // The number of sets completed is equal to the number of sets found
     }
     
     @Override
 	public void newPieceDropped(Piece p) {
-		// TODO Auto-generated method stub
-		
+		// Once a Piece is dropped, update the NumberBar and hence the NumberBarView
+    	for(int r = 0; r < 12; r++) {
+    		for(int c = 0; c < 12; c++) {
+    			// See if a Piece exists on that BoardSquare
+    			boolean isFilled = this.board.isFilled(r, c);
+    			if( isFilled ) {
+    				// Now go over all the ReleaseNumbers and see if there is something
+    				//  for this (r, c) pair
+    				for( ReleaseNumber aReleaseNumber : ((ReleaseBoard)this.board).numbers ) {
+						// Check if the row and col matches
+						if( (aReleaseNumber.getCol() == c) &&
+							(aReleaseNumber.getRow() == r) ) {
+							// Add it to the NumberBar
+							this.numberBar.addReleaseNumber(aReleaseNumber);
+						}
+    				}
+    			}
+    		}
+    	}
 	}
 
 	@Override
 	public void boardPieceUpdated(PieceSquare[] oldPieceSquares, Piece newPiece) {
-		// TODO Auto-generated method stub
-		
+		// This should not be allowed as in the ReleaseLevel once a piece is placed,
+		// it cannot be moved around.
 	}
 
 	@Override
 	public void boardPieceRemoved(Piece p) {
-		// TODO Auto-generated method stub
-		
+		// This should not be allowed as in the ReleaseLevel once a piece is placed, 
+		// it cannot be removed.
 	}
 
 	@Override

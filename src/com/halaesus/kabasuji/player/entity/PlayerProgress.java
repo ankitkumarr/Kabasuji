@@ -2,6 +2,8 @@ package com.halaesus.kabasuji.player.entity;
 import java.io.File;
 import java.util.*;
 
+import com.halaesus.kabasuji.player.memento.PlayerProgressMemento;
+
 public class PlayerProgress {
 
     ArrayList<Integer> starsEarned;
@@ -38,5 +40,14 @@ public class PlayerProgress {
     	return false;
         // TODO implement here
     }
+    
+    
+    public PlayerProgressMemento getState() {
+		return new PlayerProgressMemento(starsEarned);
+	}
+    
+	public void restore(PlayerProgressMemento m) {
+		starsEarned = m.getStored();
+	}
 
 }

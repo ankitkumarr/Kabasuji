@@ -1,5 +1,6 @@
 package com.halaesus.kabasuji.player.entity;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,12 +10,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Random;
 
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
-import com.halaesus.kabasuji.shared.entity.AbstractLevelMemento;
-import com.halaesus.kabasuji.shared.entity.LightningLevelMemento;
-import com.halaesus.kabasuji.shared.entity.PuzzleLevelMemento;
-import com.halaesus.kabasuji.shared.entity.ReleaseLevelMemento;
+import com.halaesus.kabasuji.shared.memento.AbstractLevelMemento;
+import com.halaesus.kabasuji.shared.memento.LightningLevelMemento;
+import com.halaesus.kabasuji.shared.memento.PuzzleLevelMemento;
+import com.halaesus.kabasuji.shared.memento.ReleaseLevelMemento;
 
 /**
  * 
@@ -106,7 +108,9 @@ public class LevelList implements Serializable {
 		AbstractLevelMemento memento;
 		LevelData ld;
 		int index = levels.size();
-		ld = new LevelData(index, levelType, name, name + ((int) Math.random() * 10000) + ".ser");
+		Random rand = new Random();
+		rand.setSeed(System.nanoTime());
+		ld = new LevelData(index, levelType, name, name + rand.nextInt(10000) + ".ser");
 		levels.add(ld);
 		if (levelType.toUpperCase().equals("PUZZLE")) {
 			memento = new PuzzleLevelMemento();
@@ -124,10 +128,15 @@ public class LevelList implements Serializable {
 	}
 	
 	public void deleteLevel(int index) {
-		for(int i = 0; i < levels.size(); i++) {
+		for(int i = index; i < levels.size(); i++) {
 			if(levels.get(i).levelIndex == index) {
+				LevelData ld = levels.get(i);
+				File file = new File(ld.fileName);
+				if(file.exists())
+					file.delete();
 				levels.remove(i);
-				levels.get(i).levelIndex -= 1;
+				if(i < levels.size())
+					levels.get(i).levelIndex -= 1;
 			}
 			else if(levels.get(i).levelIndex > index) {
 				levels.get(i).levelIndex -= 1;

@@ -9,7 +9,7 @@ import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
 import com.halaesus.kabasuji.utils.PieceHelper;
 
-public class BoardToBoardMove {
+public class BoardToBoardMove implements IMove {
 
     AbstractLevelView levelView;
 

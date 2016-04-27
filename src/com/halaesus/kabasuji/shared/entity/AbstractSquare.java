@@ -2,9 +2,10 @@ package com.halaesus.kabasuji.shared.entity;
 
 import java.io.Serializable;
 
-public class AbstractSquare implements Serializable{
+public abstract class AbstractSquare implements Serializable {
 
 	private static final long serialVersionUID = 1328718228720205152L;
+	
 	boolean active;
     int color;
 

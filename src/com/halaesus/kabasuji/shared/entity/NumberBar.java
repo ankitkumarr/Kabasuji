@@ -17,9 +17,9 @@ public class NumberBar {
 
 		// TODO remove this when we have collecting numbers from board working
 		// Just here so I have something to display in the boundary class
-		addReleaseNumber(new ReleaseNumber(5, 1, 5, 5));
+		/* addReleaseNumber(new ReleaseNumber(5, 1, 5, 5));
 		addReleaseNumber(new ReleaseNumber(1, 2, 3, 5));
-		addReleaseNumber(new ReleaseNumber(6, 3, 5, 8));
+		addReleaseNumber(new ReleaseNumber(6, 3, 5, 8)); */
 
 	}
 

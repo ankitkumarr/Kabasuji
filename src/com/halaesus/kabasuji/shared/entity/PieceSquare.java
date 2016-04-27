@@ -1,5 +1,6 @@
 package com.halaesus.kabasuji.shared.entity;
 
+@SuppressWarnings("serial")
 public class PieceSquare extends AbstractSquare {
    
     Piece parentPiece;

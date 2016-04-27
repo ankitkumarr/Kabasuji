@@ -9,9 +9,15 @@ public class Model {
 	PlayerProgress playerProgress;
 	LevelSelector levelSelector;
 		
+	public Model(PlayerProgress playerProgress) {
+		splashModel = new SplashModel();
+		this.playerProgress = playerProgress;
+		levelSelector = new LevelSelector(playerProgress);
+	}
+	
 	public Model() {
 		splashModel = new SplashModel();
-		playerProgress = new PlayerProgress(); // TODO: Read from a file
+		this.playerProgress = new PlayerProgress();
 		levelSelector = new LevelSelector(playerProgress);
 	}
 
@@ -21,6 +27,10 @@ public class Model {
 	
 	public LevelSelector getLevelSelectorModel() {
 		return levelSelector;
+	}
+
+	public PlayerProgress getPlayerProgress() {
+		return playerProgress;
 	}
 	
 }

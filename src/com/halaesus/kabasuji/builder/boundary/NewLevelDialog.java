@@ -2,23 +2,22 @@ package com.halaesus.kabasuji.builder.boundary;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
 public class NewLevelDialog extends JDialog {
@@ -87,8 +86,8 @@ public class NewLevelDialog extends JDialog {
 		}
 		{
 			final JComboBox<String> comboBox = new JComboBox<String>();
-			comboBox.addPropertyChangeListener(new PropertyChangeListener() {
-				public void propertyChange(PropertyChangeEvent arg0) {
+			comboBox.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent  arg0) {
 					selectedType = (String) comboBox.getSelectedItem();
 				}
 			});

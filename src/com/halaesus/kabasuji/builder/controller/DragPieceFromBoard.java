@@ -1,4 +1,4 @@
-package com.halaesus.kabasuji.player.controller;
+package com.halaesus.kabasuji.builder.controller;
 
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -7,20 +7,20 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.Iterator;
 
-import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
-import com.halaesus.kabasuji.player.entity.BoardToBoardMove;
-import com.halaesus.kabasuji.player.entity.BoardToBullpenMove;
+import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
+import com.halaesus.kabasuji.builder.entity.BoardToBoardMove;
+import com.halaesus.kabasuji.builder.entity.BoardToBullpenMove;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
 
 public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 
-    AbstractLevelView levelView;
+    AbstractBuilderView levelView;
     PieceSquare[] originalBoardPieceSquares;
     AbstractLevel level;
 
-    public DragPieceFromBoard(AbstractLevel theLevel, AbstractLevelView levelView) {
+    public DragPieceFromBoard(AbstractLevel theLevel, AbstractBuilderView levelView) {
         // Save the information
     	this.levelView = levelView;
         this.level = theLevel;

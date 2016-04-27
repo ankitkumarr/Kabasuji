@@ -1,15 +1,18 @@
-package com.halaesus.kabasuji.shared.entity;
+package com.halaesus.kabasuji.builder.entity;
 
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
+import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.Piece;
+import com.halaesus.kabasuji.shared.entity.PieceSquare;
 
-public class BoardToBullpenMove {
+public class BoardToBullpenMove implements IMove {
 
-    AbstractLevelView levelView;
+	AbstractBuilderView levelView;
 
-    public BoardToBullpenMove(AbstractLevelView levelView) {
+    public BoardToBullpenMove(AbstractBuilderView levelView) {
     	this.levelView = levelView;
     }
 
@@ -53,7 +56,7 @@ public class BoardToBullpenMove {
 		// Remove the piece from the board and return
 		// STEP 1: Mark original BoardSquares as not filled
 		for( PieceSquare aPieceSquare : originalPieceSquares )
-			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].filled = false;
+			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setFilled(false);
 		// STEP 2: Increment Bullpen Count for the respective piece
 		level.getPieceBeingDragged().getParentHexomino().setCount(level.getPieceBeingDragged().getParentHexomino().getCount() + 1);
 		
@@ -61,4 +64,9 @@ public class BoardToBullpenMove {
 		return level.getPieceBeingDragged();
     }
 
+	@Override
+	public boolean undoMove(AbstractLevel level) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

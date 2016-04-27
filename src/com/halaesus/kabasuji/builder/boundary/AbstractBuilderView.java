@@ -7,6 +7,11 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,9 +24,12 @@ import com.halaesus.kabasuji.builder.controller.FlipHInWorkspace;
 import com.halaesus.kabasuji.builder.controller.FlipVInWorkspace;
 import com.halaesus.kabasuji.builder.controller.RotateCCInWorkspace;
 import com.halaesus.kabasuji.builder.controller.RotateCWInWorkspace;
+import com.halaesus.kabasuji.builder.controller.DragPieceFromBoard;
+import com.halaesus.kabasuji.builder.controller.DragPieceFromWorkspaceToBoard;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
+import com.halaesus.kabasuji.utils.PieceHelper;
 import com.halaesus.kabasuji.builder.controller.ClickPieceInPalette;
 
 @SuppressWarnings("serial")
@@ -55,6 +63,8 @@ public abstract class AbstractBuilderView extends JPanel {
 
 	JPanel builderPalette;
 	JPanel playerPalette;
+
+	HashMap<Rectangle, MouseListener> clickMap;
 	
 	public AbstractBuilderView(Application application, AbstractLevel aLevel) {
 		this.application = application;
@@ -69,6 +79,13 @@ public abstract class AbstractBuilderView extends JPanel {
 		setupWorkspace();
 		setupBuilderPalette();
 		setupPlayerPalette();
+		// Initialize HashMap
+		clickMap = new HashMap<Rectangle, MouseListener>();
+		// Implement MouseListener
+		implementMouseListeners();// Add Listener for DragPieceFromBoard
+		DragPieceFromBoard dragFromBoard = new DragPieceFromBoard(this.level, this);
+		addMouseListener(dragFromBoard);
+		addMouseMotionListener(dragFromBoard);
 	}
 	
 	private void setupTopBar() {
@@ -162,12 +179,87 @@ public abstract class AbstractBuilderView extends JPanel {
 			playerPalette.add(playerPaletteHexBtns[i]);
 		}
 	}
+
+	private void implementMouseListeners() {
+		addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) { /* Do nothing */ }
+			@Override
+			public void mousePressed(MouseEvent e) { /* Do nothing */ }
+			@Override
+			public void mouseExited(MouseEvent e) { /* Do nothing */ }
+			@Override
+			public void mouseEntered(MouseEvent e) { /* Do nothing */ }
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// Map coordinates in the Rectangles of the HashMap
+				for( Rectangle rectangle : clickMap.keySet() ) {
+					if( rectangle.contains(e.getX(), e.getY()) ) {
+						// Invoke the mouseClicked function
+						clickMap.get(rectangle).mouseClicked(e);
+					}
+				}
+			}
+		});
+		// Add Listener for DragPieceFromWorkspaceToBoard
+		DragPieceFromWorkspaceToBoard dragWorkspaceToBoard = new DragPieceFromWorkspaceToBoard(this.level, this);
+		addMouseListener(dragWorkspaceToBoard);
+		addMouseMotionListener(dragWorkspaceToBoard);
+	}
 	
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(Application.instance().getImage("gridWithBoard.jpg")
 				.getScaledInstance(1280, -1, Image.SCALE_SMOOTH), 0, 0, null);
+
+		// Set up the game board
+		setupGameBoard(g);
+		// Draw all the board pieces
+		setupBoardPieces(g);
 		drawWorkspacePiece(g);
+	}
+
+	private void setupBoardPieces(Graphics g) {
+		// Go over all the Pieces on the board and draw them out
+		for( Iterator<Piece> piecesIter = this.level.getBoard().getPieces(); piecesIter.hasNext();  ) {
+			// Grab the next piece from the iterator
+			Piece piece = piecesIter.next();
+			// Setup Graphics Color
+			Color oldColor = g.getColor();
+			g.setColor(piece.getColor());
+			// Go over all the PieceSquares and fill
+			ArrayList<Rectangle> bevelRects = new ArrayList<Rectangle>();
+			for( PieceSquare pieceSquare : piece.getPieceSquares() ) {
+				// Get the rectangle to paint
+				Rectangle pieceRectangle = getBoardPieceRectangle(pieceSquare.getRow(), pieceSquare.getCol());
+				// Paint the rectangle
+				g.fillRect(pieceRectangle.x, pieceRectangle.y, pieceRectangle.width, pieceRectangle.height);
+				// add to our bevelRect
+				bevelRects.add(pieceRectangle);
+				}
+			PieceHelper.drawBevel(g, piece, bevelRects, 255);
+			// Set Graphics back to original color
+			g.setColor(oldColor);
+		}
+	}
+
+	private void setupGameBoard(Graphics g) {
+		// Backup old Graphics color
+		Color oldColor = g.getColor();
+		// Put in the new color
+		g.setColor(new Color(0, 0, 0));
+		// Load up the inactive squares and fill them in
+		for(int r = 0; r < 12; r++) {
+			for(int c = 0; c < 12; c++) {
+				if( !this.level.getBoard().isActive(r, c) ) {
+					Rectangle boardRect = getBoardPieceRectangle(r, c);
+					g.fillRect(boardRect.x, boardRect.y, boardRect.width, boardRect.height);
+				}
+			}
+		}
+		// Revert back to old color
+		g.setColor(oldColor);
 	}
 
 	private void drawWorkspacePiece(Graphics g) {
@@ -201,6 +293,10 @@ public abstract class AbstractBuilderView extends JPanel {
 		return new Rectangle(boardPiecesTopPoint.x + (53 * col), 
 				             boardPiecesTopPoint.y + (53 * row),
 				             53, 53);
+	}
+	
+	public Rectangle getBullpenBounds() {
+		return new Rectangle(0, 80, 320, 640);
 	}
 
 //TODO: Not done yet

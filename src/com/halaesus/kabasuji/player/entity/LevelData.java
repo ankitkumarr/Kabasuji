@@ -69,7 +69,7 @@ public class LevelData implements Serializable, Comparable<LevelData> {
 	
 	@Override
 	public String toString() {
-		return "" + levelIndex + " " + levelName;
+		return "" + levelIndex + " " + levelName + " (" + levelType + ")";
 	}
 	
 

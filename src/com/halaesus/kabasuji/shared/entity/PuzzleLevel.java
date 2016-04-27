@@ -61,6 +61,14 @@ public class PuzzleLevel extends AbstractLevel {
 	public void boardPieceRemoved(Piece p) {
 		// TODO: Check if this count as a move
 	}
+	
+	public int getallowedMoves() {
+		return allowedMoves;
+	}
+	
+	public void setallowedMoves(int allowedmoves) {
+		this.allowedMoves = allowedmoves;
+	}
 
 	@Override
 	public AbstractLevelMemento generateMemento() {

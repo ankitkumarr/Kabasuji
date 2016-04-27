@@ -56,7 +56,7 @@ public abstract class AbstractBoard {
     public boolean isOutsideBounds(Piece p) {
     	PieceSquare[] pSquares = p.getPieceSquares();
     	for (int i = 0; i < pSquares.length; i++) {
-    		if(!(squares[pSquares[i].getCol()][pSquares[i].getRow()].active))
+    		if(!(squares[pSquares[i].getRow()][pSquares[i].getCol()].active))
     			return true;
     	}
     	

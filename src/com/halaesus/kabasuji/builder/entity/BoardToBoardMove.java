@@ -78,14 +78,12 @@ public class BoardToBoardMove implements IMove {
 			return null; // We failed to snap to the board and hence the move wasn't completed
 		else
 			level.getBoard().addPiece(snappedPiece); // Add the snapped Piece to the board
-		// STEP 2: Mark original BoardSquares as not filled AND inactive
+		// STEP 2: Mark original BoardSquares as not inactive
 		for( PieceSquare aPieceSquare : originalPieceSquares ) {
-			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setFilled(false);
 			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
 		}
-		// STEP 3: Mark underlying BoardSquares as filled AND active
+		// STEP 3: Mark underlying BoardSquares as active
 		for( PieceSquare aPieceSquare : snappedPiece.getPieceSquares() ) {
-			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setFilled(true);
 			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
 		}
 		// The move was successful, so:

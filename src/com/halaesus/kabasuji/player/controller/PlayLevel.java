@@ -18,7 +18,6 @@ public class PlayLevel implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.print(theLevel.getLevelType());
 		application.showLevel(theLevel); // Show the required level on the GUI now
 	}
 

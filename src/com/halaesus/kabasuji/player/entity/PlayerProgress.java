@@ -1,5 +1,4 @@
 package com.halaesus.kabasuji.player.entity;
-import java.io.File;
 import java.util.*;
 
 import com.halaesus.kabasuji.player.memento.PlayerProgressMemento;
@@ -8,15 +7,16 @@ public class PlayerProgress {
 
     ArrayList<Integer> starsEarned;
 	LevelList levels;
-    File progressFile;
+    //File progressFile;
     // TODO: Design Decision - If the level is locked, set the stars earned to -1
     
     public PlayerProgress() {
     	// Create a new object of type LeveList
-    	levels = new LevelList();
+    	//levels = new LevelList();
+    	levels = LevelList.loadList();// load our list of levels from file
     	starsEarned = new ArrayList<Integer>();
     	// Add Dummy Levels to reflect the real game (To get 20 levels)
-    	for(int i = 0; i < 6; i++) {
+    	/*for(int i = 0; i < 6; i++) {
     		levels.addLevelData(new LevelData((3*i) + 1, "Puzzle", "PuzzleLevel" + (i+1), "sampleFile"));
     		levels.addLevelData(new LevelData((3*i) + 2, "Lightning", "LightningLevel" + (i+1), "sampleFile"));
     		levels.addLevelData(new LevelData((3*i) + 3, "Release", "ReleaseLevel" + (i+1), "sampleFile"));
@@ -30,17 +30,9 @@ public class PlayerProgress {
 		starsEarned.add(-1); starsEarned.add(-1); starsEarned.add(-1); starsEarned.add(-1);
 		starsEarned.add(-1); starsEarned.add(-1); starsEarned.add(-1); starsEarned.add(-1);
     	// TODO: Grab file from the drive
+    	 */
     }
 
-    public PlayerProgress(File progressFile) {
-    	// TODO: We don't need this one :(
-    }
-
-    public boolean saveToFile(File progressFile) {
-    	return false;
-        // TODO implement here
-    }
-    
     
     public PlayerProgressMemento getState() {
 		return new PlayerProgressMemento(starsEarned);

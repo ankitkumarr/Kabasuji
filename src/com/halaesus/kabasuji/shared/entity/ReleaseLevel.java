@@ -21,7 +21,7 @@ public class ReleaseLevel extends AbstractLevel {
 		board = new ReleaseBoard(null, null); 
 		
 		// Set the game type in here
-		levelType = "Release";
+		levelType = "RELEASE";
 		
 		numberBar = new NumberBar();
 		
@@ -36,6 +36,7 @@ public class ReleaseLevel extends AbstractLevel {
 	public ReleaseLevel(ReleaseLevelMemento memento) {
 		super(memento);
 		numberBar = new NumberBar();
+		
 	}
 	
     public NumberBar getNumberBar(){
@@ -87,7 +88,7 @@ public class ReleaseLevel extends AbstractLevel {
 
 	@Override
 	public AbstractLevelMemento generateMemento() {
-		return new ReleaseLevelMemento(board.generateMemento(), bullpen.palette, this.levelIndex);
+		return new ReleaseLevelMemento(board.generateMemento(), bullpen.palette, this.levelIndex, this.levelType);
 	}
 
 }

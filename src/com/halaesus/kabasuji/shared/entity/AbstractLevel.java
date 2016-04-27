@@ -49,7 +49,7 @@ public abstract class AbstractLevel {
 		board = memento.getBoardMemento().generateBoard();
 		bullpen = new Bullpen(memento.getPaletteMemento().generatePalette());
 		levelIndex = memento.getLevelIndex();
-		System.out.println(memento.getLevelIndex());
+		levelType = memento.getLevelType();
 	}
     
 	public abstract AbstractLevelMemento generateMemento();

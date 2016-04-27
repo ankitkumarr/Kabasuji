@@ -18,16 +18,20 @@ public abstract class AbstractLevelMemento implements Serializable{
 	AbstractBoardMemento board;
 	PaletteMemento palette;
 	int levelIndex;
+	String levelType;
 	
-	public AbstractLevelMemento(int levelIndex) {
+	public AbstractLevelMemento(int levelIndex, String levelType) {
 		this.levelIndex = levelIndex;
 		palette = new PaletteMemento();
+		this.levelType = levelType;
 	}
 	
-	public AbstractLevelMemento(AbstractBoardMemento board, PaletteMemento palette, int levelIndex) {
+	public AbstractLevelMemento(AbstractBoardMemento board,
+			PaletteMemento palette, int levelIndex, String levelType) {
 		this.board = board;
 		this.palette = palette;
 		this.levelIndex = levelIndex;
+		this.levelType = levelType;
 	}
 	
 	public AbstractBoardMemento getBoardMemento() {
@@ -40,6 +44,10 @@ public abstract class AbstractLevelMemento implements Serializable{
 	
 	public int getLevelIndex(){
 		return this.levelIndex;	
+	}
+	
+	public String getLevelType(){
+		return this.levelType;	
 	}
 	
 	public abstract AbstractLevel generateLevel();

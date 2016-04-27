@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 import com.halaesus.kabasuji.player.controller.PlayLevel;
 import com.halaesus.kabasuji.player.entity.LevelSelector;
 import com.halaesus.kabasuji.player.entity.LevelThumbnail;
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.utils.JLabelHelper;
 
 @SuppressWarnings("serial")
@@ -48,7 +49,12 @@ public class LevelSelectorView extends JPanel {
 			//Check if the level is unlocked
 			if (toAdd.starsAchieved != -1 ) {
 				// Add a PlayLevel Controller on this LevelThumbnailView
-				toAdd.addMouseListener(new PlayLevel(levelThumbnail.getLevelData().produceLevel(), application));
+				//toAdd.addMouseListener(new PlayLevel(levelThumbnail.getLevelData().produceLevel(), application));
+				AbstractLevel level = levelSelector.getLevelList().loadLevel(levelThumbnail.getLevelData().getLevelIndex());
+				//System.out.println(level.getLevelIndex() + " " + level.getLevelType());
+				toAdd.addMouseListener(new PlayLevel(level,
+						application));
+
 			}
 			// Now add it to the ArrayList<LevelThumbnail>
 			levelViews.add(toAdd);

@@ -49,7 +49,8 @@ public class LevelData implements Serializable, Comparable<LevelData> {
 		return fileName;
 	}
 
-	public AbstractLevel produceLevel() {
+	// TODO do not need this
+	/*public AbstractLevel produceLevel() {
 		// TODO: Parse the file and return the correct Level Type. For now I'm returning a dummy level
 		// return new AbstractLevel(new File(fileName));
 		if( levelType.equals("Lightning") )
@@ -60,7 +61,7 @@ public class LevelData implements Serializable, Comparable<LevelData> {
 			return new ReleaseLevel(new File(fileName));
 		// If nothing matches, return a generic AbstractLevel
 		return null;
-	}
+	}*/
 
 	@Override
 	public int compareTo(LevelData other) {

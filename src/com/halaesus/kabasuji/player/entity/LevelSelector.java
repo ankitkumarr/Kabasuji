@@ -15,11 +15,12 @@ public class LevelSelector {
 	ArrayList<LevelThumbnail> thumbnails;
 	PlayerProgress playerProgress;
 	BufferedImage backgroundImage;
+	LevelList levels;
 
 	public LevelSelector(PlayerProgress playerProgress) {
 		this.playerProgress = playerProgress;
 		// Grab the levels and the stars
-		LevelList levels = this.playerProgress.levels;
+		this.levels = this.playerProgress.levels;
 		ArrayList<Integer> starsEarned = this.playerProgress.starsEarned;
 		// Initialize some stuff
 		thumbnails = new ArrayList<LevelThumbnail>();
@@ -27,7 +28,8 @@ public class LevelSelector {
 		int idx = 0;
 		for( Iterator<LevelData> iterator = levels.getIterator(); iterator.hasNext(); idx++) {
 			// Create a new LevelThumbnail Model and add it to the ArrayList
-			thumbnails.add(new LevelThumbnail(iterator.next(), starsEarned.get(idx)));
+			thumbnails.add(new LevelThumbnail(iterator.next(), 0));
+			//thumbnails.add(new LevelThumbnail(iterator.next(), starsEarned.get(idx)));
 		}
 		// Get the background image
 		try {
@@ -45,4 +47,7 @@ public class LevelSelector {
 		return backgroundImage;
 	}
 
+	public LevelList getLevelList(){
+		return this.levels;
+	}
 }

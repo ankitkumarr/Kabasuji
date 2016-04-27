@@ -2,6 +2,9 @@ package com.halaesus.kabasuji.shared.entity;
 
 import java.io.File;
 
+import com.halaesus.kabasuji.shared.memento.AbstractLevelMemento;
+import com.halaesus.kabasuji.shared.memento.ReleaseLevelMemento;
+
 /**
  * 
  * @author Corey Dixon, Akshit (Axe) Soota (axe (at) wpi (dot) edu)

@@ -1,7 +1,11 @@
 /**
  * 
  */
-package com.halaesus.kabasuji.shared.entity;
+package com.halaesus.kabasuji.shared.memento;
+
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.LightningLevel;
+import com.halaesus.kabasuji.shared.entity.Palette;
 
 /**
  * @author Corey Dixon
@@ -10,6 +14,7 @@ package com.halaesus.kabasuji.shared.entity;
 public class LightningLevelMemento extends AbstractLevelMemento {
 
 	private static final long serialVersionUID = 7718035734811881075L;
+	
 	int maxTime;
 	
 	public LightningLevelMemento() {
@@ -28,5 +33,8 @@ public class LightningLevelMemento extends AbstractLevelMemento {
 		return new LightningLevel(this);
 	}
 
+	public int getMaxTime() {
+		return maxTime;
+	}
 
 }

@@ -1,7 +1,11 @@
 /**
  * 
  */
-package com.halaesus.kabasuji.shared.entity;
+package com.halaesus.kabasuji.shared.memento;
+
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.PaletteMemento;
+import com.halaesus.kabasuji.shared.entity.PuzzleLevel;
 
 /**
  * @author Corey Dixon
@@ -12,6 +16,7 @@ public class PuzzleLevelMemento extends AbstractLevelMemento {
 	private static final long serialVersionUID = 1250292721040817111L;
 	
 	int allowedMoves;
+	
 	public PuzzleLevelMemento() {
 		super();
 		allowedMoves = 0;
@@ -26,6 +31,10 @@ public class PuzzleLevelMemento extends AbstractLevelMemento {
 	@Override
 	public AbstractLevel generateLevel() {
 		return new PuzzleLevel(this);
+	}
+	
+	public int getAllowedMoves() {
+		return allowedMoves;
 	}
 
 }

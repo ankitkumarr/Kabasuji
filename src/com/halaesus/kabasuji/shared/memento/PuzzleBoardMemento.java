@@ -1,7 +1,11 @@
 /**
  * 
  */
-package com.halaesus.kabasuji.shared.entity;
+package com.halaesus.kabasuji.shared.memento;
+
+import com.halaesus.kabasuji.shared.entity.AbstractBoard;
+import com.halaesus.kabasuji.shared.entity.BoardSquare;
+import com.halaesus.kabasuji.shared.entity.PuzzleBoard;
 
 /**
  * @author Corey Dixon
@@ -20,7 +24,7 @@ public class PuzzleBoardMemento extends AbstractBoardMemento {
 	}
 
 	@Override
-	AbstractBoard generateBoard() {
+	public AbstractBoard generateBoard() {
 		return new PuzzleBoard(squares);
 	}
 

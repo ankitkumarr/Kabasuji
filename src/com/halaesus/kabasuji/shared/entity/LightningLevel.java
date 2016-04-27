@@ -2,6 +2,9 @@ package com.halaesus.kabasuji.shared.entity;
 
 import java.io.File;
 
+import com.halaesus.kabasuji.shared.memento.AbstractLevelMemento;
+import com.halaesus.kabasuji.shared.memento.LightningLevelMemento;
+
 /**
  * 
  * @author Corey Dixon
@@ -9,8 +12,6 @@ import java.io.File;
  */
 public class LightningLevel extends AbstractLevel {
 
-	// LightningBoard lightningBoard;
-	// int numRandPieces; not used
 	int elapsedTime;
 	int maxTime;
 
@@ -32,7 +33,7 @@ public class LightningLevel extends AbstractLevel {
 
 	public LightningLevel(LightningLevelMemento memento) {
 		super(memento);
-		maxTime = memento.maxTime;
+		maxTime = memento.getMaxTime();
 	}
 
 	public int getTimeLeft() {

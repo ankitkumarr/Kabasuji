@@ -1,6 +1,9 @@
 package com.halaesus.kabasuji.shared.entity;
 import java.util.*;
 
+import com.halaesus.kabasuji.shared.memento.AbstractBoardMemento;
+import com.halaesus.kabasuji.shared.memento.ReleaseBoardMemento;
+
 /**
  * 
  * @author Corey Dixon

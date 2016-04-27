@@ -3,6 +3,8 @@ package com.halaesus.kabasuji.shared.entity;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.halaesus.kabasuji.shared.memento.AbstractBoardMemento;
+
 /**
  * 
  * @author Corey Dixon

@@ -13,10 +13,10 @@ import java.util.Iterator;
 import java.util.Random;
 
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
-import com.halaesus.kabasuji.shared.entity.AbstractLevelMemento;
-import com.halaesus.kabasuji.shared.entity.LightningLevelMemento;
-import com.halaesus.kabasuji.shared.entity.PuzzleLevelMemento;
-import com.halaesus.kabasuji.shared.entity.ReleaseLevelMemento;
+import com.halaesus.kabasuji.shared.memento.AbstractLevelMemento;
+import com.halaesus.kabasuji.shared.memento.LightningLevelMemento;
+import com.halaesus.kabasuji.shared.memento.PuzzleLevelMemento;
+import com.halaesus.kabasuji.shared.memento.ReleaseLevelMemento;
 
 /**
  * 

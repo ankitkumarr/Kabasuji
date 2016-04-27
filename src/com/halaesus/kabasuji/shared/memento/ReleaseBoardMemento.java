@@ -1,10 +1,15 @@
 /**
  * 
  */
-package com.halaesus.kabasuji.shared.entity;
+package com.halaesus.kabasuji.shared.memento;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import com.halaesus.kabasuji.shared.entity.AbstractBoard;
+import com.halaesus.kabasuji.shared.entity.BoardSquare;
+import com.halaesus.kabasuji.shared.entity.ReleaseBoard;
+import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 
 /**
  * @author Corey Dixon
@@ -26,7 +31,7 @@ public class ReleaseBoardMemento extends AbstractBoardMemento {
 	}
 
 	@Override
-	AbstractBoard generateBoard() {
+	public AbstractBoard generateBoard() {
 		return new ReleaseBoard(squares, numbers);
 	}
 

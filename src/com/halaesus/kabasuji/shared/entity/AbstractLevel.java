@@ -3,6 +3,8 @@ package com.halaesus.kabasuji.shared.entity;
 import java.awt.Point;
 import java.io.File;
 
+import com.halaesus.kabasuji.shared.memento.AbstractLevelMemento;
+
 /**
  * 
  * @author Corey Dixon
@@ -43,8 +45,8 @@ public abstract class AbstractLevel {
     }
 	
 	public AbstractLevel(AbstractLevelMemento memento) {
-		board = memento.board.generateBoard();
-		bullpen = new Bullpen(memento.palette.generatePalette());
+		board = memento.getBoardMemento().generateBoard();
+		bullpen = new Bullpen(memento.getPaletteMemento().generatePalette());
 	}
     
 	public abstract AbstractLevelMemento generateMemento();

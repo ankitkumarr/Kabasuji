@@ -1,5 +1,8 @@
 package com.halaesus.kabasuji.shared.entity;
 
+import com.halaesus.kabasuji.shared.memento.AbstractBoardMemento;
+import com.halaesus.kabasuji.shared.memento.LightningBoardMemento;
+
 /**
  * 
  * @author Corey Dixon

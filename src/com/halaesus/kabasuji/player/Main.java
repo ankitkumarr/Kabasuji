@@ -68,7 +68,7 @@ public class Main {
 		
 		
 		// The Master Model
-		Model masterModel = new Model(p);
+		final Model masterModel = new Model(p);
 		// The Application to render the Model
 		final Application app = new Application(masterModel);
 		// Close Listener

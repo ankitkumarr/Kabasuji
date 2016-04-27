@@ -32,6 +32,7 @@ public abstract class AbstractLevel {
     Piece pieceBeingDragged;
     int dragSource = -1;
 
+    // TODO do we even need these constructors that take in File?
 	public AbstractLevel(File file) {
         // TODO implement here; Random stuff done here
 		bullpen = new Bullpen();
@@ -47,6 +48,8 @@ public abstract class AbstractLevel {
 	public AbstractLevel(AbstractLevelMemento memento) {
 		board = memento.getBoardMemento().generateBoard();
 		bullpen = new Bullpen(memento.getPaletteMemento().generatePalette());
+		levelIndex = memento.getLevelIndex();
+		System.out.println(memento.getLevelIndex());
 	}
     
 	public abstract AbstractLevelMemento generateMemento();

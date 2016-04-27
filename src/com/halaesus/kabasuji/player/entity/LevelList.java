@@ -108,21 +108,23 @@ public class LevelList implements Serializable {
 		AbstractLevelMemento memento;
 		LevelData ld;
 		int index = levels.size();
+		System.out.println(index);
 		Random rand = new Random();
 		rand.setSeed(System.nanoTime());
 		ld = new LevelData(index, levelType, name, name + rand.nextInt(10000) + ".ser");
 		levels.add(ld);
 		if (levelType.toUpperCase().equals("PUZZLE")) {
-			memento = new PuzzleLevelMemento();
+			memento = new PuzzleLevelMemento(index);
 		} else if (levelType.toUpperCase().equals("LIGHTNING")) {
-			memento = new LightningLevelMemento();
+			memento = new LightningLevelMemento(index);
 		} else if (levelType.toUpperCase().equals("RELEASE")) {
-			memento = new ReleaseLevelMemento();
+			memento = new ReleaseLevelMemento(index);
 		}
 		else
 			return -1; // TODO throw exception instead?
 		
 		overwriteLevel(memento, index);
+		System.out.println(memento.getLevelIndex());
 		saveList();
 		return index;
 	}

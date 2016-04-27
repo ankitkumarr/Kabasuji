@@ -25,8 +25,10 @@ import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
 import com.halaesus.kabasuji.builder.boundary.Application;
 import com.halaesus.kabasuji.builder.controller.FlipHInWorkspace;
 import com.halaesus.kabasuji.builder.controller.FlipVInWorkspace;
+import com.halaesus.kabasuji.builder.controller.LaunchLevelManager;
 import com.halaesus.kabasuji.builder.controller.RotateCCInWorkspace;
 import com.halaesus.kabasuji.builder.controller.RotateCWInWorkspace;
+import com.halaesus.kabasuji.builder.controller.SaveToFile;
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 import com.halaesus.kabasuji.builder.controller.DragPieceFromBoard;
 import com.halaesus.kabasuji.builder.controller.DragPieceFromWorkspaceToBoard;
@@ -34,6 +36,7 @@ import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
 import com.halaesus.kabasuji.utils.BuilderPieceHelper;
+import com.halaesus.kabasuji.utils.JLabelHelper;
 import com.halaesus.kabasuji.utils.PieceHelper;
 import com.halaesus.kabasuji.builder.controller.ClickPieceInPalette;
 
@@ -43,7 +46,7 @@ public abstract class AbstractBuilderView extends JPanel {
 	AbstractLevel level;
 	
 	// top bar buttons
-	JButton newBtn;
+	JButton levelManagerBtn;
 	JButton saveBtn;
 	JButton openBtn;
 	JButton undoBtn;
@@ -88,31 +91,33 @@ public abstract class AbstractBuilderView extends JPanel {
 		clickMap = new HashMap<Rectangle, MouseListener>();
 		// Implement MouseListener
 		implementMouseListeners();// Add Listener for DragPieceFromBoard
+		// Show Level Info
+		showLevelInfo();
 		DragPieceFromBoard dragFromBoard = new DragPieceFromBoard(this.level, this);
 		addMouseListener(dragFromBoard);
 		addMouseMotionListener(dragFromBoard);
 	}
 	
 	private void setupTopBar() {
-		newBtn = new JButton("New");
-		newBtn.setFont(new Font("Arial", Font.PLAIN, 20));
-		newBtn.setBounds(75 * 0, 0, 75, 75);
-		this.add(newBtn);
-		openBtn = new JButton(new ImageIcon(Application.instance().getImage("open.png")
-				.getScaledInstance(75, 75, Image.SCALE_SMOOTH)));
-		openBtn.setBounds(75 * 1, 0, 75, 75);
-		this.add(openBtn);
+		levelManagerBtn = new JButton("Level Manager");
+		levelManagerBtn.setFont(new Font("Arial", Font.PLAIN, 20));
+		levelManagerBtn.setBounds(75 * 0, 0, 200, 75);
+		levelManagerBtn.addActionListener(new LaunchLevelManager());
+		this.add(levelManagerBtn);
+		
 		saveBtn = new JButton(new ImageIcon(Application.instance().getImage("save.png")
 				.getScaledInstance(75, 75, Image.SCALE_SMOOTH)));
-		saveBtn.setBounds(75 * 2, 0, 75, 75);
+		saveBtn.setBounds(75 * 3, 0, 75, 75);
+		saveBtn.addActionListener(new SaveToFile(this));
 		this.add(saveBtn);
+		
 		undoBtn = new JButton(new ImageIcon(Application.instance().getImage("undo.png")
 				.getScaledInstance(75, 75, Image.SCALE_SMOOTH)));
-		undoBtn.setBounds(75 * 3, 0, 75, 75);
+		undoBtn.setBounds(75 * 5, 0, 75, 75);
 		this.add(undoBtn);
 		redoBtn = new JButton(new ImageIcon(Application.instance().getImage("redo.png")
 				.getScaledInstance(75, 75, Image.SCALE_SMOOTH)));
-		redoBtn.setBounds(75 * 4, 0, 75, 75);
+		redoBtn.setBounds(75 * 6, 0, 75, 75);
 		this.add(redoBtn);
 	}
 
@@ -166,6 +171,17 @@ public abstract class AbstractBuilderView extends JPanel {
 					new ClickPieceInPalette(level.getLevelBullpen().getPalette().getHexomino(i), this));
 			builderPalette.add(builderPaletteHexBtns[i]);
 		}
+	}
+	
+	private void showLevelInfo() {
+		// Create the label
+		levelInfo = new JLabel("Level ".concat(String.valueOf(level.getLevelIndex())));
+		levelInfo.setBounds(750, 10, 200, 60);
+		levelInfo.setForeground(Color.ORANGE);
+		levelInfo.setFont(new Font(levelInfo.getFont().getName(), Font.BOLD, levelInfo.getFont().getSize()));
+		JLabelHelper.resizeTextBasedOnAvailableSize(levelInfo);
+		// Add it to the GUI
+		add(levelInfo);
 	}
 	
 	private void setupPlayerPalette() {
@@ -355,7 +371,7 @@ public abstract class AbstractBuilderView extends JPanel {
 			// We render the Piece normally
 			// Backup Graphics Color
 			Color oldColor = g.getColor();
-			// Save a new one; We want this to be translucent as well
+			// Save a new one; We want this to be transparent as well
 			g.setColor(new Color(toBeDrawn.getColor().getRed(), 
 		                         toBeDrawn.getColor().getGreen(), 
 		                         toBeDrawn.getColor().getBlue(), 
@@ -397,7 +413,10 @@ public abstract class AbstractBuilderView extends JPanel {
 			Piece piece = piecesIter.next();
 			// Setup Graphics Color
 			Color oldColor = g.getColor();
-			g.setColor(piece.getColor());
+			g.setColor(new Color(g.getColor().getRed(), 
+                    g.getColor().getGreen(), 
+                    g.getColor().getBlue(), 
+                    200));
 			// Go over all the PieceSquares and fill
 			ArrayList<Rectangle> bevelRects = new ArrayList<Rectangle>();
 			for( PieceSquare pieceSquare : piece.getPieceSquares() ) {
@@ -408,7 +427,7 @@ public abstract class AbstractBuilderView extends JPanel {
 				// add to our bevelRect
 				bevelRects.add(pieceRectangle);
 				}
-			PieceHelper.drawBevel(g, piece, bevelRects, 255);
+			PieceHelper.drawBevel(g, piece, bevelRects, 200);
 			// Set Graphics back to original color
 			g.setColor(oldColor);
 		}
@@ -467,6 +486,10 @@ public abstract class AbstractBuilderView extends JPanel {
 	
 	public Rectangle getBullpenBounds() {
 		return new Rectangle(0, 80, 320, 640);
+	}
+	
+	public AbstractLevel getLevel(){
+		return this.level;
 	}
 
 //TODO: Not done yet

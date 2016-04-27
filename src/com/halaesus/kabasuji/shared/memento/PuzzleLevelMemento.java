@@ -17,14 +17,14 @@ public class PuzzleLevelMemento extends AbstractLevelMemento {
 	
 	int allowedMoves;
 	
-	public PuzzleLevelMemento() {
-		super();
+	public PuzzleLevelMemento(int levelIndex) {
+		super(levelIndex);
 		allowedMoves = 0;
 		board = new PuzzleBoardMemento();
 	}
 
-	public PuzzleLevelMemento(AbstractBoardMemento board, PaletteMemento palette, int allowedMoves) {
-		super(board, palette);
+	public PuzzleLevelMemento(AbstractBoardMemento board, PaletteMemento palette, int levelIndex, int allowedMoves) {
+		super(board, palette, levelIndex);
 		this.allowedMoves = allowedMoves;
 	}
 

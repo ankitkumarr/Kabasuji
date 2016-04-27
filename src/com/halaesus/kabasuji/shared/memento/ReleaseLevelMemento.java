@@ -15,8 +15,8 @@ public class ReleaseLevelMemento extends AbstractLevelMemento {
 
 	private static final long serialVersionUID = 7891441750308402781L;
 	
-	public ReleaseLevelMemento() {
-		super();
+	public ReleaseLevelMemento(int levelIndex) {
+		super(levelIndex);
 		board = new ReleaseBoardMemento();
 	}
 
@@ -24,8 +24,8 @@ public class ReleaseLevelMemento extends AbstractLevelMemento {
 	 * @param board
 	 * @param palette
 	 */
-	public ReleaseLevelMemento(AbstractBoardMemento board, Palette palette) {
-		super(board, palette.generateMemento());
+	public ReleaseLevelMemento(AbstractBoardMemento board, Palette palette, int levelIndex) {
+		super(board, palette.generateMemento(), levelIndex);
 	}
 
 	@Override

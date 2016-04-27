@@ -59,8 +59,8 @@ public class WorkspaceToBoardMove {
 			return false; // We clash with some other piece and thus cannot complete the drag
 		
 		// Check if Piece is outside Active Board Bounds
-		if( level.getBoard().isOutsideBounds(newPieceDragged) )
-			return false; // We are outside board active bounds and thus the drag cannot be completed
+//		if( level.getBoard().isOutsideBounds(newPieceDragged) )
+//			return false; // We are outside board active bounds and thus the drag cannot be completed
 		
 		// Finally, the move was valid, so:
 		return true;

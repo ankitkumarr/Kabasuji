@@ -1,12 +1,15 @@
 package com.halaesus.kabasuji.builder.boundary;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -24,11 +27,13 @@ import com.halaesus.kabasuji.builder.controller.FlipHInWorkspace;
 import com.halaesus.kabasuji.builder.controller.FlipVInWorkspace;
 import com.halaesus.kabasuji.builder.controller.RotateCCInWorkspace;
 import com.halaesus.kabasuji.builder.controller.RotateCWInWorkspace;
+import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 import com.halaesus.kabasuji.builder.controller.DragPieceFromBoard;
 import com.halaesus.kabasuji.builder.controller.DragPieceFromWorkspaceToBoard;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
+import com.halaesus.kabasuji.utils.BuilderPieceHelper;
 import com.halaesus.kabasuji.utils.PieceHelper;
 import com.halaesus.kabasuji.builder.controller.ClickPieceInPalette;
 
@@ -207,7 +212,172 @@ public abstract class AbstractBuilderView extends JPanel {
 		addMouseListener(dragWorkspaceToBoard);
 		addMouseMotionListener(dragWorkspaceToBoard);
 	}
-	
+
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g); // Let the super do its stuff
+		// Draw a dragging piece
+		if( this.level.isDraggingActive() ) {
+			drawBullpenTrashCan(g); // Draw the trash can over the Bullpen and then draw the Piece
+			drawDraggingPiece(g); // Paint the piece out now
+		}
+	}
+
+	private void drawBullpenTrashCan(Graphics g) {
+		assert( this.level.isDraggingActive() == true ); // This function can only be called if there is a piece being dragged
+		// Check dragging state; Source needs to be the Board
+		if( this.level.getDragSource() == AbstractLevel.DRAG_SOURCE_BOARD ) {
+			
+			// Backup the old color
+			Color oldColor = g.getColor();
+			// Draw the Gray Overlay
+			g.setColor(new Color(84, 84, 84, 170));
+			// Fill out the Overlay
+			g.fillRect(this.getBullpenBounds().x,
+					   this.getBullpenBounds().y,
+					   this.getBullpenBounds().width, 
+					   this.getBullpenBounds().height);
+			// Restore the color
+			g.setColor(oldColor);
+			// Place the image
+			Image trashCanFilled = Application.instance().getImage("trashcan_full.png");
+			Image trashCanUnfilled = Application.instance().getImage("trashcan_empty.png");
+			Rectangle imageRect = new Rectangle( this.getBullpenBounds().x + (int)((this.getBullpenBounds().width - trashCanFilled.getWidth(null)) / 2),
+												 this.getBullpenBounds().y + (int)((this.getBullpenBounds().height - trashCanFilled.getHeight(null)) / 2),
+												 trashCanFilled.getWidth(null),
+												 trashCanFilled.getHeight(null));
+			if( this.level.isPieceOverBullpen() )
+				g.drawImage(trashCanFilled, imageRect.x, imageRect.y, imageRect.width, imageRect.height, null);
+			else
+				g.drawImage(trashCanUnfilled, imageRect.x, imageRect.y, imageRect.width, imageRect.height, null);
+			
+		}
+	}
+
+	private void drawDraggingPiece(Graphics g) {
+		assert( this.level.isDraggingActive() == true ); // This function can only be called if there is a piece being dragged
+		// If a piece is being dragged, we'd draw that first
+		Piece toBeDrawn = this.level.getPieceBeingDragged();
+		Point topPointToDraw = this.level.getTopPointOfDraggingPiece();
+		
+		// for bevel effect
+		ArrayList<Rectangle> bevelRects = new ArrayList<Rectangle>();
+		
+		// Calculate tightest rectangle around PieceSquares
+		PieceSquare[] squares = toBeDrawn.getPieceSquares();
+		int xMax = squares[0].getCol();
+		int yMax = squares[0].getRow();
+		
+		for( PieceSquare s: squares ){
+			if (s.getCol() > xMax)
+				xMax = s.getCol(); // We found a new max, save it
+			if (s.getRow() > yMax)
+				yMax = s.getRow(); // We found a new max, save it
+		}
+		
+		Rectangle tighestPieceRectangle = new Rectangle(topPointToDraw.x, 
+				                                        topPointToDraw.y, 
+				                                        (xMax + 1) * 53, 
+				                                        (yMax + 1) * 53);
+		
+		// Calculate the Board Rectangle
+		Rectangle overallBoardRectangle = new Rectangle(boardPiecesTopPoint.x, boardPiecesTopPoint.y, 12 * 53, 12 * 53);
+		
+		// Check if Piece within board bounds
+		if( overallBoardRectangle.contains(tighestPieceRectangle) ) {
+			
+			// We render the Piece Translucent and check for further board things
+			// Backup Graphics Color
+			Color oldColor = g.getColor();
+			// Save a new one
+			g.setColor(new Color(toBeDrawn.getColor().getRed(), 
+		                         toBeDrawn.getColor().getGreen(), 
+		                         toBeDrawn.getColor().getBlue(), 
+		                         200));
+			// Draw the PieceSquares
+			for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
+				int x, y, width, height;
+				x = topPointToDraw.x + (aPieceSquare.getCol() * 53);
+				y = topPointToDraw.y + (aPieceSquare.getRow() * 53);
+				width = 53;
+				height = 53;		
+				g.fillRect(x, y, width, height);
+				// fill our arrray of rectangles for bevel effect
+				bevelRects.add(new Rectangle(x, y, width, height));
+			}
+			PieceHelper.drawBevel(g, toBeDrawn, bevelRects, 200);
+						
+			// Revert back to the old color
+			g.setColor(oldColor);
+			// Get the piece snapped to the board
+			Piece snappedPieceToBoard = BuilderPieceHelper.snapToNearestBoardSquare(this.level, this);
+			// Check if the Piece falls within the right bounds and if it collides or not
+			if( !this.level.getBoard().doesCollide(snappedPieceToBoard) && 
+				!this.level.getBoard().isOutsideBounds(snappedPieceToBoard) ) {
+				// Draw the outline on the underlying board
+				// Iterate over all the Board Squares to see where to draw
+				Point checkPoint = new Point(topPointToDraw.x + 25, topPointToDraw.y + 25);
+				boolean exit = false; // To keep track if the loop should exit
+				for(int r = 0; r < 12 && !exit; r++) {
+					for(int c = 0; c < 12 && !exit; c++) {
+						Rectangle boardRectangle = getBoardPieceRectangle(r, c);
+						// See if point lies there
+						if( boardRectangle.contains(checkPoint) ) {
+							// Create new Graphics Object
+							Graphics2D graphics2d = (Graphics2D)g;
+							// Backup old stroke and color
+							Stroke oldStroke = graphics2d.getStroke();
+							Color prevColor = graphics2d.getColor();
+							// Dashed Stroke
+							float dash[] = {6.0f};
+							BasicStroke dashed = new BasicStroke(3.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
+							// Set Color
+							graphics2d.setColor(Color.WHITE);
+							graphics2d.setStroke(dashed);
+							// Go over each PieceSquare now
+							for( PieceSquare square : toBeDrawn.getPieceSquares() ) {
+								// Draw them out on the board
+								Rectangle rect = getBoardPieceRectangle(r + square.getRow(), c + square.getCol());
+								graphics2d.draw(rect);
+							}
+							// Reset the color and stroke
+							graphics2d.setColor(prevColor);
+							graphics2d.setStroke(oldStroke);
+							// Finally, we're done painting, so exit the loop
+							exit = true;
+						}
+					}
+				}
+			}
+			
+		} else {
+			
+			// We render the Piece normally
+			// Backup Graphics Color
+			Color oldColor = g.getColor();
+			// Save a new one; We want this to be translucent as well
+			g.setColor(new Color(toBeDrawn.getColor().getRed(), 
+		                         toBeDrawn.getColor().getGreen(), 
+		                         toBeDrawn.getColor().getBlue(), 
+		                         200));
+			// Draw the PieceSquares
+			for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
+				int x, y, width, height;
+				x = topPointToDraw.x + (aPieceSquare.getCol() * 53);
+				y = topPointToDraw.y + (aPieceSquare.getRow() * 53);
+				width = 53;
+				height = 53;		
+				g.fillRect(x, y, width, height);
+				// fill our arrray of rectangles for bevel effect
+				bevelRects.add(new Rectangle(x, y, width, height));
+			}
+			// Revert back to the old color
+			g.setColor(oldColor);
+			
+			PieceHelper.drawBevel(g, toBeDrawn, bevelRects, 200);	
+		}
+	}
+
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(Application.instance().getImage("gridWithBoard.jpg")

@@ -10,8 +10,8 @@ public class ImageLoader extends SwingWorker<Void, Object> {
 	
 	static String path = "/resources/";
 	static String[] files = {"save.png", "open.png", "undo.png", "redo.png", "flipHorizontal.png",
-			"flipVertical.png", "rotateCW.png", "rotateCC.png", /** TODO: delete? "grid.jpg",*/ "gridWithBoard.jpg",
-			"bullpenWindow.jpg", "paletteWindow.jpg" /** TODO: delete?, "board.jpg"*/};
+			"flipVertical.png", "rotateCW.png", "rotateCC.png", "gridWithBoard.jpg",
+			"bullpenWindow.jpg", "paletteWindow.jpg", "trashcan_empty.png", "trashcan_full.png"};
 	
 	@Override
 	protected Void doInBackground() throws Exception {

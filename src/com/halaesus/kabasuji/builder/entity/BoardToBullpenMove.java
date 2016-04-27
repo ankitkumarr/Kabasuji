@@ -54,9 +54,11 @@ public class BoardToBullpenMove implements IMove {
 			return null; // Also, the move should be valid for this function to be called
     	
 		// Remove the piece from the board and return
-		// STEP 1: Mark original BoardSquares as not filled
-		for( PieceSquare aPieceSquare : originalPieceSquares )
+		// STEP 1: Mark original BoardSquares as not filled AND inactie
+		for( PieceSquare aPieceSquare : originalPieceSquares ) {
 			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setFilled(false);
+			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
+		}
 		// STEP 2: Increment Bullpen Count for the respective piece
 		level.getPieceBeingDragged().getParentHexomino().setCount(level.getPieceBeingDragged().getParentHexomino().getCount() + 1);
 		

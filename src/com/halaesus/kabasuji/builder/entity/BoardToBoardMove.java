@@ -59,8 +59,8 @@ public class BoardToBoardMove implements IMove {
 			return false; // We clash with some other piece and thus cannot complete the drag
 		
 		// Check if Piece is outside Active Board Bounds
-		if( level.getBoard().isOutsideBounds(newPieceDragged) )
-			return false; // We are outside board active bounds and thus the drag cannot be completed
+//		if( level.getBoard().isOutsideBounds(newPieceDragged) )
+//			return false; // We are outside board active bounds and thus the drag cannot be completed
 		
 		// Finally, the move was valid, so:
 		return true;
@@ -78,13 +78,16 @@ public class BoardToBoardMove implements IMove {
 			return null; // We failed to snap to the board and hence the move wasn't completed
 		else
 			level.getBoard().addPiece(snappedPiece); // Add the snapped Piece to the board
-		// STEP 2: Mark original BoardSquares as not filled
-		for( PieceSquare aPieceSquare : originalPieceSquares )
+		// STEP 2: Mark original BoardSquares as not filled AND inactive
+		for( PieceSquare aPieceSquare : originalPieceSquares ) {
 			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setFilled(false);
-		// STEP 3: Mark underlying BoardSquares as filled
-		for( PieceSquare aPieceSquare : snappedPiece.getPieceSquares() )
+			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
+		}
+		// STEP 3: Mark underlying BoardSquares as filled AND active
+		for( PieceSquare aPieceSquare : snappedPiece.getPieceSquares() ) {
 			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setFilled(true);
-		
+			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
+		}
 		// The move was successful, so:
 		return snappedPiece;
     }

@@ -1,16 +1,19 @@
-package com.halaesus.kabasuji.shared.entity;
+package com.halaesus.kabasuji.builder.entity;
 
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
-import com.halaesus.kabasuji.utils.PieceHelper;
+import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.Piece;
+import com.halaesus.kabasuji.shared.entity.PieceSquare;
+import com.halaesus.kabasuji.utils.BuilderPieceHelper;
 
 public class BoardToBoardMove implements IMove {
 
-    AbstractLevelView levelView;
+	AbstractBuilderView levelView;
 
-    public BoardToBoardMove(AbstractLevelView levelView) {
+    public BoardToBoardMove(AbstractBuilderView levelView) {
     	this.levelView = levelView;
     }
     
@@ -47,7 +50,7 @@ public class BoardToBoardMove implements IMove {
 			return false; // This move cannot take place
     	
 		// Get the Piece that will Snap to the Board
-		Piece newPieceDragged = PieceHelper.snapToNearestBoardSquare(level, this.levelView);
+		Piece newPieceDragged = BuilderPieceHelper.snapToNearestBoardSquare(level, this.levelView);
 		if( newPieceDragged == null )
 			return false; // Failed to snap to the Board and hence, not a valid move
 
@@ -70,20 +73,25 @@ public class BoardToBoardMove implements IMove {
     		return null; // Also, the move should be valid for this function to be called
     	// Now, snap to the board at the location and update the underlying board
     	// STEP 1: Find the squares to snap to
-		Piece snappedPiece = PieceHelper.snapToNearestBoardSquare(level, this.levelView);
+		Piece snappedPiece = BuilderPieceHelper.snapToNearestBoardSquare(level, this.levelView);
 		if( snappedPiece == null )
 			return null; // We failed to snap to the board and hence the move wasn't completed
 		else
 			level.getBoard().addPiece(snappedPiece); // Add the snapped Piece to the board
 		// STEP 2: Mark original BoardSquares as not filled
 		for( PieceSquare aPieceSquare : originalPieceSquares )
-			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].filled = false;
+			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setFilled(false);
 		// STEP 3: Mark underlying BoardSquares as filled
 		for( PieceSquare aPieceSquare : snappedPiece.getPieceSquares() )
-			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].filled = true;
+			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setFilled(true);
 		
 		// The move was successful, so:
 		return snappedPiece;
     }
 
+	@Override
+	public boolean undoMove(AbstractLevel level) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

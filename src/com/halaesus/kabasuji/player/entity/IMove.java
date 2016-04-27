@@ -1,4 +1,6 @@
-package com.halaesus.kabasuji.shared.entity;
+package com.halaesus.kabasuji.player.entity;
+
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 
 public interface IMove {
 

@@ -3,8 +3,8 @@ package com.halaesus.kabasuji.builder.entity;
 
 import java.util.*;
 
+import com.halaesus.kabasuji.player.entity.IMove;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
-import com.halaesus.kabasuji.shared.entity.IMove;
 
 /**
  * 

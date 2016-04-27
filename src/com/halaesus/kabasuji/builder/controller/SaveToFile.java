@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
 import com.halaesus.kabasuji.player.entity.LevelList;
-import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.memento.AbstractLevelMemento;
 
 public class SaveToFile implements ActionListener{

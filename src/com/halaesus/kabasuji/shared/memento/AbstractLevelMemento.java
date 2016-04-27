@@ -20,7 +20,7 @@ public abstract class AbstractLevelMemento implements Serializable{
 	int levelIndex;
 	
 	public AbstractLevelMemento(int levelIndex) {
-		levelIndex = this.levelIndex;
+		this.levelIndex = levelIndex;
 		palette = new PaletteMemento();
 	}
 	

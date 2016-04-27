@@ -92,6 +92,7 @@ public class LevelList implements Serializable {
 			if (levels.get(i).levelIndex == index) {
 				ObjectOutputStream out;
 				try {
+					System.out.println(memento.getLevelIndex()+ "  " + index);
 					out = new ObjectOutputStream(new FileOutputStream(levels.get(i).fileName));
 					out.writeObject(memento);
 					out.close();

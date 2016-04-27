@@ -413,10 +413,9 @@ public abstract class AbstractBuilderView extends JPanel {
 			Piece piece = piecesIter.next();
 			// Setup Graphics Color
 			Color oldColor = g.getColor();
-			g.setColor(new Color(g.getColor().getRed(), 
-                    g.getColor().getGreen(), 
-                    g.getColor().getBlue(), 
-                    200));
+			g.setColor(new Color(piece.getColor().getRed(), 
+					piece.getColor().getGreen(), 
+					piece.getColor().getBlue(), 150));
 			// Go over all the PieceSquares and fill
 			ArrayList<Rectangle> bevelRects = new ArrayList<Rectangle>();
 			for( PieceSquare pieceSquare : piece.getPieceSquares() ) {
@@ -427,7 +426,7 @@ public abstract class AbstractBuilderView extends JPanel {
 				// add to our bevelRect
 				bevelRects.add(pieceRectangle);
 				}
-			PieceHelper.drawBevel(g, piece, bevelRects, 200);
+			PieceHelper.drawBevel(g, piece, bevelRects,150);
 			// Set Graphics back to original color
 			g.setColor(oldColor);
 		}
@@ -437,7 +436,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		// Backup old Graphics color
 		Color oldColor = g.getColor();
 		// Put in the new color
-		g.setColor(new Color(0, 0, 0));
+		g.setColor(new Color(0, 0, 0, 200));
 		// Load up the inactive squares and fill them in
 		for(int r = 0; r < 12; r++) {
 			for(int c = 0; c < 12; c++) {

@@ -43,12 +43,18 @@ public class PuzzleLevel extends AbstractLevel {
 
 	@Override
 	public int getStarsAchieved() {
-		int currentHexominoCount = 0;
-		for(int idx = 0; idx < 35; idx++)
-			currentHexominoCount += this.getLevelBullpen().getPalette().getHexomino(idx).getCount();
-		// Compare and return
-		if( 0 <= currentHexominoCount && currentHexominoCount <= 2 )
-			return (3 - currentHexominoCount);
+		// Count the number of unfilled squares. Then we decide
+		int unfilledSquares = 0;
+		for( BoardSquare[] rowBoardSquares : this.board.getSquares() ) {
+			for( BoardSquare aBoardSquare : rowBoardSquares ) {
+				// Check and increment if necessary
+				if( aBoardSquare.isActive() && !aBoardSquare.isFilled() )
+					unfilledSquares++;
+			}
+		}
+		// Now check
+		if( 0 <= unfilledSquares && unfilledSquares <= 12 )
+			return (3 - (unfilledSquares / 6));
 		return 0; // Else, do this line!
 	}
 

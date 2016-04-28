@@ -1,7 +1,5 @@
 package com.halaesus.kabasuji.shared.entity;
 
-import java.io.File;
-
 import com.halaesus.kabasuji.shared.memento.AbstractLevelMemento;
 import com.halaesus.kabasuji.shared.memento.PuzzleLevelMemento;
 
@@ -15,24 +13,19 @@ public class PuzzleLevel extends AbstractLevel {
 	int allowedMoves;
 	int usedMoves;
 
-	public PuzzleLevel(File file) {
-		super(file);
-		// Set the game type in here
-		levelType = "Puzzle";
-		// TODO: Remove Dummy Values
-		allowedMoves = 47;
-		usedMoves = 0;
-		// TODO construct releaseBoard from file data
-		BoardSquare[][] squares = new BoardSquare[12][12];
-		for(int r = 0; r < 12; r++)
-			for(int c = 0; c < 12; c++)
-				squares[r][c] = new BoardSquare(true);
-		board = new PuzzleBoard(squares);
-	}
-
 	public PuzzleLevel(PuzzleLevelMemento memento) {
 		super(memento);
+		// Set the game type in here
+		levelType = "Puzzle";
+		// Fill out the rest of the fields
 		allowedMoves = memento.getAllowedMoves();
+	}
+
+	public PuzzleLevel(PuzzleLevel anotherLevel) {
+		super(anotherLevel); // Fill out Super Fields
+		// Get some other fields
+		this.allowedMoves = anotherLevel.allowedMoves;
+		this.usedMoves = anotherLevel.usedMoves;
 	}
 
 	public int getMovesLeft() {

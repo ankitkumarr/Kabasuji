@@ -1,7 +1,6 @@
 package com.halaesus.kabasuji.shared.entity;
 
 import java.awt.Point;
-import java.io.File;
 
 import com.halaesus.kabasuji.shared.memento.AbstractLevelMemento;
 
@@ -31,27 +30,38 @@ public abstract class AbstractLevel {
     int draggingDistToPointY;
     Piece pieceBeingDragged;
     int dragSource = -1;
-
-    // TODO do we even need these constructors that take in File?
-	public AbstractLevel(File file) {
-        // TODO implement here; Random stuff done here
-		bullpen = new Bullpen();
-	/*	// BoardSquares
-		BoardSquare[] boardSquares = new BoardSquare[144];
-		for(int i = 0; i < 144; i++) {
-			boardSquares[i] = new BoardSquare(true);
-		}
-		// Board
-		board = new AbstractBoard(boardSquares);*/
-    }
 	
 	public AbstractLevel(AbstractLevelMemento memento) {
 		board = memento.getBoardMemento().generateBoard();
 		//bullpen = new Bullpen(memento.getPaletteMemento().generatePalette());
 		// TODO eventually use the bullpen from the builder file
-		bullpen = new Bullpen();
+		bullpen = new Bullpen(); // TODO: Remove default constructor of the Bullpen
 		levelIndex = memento.getLevelIndex();
 		levelType = memento.getLevelType();
+	}
+	
+	private AbstractLevel(AbstractBoard board, int starsAchieved, String levelType, Bullpen bullpen, int levelIndex,
+			boolean isDraggingActive, boolean pieceOverBullpen, Point topPointOfDraggingPiece, int draggingDistToPointX,
+			int draggingDistToPointY, Piece pieceBeingDragged, int dragSource) {
+		// Main goal of this PRIVATE constructor is for the copy constructor
+		this.board = board;
+		this.starsAchieved = starsAchieved;
+		this.levelType = levelType;
+		this.bullpen = bullpen;
+		this.levelIndex = levelIndex;
+		this.isDraggingActive = isDraggingActive;
+		this.pieceOverBullpen = pieceOverBullpen;
+		this.topPointOfDraggingPiece = topPointOfDraggingPiece;
+		this.draggingDistToPointX = draggingDistToPointX;
+		this.draggingDistToPointY = draggingDistToPointY;
+		this.pieceBeingDragged = pieceBeingDragged;
+		this.dragSource = dragSource;
+	}
+
+	public AbstractLevel(AbstractLevel anotherLevel) {
+		this(anotherLevel.board.makeCopy(), anotherLevel.starsAchieved, anotherLevel.levelType, new Bullpen(anotherLevel.bullpen), 
+			 anotherLevel.levelIndex, anotherLevel.isDraggingActive, anotherLevel.pieceOverBullpen, anotherLevel.topPointOfDraggingPiece,
+			 anotherLevel.draggingDistToPointX, anotherLevel.draggingDistToPointY, anotherLevel.pieceBeingDragged, anotherLevel.dragSource);
 	}
     
 	public abstract AbstractLevelMemento generateMemento();

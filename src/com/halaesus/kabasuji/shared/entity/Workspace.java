@@ -1,5 +1,10 @@
 package com.halaesus.kabasuji.shared.entity;
 
+/**
+ * 
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ *
+ */
 public class Workspace {
 
 	private static Workspace ws;

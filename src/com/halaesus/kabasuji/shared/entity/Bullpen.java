@@ -4,7 +4,7 @@ import com.halaesus.kabasuji.utils.PieceGenerator;
 
 /**
  * 
- * @author Corey Dixon
+ * @author Corey Dixon, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  *
  */
 public class Bullpen {
@@ -24,12 +24,19 @@ public class Bullpen {
     		hexominoes[i].getPiece().setParentHexomino(hexominoes[i]);
     	}
     	// Set the palette up with the hexominoes
-    	this.palette = new Palette(hexominoes);
+    	this.palette = new Palette(hexominoes); // TODO: Remove this line and the corresponding constructor
     }
     
     public Bullpen(Palette palette) {
     	workspace = Workspace.resetInstance();
     	this.palette = palette;
+    }
+    
+    public Bullpen(Bullpen anotherBullpen) {
+    	this(); // Create a new Bullpen
+    	// Initialize the fields
+    	this.workspace = Workspace.instance();
+    	this.palette = new Palette(anotherBullpen.palette);
     }
 
 	public Workspace getWorkspace() {

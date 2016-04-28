@@ -39,7 +39,11 @@ public class LightningLevelView extends AbstractLevelView {
 		// Set up Lightning Specific Layout Stuff
 		setupLevelTypeLabel();
 		setupTimeRemainingLabel();
-		// TODO: Rest of the setup
+		// Set up the Warning Timer and the Countdown Timer
+		setupCountdownTimer();
+		setupWarningTimer();
+		// Start the timers
+		countdownTimer.start();
 	}
 
 	private void setupLevelTypeLabel() {
@@ -51,21 +55,6 @@ public class LightningLevelView extends AbstractLevelView {
 		JLabelHelper.resizeTextBasedOnAvailableSize(lightningModeLabel);
 		// Add it to the GUI
 		add(lightningModeLabel);
-	}
-	
-	public void performContentPaneShownActions() {
-		// Reset time in level
-		level.resetElapsedTime();
-		// Start up the countdown timer
-		if( countdownTimer != null && countdownTimer.isRunning() ) {
-			countdownTimer.stop();
-			countdownTimer.start(); // Restart for the first time the timer
-		} else {
-			setupCountdownTimer(); // Create the timer
-			countdownTimer.start(); // Start the timer for the first time
-		}
-		// Set up the Warning Timer
-		setupWarningTimer(); 
 	}
 
 	private void setupTimeRemainingLabel() {
@@ -88,7 +77,6 @@ public class LightningLevelView extends AbstractLevelView {
 	}
 
 	private void setupCountdownTimer() {
-		// TODO: Check if this Timer should somehow be converted to a controller?
 		countdownTimer = new Timer(1000, new ActionListener() {
 		    public void actionPerformed(ActionEvent evt) {
 		        // STEP 1: Check time to see if user ran out of time

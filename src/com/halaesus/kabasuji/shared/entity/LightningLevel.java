@@ -1,13 +1,11 @@
 package com.halaesus.kabasuji.shared.entity;
 
-import java.io.File;
-
 import com.halaesus.kabasuji.shared.memento.AbstractLevelMemento;
 import com.halaesus.kabasuji.shared.memento.LightningLevelMemento;
 
 /**
  * 
- * @author Corey Dixon
+ * @author Corey Dixon, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  *
  */
 public class LightningLevel extends AbstractLevel {
@@ -15,25 +13,20 @@ public class LightningLevel extends AbstractLevel {
 	int elapsedTime;
 	int maxTime;
 
-	public LightningLevel(File file) {
-		super(file);
-		// Read from file
-		maxTime = 65;
-		elapsedTime = 0; // TODO: Dummy values
+	public LightningLevel(LightningLevelMemento memento) {
+		super(memento); // Let the super do its stuff with the memento
+		// Fill out some fields
+		maxTime = memento.getMaxTime();
+		elapsedTime = 0;
 		// Set the game type in here
 		levelType = "Lightning";
-
-		// TODO construct releaseBoard from file data
-		BoardSquare[][] squares = new BoardSquare[12][12];
-		for(int r = 0; r < 12; r++)
-			for(int c = 0; c < 12; c++)
-				squares[r][c] = new BoardSquare(true);
-		board = new LightningBoard(squares);
 	}
 
-	public LightningLevel(LightningLevelMemento memento) {
-		super(memento);
-		maxTime = memento.getMaxTime();
+	public LightningLevel(LightningLevel anotherLevel) {
+		super(anotherLevel); // Fill out Super Fields
+		// Fill out our fields now
+		this.elapsedTime = anotherLevel.elapsedTime;
+		this.maxTime = anotherLevel.maxTime;
 	}
 
 	public int getTimeLeft() {

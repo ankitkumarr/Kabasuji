@@ -7,7 +7,7 @@ import com.halaesus.kabasuji.shared.memento.AbstractBoardMemento;
 
 /**
  * 
- * @author Corey Dixon
+ * @author Corey Dixon, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  *
  */
 public abstract class AbstractBoard {
@@ -20,8 +20,6 @@ public abstract class AbstractBoard {
 		// Initialize
 		this.pieces = new ArrayList<Piece>();
 	}
-	
-    public abstract AbstractBoardMemento generateMemento();
     
     public boolean isActive(int row, int col) {
     	return squares[row][col].isActive();
@@ -70,11 +68,16 @@ public abstract class AbstractBoard {
     public void addPiece(Piece p) {
     	this.pieces.add(p);
     }
+    
 	public BoardSquare[][] getSquares() {
 		return squares;
 	}
+	
 	public void setSquares(BoardSquare[][] squares) {
 		this.squares = squares;
 	}
+	
+    public abstract AbstractBoardMemento generateMemento();
+    public abstract AbstractBoard makeCopy();
     
 }

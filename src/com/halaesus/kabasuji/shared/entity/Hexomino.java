@@ -2,7 +2,7 @@ package com.halaesus.kabasuji.shared.entity;
 
 /**
  * 
- * @author Corey Dixon
+ * @author Corey Dixon, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  *
  */
 public class Hexomino {

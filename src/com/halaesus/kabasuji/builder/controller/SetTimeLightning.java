@@ -1,6 +1,7 @@
 package com.halaesus.kabasuji.builder.controller;
 
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import com.halaesus.kabasuji.builder.boundary.LightningBuilderView;
 import com.halaesus.kabasuji.shared.entity.LightningLevel;
@@ -8,7 +9,7 @@ import com.halaesus.kabasuji.shared.entity.LightningLevel;
 /**
  * 
  */
-public class SetTimeLightning {
+public class SetTimeLightning implements MouseListener {
 
     /**
      * 
@@ -34,5 +35,29 @@ public class SetTimeLightning {
     public void mouseClicked(MouseEvent e) {
         // TODO implement here
     }
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

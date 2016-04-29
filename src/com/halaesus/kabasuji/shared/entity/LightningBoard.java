@@ -1,5 +1,7 @@
 package com.halaesus.kabasuji.shared.entity;
 
+import java.util.ArrayList;
+
 import com.halaesus.kabasuji.shared.memento.AbstractBoardMemento;
 import com.halaesus.kabasuji.shared.memento.LightningBoardMemento;
 
@@ -10,8 +12,8 @@ import com.halaesus.kabasuji.shared.memento.LightningBoardMemento;
  */
 public class LightningBoard extends AbstractBoard {
    
-    public LightningBoard(BoardSquare[][] squares) {
-    	super(squares);
+    public LightningBoard(BoardSquare[][] squares, ArrayList<Piece> pieces) {
+    	super(squares, pieces);
     }
     
     @Override
@@ -21,7 +23,7 @@ public class LightningBoard extends AbstractBoard {
 
 	@Override
 	public AbstractBoardMemento generateMemento() {
-		return new LightningBoardMemento(getSquares());
+		return new LightningBoardMemento(getSquares(),getPieces());
 	}
 
 	@Override
@@ -35,7 +37,7 @@ public class LightningBoard extends AbstractBoard {
 			for(int c = 0; c < cols; c++)
 				newSquares[r][c] = new BoardSquare(originalSquares[r][c]);
 		// Call and return
-		return new LightningBoard(newSquares);
+		return new LightningBoard(newSquares, new ArrayList<Piece>());
 	}
     
 }

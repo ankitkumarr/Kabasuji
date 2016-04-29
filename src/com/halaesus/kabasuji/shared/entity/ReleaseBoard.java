@@ -13,8 +13,8 @@ public class ReleaseBoard extends AbstractBoard {
 
     Set<ReleaseNumber> numbers;
 
-	public ReleaseBoard(BoardSquare[][] squares, Set<ReleaseNumber> numbers) {
-		super(squares);
+	public ReleaseBoard(BoardSquare[][] squares, ArrayList<Piece> pieces, Set<ReleaseNumber> numbers) {
+		super(squares, pieces);
 
 		// TODO remove this when we actually pass in releaseNumbers from a file
 		// ReleaseNumbers
@@ -35,7 +35,7 @@ public class ReleaseBoard extends AbstractBoard {
 
 	@Override
 	public AbstractBoardMemento generateMemento() {
-		return new ReleaseBoardMemento(getSquares(), numbers);
+		return new ReleaseBoardMemento(getSquares(), getPieces(), numbers);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class ReleaseBoard extends AbstractBoard {
 			for(int c = 0; c < cols; c++)
 				newSquares[r][c] = new BoardSquare(originalSquares[r][c]);
 		// Call and return
-		return new ReleaseBoard(newSquares, new HashSet<>(numbers));
+		return new ReleaseBoard(newSquares, new ArrayList<Piece>(), new HashSet<>(numbers));
 	}
     
 }

@@ -507,7 +507,7 @@ public abstract class AbstractLevelView extends JPanel {
 
 	private void setupBoardPieces(Graphics g) {
 		// Go over all the Pieces on the board and draw them out
-		for( Iterator<Piece> piecesIter = this.level.getBoard().getPieces(); piecesIter.hasNext();  ) {
+		for( Iterator<Piece> piecesIter = this.level.getBoard().getPiecesIt(); piecesIter.hasNext();  ) {
 			// Grab the next piece from the iterator
 			Piece piece = piecesIter.next();
 			// Setup Graphics Color

@@ -3,8 +3,11 @@
  */
 package com.halaesus.kabasuji.shared.memento;
 
+import java.util.ArrayList;
+
 import com.halaesus.kabasuji.shared.entity.AbstractBoard;
 import com.halaesus.kabasuji.shared.entity.BoardSquare;
+import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PuzzleBoard;
 
 /**
@@ -19,13 +22,13 @@ public class PuzzleBoardMemento extends AbstractBoardMemento {
 		super();
 	}
 
-	public PuzzleBoardMemento(BoardSquare[][] squares) {
-		super(squares);
+	public PuzzleBoardMemento(BoardSquare[][] squares, ArrayList<Piece> pieces) {
+		super(squares, pieces);
 	}
 
 	@Override
 	public AbstractBoard generateBoard() {
-		return new PuzzleBoard(squares);
+		return new PuzzleBoard(squares, pieces);
 	}
 
 }

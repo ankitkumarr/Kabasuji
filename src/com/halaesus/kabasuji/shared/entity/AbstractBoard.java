@@ -15,10 +15,10 @@ public abstract class AbstractBoard {
 	private BoardSquare[][] squares;
 	ArrayList<Piece> pieces;
 
-	public AbstractBoard(BoardSquare[][] squares) {
+	public AbstractBoard(BoardSquare[][] squares, ArrayList<Piece> pieces) {
 		this.squares = squares;
 		// Initialize
-		this.pieces = new ArrayList<Piece>();
+		this.pieces = pieces;
 	}
     
     public boolean isActive(int row, int col) {
@@ -65,7 +65,7 @@ public abstract class AbstractBoard {
     	return false;
     }
 
-    public Iterator<Piece> getPieces() {
+    public Iterator<Piece> getPiecesIt() {
     	return pieces.iterator();
     }
     
@@ -75,6 +75,10 @@ public abstract class AbstractBoard {
     
 	public BoardSquare[][] getSquares() {
 		return squares;
+	}
+	
+	public ArrayList<Piece> getPieces(){
+		return this.pieces;
 	}
 	
 	public void setSquares(BoardSquare[][] squares) {

@@ -38,7 +38,7 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 			return; // We shouldn't be handling this move
 		
 		// Go over each Piece and then their PieceSquares to determine where the click happened
-		Iterator<Piece> boardPieces = this.level.getBoard().getPieces();
+		Iterator<Piece> boardPieces = this.level.getBoard().getPiecesIt();
 		boolean exit = false; // To keep track if the iteration loop should be quit or not
 		for( ; boardPieces.hasNext() && !exit; ) {
 			Piece aPiece = new Piece(boardPieces.next()); // Get the next Piece

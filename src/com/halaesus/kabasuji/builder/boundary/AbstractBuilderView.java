@@ -333,8 +333,7 @@ public abstract class AbstractBuilderView extends JPanel {
 			// Get the piece snapped to the board
 			Piece snappedPieceToBoard = BuilderPieceHelper.snapToNearestBoardSquare(this.level, this);
 			// Check if the Piece falls within the right bounds and if it collides or not
-			if( !this.level.getBoard().doesCollide(snappedPieceToBoard) && 
-				!this.level.getBoard().isOutsideBounds(snappedPieceToBoard) ) {
+			if( !this.level.getBoard().doesCollide(snappedPieceToBoard) ) {
 				// Draw the outline on the underlying board
 				// Iterate over all the Board Squares to see where to draw
 				Point checkPoint = new Point(topPointToDraw.x + 25, topPointToDraw.y + 25);
@@ -415,14 +414,14 @@ public abstract class AbstractBuilderView extends JPanel {
 
 	private void setupBoardPieces(Graphics g) {
 		// Go over all the Pieces on the board and draw them out
-		for( Iterator<Piece> piecesIter = this.level.getBoard().getPieces(); piecesIter.hasNext();  ) {
+		for( Iterator<Piece> piecesIter = this.level.getBoard().getPiecesIt(); piecesIter.hasNext();  ) {
 			// Grab the next piece from the iterator
 			Piece piece = piecesIter.next();
 			// Setup Graphics Color
 			Color oldColor = g.getColor();
 			g.setColor(new Color(piece.getColor().getRed(), 
 					piece.getColor().getGreen(), 
-					piece.getColor().getBlue(), 150));
+					piece.getColor().getBlue(), 50));
 			// Go over all the PieceSquares and fill
 			ArrayList<Rectangle> bevelRects = new ArrayList<Rectangle>();
 			for( PieceSquare pieceSquare : piece.getPieceSquares() ) {

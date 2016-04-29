@@ -1,13 +1,16 @@
 package com.halaesus.kabasuji.shared.entity;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Corey Dixon, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  *
  */
-public class Hexomino {
-
-    Piece piece;
+public class Hexomino implements Serializable {
+	
+	private static final long serialVersionUID = -2917029974885842756L;
+	Piece piece;
     int count;
 
 	public Hexomino(int count, Piece piece) {

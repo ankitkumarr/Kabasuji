@@ -1,10 +1,12 @@
 package com.halaesus.kabasuji.shared.entity;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Piece {
+public class Piece implements Serializable {
 
+	private static final long serialVersionUID = 8539046452906569460L;
 	PieceSquare[] originalSquares;
 	Hexomino parentHexomino;
     PieceSquare[] squares; 

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 
- * @author Corey Dixon
+ * @author Corey Dixon, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  *
  */
 public class BoardSquare extends AbstractSquare implements Serializable{
@@ -12,10 +12,12 @@ public class BoardSquare extends AbstractSquare implements Serializable{
 	private static final long serialVersionUID = -3708147432756262459L;
 	
 	boolean filled;
-    boolean hint;
+    int hint;
 
     public BoardSquare(boolean active) {
         super(active); // Let the super do its job
+        // By default, there is no hint on the board
+        hint = -1;
     }
     
     public BoardSquare(BoardSquare anotherSquare) {
@@ -33,11 +35,11 @@ public class BoardSquare extends AbstractSquare implements Serializable{
 		this.filled = filled;
 	}
 
-	public boolean isHint() {
+	public int getHint() {
 		return hint;
 	}
 
-	public void setHint(boolean hint) {
+	public void setHint(int hint) {
 		this.hint = hint;
 	}
 

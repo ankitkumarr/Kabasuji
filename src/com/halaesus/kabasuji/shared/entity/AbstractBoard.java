@@ -28,6 +28,10 @@ public abstract class AbstractBoard {
     public boolean isFilled(int row, int col) {
     	return squares[row][col].isFilled();
     }
+    
+    public int getHint(int row, int col) {
+    	return squares[row][col].getHint();
+    }
 
     public boolean doesCollide(Piece p) {
     	

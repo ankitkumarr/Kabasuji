@@ -36,6 +36,7 @@ import com.halaesus.kabasuji.shared.entity.PieceSquare;
 import com.halaesus.kabasuji.shared.entity.SplashModel;
 import com.halaesus.kabasuji.utils.JButtonHelper;
 import com.halaesus.kabasuji.utils.JLabelHelper;
+import com.halaesus.kabasuji.utils.PieceGenerator;
 import com.halaesus.kabasuji.utils.PieceHelper;
 
 /**
@@ -472,15 +473,33 @@ public abstract class AbstractLevelView extends JPanel {
 	private void setupGameBoard(Graphics g) {
 		// Backup old Graphics color
 		Color oldColor = g.getColor();
-		// Put in the new color
-		g.setColor(new Color(0, 0, 0));
-		// Load up the inactive squares and fill them in
+		// Load up the inactive squares and hint squares and fill them in
 		for(int r = 0; r < 12; r++) {
 			for(int c = 0; c < 12; c++) {
+				
+				// Inactive Squares Check
 				if( !this.level.getBoard().isActive(r, c) ) {
+					// Put in the new color
+					g.setColor(new Color(0, 0, 0));
+					// Paint the rectangle
 					Rectangle boardRect = getBoardPieceRectangle(r, c);
 					g.fillRect(boardRect.x, boardRect.y, boardRect.width, boardRect.height);
 				}
+				
+				// Hint Square Check
+				if( this.level.getBoard().isActive(r, c) && !this.level.getBoard().isFilled(r, c) ) {
+					// Get the Piece whose color has to be shown
+					int hintNumber = this.level.getBoard().getHint(r, c);
+					if( hintNumber == -1 )
+						continue; // No hint to be shown
+					Color pieceColor = PieceGenerator.pieces[hintNumber].getColor();
+					// Set the color to graphics
+					g.setColor(new Color(pieceColor.getRed(), pieceColor.getGreen(), pieceColor.getBlue(), 125));
+					// Paint the rectangle
+					Rectangle boardRect = getBoardPieceRectangle(r, c);
+					g.fillRect(boardRect.x, boardRect.y, boardRect.width, boardRect.height);
+				}
+				
 			}
 		}
 		// Revert back to old color

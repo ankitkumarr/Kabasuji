@@ -333,42 +333,29 @@ public abstract class AbstractLevelView extends JPanel {
 			if( !this.level.getBoard().doesCollide(snappedPieceToBoard) && 
 				!this.level.getBoard().isOutsideBounds(snappedPieceToBoard) ) {
 				// Draw the outline on the underlying board
-				// Iterate over all the Board Squares to see where to draw
-				Point checkPoint = new Point(topPointToDraw.x + 25, topPointToDraw.y + 25);
-				boolean exit = false; // To keep track if the loop should exit
-				for(int r = 0; r < 12 && !exit; r++) {
-					for(int c = 0; c < 12 && !exit; c++) {
-						Rectangle boardRectangle = getBoardPieceRectangle(r, c);
-						// See if point lies there
-						if( boardRectangle.contains(checkPoint) ) {
-							// Create new Graphics Object
-							Graphics2D graphics2d = (Graphics2D)g;
-							// Backup old stroke and color
-							Stroke oldStroke = graphics2d.getStroke();
-							Color prevColor = graphics2d.getColor();
-							// Dashed Stroke
-							float dash[] = {6.0f};
-							BasicStroke dashed = new BasicStroke(3.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
-							// Decide and set color
-							if( this.level.getLevelType().toUpperCase().equals("PUZZLE") && (((PuzzleLevel)this.level).getMovesLeft() <= 0) )
-								graphics2d.setColor(Color.RED); // Show red lines that you cannot drop here
-							else
-								graphics2d.setColor(Color.WHITE);
-							graphics2d.setStroke(dashed);
-							// Go over each PieceSquare now
-							for( PieceSquare square : toBeDrawn.getPieceSquares() ) {
-								// Draw them out on the board
-								Rectangle rect = getBoardPieceRectangle(r + square.getRow(), c + square.getCol());
-								graphics2d.draw(rect);
-							}
-							// Reset the color and stroke
-							graphics2d.setColor(prevColor);
-							graphics2d.setStroke(oldStroke);
-							// Finally, we're done painting, so exit the loop
-							exit = true;
-						}
-					}
+				// Create new Graphics Object
+				Graphics2D graphics2d = (Graphics2D)g;
+				// Backup old stroke and color
+				Stroke oldStroke = graphics2d.getStroke();
+				Color prevColor = graphics2d.getColor();
+				// Dashed Stroke
+				float dash[] = {6.0f};
+				BasicStroke dashed = new BasicStroke(3.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
+				// Decide and set color
+				if( this.level.getLevelType().toUpperCase().equals("PUZZLE") && (((PuzzleLevel)this.level).getMovesLeft() <= 0) )
+					graphics2d.setColor(Color.RED); // Show red lines that you cannot drop here
+				else
+					graphics2d.setColor(Color.WHITE); // Otherwise show the normal white Piece outline
+				graphics2d.setStroke(dashed);
+				// Go over each of the SnappedPiece's PieceSquares now
+				for( PieceSquare square : snappedPieceToBoard.getPieceSquares() ) {
+					// Draw them out on the board
+					Rectangle rect = getBoardPieceRectangle(square.getRow(), square.getCol());
+					graphics2d.draw(rect);
 				}
+				// Reset the color and stroke
+				graphics2d.setColor(prevColor);
+				graphics2d.setStroke(oldStroke);
 			}
 			
 		} else {

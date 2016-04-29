@@ -88,7 +88,7 @@ public class LightningLevel extends AbstractLevel {
 
 	@Override
 	public AbstractLevelMemento generateMemento() {
-		return new LightningLevelMemento(board.generateMemento(), bullpen.palette, this.levelIndex, maxTime, this.levelType);
+		return new LightningLevelMemento(board.generateMemento(), bullpen.palette, this.levelIndex, maxTime, this.levelType, this.levelName);
 	}
 
 }

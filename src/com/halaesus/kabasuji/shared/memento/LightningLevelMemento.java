@@ -17,15 +17,15 @@ public class LightningLevelMemento extends AbstractLevelMemento {
 	
 	int maxTime;
 	
-	public LightningLevelMemento(int levelIndex, String levelType) {
-		super(levelIndex, levelType);
+	public LightningLevelMemento(int levelIndex, String levelType, String levelName) {
+		super(levelIndex, levelType, levelName);
 		board = new LightningBoardMemento();
 		maxTime = 60;
 	}
 	
 	public LightningLevelMemento(AbstractBoardMemento board, Palette palette,
-			int levelIndex, int maxTime, String levelType) {
-		super(board, palette.generateMemento(), levelIndex, levelType);
+			int levelIndex, int maxTime, String levelType, String levelName) {
+		super(board, palette.generateMemento(), levelIndex, levelType, levelName);
 		this.maxTime = maxTime;
 	}
 

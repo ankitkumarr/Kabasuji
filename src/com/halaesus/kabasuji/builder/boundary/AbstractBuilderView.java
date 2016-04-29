@@ -32,6 +32,7 @@ import com.halaesus.kabasuji.builder.controller.RotateCCInWorkspace;
 import com.halaesus.kabasuji.builder.controller.RotateCWInWorkspace;
 import com.halaesus.kabasuji.builder.controller.SaveToFile;
 import com.halaesus.kabasuji.builder.controller.ToggleHint;
+import com.halaesus.kabasuji.player.entity.LevelList;
 import com.halaesus.kabasuji.builder.controller.DragPieceFromBoard;
 import com.halaesus.kabasuji.builder.controller.DragPieceFromWorkspaceToBoard;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
@@ -118,6 +119,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		
 		saveBtn = new JButton(new ImageIcon(Application.instance().getImage("save.png")
 				.getScaledInstance(75, 75, Image.SCALE_SMOOTH)));
+		saveBtn.setToolTipText("Save");
 		saveBtn.setBounds(75 * 3, 0, 75, 75);
 		saveBtn.addActionListener(new SaveToFile(this));
 		this.add(saveBtn);
@@ -125,10 +127,12 @@ public abstract class AbstractBuilderView extends JPanel {
 		undoBtn = new JButton(new ImageIcon(Application.instance().getImage("undo.png")
 				.getScaledInstance(75, 75, Image.SCALE_SMOOTH)));
 		undoBtn.setBounds(75 * 5, 0, 75, 75);
+		undoBtn.setToolTipText("Undo");
 		this.add(undoBtn);
 		redoBtn = new JButton(new ImageIcon(Application.instance().getImage("redo.png")
 				.getScaledInstance(75, 75, Image.SCALE_SMOOTH)));
-		redoBtn.setBounds(75 * 6, 0, 75, 75);
+		redoBtn.setBounds(75 * 6 + 38, 0, 75, 75);
+		redoBtn.setToolTipText("Redo");
 		this.add(redoBtn);
 	}
 
@@ -186,7 +190,8 @@ public abstract class AbstractBuilderView extends JPanel {
 	
 	private void showLevelInfo() {
 		// Create the label
-		levelInfo = new JLabel("Level ".concat(String.valueOf(level.getLevelIndex())));
+		levelInfo = new JLabel(level.getLevelName());
+		
 		levelInfo.setBounds(750, 10, 200, 60);
 		levelInfo.setForeground(Color.ORANGE);
 		levelInfo.setFont(new Font(levelInfo.getFont().getName(), Font.BOLD, levelInfo.getFont().getSize()));
@@ -320,7 +325,7 @@ public abstract class AbstractBuilderView extends JPanel {
 			g.setColor(new Color(toBeDrawn.getColor().getRed(), 
 		                         toBeDrawn.getColor().getGreen(), 
 		                         toBeDrawn.getColor().getBlue(), 
-		                         200));
+		                         90));
 			// Draw the PieceSquares
 			for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
 				int x, y, width, height;
@@ -427,7 +432,7 @@ public abstract class AbstractBuilderView extends JPanel {
 			Color oldColor = g.getColor();
 			g.setColor(new Color(piece.getColor().getRed(), 
 					piece.getColor().getGreen(), 
-					piece.getColor().getBlue(), 50));
+					piece.getColor().getBlue(), 70));
 			// Go over all the PieceSquares and fill
 			ArrayList<Rectangle> bevelRects = new ArrayList<Rectangle>();
 			for( PieceSquare pieceSquare : piece.getPieceSquares() ) {
@@ -474,10 +479,15 @@ public abstract class AbstractBuilderView extends JPanel {
 				if( level.getLevelBullpen().getWorkspace().pieceExists() ) {
 					// We gotta draw it out
 					Piece toBeDrawn = level.getLevelBullpen().getWorkspace().getPiece();
+					
+					// rectangles needed to draw bevel effect
+					ArrayList <Rectangle> bevelRects = new ArrayList<Rectangle>();
+
 					// Go over all the 6 PieceSquares within
 					for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
 						// Solve for the Rectangle
 						Rectangle rectToDraw = getBullpenWorkspacePieceRectangle(aPieceSquare.getCol(), aPieceSquare.getRow());
+						bevelRects.add(rectToDraw);
 						// Save backup Graphics color
 						Color oldColor = g.getColor();
 						// Set new Color
@@ -487,6 +497,7 @@ public abstract class AbstractBuilderView extends JPanel {
 						// Reset the color
 						g.setColor(oldColor);
 					}
+					PieceHelper.drawBevel(g, toBeDrawn, bevelRects, 255);
 				}
 	}
 	

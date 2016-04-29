@@ -113,11 +113,11 @@ public class LevelList implements Serializable {
 		ld = new LevelData(index, levelType, name, name + rand.nextInt(10000) + ".ser");
 		levels.add(ld);
 		if (levelType.toUpperCase().equals("PUZZLE")) {
-			memento = new PuzzleLevelMemento(index, levelType);
+			memento = new PuzzleLevelMemento(index, levelType, name);
 		} else if (levelType.toUpperCase().equals("LIGHTNING")) {
-			memento = new LightningLevelMemento(index, levelType);
+			memento = new LightningLevelMemento(index, levelType, name);
 		} else if (levelType.toUpperCase().equals("RELEASE")) {
-			memento = new ReleaseLevelMemento(index, levelType);
+			memento = new ReleaseLevelMemento(index, levelType, name);
 		}
 		else
 			return -1; // TODO throw exception instead?
@@ -149,6 +149,10 @@ public class LevelList implements Serializable {
 	// should only use newLevel
 	public void addLevelData(LevelData levelData) {
 		levels.add(levelData);
+	}
+	
+	public String getLevelName(int index) {
+		return levels.get(index).getLevelName();
 	}
 
 	public int getLevelCount() {

@@ -75,7 +75,7 @@ public class ReleaseLevel extends AbstractLevel {
 
 	@Override
 	public AbstractLevelMemento generateMemento() {
-		return new ReleaseLevelMemento(board.generateMemento(), bullpen.palette, this.levelIndex, this.levelType);
+		return new ReleaseLevelMemento(board.generateMemento(), bullpen.palette, this.levelIndex, this.levelType, this.levelName);
 	}
 
 }

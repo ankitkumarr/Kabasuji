@@ -22,7 +22,8 @@ public abstract class AbstractLevel {
     String levelType;
 	Bullpen bullpen;
     int levelIndex;
-    // Keep track of dragging stuff
+    String levelName;
+	// Keep track of dragging stuff
     boolean isDraggingActive = false;
     boolean pieceOverBullpen = false;
 	Point topPointOfDraggingPiece;
@@ -38,9 +39,10 @@ public abstract class AbstractLevel {
 		bullpen = new Bullpen(); // TODO: Remove default constructor of the Bullpen
 		levelIndex = memento.getLevelIndex();
 		levelType = memento.getLevelType();
+		levelName = memento.getLevelName();
 	}
 	
-	private AbstractLevel(AbstractBoard board, int starsAchieved, String levelType, Bullpen bullpen, int levelIndex,
+	private AbstractLevel(AbstractBoard board, int starsAchieved, String levelType, String levelName, Bullpen bullpen, int levelIndex,
 			boolean isDraggingActive, boolean pieceOverBullpen, Point topPointOfDraggingPiece, int draggingDistToPointX,
 			int draggingDistToPointY, Piece pieceBeingDragged, int dragSource) {
 		// Main goal of this PRIVATE constructor is for the copy constructor
@@ -49,6 +51,7 @@ public abstract class AbstractLevel {
 		this.levelType = levelType;
 		this.bullpen = bullpen;
 		this.levelIndex = levelIndex;
+		this.levelName = levelName;
 		this.isDraggingActive = isDraggingActive;
 		this.pieceOverBullpen = pieceOverBullpen;
 		this.topPointOfDraggingPiece = topPointOfDraggingPiece;
@@ -59,7 +62,7 @@ public abstract class AbstractLevel {
 	}
 
 	public AbstractLevel(AbstractLevel anotherLevel) {
-		this(anotherLevel.board.makeCopy(), anotherLevel.starsAchieved, anotherLevel.levelType, new Bullpen(anotherLevel.bullpen), 
+		this(anotherLevel.board.makeCopy(), anotherLevel.starsAchieved, anotherLevel.levelType, anotherLevel.levelName, new Bullpen(anotherLevel.bullpen), 
 			 anotherLevel.levelIndex, anotherLevel.isDraggingActive, anotherLevel.pieceOverBullpen, anotherLevel.topPointOfDraggingPiece,
 			 anotherLevel.draggingDistToPointX, anotherLevel.draggingDistToPointY, anotherLevel.pieceBeingDragged, anotherLevel.dragSource);
 	}
@@ -146,7 +149,15 @@ public abstract class AbstractLevel {
 	public boolean hasWon() {
 		return (getStarsAchieved() == 3);
 	}
-	
+
+	public String getLevelName() {
+		return levelName;
+	}
+
+	public void setLevelName(String levelName) {
+		this.levelName = levelName;
+	}
+
 	// Abstract Functions
 	public abstract int getStarsAchieved();
 	public abstract void newPieceDropped(Piece p);

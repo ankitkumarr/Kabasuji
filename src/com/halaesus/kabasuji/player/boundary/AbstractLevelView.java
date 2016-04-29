@@ -164,7 +164,8 @@ public abstract class AbstractLevelView extends JPanel {
 	
 	private void showLevelInfo() {
 		// Create the label
-		levelInfo = new JLabel("Level ".concat(String.valueOf(level.getLevelIndex() + 1)));
+		//levelInfo = new JLabel("Level ".concat(String.valueOf(level.getLevelIndex() + 1)));
+		levelInfo = new JLabel(level.getLevelName());
 		levelInfo.setBounds(750, 10, 200, 60);
 		levelInfo.setForeground(Color.ORANGE);
 		levelInfo.setFont(new Font(levelInfo.getFont().getName(), Font.BOLD, levelInfo.getFont().getSize()));
@@ -486,7 +487,7 @@ public abstract class AbstractLevelView extends JPanel {
 					// Put in the hint color
 					Color hintColor = new Color (PieceGenerator.colors[this.level.getBoard().getHint(r, c)].getRed(),
 							PieceGenerator.colors[this.level.getBoard().getHint(r, c)].getGreen(),
-							PieceGenerator.colors[this.level.getBoard().getHint(r, c)].getBlue(), 150);
+							PieceGenerator.colors[this.level.getBoard().getHint(r, c)].getBlue(), 125);
 					g.setColor(hintColor);
 					Rectangle boardRect = getBoardPieceRectangle(r, c);
 					g.fillRect(boardRect.x, boardRect.y, boardRect.width, boardRect.height);

@@ -3,7 +3,6 @@ package com.halaesus.kabasuji.player.boundary;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 

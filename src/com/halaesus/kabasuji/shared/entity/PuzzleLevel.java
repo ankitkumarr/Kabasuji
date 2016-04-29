@@ -66,7 +66,7 @@ public class PuzzleLevel extends AbstractLevel {
 		// Nothing has to be done if a Piece has been removed from the board
 	}
 	
-	public int getallowedMoves() {
+	public int getAllowedMoves() {
 		return allowedMoves;
 	}
 	

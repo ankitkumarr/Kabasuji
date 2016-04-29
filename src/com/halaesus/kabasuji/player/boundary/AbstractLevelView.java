@@ -33,6 +33,7 @@ import com.halaesus.kabasuji.player.controller.RotateCWInWorkspace;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
+import com.halaesus.kabasuji.shared.entity.PuzzleLevel;
 import com.halaesus.kabasuji.shared.entity.SplashModel;
 import com.halaesus.kabasuji.utils.JButtonHelper;
 import com.halaesus.kabasuji.utils.JLabelHelper;
@@ -348,8 +349,11 @@ public abstract class AbstractLevelView extends JPanel {
 							// Dashed Stroke
 							float dash[] = {6.0f};
 							BasicStroke dashed = new BasicStroke(3.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
-							// Set Color
-							graphics2d.setColor(Color.WHITE);
+							// Decide and set color
+							if( this.level.getLevelType().toUpperCase().equals("PUZZLE") && (((PuzzleLevel)this.level).getMovesLeft() <= 0) )
+								graphics2d.setColor(Color.RED); // Show red lines that you cannot drop here
+							else
+								graphics2d.setColor(Color.WHITE);
 							graphics2d.setStroke(dashed);
 							// Go over each PieceSquare now
 							for( PieceSquare square : toBeDrawn.getPieceSquares() ) {

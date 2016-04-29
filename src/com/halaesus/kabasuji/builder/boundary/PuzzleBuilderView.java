@@ -42,7 +42,7 @@ public class PuzzleBuilderView extends AbstractBuilderView {
     }
     
     public String getmoves() {
-    	return Integer.toString(level.getallowedMoves());
+    	return Integer.toString(level.getAllowedMoves());
     }
     
     public void setupmovesBox() {

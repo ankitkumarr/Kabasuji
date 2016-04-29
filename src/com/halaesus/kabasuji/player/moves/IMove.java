@@ -1,4 +1,4 @@
-package com.halaesus.kabasuji.player.entity;
+package com.halaesus.kabasuji.player.moves;
 
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;

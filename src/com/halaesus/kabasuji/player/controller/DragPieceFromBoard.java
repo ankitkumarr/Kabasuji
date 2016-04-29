@@ -8,8 +8,8 @@ import java.awt.event.MouseMotionListener;
 import java.util.Iterator;
 
 import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
-import com.halaesus.kabasuji.player.entity.BoardToBoardMove;
-import com.halaesus.kabasuji.player.entity.BoardToBullpenMove;
+import com.halaesus.kabasuji.player.moves.BoardToBoardMove;
+import com.halaesus.kabasuji.player.moves.BoardToBullpenMove;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
@@ -80,6 +80,7 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 					
 					// We've handled the mousePress, so exit the loop
 					exit = true;
+					break; // Exit the For Each Loop
 				}
 			}
 		}

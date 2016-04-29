@@ -1,4 +1,4 @@
-package com.halaesus.kabasuji.player.entity;
+package com.halaesus.kabasuji.player.moves;
 
 import java.awt.Point;
 import java.awt.Rectangle;

@@ -7,6 +7,7 @@ import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
+import com.halaesus.kabasuji.shared.entity.PuzzleLevel;
 
 /**
  * 
@@ -47,6 +48,10 @@ public class BoardToBullpenMove implements IMove {
 		// If the piece is not in the Bullpen rectangle, it is not a valid move
 		if( !this.levelView.getBullpenBounds().contains(tighestPieceRectangle) )
 			return false; // This move cannot take place
+		
+		// Check if the level is a PuzzleLevel. If is is a PuzzleLevel, then check the number of moves left
+		if( level.getLevelType().toUpperCase().equals("PUZZLE") && (((PuzzleLevel)level).getMovesLeft() == 0) )
+			return false; // No more moves can be performed :(
 		
 		// Else, the move and removal of the piece from the Board is valid, so:
 		return true;

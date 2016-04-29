@@ -250,8 +250,11 @@ public abstract class AbstractLevelView extends JPanel {
 			
 			// Backup the old color
 			Color oldColor = g.getColor();
-			// Draw the Gray Overlay
-			g.setColor(new Color(84, 84, 84, 170));
+			// Draw the Overlay based on level and moves left decision
+			if( level.getLevelType().toUpperCase().equals("PUZZLE") && (((PuzzleLevel)level).getMovesLeft() == 0) )
+				g.setColor(new Color(255, 50, 50, 170));
+			else
+				g.setColor(new Color(84, 84, 84, 170));
 			// Fill out the Overlay
 			g.fillRect(this.getBullpenBounds().x,
 					   this.getBullpenBounds().y,
@@ -264,7 +267,9 @@ public abstract class AbstractLevelView extends JPanel {
 												 this.getBullpenBounds().y + (int)((this.getBullpenBounds().height - trashCanFilled.getHeight(null)) / 2),
 												 trashCanFilled.getWidth(null),
 												 trashCanFilled.getHeight(null));
-			if( this.level.isPieceOverBullpen() )
+			// To draw the filled trashcan the Piece HAS to be over the bullpen and either the level is NOT a puzzle level or it is an the user has moves to perform
+			if( this.level.isPieceOverBullpen() && ( !level.getLevelType().toUpperCase().equals("PUZZLE") ||
+					                                 ( level.getLevelType().toUpperCase().equals("PUZZLE") && (((PuzzleLevel)level).getMovesLeft() != 0) ) ) )
 				g.drawImage(trashCanFilled, imageRect.x, imageRect.y, imageRect.width, imageRect.height, null);
 			else
 				g.drawImage(trashCanUnfilled, imageRect.x, imageRect.y, imageRect.width, imageRect.height, null);

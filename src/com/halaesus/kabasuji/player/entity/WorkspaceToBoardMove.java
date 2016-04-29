@@ -8,6 +8,7 @@ import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.player.entity.IMove;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
+import com.halaesus.kabasuji.shared.entity.PuzzleLevel;
 import com.halaesus.kabasuji.utils.PieceHelper;
 
 /**
@@ -67,6 +68,10 @@ public class WorkspaceToBoardMove implements IMove {
 		// Check if Piece is outside Active Board Bounds
 		if( level.getBoard().isOutsideBounds(newPieceDragged) )
 			return false; // We are outside board active bounds and thus the drag cannot be completed
+		
+		// Check if the level is a PuzzleLevel. If is is a PuzzleLevel, then check the number of moves left
+		if( level.getLevelType().toUpperCase().equals("PUZZLE") && (((PuzzleLevel)level).getMovesLeft() == 0) )
+			return false; // No more moves can be performed :(
 		
 		// Finally, the move was valid, so:
 		return true;

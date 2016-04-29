@@ -299,7 +299,10 @@ public abstract class AbstractLevelView extends JPanel {
 				                                        (yMax + 1) * 53);
 		
 		// Calculate the Board Rectangle
-		Rectangle overallBoardRectangle = new Rectangle(boardPiecesTopPoint.x, boardPiecesTopPoint.y, 12 * 53, 12 * 53);
+		Rectangle overallBoardRectangle = new Rectangle(boardPiecesTopPoint.x - 25, 
+				                                        boardPiecesTopPoint.y - 25,
+				                                        13 * 53,
+				                                        13 * 53);
 		
 		// Check if Piece within board bounds
 		if( overallBoardRectangle.contains(tighestPieceRectangle) ) {

@@ -8,6 +8,11 @@ import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
 
+/**
+ * 
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ *
+ */
 public class BoardToBullpenMove implements IMove {
 
     AbstractLevelView levelView;

@@ -10,6 +10,11 @@ import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
 import com.halaesus.kabasuji.utils.PieceHelper;
 
+/**
+ * 
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ *
+ */
 public class WorkspaceToBoardMove implements IMove {
 	
 	AbstractLevelView levelView;
@@ -41,10 +46,10 @@ public class WorkspaceToBoardMove implements IMove {
 				                                        (xMax + 1) * 53, 
 				                                        (yMax + 1) * 53);
 		// Calculate the Board Rectangle
-		Rectangle overallBoardRectangle = new Rectangle(this.levelView.getBoardPieceRectangle(0, 0).x, 
-				                                        this.levelView.getBoardPieceRectangle(0, 0).y, 
-				                                        12 * this.levelView.getBoardPieceRectangle(0, 0).width, 
-				                                        12 * this.levelView.getBoardPieceRectangle(0, 0).height);
+		Rectangle overallBoardRectangle = new Rectangle(this.levelView.getBoardPieceRectangle(0, 0).x - 25, 
+				                                        this.levelView.getBoardPieceRectangle(0, 0).y - 25, 
+				                                        13 * this.levelView.getBoardPieceRectangle(0, 0).width, 
+				                                        13 * this.levelView.getBoardPieceRectangle(0, 0).height);
 		
 		// See if Piece is within Board Bounds
 		if( !overallBoardRectangle.contains(tighestPieceRectangle) )

@@ -472,33 +472,25 @@ public abstract class AbstractLevelView extends JPanel {
 	private void setupGameBoard(Graphics g) {
 		// Backup old Graphics color
 		Color oldColor = g.getColor();
-		// Load up the inactive squares and hint squares and fill them in
+		// Load up the inactive squares and fill them in
 		for(int r = 0; r < 12; r++) {
 			for(int c = 0; c < 12; c++) {
-				
-				// Inactive Squares Check
 				if( !this.level.getBoard().isActive(r, c) ) {
-					// Put in the new color
-					g.setColor(new Color(0, 0, 0));
-					// Paint the rectangle
+					// Put in the inactive color
+					g.setColor(new Color(0, 0, 0, 200));
 					Rectangle boardRect = getBoardPieceRectangle(r, c);
 					g.fillRect(boardRect.x, boardRect.y, boardRect.width, boardRect.height);
 				}
-				
-				// Hint Square Check
-				if( this.level.getBoard().isActive(r, c) && !this.level.getBoard().isFilled(r, c) ) {
-					// Get the Piece whose color has to be shown
-					int hintNumber = this.level.getBoard().getHint(r, c);
-					if( hintNumber == -1 )
-						continue; // No hint to be shown
-					Color pieceColor = PieceGenerator.pieces[hintNumber].getColor();
-					// Set the color to graphics
-					g.setColor(new Color(pieceColor.getRed(), pieceColor.getGreen(), pieceColor.getBlue(), 125));
-					// Paint the rectangle
+				//draw hints
+				else if( !(this.level.getBoard().getHint(r, c) == -1)) {
+					// Put in the hint color
+					Color hintColor = new Color (PieceGenerator.colors[this.level.getBoard().getHint(r, c)].getRed(),
+							PieceGenerator.colors[this.level.getBoard().getHint(r, c)].getGreen(),
+							PieceGenerator.colors[this.level.getBoard().getHint(r, c)].getBlue(), 150);
+					g.setColor(hintColor);
 					Rectangle boardRect = getBoardPieceRectangle(r, c);
 					g.fillRect(boardRect.x, boardRect.y, boardRect.width, boardRect.height);
 				}
-				
 			}
 		}
 		// Revert back to old color

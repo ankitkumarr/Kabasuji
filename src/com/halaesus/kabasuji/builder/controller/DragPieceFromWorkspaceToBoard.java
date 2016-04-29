@@ -51,7 +51,7 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 				// Inform the Model
 				this.level.setDraggingActive(true);
 				this.level.setDragSource(AbstractLevel.DRAG_SOURCE_WORKSPACE);
-				this.level.setPieceBeingDragged(new Piece(thePiece.getColor(), thePiece.pushTopLeft(), thePiece.getParentHexomino()));
+				this.level.setPieceBeingDragged(new Piece(thePiece.getColorID(), thePiece.pushTopLeft(), thePiece.getParentHexomino()));
 				this.level.setTopPointOfDraggingPiece(new Point(topLeftPieceRect.x, topLeftPieceRect.y));
 				this.level.setDraggingDistToPointX(e.getX() - topLeftPieceRect.x);
 				this.level.setDraggingDistToPointY(e.getY() - topLeftPieceRect.y);

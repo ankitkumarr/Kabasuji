@@ -4,19 +4,21 @@ import java.awt.Color;
 import java.io.Serializable;
 import java.util.Arrays;
 
+import com.halaesus.kabasuji.utils.PieceGenerator;
+
 public class Piece implements Serializable {
 
 	private static final long serialVersionUID = 8539046452906569460L;
 	PieceSquare[] originalSquares;
 	Hexomino parentHexomino;
     PieceSquare[] squares; 
-    Color color;
+    int colorID;
 
-    public Piece(Color color, PieceSquare squareMap[], Hexomino parentHexomino) {
+    public Piece(int colorID, PieceSquare squareMap[], Hexomino parentHexomino) {
+    	this.parentHexomino = parentHexomino;
         // Save the data
     	this.originalSquares = Arrays.copyOf(squareMap, squareMap.length);
-    	this.parentHexomino = parentHexomino;
-    	this.color = color;
+    	this.colorID = colorID;
     	
     	// Make a fresh copy of the PieceSquares
     	PieceSquare[] newPieceSquareArray = new PieceSquare[squareMap.length];
@@ -26,7 +28,7 @@ public class Piece implements Serializable {
     }
     
     public Piece(Piece toCopy) {
-    	this(toCopy.color, toCopy.getPieceSquares(), toCopy.parentHexomino);
+    	this(toCopy.colorID, toCopy.getPieceSquares(), toCopy.parentHexomino);
     }
     
     public PieceSquare[] getOriginalPieceSquares() {
@@ -38,7 +40,11 @@ public class Piece implements Serializable {
     }
     
     public Color getColor() {
-    	return color;
+    	return PieceGenerator.colors[colorID];
+    }
+    
+    public int getColorID() {
+    	return colorID;
     }
     
     public void setParentHexomino(Hexomino parentHexomino) {
@@ -176,7 +182,7 @@ public class Piece implements Serializable {
 			return false;
 		// Now check for equality
 		Piece other = (Piece)o;
-		if( !this.color.equals(other.color) )
+		if( !(this.colorID == other.colorID) )
 			return false;
 		for( int i = 0; i < this.squares.length; i++ )
 			if( ( this.squares[i].getRow() != other.squares[i].getRow() ) ||

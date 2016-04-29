@@ -31,6 +31,7 @@ import com.halaesus.kabasuji.builder.controller.LaunchLevelManager;
 import com.halaesus.kabasuji.builder.controller.RotateCCInWorkspace;
 import com.halaesus.kabasuji.builder.controller.RotateCWInWorkspace;
 import com.halaesus.kabasuji.builder.controller.SaveToFile;
+import com.halaesus.kabasuji.builder.controller.ToggleHint;
 import com.halaesus.kabasuji.builder.controller.DragPieceFromBoard;
 import com.halaesus.kabasuji.builder.controller.DragPieceFromWorkspaceToBoard;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
@@ -39,6 +40,7 @@ import com.halaesus.kabasuji.shared.entity.PieceSquare;
 import com.halaesus.kabasuji.shared.entity.SplashModel;
 import com.halaesus.kabasuji.utils.BuilderPieceHelper;
 import com.halaesus.kabasuji.utils.JLabelHelper;
+import com.halaesus.kabasuji.utils.PieceGenerator;
 import com.halaesus.kabasuji.utils.PieceHelper;
 import com.halaesus.kabasuji.builder.controller.ClickPieceInPalette;
 
@@ -101,6 +103,10 @@ public abstract class AbstractBuilderView extends JPanel {
 		DragPieceFromBoard dragFromBoard = new DragPieceFromBoard(this.level, this);
 		addMouseListener(dragFromBoard);
 		addMouseMotionListener(dragFromBoard);
+		
+		ToggleHint toggleHint = new ToggleHint(this.level, this);
+		addMouseListener(toggleHint);
+		addMouseMotionListener(toggleHint);
 	}
 	
 	private void setupTopBar() {
@@ -441,12 +447,19 @@ public abstract class AbstractBuilderView extends JPanel {
 	private void setupGameBoard(Graphics g) {
 		// Backup old Graphics color
 		Color oldColor = g.getColor();
-		// Put in the new color
-		g.setColor(new Color(0, 0, 0, 200));
 		// Load up the inactive squares and fill them in
 		for(int r = 0; r < 12; r++) {
 			for(int c = 0; c < 12; c++) {
 				if( !this.level.getBoard().isActive(r, c) ) {
+					// Put in the inactive color
+					g.setColor(new Color(0, 0, 0, 200));
+					Rectangle boardRect = getBoardPieceRectangle(r, c);
+					g.fillRect(boardRect.x, boardRect.y, boardRect.width, boardRect.height);
+				}
+				//draw hints
+				else if( !(this.level.getBoard().getHint(r, c) == -1)) {
+					// Put in the hint color
+					g.setColor(PieceGenerator.colors[this.level.getBoard().getHint(r, c)]);
 					Rectangle boardRect = getBoardPieceRectangle(r, c);
 					g.fillRect(boardRect.x, boardRect.y, boardRect.width, boardRect.height);
 				}

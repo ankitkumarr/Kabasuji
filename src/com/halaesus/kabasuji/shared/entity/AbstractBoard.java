@@ -32,6 +32,14 @@ public abstract class AbstractBoard {
     public int getHint(int row, int col) {
     	return squares[row][col].getHint();
     }
+    
+    public void addHint(int row, int col, int colorIndex) {
+    	 this.squares[row][col].setHint(colorIndex);
+    }
+    
+    public void removeHint(int row, int col) {
+   	 this.squares[row][col].setHint(-1);
+   }
 
     public boolean doesCollide(Piece p) {
     	

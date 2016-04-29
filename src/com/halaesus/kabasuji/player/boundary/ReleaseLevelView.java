@@ -65,6 +65,8 @@ public class ReleaseLevelView extends AbstractLevelView {
 			// Add it to the GUI
 			add(n);
 		}
+		
+		// TODO: Work on repainting the ReleaseNumbers
 	}
 
 }

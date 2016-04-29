@@ -1,5 +1,7 @@
 package com.halaesus.kabasuji.shared.entity;
 
+import java.util.Iterator;
+
 import com.halaesus.kabasuji.shared.memento.AbstractLevelMemento;
 import com.halaesus.kabasuji.shared.memento.ReleaseLevelMemento;
 
@@ -35,6 +37,12 @@ public class ReleaseLevel extends AbstractLevel {
     @Override
     public int getStarsAchieved() {
     	int setsCompleted = this.numberBar.setsFound();
+    	// Make necessary changes if the user has achieved 3 stars
+    	if( (setsCompleted == 3) && !this.levelCompletedShown ) {
+			this.levelCompletedShown = true; // Level has been completed
+			this.levelCompletionStatus = AbstractLevel.LEVEL_COMPLETION_FINISHED_LEVEL; // The user finished the level
+		}
+    	// Now, return
     	return setsCompleted; // The number of sets completed is equal to the number of sets found
     }
     
@@ -48,17 +56,39 @@ public class ReleaseLevel extends AbstractLevel {
     			if( isFilled ) {
     				// Now go over all the ReleaseNumbers and see if there is something
     				//  for this (r, c) pair
-    				for( ReleaseNumber aReleaseNumber : ((ReleaseBoard)this.board).numbers ) {
+    				Iterator<ReleaseNumber> releaseNumbersIter = ((ReleaseBoard)this.board).numbers.iterator();
+    				for( ; releaseNumbersIter.hasNext() ;  ) {
+    					ReleaseNumber aReleaseNumber = releaseNumbersIter.next();
 						// Check if the row and col matches
 						if( (aReleaseNumber.getCol() == c) &&
 							(aReleaseNumber.getRow() == r) ) {
 							// Add it to the NumberBar
 							this.numberBar.addReleaseNumber(aReleaseNumber);
+							// Remove the number from the Board
+							releaseNumbersIter.remove(); // Remove the current number from the board
 						}
     				}
     			}
     		}
     	}
+		// Calculate things and do necessary actions
+		checkIfRanOut();
+	}
+
+	private void checkIfRanOut() {
+		// Check Pieces Left
+		int piecesLeft = 0;
+		for( Hexomino aHexomino : this.getLevelBullpen().getPalette().hexominoes )
+			piecesLeft += aHexomino.getCount();
+		if( (this.getStarsAchieved() != 3) && (piecesLeft == 0) ) {
+			// The user just got screwed over
+			if( !this.levelCompletedShown ) {
+				this.levelCompletedShown = true; // Level has been completed
+				this.levelCompletionStatus = AbstractLevel.LEVEL_COMPLETION_OUT_OF_PIECES; // The user ran out of pieces
+			}
+			// Exit as we've already shown something
+			return;
+		}
 	}
 
 	@Override

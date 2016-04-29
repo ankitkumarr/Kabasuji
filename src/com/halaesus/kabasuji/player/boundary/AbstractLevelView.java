@@ -11,6 +11,7 @@ import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,9 +48,10 @@ import com.halaesus.kabasuji.utils.PieceHelper;
  */
 @SuppressWarnings("serial")
 public abstract class AbstractLevelView extends JPanel {
-
+	
 	// Initialization Variables
 	private boolean paintInitialized;
+	private boolean paintLevelCompleted;
 	// View-based (UI and user interaction based) variables
 	HashMap<Rectangle, MouseListener> clickMap;
 	Point bullpenPiecesBoardTopPoint;
@@ -70,13 +72,13 @@ public abstract class AbstractLevelView extends JPanel {
 	private Image flipVImage;
 	private Image flipHImage;
 	// View-based (UI Objects) variables
-	JLabel levelInfo;
 	HexominoButtonView[] hexominoButton;
+	BufferedImage[] boardPieceSquares;
+	JLabel levelInfo;
 	JButton rotateCC;
 	JButton rotateCW;
 	JButton flipV;
 	JButton flipH;
-	BufferedImage[] boardPieceSquares;
 	JLabel[] hexCount;
 	
 	public AbstractLevelView(Application application, AbstractLevel aLevel) {
@@ -242,8 +244,12 @@ public abstract class AbstractLevelView extends JPanel {
 			drawBullpenTrashCan(g); // Draw the trash can over the Bullpen and then draw the Piece
 			drawDraggingPiece(g); // Paint the piece out now
 		}
+		// Draw the level completion dialog
+		if( this.level.isLevelCompletedShown() ) {
+			drawLevelCompleted(g); // Draw the level completed overlay and text
+		}
 	}
-	
+
 	private void drawBullpenTrashCan(Graphics g) {
 		assert( this.level.isDraggingActive() == true ); // This function can only be called if there is a piece being dragged
 		// Check dragging state; Source needs to be the Board
@@ -395,11 +401,53 @@ public abstract class AbstractLevelView extends JPanel {
 			
 		}
 	}
+	
+	private void drawLevelCompleted(Graphics g) {
+		assert( this.level.isLevelCompletedShown() == true ); // The level has to be completed for this level to be called
+		// Backup the Old Color
+		Color oldColor = g.getColor();
+		// Draw the overlay
+		if( this.level.getLevelCompletionStatus() == AbstractLevel.LEVEL_COMPLETION_FINISHED_LEVEL )
+			g.setColor(new Color(50, 131, 50, 210)); // Green Background
+		else
+			g.setColor(new Color(131, 50, 50, 210)); // Red Background
+		// Fill the rectangle
+		g.fillRect(0, 0,
+				   this.myApplication.getWidth(), 
+				   this.myApplication.getHeight());
+		// Check if we've had one pass on this function or not
+		if( !paintLevelCompleted ) {
+			// Disable all of them
+			for( int idx = 0; idx < 35; idx++ )
+				hexominoButton[idx].setVisible(false);
+			// Remove all MouseListeners
+			for( MouseListener mListener : AbstractLevelView.this.getMouseListeners() )
+				AbstractLevelView.this.removeMouseListener(mListener);
+			for( MouseMotionListener mMListener : AbstractLevelView.this.getMouseMotionListeners() )
+				AbstractLevelView.this.removeMouseMotionListener(mMListener);
+			// Finally, repaint and say that we've had one pass over this function
+			paintLevelCompleted = true;
+			AbstractLevelView.this.repaint();
+		}
+		// Set text color
+		g.setColor(Color.WHITE);
+		// Setup the font
+		Font infoFont = new Font("LevelCompletionInfoFont", Font.BOLD, 52);
+		g.setFont(infoFont);
+		// Print the text
+		if( this.level.getLevelCompletionStatus() == AbstractLevel.LEVEL_COMPLETION_FINISHED_LEVEL ) {
+			String toPrint = "You finished the level!";
+			int startX = (this.myApplication.getWidth() - g.getFontMetrics(infoFont).stringWidth(toPrint)) / 2;
+			g.drawString(toPrint, startX, 250);
+		}
+		// Reset to the Old Color
+		g.setColor(oldColor);
+	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		// Check if the Pallette Controllers should be shown or not
-		fixPalletteControllersVisibility();
+		// Check if the Palette Controllers should be shown or not
+		fixPaletteControllersVisibility();
 		fixHexominoButtonCount();
 		// Now proceed to letting super do its job
 		super.paintComponent(g); // Let the JPanel do its stuff
@@ -418,7 +466,7 @@ public abstract class AbstractLevelView extends JPanel {
 		paintInitialized = true; // TODO: Check if this should be here or in the entity
 	}
 
-	private void fixPalletteControllersVisibility() {
+	private void fixPaletteControllersVisibility() {
 		if( this.level.getLevelBullpen().getWorkspace().getPiece() != null ) {
 			flipV.setVisible(true);
 			flipH.setVisible(true);

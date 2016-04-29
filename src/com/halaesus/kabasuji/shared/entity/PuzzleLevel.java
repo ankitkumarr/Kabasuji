@@ -46,25 +46,66 @@ public class PuzzleLevel extends AbstractLevel {
 			}
 		}
 		// Now check
-		if( 0 <= unfilledSquares && unfilledSquares <= 12 )
-			return (3 - (unfilledSquares / 6));
+		if( 0 <= unfilledSquares && unfilledSquares <= 12 ) {
+			int starsToReturn = (3 - (unfilledSquares / 6));
+			// Check if 3 stars
+			if( starsToReturn == 3 ) {
+				// Make necessary changes to the Level
+				if( !this.levelCompletedShown ) {
+					this.levelCompletedShown = true; // Level has been completed
+					this.levelCompletionStatus = AbstractLevel.LEVEL_COMPLETION_FINISHED_LEVEL; // The user finished the level
+				}
+			}
+			// Return the stars
+			return starsToReturn;
+		}
 		return 0; // Else, do this line!
 	}
 
 	@Override
 	public void newPieceDropped(Piece p) {
 		usedMoves++; // The user has used one extra move
+		// Calculate things and do necessary actions
+		checkIfRanOut();
 	}
 
 	@Override
 	public void boardPieceUpdated(PieceSquare[] oldPieceSquares, Piece newPiece) {
 		usedMoves++; // The user has used one extra move
+		// Calculate things and do necessary actions
+		checkIfRanOut();
 	}
 
 	@Override
 	public void boardPieceRemoved(Piece p) {
 		// Nothing has to be done if a Piece has been removed from the board
 	}
+
+	private void checkIfRanOut() {
+		// Check Moves Left
+		if( (this.getStarsAchieved() != 3 ) && (this.getMovesLeft() == 0) ) {
+			// The user just got screwed over
+			if( !this.levelCompletedShown ) {
+				this.levelCompletedShown = true; // Level has been completed
+				this.levelCompletionStatus = AbstractLevel.LEVEL_COMPLETION_OUT_OF_MOVES; // The user ran out of moves
+			}
+			// Exit as we've already shown something
+			return;
+		}
+		// Check Pieces Left
+		int piecesLeft = 0;
+		for( Hexomino aHexomino : this.getLevelBullpen().getPalette().hexominoes )
+			piecesLeft += aHexomino.getCount();
+		if( (this.getStarsAchieved() != 3) && (piecesLeft == 0) ) {
+			// The user just got screwed over
+			if( !this.levelCompletedShown ) {
+				this.levelCompletedShown = true; // Level has been completed
+				this.levelCompletionStatus = AbstractLevel.LEVEL_COMPLETION_OUT_OF_PIECES; // The user ran out of pieces
+			}
+			// Exit as we've already shown something
+			return;
+		}
+ 	}
 	
 	public int getAllowedMoves() {
 		return allowedMoves;

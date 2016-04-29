@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.LightningLevel;
 import com.halaesus.kabasuji.utils.JLabelHelper;
 
@@ -82,7 +83,13 @@ public class LightningLevelView extends AbstractLevelView {
 		        // STEP 1: Check time to see if user ran out of time
 		    	if( level.getTimeLeft() == 0 ) {
 		    		countdownTimer.stop(); // Stop the timer
-		    		// TODO: Do stuff which will tell the user he ran out of time
+		    		warningTimer.stop(); // Stop the warning timer as well
+		    		// Tell the user he ran out of time!
+		    		LightningLevelView.this.level.setLevelCompletedShown(true); // Show the Level Completiton Message
+		    		LightningLevelView.this.level.setLevelCompletionStatus(AbstractLevel.LEVEL_COMPLETION_RAN_OUT_OF_TIME); // The user ran out of time
+		    		// Force a repaint
+		    		LightningLevelView.this.repaint();
+		    		// Exit the function
 		    		return;
 		    	}
 		    	// STEP 2: Increment the elapsed time

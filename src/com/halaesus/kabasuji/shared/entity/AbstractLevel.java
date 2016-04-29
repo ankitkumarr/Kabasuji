@@ -15,10 +15,18 @@ public abstract class AbstractLevel {
 	public static final int NO_DRAG_ACTIVE = -1;
 	public static final int DRAG_SOURCE_WORKSPACE = 1;
 	public static final int DRAG_SOURCE_BOARD = 2;
-	
+	// Some more constants
+	public static final int LEVEL_COMPLETION_NOT_COMPLETE = -1;
+	public static final int LEVEL_COMPLETION_OUT_OF_PIECES = 0;
+	public static final int LEVEL_COMPLETION_OUT_OF_MOVES = 1;
+	public static final int LEVEL_COMPLETION_RAN_OUT_OF_TIME = 2;
+	public static final int LEVEL_COMPLETION_FINISHED_LEVEL = 3;
+
+	// Level Completion Info Shown
+	boolean levelCompletedShown;
+	int levelCompletionStatus;
 	// Level Specific Information
     AbstractBoard board;
-    int starsAchieved;
     String levelType;
 	Bullpen bullpen;
     int levelIndex;
@@ -40,14 +48,16 @@ public abstract class AbstractLevel {
 		levelIndex = memento.getLevelIndex();
 		levelType = memento.getLevelType();
 		levelName = memento.getLevelName();
+		// Initialize Basic Level Completion Information
+		levelCompletedShown = false; // By default the level has not been completed
+		levelCompletionStatus = AbstractLevel.LEVEL_COMPLETION_NOT_COMPLETE;
 	}
 	
-	private AbstractLevel(AbstractBoard board, int starsAchieved, String levelType, String levelName, Bullpen bullpen, int levelIndex,
+	private AbstractLevel(AbstractBoard board, String levelType, String levelName, Bullpen bullpen, int levelIndex,
 			boolean isDraggingActive, boolean pieceOverBullpen, Point topPointOfDraggingPiece, int draggingDistToPointX,
 			int draggingDistToPointY, Piece pieceBeingDragged, int dragSource) {
 		// Main goal of this PRIVATE constructor is for the copy constructor
 		this.board = board;
-		this.starsAchieved = starsAchieved;
 		this.levelType = levelType;
 		this.bullpen = bullpen;
 		this.levelIndex = levelIndex;
@@ -62,7 +72,7 @@ public abstract class AbstractLevel {
 	}
 
 	public AbstractLevel(AbstractLevel anotherLevel) {
-		this(anotherLevel.board.makeCopy(), anotherLevel.starsAchieved, anotherLevel.levelType, anotherLevel.levelName, new Bullpen(anotherLevel.bullpen), 
+		this(anotherLevel.board.makeCopy(), anotherLevel.levelType, anotherLevel.levelName, new Bullpen(anotherLevel.bullpen), 
 			 anotherLevel.levelIndex, anotherLevel.isDraggingActive, anotherLevel.pieceOverBullpen, anotherLevel.topPointOfDraggingPiece,
 			 anotherLevel.draggingDistToPointX, anotherLevel.draggingDistToPointY, anotherLevel.pieceBeingDragged, anotherLevel.dragSource);
 	}
@@ -156,6 +166,22 @@ public abstract class AbstractLevel {
 
 	public void setLevelName(String levelName) {
 		this.levelName = levelName;
+	}
+
+	public boolean isLevelCompletedShown() {
+		return levelCompletedShown;
+	}
+
+	public void setLevelCompletedShown(boolean levelCompletedShown) {
+		this.levelCompletedShown = levelCompletedShown;
+	}
+
+	public int getLevelCompletionStatus() {
+		return levelCompletionStatus;
+	}
+
+	public void setLevelCompletionStatus(int levelCompletionStatus) {
+		this.levelCompletionStatus = levelCompletionStatus;
 	}
 
 	// Abstract Functions

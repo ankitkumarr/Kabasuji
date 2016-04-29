@@ -57,9 +57,15 @@ public class LightningLevel extends AbstractLevel {
 			}
 		}
 		// Now return based on what the user has achieved
-		if (activeSquares == markedSquares)
+		if (activeSquares == markedSquares) {
+			// Change necessary Level Completion Info if necessary
+			if( !this.levelCompletedShown ) {
+				this.levelCompletedShown = true; // Level has been completed
+				this.levelCompletionStatus = AbstractLevel.LEVEL_COMPLETION_FINISHED_LEVEL; // The user finished the level
+			}
+			// Return the number of stars
 			return 3;
-		else if ((activeSquares - markedSquares) <= 6)
+		} else if ((activeSquares - markedSquares) <= 6)
 			return 2;
 		else if ((activeSquares - markedSquares) <= 12)
 			return 1;

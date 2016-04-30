@@ -7,11 +7,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
+import com.halaesus.kabasuji.builder.boundary.ReleaseBuilderView;
 import com.halaesus.kabasuji.builder.entity.*;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
-import com.halaesus.kabasuji.shared.entity.Piece;
-import com.halaesus.kabasuji.shared.entity.PieceSquare;
 import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
+import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 
 /**
  * 
@@ -27,13 +27,13 @@ public class DragNumberToBoardMove implements MouseListener, MouseMotionListener
     /**
      * 
      */
-    AbstractBuilderView builderView;
+    ReleaseBuilderView builderView;
 
     /**
      * @param NumberToBoardMove move 
      * @param AbstractBuilderView builderView
      */
-    public DragNumberToBoardMove(ReleaseLevel level, AbstractBuilderView builderView) {
+    public DragNumberToBoardMove(ReleaseLevel level, ReleaseBuilderView builderView) {
         this.level = level;
         this.builderView = builderView;
     }
@@ -58,7 +58,28 @@ public class DragNumberToBoardMove implements MouseListener, MouseMotionListener
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		/**
+		Point mouseClickLocation = new Point(e.getX(), e.getY());
+		System.out.println(mouseClickLocation);
+		ReleaseNumber numBeingdragged;
 		
+		for(int i = 1; i <=3; i++) {
+			for(int j = 1; j <= 6; j++ ){
+				Rectangle num = this.builderView.getReleaseNumberRectangle(i, j);
+				if (num.contains(mouseClickLocation)) {
+					numBeingdragged = this.level.getNumberBar().getNumbers()[i-1][j-1];
+					this.builderView.setnumberBeingDragged(new ReleaseNumber(numBeingdragged.getValue(), numBeingdragged.getColor(),
+							numBeingdragged.getCol(), numBeingdragged.getRow()));
+					System.out.println(i + " " + j);
+				}
+			}
+		}
+		
+		if (this.builderView.getnumberBeingDragged() == null) {
+			//oh well
+			return;
+		}
+		**/
 		
 		
 	}

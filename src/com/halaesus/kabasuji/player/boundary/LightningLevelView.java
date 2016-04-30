@@ -85,8 +85,10 @@ public class LightningLevelView extends AbstractLevelView {
 		    		countdownTimer.stop(); // Stop the timer
 		    		warningTimer.stop(); // Stop the warning timer as well
 		    		// Tell the user he ran out of time!
-		    		LightningLevelView.this.level.setLevelCompletedShown(true); // Show the Level Completiton Message
-		    		LightningLevelView.this.level.setLevelCompletionStatus(AbstractLevel.LEVEL_COMPLETION_RAN_OUT_OF_TIME); // The user ran out of time
+		    		if( !LightningLevelView.this.level.isLevelCompletedShown() ) {
+		    			LightningLevelView.this.level.setLevelCompletedShown(true); // Show the Level Completion Message
+			    		LightningLevelView.this.level.setLevelCompletionStatus(AbstractLevel.LEVEL_COMPLETION_RAN_OUT_OF_TIME); // The user ran out of time
+		    		}
 		    		// Force a repaint
 		    		LightningLevelView.this.repaint();
 		    		// Exit the function
@@ -108,6 +110,14 @@ public class LightningLevelView extends AbstractLevelView {
 		    	// STEP 6: Determine if the red warning timer has to be spawned off
 		    	if( (level.getTimeLeft() < WARNING_THRESHOLD) && !warningTimer.isRunning() )
 		    		warningTimer.start();
+		    	// STEP 7: See if any timers have to be stopped or not
+		    	if( LightningLevelView.this.level.getStarsAchieved() == 3 ) {
+		    		// Stop any timers that are running
+		    		if( countdownTimer.isRunning() )
+		    			countdownTimer.stop();
+		    		if( warningTimer.isRunning() )
+		    			warningTimer.stop();
+		    	}
 		    }
 		});
 		countdownTimer.setRepeats(true);

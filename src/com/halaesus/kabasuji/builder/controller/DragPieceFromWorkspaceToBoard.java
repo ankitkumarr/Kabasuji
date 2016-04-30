@@ -89,7 +89,6 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 			if( theMove.isValid(this.level) ) {
 				// The move is valid; Perform the move and let the underlying board know about this
 				level.newPieceDropped(theMove.doMove(this.level));
-				// TODO increment player palette pieces
 			} else {
 				// The move wasn't performed; Bring the piece back to the workspace
 				this.level.getLevelBullpen().getWorkspace().addPiece(level.getPieceBeingDragged());

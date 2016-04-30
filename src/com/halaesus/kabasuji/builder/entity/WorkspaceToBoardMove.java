@@ -78,8 +78,8 @@ public class WorkspaceToBoardMove {
 			return null; // We failed to snap to the board and hence the move wasn't completed
 		else
 			level.getBoard().addPiece(snappedPiece); // Add the snapped Piece to the board
-    	// STEP 2: Decrement Bullpen Count for the respective piece
-    	level.getPieceBeingDragged().getParentHexomino().setCount(level.getPieceBeingDragged().getParentHexomino().getCount() - 1);
+    	// STEP 2: Increment Bullpen Count for the respective piece
+    	level.getPieceBeingDragged().getParentHexomino().changeCount(+1);
 		// STEP 3: Mark underlying BoardSquares as active
 		for( PieceSquare aPieceSquare : snappedPiece.getPieceSquares() ) {
 			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);

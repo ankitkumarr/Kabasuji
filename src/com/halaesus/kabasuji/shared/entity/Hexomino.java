@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 
- * @author Corey Dixon, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ * @author Corey Dixon, Akshit (Axe) Soota (axe (at) wpi (dot) edu), Anthony Panetta
  *
  */
 public class Hexomino implements Serializable {
@@ -34,4 +34,7 @@ public class Hexomino implements Serializable {
     	this.count = count;
     }
 
+    public void changeCount(int change) {
+    	count += change;
+    }
 }

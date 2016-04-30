@@ -21,6 +21,7 @@ public abstract class AbstractLevel {
 	public static final int LEVEL_COMPLETION_OUT_OF_MOVES = 1;
 	public static final int LEVEL_COMPLETION_RAN_OUT_OF_TIME = 2;
 	public static final int LEVEL_COMPLETION_FINISHED_LEVEL = 3;
+	public static final int LEVEL_COMPLETION_QUIT_LEVEL = 4;
 
 	// Level Completion Info Shown
 	boolean levelCompletedShown;

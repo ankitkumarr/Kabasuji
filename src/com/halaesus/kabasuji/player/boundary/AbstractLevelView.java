@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import com.halaesus.kabasuji.player.controller.ClickPieceInPalette;
 import com.halaesus.kabasuji.player.controller.DragPieceFromWorkspaceToBoard;
@@ -62,7 +63,9 @@ public abstract class AbstractLevelView extends JPanel {
 	private Image backgroundImage;
 	private Image backButton;
 	private Image starGold;
+	private Image starGoldBig;
 	private Image starShadow;
+	private Image starShadowBig;
 	private ImageIcon[] hexominoImages;
 	private ImageIcon[] hexominoDisabledImages;
 	private Image trashCanUnfilled;
@@ -181,7 +184,9 @@ public abstract class AbstractLevelView extends JPanel {
 			backgroundImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/gridWithBoard.jpg")).getScaledInstance(1280, -1, Image.SCALE_SMOOTH);
 			backButton = ImageIO.read(getClass().getResource("/resources/backButton.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH);
 			starGold = ImageIO.read(getClass().getResource("/resources/starGold.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+			starGoldBig = ImageIO.read(getClass().getResource("/resources/starGold.png"));
 			starShadow = ImageIO.read(getClass().getResource("/resources/starShadow.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+			starShadowBig = ImageIO.read(getClass().getResource("/resources/starShadow.png"));
 			rotateCCImage = ImageIO.read(getClass().getResource("/resources/rotateCC.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
 			rotateCWImage = ImageIO.read(getClass().getResource("/resources/rotateCW.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
 			flipHImage = ImageIO.read(getClass().getResource("/resources/flipHorizontal.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
@@ -404,8 +409,9 @@ public abstract class AbstractLevelView extends JPanel {
 	
 	private void drawLevelCompleted(Graphics g) {
 		assert( this.level.isLevelCompletedShown() == true ); // The level has to be completed for this level to be called
-		// Backup the Old Color
+		// Backup the Old Color and Old Font
 		Color oldColor = g.getColor();
+		Font oldFont = g.getFont();
 		// Draw the overlay
 		if( this.level.getLevelCompletionStatus() == AbstractLevel.LEVEL_COMPLETION_FINISHED_LEVEL )
 			g.setColor(new Color(50, 131, 50, 210)); // Green Background
@@ -427,21 +433,47 @@ public abstract class AbstractLevelView extends JPanel {
 				AbstractLevelView.this.removeMouseMotionListener(mMListener);
 			// Finally, repaint and say that we've had one pass over this function
 			paintLevelCompleted = true;
-			AbstractLevelView.this.repaint();
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					AbstractLevelView.this.repaint(); // Force a repaint when EDT is done with this pass
+				}
+			});
+			// Exit out of the function. Perform the rest on the next pass
+			return;
 		}
 		// Set text color
 		g.setColor(Color.WHITE);
 		// Setup the font
-		Font infoFont = new Font("LevelCompletionInfoFont", Font.BOLD, 52);
+		Font infoFont = new Font("LevelCompletionInfoFont", Font.BOLD, 40);
 		g.setFont(infoFont);
 		// Print the text
-		if( this.level.getLevelCompletionStatus() == AbstractLevel.LEVEL_COMPLETION_FINISHED_LEVEL ) {
-			String toPrint = "You finished the level!";
-			int startX = (this.myApplication.getWidth() - g.getFontMetrics(infoFont).stringWidth(toPrint)) / 2;
-			g.drawString(toPrint, startX, 250);
-		}
-		// Reset to the Old Color
+		String toPrint = "";
+		if( this.level.getLevelCompletionStatus() == AbstractLevel.LEVEL_COMPLETION_FINISHED_LEVEL )
+			toPrint = "You finished the level!";
+		else if( this.level.getLevelCompletionStatus() == AbstractLevel.LEVEL_COMPLETION_OUT_OF_PIECES )
+			toPrint = "You ran out of pieces. Try again!";
+		else if( this.level.getLevelCompletionStatus() == AbstractLevel.LEVEL_COMPLETION_OUT_OF_MOVES )
+			toPrint = "You ran out of moves. Give it another shot!";
+		else if( this.level.getLevelCompletionStatus() == AbstractLevel.LEVEL_COMPLETION_RAN_OUT_OF_TIME )
+			toPrint = "Oops, you ran out of time. Have another shot at it!";
+		else if( this.level.getLevelCompletionStatus() == AbstractLevel.LEVEL_COMPLETION_QUIT_LEVEL )
+			toPrint = "Don't give up so early...";
+
+		int startX = (this.myApplication.getWidth() - g.getFontMetrics(infoFont).stringWidth(toPrint)) / 2;
+		g.drawString(toPrint, startX, 250);
+		// Draw the stars the user has earned
+		Rectangle[] starsLocation = new Rectangle[3];
+		starsLocation[0] = new Rectangle(((1286 - 480) / 2), 300, 150, 150);
+		starsLocation[1] = new Rectangle(((1286 - 480) / 2) + 160, 270, 150, 150);
+		starsLocation[2] = new Rectangle(((1286 - 480) / 2) + 320, 300, 150, 150);
+		for(int idx = 0; idx < this.level.getStarsAchieved(); idx++)
+			g.drawImage(starGoldBig, starsLocation[idx].x, starsLocation[idx].y, starsLocation[idx].width, starsLocation[idx].height, null);
+		for(int idx = this.level.getStarsAchieved(); idx < 3; idx++)
+			g.drawImage(starShadowBig, starsLocation[idx].x, starsLocation[idx].y, starsLocation[idx].width, starsLocation[idx].height, null);
+		// Reset to the Old Color and Old Font
 		g.setColor(oldColor);
+		g.setFont(oldFont);
 	}
 
 	@Override

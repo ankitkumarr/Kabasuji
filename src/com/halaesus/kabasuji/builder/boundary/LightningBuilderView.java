@@ -66,16 +66,16 @@ public class LightningBuilderView extends AbstractBuilderView {
     }
     
     public String getMinutes() {
-    	//return Integer.toString(level.getallowedMoves());
-    	return "";
+    	return Integer.toString(level.getMaxTime()/60);
+ 
     }
     
     public String getSeconds() {
-    	return "";
+    	return Integer.toString(level.getMaxTime()%60);
     }
     
     public String getMoves() {
-    	return "";
+    	return Integer.toString(level.getRandomMoves());
     }
     
     public void setupTimeAndPieces() {
@@ -126,12 +126,28 @@ public class LightningBuilderView extends AbstractBuilderView {
 
 
     }
-    /**
-    public String getmovesValue(){
-    	return movesBox.getText();
+    
+    public String getMinutesValue(){
+    	return minText.getText();
+    }
+    public String getSecondsValue(){
+    	return secText.getText();
+    }
+    public String getRandPiecesValue(){
+    	return randPiecesText.getText();
     }
     
+    
     public void setmovesLabel(String text) {
-    	movesLabel.setText(" Moves : " + text);
-    } **/
+    	randPiecesLabel.setText(" Random Moves : " + text);
+    } 
+    
+    public void setMinutesLabel(String text) {
+    	minLabel.setText(" Minutes : " + text);
+    }
+    
+    public void setSecondsLabel(String text) {
+    	secLabel.setText(" Seconds : " + text);
+    }
+    
 }

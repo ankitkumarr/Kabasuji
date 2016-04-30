@@ -26,14 +26,15 @@ public class SetTimeLightning implements MouseListener {
      * @param LightningLevel level
      */
     public SetTimeLightning(LightningBuilderView builderView, LightningLevel level) {
-        // TODO implement here
+        this.builderView = builderView;
+        this.level = level;
     }
 
     /**
      * @param MouseEvent e
      */
     public void mouseClicked(MouseEvent e) {
-        // TODO implement here
+    	
     }
 
 	@Override
@@ -50,7 +51,15 @@ public class SetTimeLightning implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		this.level.setMaxTime(((Integer.parseInt(this.builderView.getMinutesValue()))*60) +
+    			(Integer.parseInt(this.builderView.getSecondsValue())));
+		//System.out.println("Check = " + this.level.getMaxTime());
+    	//this.level.setRandomMoves(Integer.parseInt(this.builderView.getRandPiecesValue()));
+    	//this.builderView.setmovesLabel(Integer.toString(this.level.getRandomMoves()));
+    	this.builderView.setMinutesLabel(Integer.toString((this.level.getMaxTime())/60));
+		//this.builderView.setMinutesLabel(Integer.toString((250)));
+    	this.builderView.setSecondsLabel(Integer.toString((this.level.getMaxTime())%60));
+    	this.builderView.repaint();
 		
 	}
 

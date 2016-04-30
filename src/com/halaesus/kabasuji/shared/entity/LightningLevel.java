@@ -12,6 +12,7 @@ public class LightningLevel extends AbstractLevel {
 
 	int elapsedTime;
 	int maxTime;
+	int numRandomMoves;
 
 	public LightningLevel(LightningLevelMemento memento) {
 		super(memento); // Let the super do its stuff with the memento
@@ -20,6 +21,7 @@ public class LightningLevel extends AbstractLevel {
 		elapsedTime = 0;
 		// Set the game type in here
 		levelType = "Lightning";
+		
 	}
 
 	public LightningLevel(LightningLevel anotherLevel) {
@@ -39,6 +41,21 @@ public class LightningLevel extends AbstractLevel {
 
 	public void resetElapsedTime() {
 		elapsedTime = 0;
+	}
+	public int getMaxTime() {
+		return this.maxTime;
+	}
+	
+	public int getRandomMoves() {
+		return this.numRandomMoves;
+	}
+	
+	public void setMaxTime(int num) {
+		this.maxTime = num;
+	}
+	
+	public void setRandomMoves(int randomMoves) {
+		this.numRandomMoves = randomMoves;
 	}
 
 	// Abstract Methods Filler

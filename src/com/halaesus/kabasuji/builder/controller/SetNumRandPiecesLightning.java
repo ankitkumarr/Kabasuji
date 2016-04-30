@@ -26,16 +26,14 @@ public class SetNumRandPiecesLightning implements MouseListener {
      * @param LightningLevel level
      */
     public SetNumRandPiecesLightning(LightningBuilderView builderView, LightningLevel level) {
-        // TODO implement here
+        this.builderView = builderView;
+        this.level = level;
     }
 
     /**
      * @param MouseEvent e
      */
-    public void mouseClick(MouseEvent e) {
-        // TODO implement here
-    }
-
+  
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -56,7 +54,9 @@ public class SetNumRandPiecesLightning implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		this.level.setRandomMoves(Integer.parseInt(this.builderView.getRandPiecesValue()));
+    	this.builderView.setmovesLabel(Integer.toString(this.level.getRandomMoves()));
+    	this.builderView.repaint();
 		
 	}
 

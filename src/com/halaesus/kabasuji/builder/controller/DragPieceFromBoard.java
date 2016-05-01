@@ -177,11 +177,11 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 			// STEP 4: Check where was it dropped
 			if( overallBoardRectangle.contains(tighestPieceRectangle) ) {
 				// It was dropped on the board itself; Spawn off the move
-				BoardToBoardMove theMove = new BoardToBoardMove(this.levelView);
+				BoardToBoardMove theMove = new BoardToBoardMove(this.levelView, this.originalBoardPieceSquares);
 				// Now, attempt the move
 				if( theMove.isValid(this.level) ) {
 					// The move is valid; Perform the move and let the underlying board know about this
-					Piece finalPiece = theMove.doMove(this.level, this.originalBoardPieceSquares);
+					Piece finalPiece = theMove.doMove(this.level);
 					// Check if the Final Piece location is different from the original location or not
 					boolean locationChanged = false;
 					for(int idx = 0; idx < this.originalBoardPieceSquares.length; idx++)
@@ -198,11 +198,11 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 				}
 			} else if( bullpenRectangle.contains(tighestPieceRectangle) ) {
 				// It was dropped on the Bullpen; Spawn off the move
-				BoardToBullpenMove theMove = new BoardToBullpenMove(this.levelView);
+				BoardToBullpenMove theMove = new BoardToBullpenMove(this.levelView, this.originalBoardPieceSquares);
 				// Now attempt the move
 				if( theMove.isValid(this.level) ) {
 					// The move is valid; Perform the move and let the underlying board know about this
-					this.level.boardPieceRemoved(theMove.doMove(this.level, this.originalBoardPieceSquares));
+					this.level.boardPieceRemoved(theMove.doMove(this.level));
 				} else {
 					// The move wasn't performed :( Put the piece back to where it was picked from
 					this.level.getBoard().addPiece(new Piece(this.level.getPieceBeingDragged().getColorID(), originalBoardPieceSquares, this.level.getPieceBeingDragged().getParentHexomino()));

@@ -44,6 +44,7 @@ import com.halaesus.kabasuji.utils.JLabelHelper;
 import com.halaesus.kabasuji.utils.PieceGenerator;
 import com.halaesus.kabasuji.utils.PieceHelper;
 import com.halaesus.kabasuji.builder.controller.ClickPieceInPalette;
+import com.halaesus.kabasuji.builder.controller.DecrementPlayerPalette;
 
 @SuppressWarnings("serial")
 public abstract class AbstractBuilderView extends JPanel {
@@ -217,6 +218,8 @@ public abstract class AbstractBuilderView extends JPanel {
 					new ImageIcon(Application.instance().getImage((i + 1) + "_disabled.jpg")
 							.getScaledInstance(51, 51, Image.SCALE_SMOOTH)));
 			playerPaletteHexBtns[i].setHexominoCount(level.getLevelBullpen().getPalette().getHexomino(i).getCount());
+			playerPaletteHexBtns[i].addActionListener(
+					new DecrementPlayerPalette(level.getLevelBullpen().getPalette().getHexomino(i), this));
 			playerPalette.add(playerPaletteHexBtns[i]);
 		}
 	}

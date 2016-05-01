@@ -94,7 +94,6 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 				WorkspaceToPlayerPaletteMove wtpMove = new WorkspaceToPlayerPaletteMove();
 				if (wtpMove.isValid(level)) {
 					wtpMove.doMove(level);
-					levelView.updatePlayerPaletteView();
 				}
 			} else {
 				// The move wasn't performed; Bring the piece back to the workspace
@@ -110,6 +109,7 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 			level.setTopPointOfDraggingPiece(null);
 			// Refresh the GUI
 			this.levelView.repaint();
+			levelView.updatePlayerPaletteView();
 		}
 	}
 

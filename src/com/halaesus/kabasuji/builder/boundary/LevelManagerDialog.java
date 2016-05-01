@@ -19,6 +19,14 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+/**
+ * A dialog that allows for creating, editing and deleting levels in addition to
+ * changing level indexes.
+ * 
+ * @author Corey Dixon
+ * 
+ *
+ */
 @SuppressWarnings("serial")
 public class LevelManagerDialog extends JDialog {
 
@@ -28,7 +36,12 @@ public class LevelManagerDialog extends JDialog {
 	LevelList levelList;
 
 	/**
-	 * Launch the application.
+	 * <p>
+	 * Creates a LevelManagerDialog.
+	 * </p>
+	 * 
+	 * @param args
+	 *            unused
 	 */
 	public static void main(String[] args) {
 		try {
@@ -41,7 +54,9 @@ public class LevelManagerDialog extends JDialog {
 	}
 
 	/**
-	 * Create the dialog.
+	 * <p>
+	 * Constructs a LevelManagerDialog.
+	 * </p>
 	 */
 	public LevelManagerDialog() {
 		levelList = LevelList.loadList();
@@ -58,11 +73,11 @@ public class LevelManagerDialog extends JDialog {
 		}
 		// force main application to close on exit
 		this.addWindowListener(new WindowAdapter() {
-			   public void windowClosing(WindowEvent evt) {
-			     System.exit(0);
-			   }
-			  });
-		
+			public void windowClosing(WindowEvent evt) {
+				System.exit(0);
+			}
+		});
+
 		{
 			JPanel buttonPane = new JPanel();
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
@@ -165,6 +180,14 @@ public class LevelManagerDialog extends JDialog {
 		}
 	}
 
+	/**
+	 * <p>
+	 * Reloads the contents of the LevelListView.
+	 * </p>
+	 * gets the contents from the LevelList class.
+	 * 
+	 * @see LevelList
+	 */
 	private void populateLevelListView() {
 		levelListView.setListData(levelList.getArray());
 	}

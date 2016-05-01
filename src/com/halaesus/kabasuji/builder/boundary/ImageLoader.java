@@ -27,6 +27,6 @@ public class ImageLoader extends SwingWorker<Void, Object> {
 	}
 
 	protected void done() {
-		Application.instance().showSplashScreen();
+		LevelManagerDialog.main(null);
 	}
 }

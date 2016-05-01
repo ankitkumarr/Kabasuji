@@ -46,8 +46,6 @@ public class Application extends JFrame {
 		
 		// Start on Splash Screen
 		showSplashScreen();
-		LevelManagerDialog.main(null);
-		
     }
     
     public static Application instance(Model m) {

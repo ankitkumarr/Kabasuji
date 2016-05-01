@@ -13,10 +13,12 @@ public class BoardToBoardMove implements IMove {
 
 	AbstractBuilderView levelView;
 	PieceSquare[] originalPieceSquares;
+	Piece snappedPiece;
 
-    public BoardToBoardMove(AbstractBuilderView levelView, PieceSquare[] originalPieceSquares) {
+    public BoardToBoardMove(AbstractBuilderView levelView, PieceSquare[] originalPieceSquares, Piece snappedPiece) {
     	this.levelView = levelView;
     	this.originalPieceSquares = originalPieceSquares;
+    	this.snappedPiece = snappedPiece;
     }
     
     @Override
@@ -70,16 +72,16 @@ public class BoardToBoardMove implements IMove {
     }
 
     @Override
-    public Piece doMove(AbstractLevel level) {
+    public boolean doMove(AbstractLevel level) {
     	if( level.isDraggingActive() == false )
-    		return null; // An active drag needs to be in place for this function to be called
+    		return false; // An active drag needs to be in place for this function to be called
     	if( isValid(level) == false )
-    		return null; // Also, the move should be valid for this function to be called
+    		return false; // Also, the move should be valid for this function to be called
     	// Now, snap to the board at the location and update the underlying board
     	// STEP 1: Find the squares to snap to
-		Piece snappedPiece = BuilderPieceHelper.snapToNearestBoardSquare(level, this.levelView);
+		
 		if( snappedPiece == null )
-			return null; // We failed to snap to the board and hence the move wasn't completed
+			return false; // We failed to snap to the board and hence the move wasn't completed
 		else
 			level.getBoard().addPiece(snappedPiece); // Add the snapped Piece to the board
 		// STEP 2: Mark original BoardSquares as inactive
@@ -91,7 +93,7 @@ public class BoardToBoardMove implements IMove {
 			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
 		}
 		// The move was successful, so:
-		return snappedPiece;
+		return true;
     }
 
 	@Override

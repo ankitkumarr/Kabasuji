@@ -15,6 +15,7 @@ import com.halaesus.kabasuji.builder.entity.BoardToBullpenMove;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
+import com.halaesus.kabasuji.utils.BuilderPieceHelper;
 
 public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 
@@ -176,12 +177,16 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 			
 			// STEP 4: Check where was it dropped
 			if( overallBoardRectangle.contains(tighestPieceRectangle) ) {
+				
+				Piece snappedPiece = BuilderPieceHelper.snapToNearestBoardSquare(level, this.levelView);
+				
 				// It was dropped on the board itself; Spawn off the move
-				BoardToBoardMove theMove = new BoardToBoardMove(this.levelView, this.originalBoardPieceSquares);
+				BoardToBoardMove theMove = new BoardToBoardMove(this.levelView, this.originalBoardPieceSquares, snappedPiece);
 				// Now, attempt the move
 				if( theMove.isValid(this.level) ) {
 					// The move is valid; Perform the move and let the underlying board know about this
-					Piece finalPiece = theMove.doMove(this.level);
+					theMove.doMove(this.level);
+					Piece finalPiece = snappedPiece;
 					// Check if the Final Piece location is different from the original location or not
 					boolean locationChanged = false;
 					for(int idx = 0; idx < this.originalBoardPieceSquares.length; idx++)
@@ -202,7 +207,8 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 				// Now attempt the move
 				if( theMove.isValid(this.level) ) {
 					// The move is valid; Perform the move and let the underlying board know about this
-					this.level.boardPieceRemoved(theMove.doMove(this.level));
+					theMove.doMove(this.level);
+					this.level.boardPieceRemoved(level.getPieceBeingDragged());
 				} else {
 					// The move wasn't performed :( Put the piece back to where it was picked from
 					this.level.getBoard().addPiece(new Piece(this.level.getPieceBeingDragged().getColorID(), originalBoardPieceSquares, this.level.getPieceBeingDragged().getParentHexomino()));

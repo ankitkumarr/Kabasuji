@@ -50,11 +50,11 @@ public class BoardToBullpenMove implements IMove {
     }
 
     @Override
-    public Piece doMove(AbstractLevel level) {
+    public boolean doMove(AbstractLevel level) {
 		if( level.isDraggingActive() == false )
-			return null; // An active drag needs to be in place for this function to be called
+			return false; // An active drag needs to be in place for this function to be called
 		if( isValid(level) == false )
-			return null; // Also, the move should be valid for this function to be called
+			return false; // Also, the move should be valid for this function to be called
     	
 		// Remove the piece from the board and return
 		// STEP 1: Mark original BoardSquares as not inactive
@@ -66,7 +66,7 @@ public class BoardToBullpenMove implements IMove {
 			level.getPieceBeingDragged().getParentHexomino().changeCount(-1);
 		
 		// The move was successful, so:
-		return level.getPieceBeingDragged();
+		return true;
     }
 
 	@Override

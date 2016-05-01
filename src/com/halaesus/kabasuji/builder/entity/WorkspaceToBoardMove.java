@@ -80,7 +80,7 @@ public class WorkspaceToBoardMove implements IMove {
 	}
 
 	@Override
-	public Piece doMove(AbstractLevel level) {
+	public boolean doMove(AbstractLevel level) {
 		// STEP 2: Increment Bullpen Count for the respective piece
 		pieceBeingMoved.getParentHexomino().changeCount(1);
 		// STEP 3: Mark underlying BoardSquares as active
@@ -92,7 +92,7 @@ public class WorkspaceToBoardMove implements IMove {
 		}
 
 		// The move was successful, so:
-		return snappedPiece;
+		return true;
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package com.halaesus.kabasuji.builder.entity;
 
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.NumberBar;
-import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 
 public class NumberFromBoardToNumberBarMove implements IMove {
@@ -12,9 +11,9 @@ public class NumberFromBoardToNumberBarMove implements IMove {
     NumberBar numberBar;
     
 	@Override
-	public Piece doMove(AbstractLevel level) {
+	public boolean doMove(AbstractLevel level) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 	
 	@Override

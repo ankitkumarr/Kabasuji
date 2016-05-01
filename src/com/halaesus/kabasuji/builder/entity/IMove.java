@@ -18,6 +18,11 @@ public interface IMove {
      * @param AbstractLevel level
      */
     public boolean undoMove(AbstractLevel level);
+    
+    /**
+     * @param AbstractLevel level
+     */
+    public boolean redoMove(AbstractLevel level);
 
     /**
      * @param AbstractLevel level

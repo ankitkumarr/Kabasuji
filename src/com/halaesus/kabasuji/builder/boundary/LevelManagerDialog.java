@@ -12,6 +12,8 @@ import javax.swing.border.EmptyBorder;
 import com.halaesus.kabasuji.player.entity.LevelData;
 import com.halaesus.kabasuji.player.entity.LevelList;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -31,7 +33,7 @@ public class LevelManagerDialog extends JDialog {
 	public static void main(String[] args) {
 		try {
 			LevelManagerDialog dialog = new LevelManagerDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,6 +56,13 @@ public class LevelManagerDialog extends JDialog {
 			levelListView.setSelectedIndex(0);
 			contentPanel.add(levelListView);
 		}
+		// force main application to close on exit
+		this.addWindowListener(new WindowAdapter() {
+			   public void windowClosing(WindowEvent evt) {
+			     System.exit(0);
+			   }
+			  });
+		
 		{
 			JPanel buttonPane = new JPanel();
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);

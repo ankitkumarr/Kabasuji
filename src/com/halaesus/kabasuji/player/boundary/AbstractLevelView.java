@@ -29,6 +29,7 @@ import com.halaesus.kabasuji.player.controller.ClickPieceInPalette;
 import com.halaesus.kabasuji.player.controller.DragPieceFromWorkspaceToBoard;
 import com.halaesus.kabasuji.player.controller.FlipHInWorkspace;
 import com.halaesus.kabasuji.player.controller.FlipVInWorkspace;
+import com.halaesus.kabasuji.player.controller.RequestBackToLevelSelector;
 import com.halaesus.kabasuji.player.controller.ReturnToLevelSelector;
 import com.halaesus.kabasuji.player.controller.RotateCCInWorkspace;
 import com.halaesus.kabasuji.player.controller.RotateCWInWorkspace;
@@ -439,6 +440,8 @@ public abstract class AbstractLevelView extends JPanel {
 					AbstractLevelView.this.repaint(); // Force a repaint when EDT is done with this pass
 				}
 			});
+			// Add the MouseListener to allow the user to go back to the LevelSelector
+			addMouseListener(new ReturnToLevelSelector(AbstractLevelView.this.myApplication));
 			// Exit out of the function. Perform the rest on the next pass
 			return;
 		}
@@ -471,6 +474,8 @@ public abstract class AbstractLevelView extends JPanel {
 			g.drawImage(starGoldBig, starsLocation[idx].x, starsLocation[idx].y, starsLocation[idx].width, starsLocation[idx].height, null);
 		for(int idx = this.level.getStarsAchieved(); idx < 3; idx++)
 			g.drawImage(starShadowBig, starsLocation[idx].x, starsLocation[idx].y, starsLocation[idx].width, starsLocation[idx].height, null);
+		// Show the Back Button
+		g.drawImage(backButton, 10, 10, null);
 		// Reset to the Old Color and Old Font
 		g.setColor(oldColor);
 		g.setFont(oldFont);
@@ -525,7 +530,7 @@ public abstract class AbstractLevelView extends JPanel {
 		// If this is the first paint:
 		if(!paintInitialized)
 			// Add it to the HashMap
-			clickMap.put(new Rectangle(10, 10, 60, 50), new ReturnToLevelSelector(myApplication));
+			clickMap.put(new Rectangle(10, 10, 60, 50), new RequestBackToLevelSelector(AbstractLevelView.this.level, AbstractLevelView.this));
 	}
 	
 	private void showUserStars(Graphics g) {

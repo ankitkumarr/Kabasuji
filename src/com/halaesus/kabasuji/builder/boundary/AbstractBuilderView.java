@@ -32,6 +32,7 @@ import com.halaesus.kabasuji.builder.controller.RotateCCInWorkspace;
 import com.halaesus.kabasuji.builder.controller.RotateCWInWorkspace;
 import com.halaesus.kabasuji.builder.controller.SaveToFile;
 import com.halaesus.kabasuji.builder.controller.ToggleHint;
+import com.halaesus.kabasuji.builder.boundary.HexominoButtonView;
 import com.halaesus.kabasuji.builder.controller.DragPieceFromBoard;
 import com.halaesus.kabasuji.builder.controller.DragPieceFromWorkspaceToBoard;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
@@ -64,7 +65,7 @@ public abstract class AbstractBuilderView extends JPanel {
 
 	// palette buttons
 	JButton[] builderPaletteHexBtns;
-	JButton[] playerPaletteHexBtns;
+	HexominoButtonView[] playerPaletteHexBtns;
 	
 	Point bullpenPiecesBoardTopPoint;
 	Point boardPiecesTopPoint;
@@ -79,6 +80,7 @@ public abstract class AbstractBuilderView extends JPanel {
 	private Image backgroundImage;
 
 	HashMap<Rectangle, MouseListener> clickMap;
+	HexominoButtonView[] hexominoButton;
 	
 	public AbstractBuilderView(Application application, AbstractLevel aLevel) {
 		this.application = application;
@@ -206,16 +208,19 @@ public abstract class AbstractBuilderView extends JPanel {
 		playerPalette.setBackground(new Color(56, 83, 90));
 		this.add(playerPalette);
 
-		playerPaletteHexBtns = new JButton[35];
+		playerPaletteHexBtns = new HexominoButtonView[35];
 
 		for (int i = 0; i < 35; i++) {
-			playerPaletteHexBtns[i] = new JButton(
+			playerPaletteHexBtns[i] = new HexominoButtonView(
 					new ImageIcon(Application.instance().getImage((i + 1) + ".jpg")
+							.getScaledInstance(51, 51, Image.SCALE_SMOOTH)),
+					new ImageIcon(Application.instance().getImage((i + 1) + "_disabled.jpg")
 							.getScaledInstance(51, 51, Image.SCALE_SMOOTH)));
+			playerPaletteHexBtns[i].setHexominoCount(level.getLevelBullpen().getPalette().getHexomino(i).getCount());
 			playerPalette.add(playerPaletteHexBtns[i]);
 		}
 	}
-
+	
 	private void implementMouseListeners() {
 		addMouseListener(new MouseListener() {
 			@Override

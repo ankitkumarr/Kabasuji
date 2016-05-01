@@ -11,9 +11,11 @@ import com.halaesus.kabasuji.shared.entity.PieceSquare;
 public class BoardToBullpenMove implements IMove {
 
 	AbstractBuilderView levelView;
+	PieceSquare[] originalPieceSquares;
 
-    public BoardToBullpenMove(AbstractBuilderView levelView) {
+    public BoardToBullpenMove(AbstractBuilderView levelView, PieceSquare[] originalPieceSquares) {
     	this.levelView = levelView;
+    	this.originalPieceSquares = originalPieceSquares;
     }
 
     public boolean isValid(AbstractLevel level) {
@@ -47,7 +49,8 @@ public class BoardToBullpenMove implements IMove {
 		return true;
     }
 
-    public Piece doMove(AbstractLevel level, PieceSquare[] originalPieceSquares) {
+    @Override
+    public Piece doMove(AbstractLevel level) {
 		if( level.isDraggingActive() == false )
 			return null; // An active drag needs to be in place for this function to be called
 		if( isValid(level) == false )
@@ -70,4 +73,13 @@ public class BoardToBullpenMove implements IMove {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	
+	@Override
+	public boolean redoMove(AbstractLevel level) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
 }

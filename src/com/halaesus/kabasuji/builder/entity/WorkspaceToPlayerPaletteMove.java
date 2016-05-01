@@ -4,35 +4,36 @@ import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Bullpen;
 import com.halaesus.kabasuji.shared.entity.Palette;
 import com.halaesus.kabasuji.shared.entity.Piece;
+import com.halaesus.kabasuji.shared.entity.PieceSquare;
 
-public class WorkspaceToPlayerPaletteMove {
+public class WorkspaceToPlayerPaletteMove implements IMove {
 
-	
-    Palette playerPalette;
-    Bullpen bullpen;
-    Piece pieceDragged;
+	Palette playerPalette;
+	Bullpen bullpen;
+	Piece pieceDragged;
 
-    public boolean doMove(AbstractLevel level) {
-        // TODO implement here
-    	return false; // stub
-    }
+	@Override
+	public Piece doMove(AbstractLevel level) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-   
-    public boolean isValid(AbstractLevel level) {
-        // TODO implement here
-    	return false; // stub
-    }
+	@Override
+	public boolean undoMove(AbstractLevel level) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
-   
-    public boolean undo(AbstractLevel level) {
-        // TODO implement here
-    	return false; // stub
-    }
+	@Override
+	public boolean redoMove(AbstractLevel level) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
- 
-    public boolean redo(AbstractLevel level) {
-        // TODO implement here
-    	return false; // stub
-    }
+	@Override
+	public boolean isValid(AbstractLevel level) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

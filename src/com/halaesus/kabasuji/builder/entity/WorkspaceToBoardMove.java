@@ -9,7 +9,7 @@ import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
 import com.halaesus.kabasuji.utils.BuilderPieceHelper;
 
-public class WorkspaceToBoardMove {
+public class WorkspaceToBoardMove implements IMove {
 	
 	AbstractBuilderView levelView;
 
@@ -17,6 +17,7 @@ public class WorkspaceToBoardMove {
     	this.levelView = levelView;
     }
     
+    @Override
     public boolean isValid(AbstractLevel level) {
     	assert( level.isDraggingActive() == true ); // We can only be called if a drag is in action
     	// Take Board Bounds and see if the Piece is within those bounds or not
@@ -66,6 +67,7 @@ public class WorkspaceToBoardMove {
 		return true;
     }
 
+    @Override
     public Piece doMove(AbstractLevel level) {
     	if( level.isDraggingActive() == false )
     		return null; // An active drag needs to be in place for this function to be called
@@ -88,5 +90,17 @@ public class WorkspaceToBoardMove {
 		// The move was successful, so:
 		return snappedPiece;
     }
+
+	@Override
+	public boolean undoMove(AbstractLevel level) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean redoMove(AbstractLevel level) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

@@ -2,33 +2,37 @@ package com.halaesus.kabasuji.builder.entity;
 
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.NumberBar;
+import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 
-public class NumberFromBoardToNumberBarMove {
+public class NumberFromBoardToNumberBarMove implements IMove {
 
    
     ReleaseNumber number;
     NumberBar numberBar;
     
-    public boolean doMove(AbstractLevel level) {
-        // TODO implement here
-    	return false; // stub
-    }
-
-    public boolean isValid(AbstractLevel level) {
-        // TODO implement here
-    	return false; // stub
-    }
-
-    public boolean undo(AbstractLevel level) {
-        // TODO implement here
-    	return false; // stub
-    }
-
-
-    public boolean redo(AbstractLevel level) {
-        // TODO implement here
-    	return false; // stub
-    }
+	@Override
+	public Piece doMove(AbstractLevel level) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public boolean isValid(AbstractLevel level) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
+	public boolean redoMove(AbstractLevel level) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
+	public boolean undoMove(AbstractLevel level) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

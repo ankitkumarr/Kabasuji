@@ -12,11 +12,14 @@ import com.halaesus.kabasuji.utils.BuilderPieceHelper;
 public class BoardToBoardMove implements IMove {
 
 	AbstractBuilderView levelView;
+	PieceSquare[] originalPieceSquares;
 
-    public BoardToBoardMove(AbstractBuilderView levelView) {
+    public BoardToBoardMove(AbstractBuilderView levelView, PieceSquare[] originalPieceSquares) {
     	this.levelView = levelView;
+    	this.originalPieceSquares = originalPieceSquares;
     }
     
+    @Override
     public boolean isValid(AbstractLevel level) {
     	assert( level.isDraggingActive() == true ); // We can only be called if a drag is in action
     	// Take Board Bounds and see if the Piece is within those bounds or not
@@ -66,7 +69,8 @@ public class BoardToBoardMove implements IMove {
 		return true;
     }
 
-    public Piece doMove(AbstractLevel level, PieceSquare[] originalPieceSquares) {
+    @Override
+    public Piece doMove(AbstractLevel level) {
     	if( level.isDraggingActive() == false )
     		return null; // An active drag needs to be in place for this function to be called
     	if( isValid(level) == false )
@@ -92,6 +96,12 @@ public class BoardToBoardMove implements IMove {
 
 	@Override
 	public boolean undoMove(AbstractLevel level) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean redoMove(AbstractLevel level) {
 		// TODO Auto-generated method stub
 		return false;
 	}

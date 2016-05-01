@@ -111,7 +111,7 @@ public class LevelManagerDialog extends JDialog {
 						editButton.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								if (levelListView.getSelectedIndex() >= 0) {
-									Application.instance().show(levelList.loadLevel(levelListView.getSelectedIndex()),
+									Application.instance().showLevel(levelList.loadLevel(levelListView.getSelectedIndex()),
 											levelList.getLevelType(levelListView.getSelectedIndex()));
 									dispose();
 								}

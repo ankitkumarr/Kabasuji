@@ -70,7 +70,7 @@ public class Application extends JFrame {
 		setContentPane(currentView);
 	}
 	
-	public void show(AbstractLevel level, String type) {
+	public void showLevel(AbstractLevel level, String type) {
 		if (type.toUpperCase().equals("PUZZLE")) {
 			view = new PuzzleBuilderView(this, level);
 		} else if (type.toUpperCase().equals("LIGHTNING")) {

@@ -184,9 +184,9 @@ public abstract class AbstractLevelView extends JPanel {
 			backgroundImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/gridWithBoard.jpg")).getScaledInstance(1280, -1, Image.SCALE_SMOOTH);
 			backButton = ImageIO.read(getClass().getResource("/resources/backButton.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH);
 			starGold = ImageIO.read(getClass().getResource("/resources/starGold.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH);
-			starGoldBig = ImageIO.read(getClass().getResource("/resources/starGold.png"));
+			starGoldBig = ImageIO.read(getClass().getResource("/resources/starGoldLarge.png"));
 			starShadow = ImageIO.read(getClass().getResource("/resources/starShadow.png")).getScaledInstance(60, 60, Image.SCALE_SMOOTH);
-			starShadowBig = ImageIO.read(getClass().getResource("/resources/starShadow.png"));
+			starShadowBig = ImageIO.read(getClass().getResource("/resources/starShadowLarge.png"));
 			rotateCCImage = ImageIO.read(getClass().getResource("/resources/rotateCC.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
 			rotateCWImage = ImageIO.read(getClass().getResource("/resources/rotateCW.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
 			flipHImage = ImageIO.read(getClass().getResource("/resources/flipHorizontal.png")).getScaledInstance(90, 90, Image.SCALE_SMOOTH);
@@ -454,9 +454,9 @@ public abstract class AbstractLevelView extends JPanel {
 		else if( this.level.getLevelCompletionStatus() == AbstractLevel.LEVEL_COMPLETION_OUT_OF_PIECES )
 			toPrint = "You ran out of pieces. Try again!";
 		else if( this.level.getLevelCompletionStatus() == AbstractLevel.LEVEL_COMPLETION_OUT_OF_MOVES )
-			toPrint = "You ran out of moves. Give it another shot!";
+			toPrint = "You ran out of moves. Try again!";
 		else if( this.level.getLevelCompletionStatus() == AbstractLevel.LEVEL_COMPLETION_RAN_OUT_OF_TIME )
-			toPrint = "Oops, you ran out of time. Have another shot at it!";
+			toPrint = "Oops, you ran out of time. Try again!";
 		else if( this.level.getLevelCompletionStatus() == AbstractLevel.LEVEL_COMPLETION_QUIT_LEVEL )
 			toPrint = "Don't give up so early...";
 
@@ -567,7 +567,7 @@ public abstract class AbstractLevelView extends JPanel {
 					// Put in the hint color
 					Color hintColor = new Color (PieceGenerator.colors[this.level.getBoard().getHint(r, c)].getRed(),
 							PieceGenerator.colors[this.level.getBoard().getHint(r, c)].getGreen(),
-							PieceGenerator.colors[this.level.getBoard().getHint(r, c)].getBlue(), 125);
+							PieceGenerator.colors[this.level.getBoard().getHint(r, c)].getBlue(), 180);
 					g.setColor(hintColor);
 					Rectangle boardRect = getBoardPieceRectangle(r, c);
 					g.fillRect(boardRect.x, boardRect.y, boardRect.width, boardRect.height);

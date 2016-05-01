@@ -1,6 +1,14 @@
 package com.halaesus.kabasuji.builder.boundary;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -11,13 +19,6 @@ import javax.swing.border.EmptyBorder;
 
 import com.halaesus.kabasuji.player.entity.LevelData;
 import com.halaesus.kabasuji.player.entity.LevelList;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.ActionEvent;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 /**
  * A dialog that allows for creating, editing and deleting levels in addition to
@@ -59,14 +60,19 @@ public class LevelManagerDialog extends JDialog {
 	 * </p>
 	 */
 	public LevelManagerDialog() {
+		Font font = new Font("Arial", Font.PLAIN, 18);
 		levelList = LevelList.loadList();
-		setBounds(100, 100, 380, 430);
+
+		setBounds(100, 100, 400, 430);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
 		{
 			levelListView = new JList<LevelData>();
+			levelListView.setFont(font);
+			levelListView.setFixedCellWidth(this.getWidth());
 			populateLevelListView();
 			levelListView.setSelectedIndex(0);
 			contentPanel.add(levelListView);
@@ -90,6 +96,7 @@ public class LevelManagerDialog extends JDialog {
 				buttonPane.setLayout(gbl_buttonPane);
 				{
 					JButton deleteButton = new JButton("Delete");
+					deleteButton.setFont(font);
 					deleteButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							if (levelListView.getSelectedIndex() >= 0) {
@@ -100,6 +107,7 @@ public class LevelManagerDialog extends JDialog {
 					});
 					{
 						JButton editButton = new JButton("Edit");
+						editButton.setFont(font);
 						editButton.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								if (levelListView.getSelectedIndex() >= 0) {
@@ -110,6 +118,7 @@ public class LevelManagerDialog extends JDialog {
 							}
 						});
 						JButton upButton = new JButton("Up");
+						upButton.setFont(font);
 						upButton.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								int selectedIndex = levelListView.getSelectedIndex();
@@ -128,6 +137,7 @@ public class LevelManagerDialog extends JDialog {
 						buttonPane.add(upButton, gbc_upButton);
 						{
 							JButton newButton = new JButton("New");
+							newButton.setFont(font);
 							newButton.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 									dispose();
@@ -138,6 +148,7 @@ public class LevelManagerDialog extends JDialog {
 							});
 							{
 								JButton downButton = new JButton("Down");
+								downButton.setFont(font);
 								downButton.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										int selectedIndex = levelListView.getSelectedIndex();

@@ -43,9 +43,9 @@ public abstract class AbstractLevel {
 	
 	public AbstractLevel(AbstractLevelMemento memento) {
 		board = memento.getBoardMemento().generateBoard();
-		//bullpen = new Bullpen(memento.getPaletteMemento().generatePalette());
+		bullpen = new Bullpen(memento.getPaletteMemento().generatePalette());
 		// TODO eventually use the bullpen from the builder file
-		bullpen = new Bullpen(); // TODO: Remove default constructor of the Bullpen
+//		bullpen = new Bullpen(); // TODO: Remove default constructor of the Bullpen
 		levelIndex = memento.getLevelIndex();
 		levelType = memento.getLevelType();
 		levelName = memento.getLevelName();

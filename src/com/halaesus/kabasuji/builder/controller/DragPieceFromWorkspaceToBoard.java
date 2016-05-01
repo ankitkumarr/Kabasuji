@@ -101,7 +101,7 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 			level.setDraggingDistToPointY(-1);
 			level.setPieceBeingDragged(null);
 			level.setTopPointOfDraggingPiece(null);
-			// Force a LevelView repaint
+			// Refresh the GUI
 			this.levelView.repaint();
 		}
 	}

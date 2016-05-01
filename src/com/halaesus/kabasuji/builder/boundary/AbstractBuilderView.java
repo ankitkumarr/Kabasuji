@@ -425,6 +425,10 @@ public abstract class AbstractBuilderView extends JPanel {
 		// Draw all the board pieces
 		setupBoardPieces(g);
 		drawWorkspacePiece(g);
+		// update the player palette
+		for (int i = 0; i < 35; i++) {
+			playerPaletteHexBtns[i].setHexominoCount(level.getLevelBullpen().getPalette().getHexomino(i).getCount());
+		}
 	}
 
 	private void setupBoardPieces(Graphics g) {
@@ -523,6 +527,10 @@ public abstract class AbstractBuilderView extends JPanel {
 	
 	public AbstractLevel getLevel(){
 		return this.level;
+	}
+	
+	public HexominoButtonView[] getPlayerPaletteHexBtns() {
+		return playerPaletteHexBtns;
 	}
 
 //TODO: Not done yet

@@ -221,8 +221,9 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 			level.setDraggingDistToPointY(-1);
 			level.setPieceBeingDragged(null);
 			level.setTopPointOfDraggingPiece(null);
-			// Force a LevelView repaint
+			// Refresh the GUI
 			this.levelView.repaint();
+			levelView.updatePlayerPaletteView();
 		}
 	}
 

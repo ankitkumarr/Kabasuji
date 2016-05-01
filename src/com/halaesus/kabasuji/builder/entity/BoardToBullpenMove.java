@@ -62,7 +62,8 @@ public class BoardToBullpenMove implements IMove {
 			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
 		}
 		// STEP 2: Decrement Bullpen Count for the respective piece
-		level.getPieceBeingDragged().getParentHexomino().changeCount(-1);
+		if (level.getPieceBeingDragged().getParentHexomino().getCount() > 0)
+			level.getPieceBeingDragged().getParentHexomino().changeCount(-1);
 		
 		// The move was successful, so:
 		return level.getPieceBeingDragged();

@@ -21,11 +21,12 @@ public class ImageLoader extends SwingWorker<Void, Object> {
 		}
 		for (int i = 1; i <= 35; i++) {
 			map.put(i + ".jpg", ImageIO.read(getClass().getResource(path + i + ".jpg")));
+			map.put(i + "_disabled.jpg", ImageIO.read(getClass().getResource(path + i + "_disabled.jpg")));
 		}
 		return null;
 	}
 
 	protected void done() {
-		Application.instance().showSplashScreen();
+		LevelManagerDialog.main(null);
 	}
 }

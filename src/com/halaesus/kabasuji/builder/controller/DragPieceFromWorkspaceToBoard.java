@@ -8,6 +8,7 @@ import java.awt.event.MouseMotionListener;
 
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
 import com.halaesus.kabasuji.builder.entity.WorkspaceToBoardMove;
+import com.halaesus.kabasuji.builder.entity.WorkspaceToPlayerPaletteMove;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
@@ -90,6 +91,11 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 			if( theMove.isValid(this.level) ) {
 				// The move is valid; Perform the move and let the underlying board know about this
 				level.newPieceDropped(theMove.doMove(this.level));
+			} else if (levelView.getPlayerPaletteFrame().getBounds().contains(e.getPoint())){ // mouse is released over the player palette
+				WorkspaceToPlayerPaletteMove wtpMove = new WorkspaceToPlayerPaletteMove();
+				if (wtpMove.isValid(level)) {
+					wtpMove.doMove(level);
+				}
 			} else {
 				// The move wasn't performed; Bring the piece back to the workspace
 				this.level.getLevelBullpen().getWorkspace().addPiece(level.getPieceBeingDragged());
@@ -102,8 +108,9 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 			level.setDraggingDistToPointY(-1);
 			level.setPieceBeingDragged(null);
 			level.setTopPointOfDraggingPiece(null);
-			// Force a LevelView repaint
+			// Refresh the GUI
 			this.levelView.repaint();
+			levelView.updatePlayerPaletteView();
 		}
 	}
 

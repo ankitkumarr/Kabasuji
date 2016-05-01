@@ -32,7 +32,7 @@ import com.halaesus.kabasuji.builder.controller.RotateCCInWorkspace;
 import com.halaesus.kabasuji.builder.controller.RotateCWInWorkspace;
 import com.halaesus.kabasuji.builder.controller.SaveToFile;
 import com.halaesus.kabasuji.builder.controller.ToggleHint;
-import com.halaesus.kabasuji.player.entity.LevelList;
+import com.halaesus.kabasuji.builder.boundary.HexominoButtonView;
 import com.halaesus.kabasuji.builder.controller.DragPieceFromBoard;
 import com.halaesus.kabasuji.builder.controller.DragPieceFromWorkspaceToBoard;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
@@ -44,6 +44,7 @@ import com.halaesus.kabasuji.utils.JLabelHelper;
 import com.halaesus.kabasuji.utils.PieceGenerator;
 import com.halaesus.kabasuji.utils.PieceHelper;
 import com.halaesus.kabasuji.builder.controller.ClickPieceInPalette;
+import com.halaesus.kabasuji.builder.controller.DecrementPlayerPalette;
 
 @SuppressWarnings("serial")
 public abstract class AbstractBuilderView extends JPanel {
@@ -65,7 +66,7 @@ public abstract class AbstractBuilderView extends JPanel {
 
 	// palette buttons
 	JButton[] builderPaletteHexBtns;
-	JButton[] playerPaletteHexBtns;
+	HexominoButtonView[] playerPaletteHexBtns;
 	
 	Point bullpenPiecesBoardTopPoint;
 	Point boardPiecesTopPoint;
@@ -80,6 +81,7 @@ public abstract class AbstractBuilderView extends JPanel {
 	private Image backgroundImage;
 
 	HashMap<Rectangle, MouseListener> clickMap;
+	HexominoButtonView[] hexominoButton;
 	
 	public AbstractBuilderView(Application application, AbstractLevel aLevel) {
 		this.application = application;
@@ -182,7 +184,7 @@ public abstract class AbstractBuilderView extends JPanel {
 			builderPaletteHexBtns[i] = new JButton(
 					new ImageIcon(Application.instance().getImage((i + 1) + ".jpg")
 							.getScaledInstance(51, 51, Image.SCALE_SMOOTH)));
-			builderPaletteHexBtns[i].addActionListener(
+			builderPaletteHexBtns[i].addMouseListener(
 					new ClickPieceInPalette(level.getLevelBullpen().getPalette().getHexomino(i), this));
 			builderPalette.add(builderPaletteHexBtns[i]);
 		}
@@ -207,16 +209,21 @@ public abstract class AbstractBuilderView extends JPanel {
 		playerPalette.setBackground(new Color(56, 83, 90));
 		this.add(playerPalette);
 
-		playerPaletteHexBtns = new JButton[35];
+		playerPaletteHexBtns = new HexominoButtonView[35];
 
 		for (int i = 0; i < 35; i++) {
-			playerPaletteHexBtns[i] = new JButton(
+			playerPaletteHexBtns[i] = new HexominoButtonView(
 					new ImageIcon(Application.instance().getImage((i + 1) + ".jpg")
+							.getScaledInstance(51, 51, Image.SCALE_SMOOTH)),
+					new ImageIcon(Application.instance().getImage((i + 1) + "_disabled.jpg")
 							.getScaledInstance(51, 51, Image.SCALE_SMOOTH)));
+			playerPaletteHexBtns[i].setHexominoCount(level.getLevelBullpen().getPalette().getHexomino(i).getCount());
+			playerPaletteHexBtns[i].addActionListener(
+					new DecrementPlayerPalette(level.getLevelBullpen().getPalette().getHexomino(i), this));
 			playerPalette.add(playerPaletteHexBtns[i]);
 		}
 	}
-
+	
 	private void implementMouseListeners() {
 		addMouseListener(new MouseListener() {
 			@Override
@@ -422,6 +429,13 @@ public abstract class AbstractBuilderView extends JPanel {
 		setupBoardPieces(g);
 		drawWorkspacePiece(g);
 	}
+	
+	public void updatePlayerPaletteView() {
+		for (int i = 0; i < 35; i++) {
+			playerPaletteHexBtns[i].setHexominoCount(level.getLevelBullpen().getPalette().getHexomino(i).getCount());
+		}
+		repaint();
+	}
 
 	private void setupBoardPieces(Graphics g) {
 		// Go over all the Pieces on the board and draw them out
@@ -486,7 +500,7 @@ public abstract class AbstractBuilderView extends JPanel {
 					// Go over all the 6 PieceSquares within
 					for( PieceSquare aPieceSquare : toBeDrawn.getPieceSquares() ) {
 						// Solve for the Rectangle
-						Rectangle rectToDraw = getBullpenWorkspacePieceRectangle(aPieceSquare.getCol(), aPieceSquare.getRow());
+						Rectangle rectToDraw = getBullpenWorkspacePieceRectangle(aPieceSquare.getRow(), aPieceSquare.getCol());
 						bevelRects.add(rectToDraw);
 						// Save backup Graphics color
 						Color oldColor = g.getColor();
@@ -502,8 +516,8 @@ public abstract class AbstractBuilderView extends JPanel {
 	}
 	
 	public Rectangle getBullpenWorkspacePieceRectangle(int row, int col) {
-		return new Rectangle(bullpenPiecesBoardTopPoint.x + (53 * row), 
-				             bullpenPiecesBoardTopPoint.y + (53 * col), 
+		return new Rectangle(bullpenPiecesBoardTopPoint.x + (53 * col), 
+				             bullpenPiecesBoardTopPoint.y + (53 * row), 
 				             53, 53);
 	}
 	
@@ -519,6 +533,10 @@ public abstract class AbstractBuilderView extends JPanel {
 	
 	public AbstractLevel getLevel(){
 		return this.level;
+	}
+	
+	public JPanel getPlayerPaletteFrame() {
+		return playerPalette;
 	}
 
 //TODO: Not done yet

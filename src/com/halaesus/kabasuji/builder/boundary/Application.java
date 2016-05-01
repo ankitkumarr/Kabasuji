@@ -45,7 +45,9 @@ public class Application extends JFrame {
 		splashView = new SplashView(masterModel.getSplashModel());
 		
 		// Start on Splash Screen
-		showSplashScreen(-1);
+		showSplashScreen();
+		LevelManagerDialog.main(null);
+		
     }
     
     public static Application instance(Model m) {
@@ -65,13 +67,9 @@ public class Application extends JFrame {
 		return inst;
 	}
 
-	public void showSplashScreen(int time) {
+	public void showSplashScreen() {
 		currentView = splashView;
 		setContentPane(currentView);
-
-		if (time < 0) return;
-		
-		LevelManagerDialog.main(null);
 	}
 	
 	public void show(AbstractLevel level, String type) {

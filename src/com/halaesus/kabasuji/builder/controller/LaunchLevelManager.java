@@ -3,6 +3,7 @@ package com.halaesus.kabasuji.builder.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import com.halaesus.kabasuji.builder.boundary.Application;
 import com.halaesus.kabasuji.builder.boundary.LevelManagerDialog;
 
 public class LaunchLevelManager implements ActionListener{
@@ -13,6 +14,7 @@ public class LaunchLevelManager implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		LevelManagerDialog.main(null);
+		Application.instance().showSplashScreen();
 	}
 }
 

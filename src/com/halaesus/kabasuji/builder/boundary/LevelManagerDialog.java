@@ -51,6 +51,7 @@ public class LevelManagerDialog extends JDialog {
 		{
 			levelListView = new JList<LevelData>();
 			populateLevelListView();
+			levelListView.setSelectedIndex(0);
 			contentPanel.add(levelListView);
 		}
 		{
@@ -58,26 +59,30 @@ public class LevelManagerDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				GridBagLayout gbl_buttonPane = new GridBagLayout();
-				gbl_buttonPane.columnWidths = new int[]{60, 60, 60, 60, 60, 0};
-				gbl_buttonPane.rowHeights = new int[]{23, 0};
-				gbl_buttonPane.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-				gbl_buttonPane.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+				gbl_buttonPane.columnWidths = new int[] { 60, 60, 60, 60, 60, 0 };
+				gbl_buttonPane.rowHeights = new int[] { 23, 0 };
+				gbl_buttonPane.columnWeights = new double[] { 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
+				gbl_buttonPane.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 				buttonPane.setLayout(gbl_buttonPane);
 				{
 					JButton deleteButton = new JButton("Delete");
 					deleteButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							levelList.deleteLevel(levelListView.getSelectedIndex());
-							populateLevelListView();
+							if (levelListView.getSelectedIndex() >= 0) {
+								levelList.deleteLevel(levelListView.getSelectedIndex());
+								populateLevelListView();
+							}
 						}
 					});
 					{
 						JButton editButton = new JButton("Edit");
 						editButton.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								Application.instance().show(levelList.loadLevel(levelListView.getSelectedIndex()),
-										levelList.getLevelType(levelListView.getSelectedIndex()));
-								dispose();
+								if (levelListView.getSelectedIndex() >= 0) {
+									Application.instance().show(levelList.loadLevel(levelListView.getSelectedIndex()),
+											levelList.getLevelType(levelListView.getSelectedIndex()));
+									dispose();
+								}
 							}
 						});
 						JButton upButton = new JButton("Up");
@@ -102,7 +107,9 @@ public class LevelManagerDialog extends JDialog {
 							newButton.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 									dispose();
-									NewLevelDialog.main(LevelManagerDialog.this); // can't just say "this" b/c we're inside the ActionListener
+									NewLevelDialog.main(LevelManagerDialog.this);
+									// can't just say "this" b/c we're inside
+									// the ActionListener
 								}
 							});
 							{

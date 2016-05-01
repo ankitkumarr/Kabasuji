@@ -1,38 +1,28 @@
 package com.halaesus.kabasuji.builder.entity;
 
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
-import com.halaesus.kabasuji.shared.entity.Bullpen;
-import com.halaesus.kabasuji.shared.entity.Palette;
-import com.halaesus.kabasuji.shared.entity.Piece;
 
 public class WorkspaceToPlayerPaletteMove {
 
-	
-    Palette playerPalette;
-    Bullpen bullpen;
-    Piece pieceDragged;
-
     public boolean doMove(AbstractLevel level) {
-        // TODO implement here
-    	return false; // stub
+        if (!isValid(level)) return false;
+    	level.getPieceBeingDragged().getParentHexomino().changeCount(+1);
+        return true;
     }
-
    
     public boolean isValid(AbstractLevel level) {
-        // TODO implement here
-    	return false; // stub
+        if (!level.isDraggingActive()) return false;
+        
+        return true;
     }
-
    
     public boolean undo(AbstractLevel level) {
-        // TODO implement here
-    	return false; // stub
+    	level.getPieceBeingDragged().getParentHexomino().changeCount(-1);
+        return true;
     }
 
- 
     public boolean redo(AbstractLevel level) {
         // TODO implement here
     	return false; // stub
     }
-
 }

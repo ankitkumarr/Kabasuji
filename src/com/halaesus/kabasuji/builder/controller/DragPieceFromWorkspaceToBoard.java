@@ -11,6 +11,7 @@ import com.halaesus.kabasuji.builder.entity.WorkspaceToBoardMove;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
+import com.halaesus.kabasuji.utils.BuilderPieceHelper;
 
 public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotionListener{
 
@@ -84,7 +85,7 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 		if( this.level.isDraggingActive() &&
 			this.level.getDragSource() == AbstractLevel.DRAG_SOURCE_WORKSPACE ) {
 			// Create the move
-			WorkspaceToBoardMove theMove = new WorkspaceToBoardMove(this.levelView);
+			WorkspaceToBoardMove theMove = new WorkspaceToBoardMove(this.levelView, level.getPieceBeingDragged(), BuilderPieceHelper.snapToNearestBoardSquare(level, this.levelView));
 			// Now attempt the move
 			if( theMove.isValid(this.level) ) {
 				// The move is valid; Perform the move and let the underlying board know about this

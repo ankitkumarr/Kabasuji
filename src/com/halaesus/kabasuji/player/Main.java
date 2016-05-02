@@ -74,6 +74,7 @@ public class Main {
 		// Close Listener
 		app.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
+		    	storeState(masterModel.getPlayerProgress(), progressStorage);
 				app.dispose();
 			}      
 		});
@@ -83,7 +84,6 @@ public class Main {
 		// TODO: Fix timer to 3s instead of 500ms
 		Timer timer = new Timer(500, new ActionListener() {
 		    public void actionPerformed(ActionEvent evt) {
-		    	storeState(masterModel.getPlayerProgress(), progressStorage);
 		        app.showLevelSelector();
 		    }
 		});

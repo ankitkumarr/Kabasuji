@@ -28,11 +28,7 @@ public class LevelSelector {
 		int idx = 0;
 		for( Iterator<LevelData> iterator = levels.getIterator(); iterator.hasNext(); idx++) {
 			// Create a new LevelThumbnail Model and add it to the ArrayList
-			int stars = -1;
-			if (idx < 3) stars = 0; // first 3 levels should always be unlocked
-			if (idx < starsEarned.size()) stars = starsEarned.get(idx); // we can safely get the starsEarned from the array
-			thumbnails.add(new LevelThumbnail(iterator.next(), stars));
-			//thumbnails.add(new LevelThumbnail(iterator.next(), starsEarned.get(idx)));
+			thumbnails.add(new LevelThumbnail(iterator.next(), starsEarned.get(idx)));
 		}
 		// Get the background image
 		try {
@@ -41,6 +37,16 @@ public class LevelSelector {
 			backgroundImage = null; // We don't have an image to show :(
 		}
     }
+	
+	public void updateStars(){
+		thumbnails = new ArrayList<LevelThumbnail>();
+		int idx = 0;
+		for( Iterator<LevelData> iterator = levels.getIterator(); iterator.hasNext(); idx++) {
+			// Create a new LevelThumbnail Model and add it to the ArrayList
+			thumbnails.add(new LevelThumbnail(iterator.next(), playerProgress.starsEarned.get(idx)));
+		}
+		
+	}
 	
 	public ArrayList<LevelThumbnail> getThumbnails() {
 		return thumbnails;

@@ -3,7 +3,12 @@ package com.halaesus.kabasuji.builder.entity;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Hexomino;
 
-public class DecrementPlayerPaletteMove {
+/**
+ * 
+ * @author Anthony Panetta
+ *
+ */
+public class DecrementPlayerPaletteMove implements IMove {
 	Hexomino hex;
 	
 	public DecrementPlayerPaletteMove(Hexomino h) {
@@ -22,13 +27,14 @@ public class DecrementPlayerPaletteMove {
         return false;
     }
    
-    public boolean undo(AbstractLevel level) {
-    	hex.changeCount(+1);
+	@Override
+	public boolean undoMove(AbstractLevel level) {
+		hex.changeCount(+1);
         return true;
-    }
+	}
 
-    public boolean redo(AbstractLevel level) {
-        // TODO implement here
-    	return false; // stub
-    }
+	@Override
+	public boolean redoMove(AbstractLevel level) {
+		return doMove(level);
+	}
 }

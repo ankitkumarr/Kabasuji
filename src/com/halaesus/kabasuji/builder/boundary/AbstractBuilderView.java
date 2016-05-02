@@ -28,13 +28,15 @@ import com.halaesus.kabasuji.builder.boundary.Application;
 import com.halaesus.kabasuji.builder.controller.FlipHInWorkspace;
 import com.halaesus.kabasuji.builder.controller.FlipVInWorkspace;
 import com.halaesus.kabasuji.builder.controller.LaunchLevelManager;
+import com.halaesus.kabasuji.builder.controller.RedoMove;
 import com.halaesus.kabasuji.builder.controller.RotateCCInWorkspace;
 import com.halaesus.kabasuji.builder.controller.RotateCWInWorkspace;
 import com.halaesus.kabasuji.builder.controller.SaveToFile;
 import com.halaesus.kabasuji.builder.controller.ToggleHint;
+import com.halaesus.kabasuji.builder.controller.UndoMove;
 import com.halaesus.kabasuji.builder.boundary.HexominoButtonView;
 import com.halaesus.kabasuji.builder.controller.DragPieceFromBoard;
-import com.halaesus.kabasuji.builder.controller.DragPieceFromWorkspaceToBoard;
+import com.halaesus.kabasuji.builder.controller.DragPieceFromWorkspace;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
@@ -130,11 +132,14 @@ public abstract class AbstractBuilderView extends JPanel {
 				.getScaledInstance(75, 75, Image.SCALE_SMOOTH)));
 		undoBtn.setBounds(75 * 5, 0, 75, 75);
 		undoBtn.setToolTipText("Undo");
+		undoBtn.addActionListener(new UndoMove(level, this));
 		this.add(undoBtn);
+		
 		redoBtn = new JButton(new ImageIcon(Application.instance().getImage("redo.png")
 				.getScaledInstance(75, 75, Image.SCALE_SMOOTH)));
 		redoBtn.setBounds(75 * 6 + 38, 0, 75, 75);
 		redoBtn.setToolTipText("Redo");
+		redoBtn.addActionListener(new RedoMove(level, this));
 		this.add(redoBtn);
 	}
 
@@ -247,7 +252,7 @@ public abstract class AbstractBuilderView extends JPanel {
 			}
 		});
 		// Add Listener for DragPieceFromWorkspaceToBoard
-		DragPieceFromWorkspaceToBoard dragWorkspaceToBoard = new DragPieceFromWorkspaceToBoard(this.level, this);
+		DragPieceFromWorkspace dragWorkspaceToBoard = new DragPieceFromWorkspace(this.level, this);
 		addMouseListener(dragWorkspaceToBoard);
 		addMouseMotionListener(dragWorkspaceToBoard);
 	}

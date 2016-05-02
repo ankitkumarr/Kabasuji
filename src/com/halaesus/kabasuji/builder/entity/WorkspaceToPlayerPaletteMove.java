@@ -1,14 +1,21 @@
 package com.halaesus.kabasuji.builder.entity;
 
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.Piece;
 
 
 public class WorkspaceToPlayerPaletteMove implements IMove {
 
+	Piece piece;
+	
+	public WorkspaceToPlayerPaletteMove(Piece p) {
+		piece = p;
+	}
+	
 	@Override
     public boolean doMove(AbstractLevel level) {
         if (!isValid(level)) return false;
-    	level.getPieceBeingDragged().getParentHexomino().changeCount(+1);
+    	piece.getParentHexomino().changeCount(+1);
         return true;
     }
    
@@ -21,7 +28,7 @@ public class WorkspaceToPlayerPaletteMove implements IMove {
    
 	@Override
     public boolean undoMove(AbstractLevel level) {
-    	level.getPieceBeingDragged().getParentHexomino().changeCount(-1);
+    	piece.getParentHexomino().changeCount(-1);
         return true;
     }
 
@@ -31,4 +38,3 @@ public class WorkspaceToPlayerPaletteMove implements IMove {
     	return false; // stub
     }
 }
-

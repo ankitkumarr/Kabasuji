@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
 import com.halaesus.kabasuji.builder.entity.DecrementPlayerPaletteMove;
+import com.halaesus.kabasuji.builder.entity.MoveManager;
 import com.halaesus.kabasuji.shared.entity.Hexomino;
 
 public class DecrementPlayerPalette implements ActionListener {
@@ -21,7 +22,8 @@ public class DecrementPlayerPalette implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		DecrementPlayerPaletteMove move = new DecrementPlayerPaletteMove(hex);
 		if (move.isValid(levelView.getLevel())) {
-			move.doMove(levelView.getLevel());
+			if (move.doMove(levelView.getLevel()))
+				MoveManager.pushMove(move);
 			levelView.updatePlayerPaletteView();
 		}
 	}

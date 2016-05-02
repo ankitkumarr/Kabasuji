@@ -34,18 +34,21 @@ public class MoveManager {
     public static void pushMove(IMove move) {
     	instance().moves.add(move);
     	instance().undoneMoves = new Stack<IMove>();
+    	System.out.println(move + " pushed");
     }
     
     public static void undo(AbstractLevel level) {
     	IMove move = instance().moves.pop();
     	move.undoMove(level);
     	instance().undoneMoves.push(move);
+    	System.out.println(move + " undo");
     }
     
     public static void redo(AbstractLevel level) {
     	IMove move = instance().undoneMoves.pop();
     	move.redoMove(level);
     	instance().moves.push(move);
+    	System.out.println(move + " redo");
     }
 
 }

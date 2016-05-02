@@ -92,6 +92,7 @@ public class WorkspaceToBoardMove implements IMove {
 		}
 
 		// The move was successful, so:
+		level.getBoard().addPiece(snappedPiece);
 		return true;
 	}
 

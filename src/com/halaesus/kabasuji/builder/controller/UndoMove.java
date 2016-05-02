@@ -1,38 +1,29 @@
 package com.halaesus.kabasuji.builder.controller;
 
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
+import com.halaesus.kabasuji.builder.entity.MoveManager;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 
 /**
- * 
+ * @author Anthony Panetta
  */
-public class UndoMove {
+public class UndoMove implements ActionListener {
 
-    /**
-     * 
-     */
-    AbstractBuilderView builderView;
-
-    /**
-     * 
-     */
-    AbstractLevel level;
-
-    /**
-     * @param AbstractBuilderView builderView 
-     * @param AbstractLevel level
-     */
-    public UndoMove(AbstractBuilderView builderView, AbstractLevel level) {
-        // TODO implement here
-    }
-
-    /**
-     * @param MouseEvent e
-     */
-    public void mouseClicked(MouseEvent e) {
-        // TODO implement here
-    }
-
+	AbstractLevel level;
+	AbstractBuilderView view;
+	
+	public UndoMove(AbstractLevel l, AbstractBuilderView abv) {
+    	level = l;
+    	view = abv;
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		MoveManager.undo(level);
+		view.updatePlayerPaletteView();
+//		view.repaint();
+	}
 }

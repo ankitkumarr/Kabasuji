@@ -50,6 +50,9 @@ public class Application extends JFrame {
 	}
 
 	public void showLevelSelector() {
+		// TODO this is hacky, I did this so levelSelectorView would update with newly earned stars when returning from
+		// level -Brian KD - but it sucks and I do not have time to refactor code tonight
+		levelSelectorView = new LevelSelectorView(masterModel.getLevelSelectorModel(), Application.this);
 		currentView = levelSelectorView; // Our current view is the Level Selector Screen
 		setContentPane(currentView); // Show it on the UI
 		repaint(); // Refresh the UI
@@ -68,6 +71,10 @@ public class Application extends JFrame {
 		// Show it on the GUI
 		setContentPane(currentView); // Show it on the UI
 		repaint(); // Refresh the UI
+	}
+	
+	public Model getMasterModel(){
+		return this.masterModel;
 	}
 
 }

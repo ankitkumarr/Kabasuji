@@ -418,6 +418,7 @@ public abstract class AbstractLevelView extends JPanel {
 			g.setColor(new Color(50, 131, 50, 210)); // Green Background
 		else
 			g.setColor(new Color(131, 50, 50, 210)); // Red Background
+		
 		// Fill the rectangle
 		g.fillRect(0, 0,
 				   this.myApplication.getWidth(), 
@@ -441,7 +442,7 @@ public abstract class AbstractLevelView extends JPanel {
 				}
 			});
 			// Add the MouseListener to allow the user to go back to the LevelSelector
-			addMouseListener(new ReturnToLevelSelector(AbstractLevelView.this.myApplication));
+			addMouseListener(new ReturnToLevelSelector(AbstractLevelView.this.myApplication, this.level));
 			// Exit out of the function. Perform the rest on the next pass
 			return;
 		}
@@ -661,6 +662,10 @@ public abstract class AbstractLevelView extends JPanel {
 	public void setPieceInWorkspace(Piece p) {
 		level.getLevelBullpen().getWorkspace().addPiece(p); // Add the piece to the Workspace of the Level Bullpen
 		repaint(); // Force a repaint
+	}
+	
+	public Application getApplication(){
+		return this.myApplication;
 	}
 	
 }

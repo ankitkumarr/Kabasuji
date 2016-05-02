@@ -67,7 +67,7 @@ public class LevelThumbnailView extends JPanel {
 			// We cannot do anything :(
 		}
 		// Place the Level Number in the Thumbnail
-		levelNumberLabel = new JLabel(String.valueOf(levelData.getLevelIndex()), SwingConstants.CENTER);
+		levelNumberLabel = new JLabel(String.valueOf(levelData.getLevelIndex() + 1), SwingConstants.CENTER);
 		levelNumberLabel.setBounds(0, 0, 100, 100);
 		// Locked based color scheme
 		if( starsAchieved == -1 )

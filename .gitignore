@@ -2,3 +2,4 @@
 *.ser
 *.data
 doc/
+!/levelsForDemo

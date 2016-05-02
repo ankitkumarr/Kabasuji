@@ -56,7 +56,7 @@ public class NumberBarView extends JPanel {
 		// Go over all the ReleaseNumbers and set visibility
 		for(int r = 0; r < 3; r++)
 			for(int c = 0; c < 6; c++)
-				this.bars[r][c].setVisible( numberBar.getNumbers()[r][c].getCollected() );
+				this.bars[r][c].setVisible( numberBar.getNumbers()[r][c].isCollected() );
 		// Let the super do its job now
 		super.paintComponent(g);
 	}

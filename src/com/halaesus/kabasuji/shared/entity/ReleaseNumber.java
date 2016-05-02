@@ -29,19 +29,22 @@ public class ReleaseNumber implements Serializable {
     	return this.value;
     }
     
-    public boolean getCollected(){
+    public boolean isCollected(){
     	return this.collected;    	
     }
     
     public void setCollected(){
     	this.collected = true;
     }
+    
     public int getColor(){
     	return this.color;
     }
+    
     public int getCol(){
     	return this.col;
     }
+    
     public int getRow(){
     	return this.row;
     }

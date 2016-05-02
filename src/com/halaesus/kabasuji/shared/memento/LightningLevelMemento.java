@@ -15,6 +15,7 @@ public class LightningLevelMemento extends AbstractLevelMemento {
 
 	private static final long serialVersionUID = 7718035734811881075L;
 	
+	int numRandomPieces;
 	int maxTime;
 	
 	public LightningLevelMemento(int levelIndex, String levelType, String levelName) {
@@ -23,9 +24,9 @@ public class LightningLevelMemento extends AbstractLevelMemento {
 		maxTime = 60;
 	}
 	
-	public LightningLevelMemento(AbstractBoardMemento board, Palette palette,
-			int levelIndex, int maxTime, String levelType, String levelName) {
+	public LightningLevelMemento(AbstractBoardMemento board, Palette palette, int levelIndex, int maxTime, int numRandomPieces, String levelType, String levelName) {
 		super(board, palette.generateMemento(), levelIndex, levelType, levelName);
+		this.numRandomPieces = numRandomPieces;
 		this.maxTime = maxTime;
 	}
 
@@ -36,6 +37,10 @@ public class LightningLevelMemento extends AbstractLevelMemento {
 
 	public int getMaxTime() {
 		return maxTime;
+	}
+	
+	public int getNumRandomPieces() {
+		return numRandomPieces;
 	}
 
 }

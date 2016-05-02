@@ -38,6 +38,8 @@ public class MoveManager {
     }
     
     public static void undo(AbstractLevel level) {
+    	if (instance().moves.isEmpty()) return;
+    	
     	IMove move = instance().moves.pop();
     	move.undoMove(level);
     	instance().undoneMoves.push(move);
@@ -45,6 +47,8 @@ public class MoveManager {
     }
     
     public static void redo(AbstractLevel level) {
+    	if (instance().undoneMoves.isEmpty()) return;
+    	
     	IMove move = instance().undoneMoves.pop();
     	move.redoMove(level);
     	instance().moves.push(move);

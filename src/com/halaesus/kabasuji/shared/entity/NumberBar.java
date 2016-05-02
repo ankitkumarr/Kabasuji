@@ -42,7 +42,7 @@ public class NumberBar {
 		for (int j = 1; j <= 3; j++) {
 			int count = 0; // count number found in this color set
 			for (int i = 1; i <= 6; i++) {
-				if (numbers[j - 1][i - 1].getCollected()) count++;
+				if (numbers[j - 1][i - 1].isCollected()) count++;
 			}
 			found += count / 6; // adds 1 if all 6 numbers in set were found
 		}

@@ -5,24 +5,28 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Set;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import com.halaesus.kabasuji.builder.controller.DragNumberToBoardMove;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
+import com.halaesus.kabasuji.shared.entity.ReleaseBoard;
 import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
 import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 
 @SuppressWarnings("serial")
 public class ReleaseBuilderView extends AbstractBuilderView {
+	
     JLabel[][] numberBarNumbers;
     ReleaseLevel level;
     ReleaseNumber rNumbers[][];
     
 	private JLabel draggingLabel;
+	private ArrayList<JLabel> numbersOnTheBoard;
     
-
     public ReleaseBuilderView(Application application, AbstractLevel aLevel) {
         
     	super(application, aLevel);
@@ -35,6 +39,8 @@ public class ReleaseBuilderView extends AbstractBuilderView {
     	draggingLabel = new JLabel("");
     	draggingLabel.setVisible(false);
     	add(draggingLabel);
+    	
+    	numbersOnTheBoard = new ArrayList<JLabel>();
     	
     	setupReleasePalette();
     	
@@ -63,11 +69,7 @@ public class ReleaseBuilderView extends AbstractBuilderView {
 				numberBarNumbers[j-1][i-1] = n;
 				add(numberBarNumbers[j-1][i-1]);
 			}
-		}
-    	
-    	this.repaint();
-    	
-    	
+		}    	
     }
     
     public Rectangle getReleaseNumberRectangle(int row, int col) {
@@ -88,7 +90,6 @@ public class ReleaseBuilderView extends AbstractBuilderView {
 		draggingLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		draggingLabel.setBounds(topPointToDraw.x , topPointToDraw.y , 53, 53);
-		System.out.println(topPointToDraw.x + " : " + topPointToDraw.y);
 		if (numberToBeDrawn.getColor() == 1) draggingLabel.setForeground(Color.RED);
 		if (numberToBeDrawn.getColor() == 2) draggingLabel.setForeground(Color.YELLOW);
 		if (numberToBeDrawn.getColor() == 3) draggingLabel.setForeground(Color.CYAN);
@@ -98,31 +99,17 @@ public class ReleaseBuilderView extends AbstractBuilderView {
 		add(draggingLabel);
 	}
     
-    /**
-    @Override
-	public void paint(Graphics g) {
-		super.paint(g); // Let the super do its stuff
-		// Draw a dragging piece
-		
-		else if( this.level.isDraggingActive()) {
-			this.drawBullpenTrashCan(g); // Draw the trash can over the Bullpen and then draw the Piece
-			this.drawDraggingPiece(g); // Paint the piece out now
-		}
-	}
-	**/
-    
+   
     protected void paintComponent(Graphics g) {
 		
-		if (this.level.isDraggingActive() && this.level.getDragSource()==ReleaseLevel.DRAG_SOURCE_NUMBERBAR ) {
+		if (this.level.isDraggingActive() && this.level.getDragSource()==ReleaseLevel.DRAG_SOURCE_NUMBERBAR )
 			this.drawDraggingNumber(g);
-		}
+		else
+			this.remove(this.draggingLabel);
 		
 		super.paintComponent(g);
-		//g.drawImage(Application.instance().getImage("gridWithBoard.jpg")         ///Slows down the application
-				//.getScaledInstance(1280, -1, Image.SCALE_SMOOTH), 0, 0, null);
 		
 		g.drawImage(backgroundImage, 0, 0, null);
-		
 		
 
 		// Set up the game board
@@ -130,7 +117,34 @@ public class ReleaseBuilderView extends AbstractBuilderView {
 		// Draw all the board pieces
 		setupBoardPieces(g);
 		drawWorkspacePiece(g);
+		setupNumberLabels(g);
 		
+	}
+
+    private void setupNumberLabels(Graphics g) {
+		Font releaseNumberFont = new Font("releaseNumberFont", Font.BOLD, 35);
+		ReleaseBoard rb = (ReleaseBoard) this.level.getBoard();
+		Set<ReleaseNumber> rNumbers = rb.getReleaseNumbers();
+		
+		if( rNumbers.size() != numbersOnTheBoard.size() ) {
+			// Remove them all
+			for( JLabel theLabel : numbersOnTheBoard )
+				remove(theLabel);
+			// Now add them all again
+			for (ReleaseNumber num: rNumbers){
+				JLabel n = new JLabel(Integer.toString(num.getValue()));
+				n.setHorizontalAlignment(SwingConstants.CENTER);
+				n.setBounds(320 + 53 * num.getCol(), 80 + 53 * num.getRow(), 53, 53);
+				if (num.getColor() == 1)n.setForeground(Color.RED);
+				if (num.getColor() == 2)n.setForeground(Color.YELLOW);
+				if (num.getColor() == 3)n.setForeground(Color.CYAN);
+				n.setFont(releaseNumberFont);
+				// Add it to the GUI
+				add(n);
+				// Add it to the List
+				numbersOnTheBoard.add(n);
+			}
+		}
 	}
     
    

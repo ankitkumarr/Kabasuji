@@ -32,6 +32,10 @@ public class ReleaseBoard extends AbstractBoard {
     public Set<ReleaseNumber> getReleaseNumbers(){
     	return numbers;  	
     }
+    
+    public void addNumber(ReleaseNumber rn) {
+    	this.numbers.add(rn);
+    }
 
 	@Override
 	public AbstractBoardMemento generateMemento() {
@@ -50,6 +54,23 @@ public class ReleaseBoard extends AbstractBoard {
 				newSquares[r][c] = new BoardSquare(originalSquares[r][c]);
 		// Call and return
 		return new ReleaseBoard(newSquares, new ArrayList<Piece>(), new HashSet<>(numbers));
+	}
+	
+	public boolean doesCollide (ReleaseNumber rn) {
+		for (ReleaseNumber rno: this.numbers) {
+			if ((rno.getCol() == rn.getCol()) && (rno.getRow() == rn.getRow())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isOutsideBounds(ReleaseNumber rn) {
+		BoardSquare bs[][] = this.getSquares();
+		if (bs[rn.getRow()][rn.getCol()].active) {
+			return false;
+		}
+		return true;
 	}
     
 }

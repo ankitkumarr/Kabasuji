@@ -69,7 +69,6 @@ public class DragNumberToBoardMove implements MouseListener, MouseMotionListener
 					numBeingdragged = this.level.getNumberBar().getNumbers()[i-1][j-1];
 					this.level.setnumberBeingDragged(new ReleaseNumber(numBeingdragged.getValue(), numBeingdragged.getColor(),
 							numBeingdragged.getCol(), numBeingdragged.getRow()));
-					System.out.println(numBeingdragged.getColor() + " " + numBeingdragged.getRow());
 					this.level.setTopPointOfDraggingPiece(new Point(num.x, num.y));
 					this.level.setDraggingDistToPointX(e.getX() - num.x);
 					this.level.setDraggingDistToPointY(e.getY() - num.y);
@@ -87,6 +86,25 @@ public class DragNumberToBoardMove implements MouseListener, MouseMotionListener
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		
+		if( this.level.isDraggingActive() &&
+				this.level.getDragSource() == ReleaseLevel.DRAG_SOURCE_NUMBERBAR ) {
+			NumberToBoardMove theMove = new NumberToBoardMove(this.builderView);
+			
+
+			if( theMove.isValid(this.level) ) {
+				
+				theMove.doMove(this.level); 
+			}
+			level.setDraggingActive(false);
+			level.setDraggingDistToPointX(-1);
+			level.setDraggingDistToPointY(-1);
+			level.setnumberBeingDragged(null);
+			level.setTopPointOfDraggingPiece(null);
+			// Force a LevelView repaint
+			this.builderView.repaint();
+			
+		}
 		
 		
 	}

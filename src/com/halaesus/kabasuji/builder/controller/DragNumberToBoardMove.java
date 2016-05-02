@@ -58,41 +58,54 @@ public class DragNumberToBoardMove implements MouseListener, MouseMotionListener
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		/**
+		
 		Point mouseClickLocation = new Point(e.getX(), e.getY());
-		System.out.println(mouseClickLocation);
+		//System.out.println(mouseClickLocation);
 		ReleaseNumber numBeingdragged;
 		
 		for(int i = 1; i <=3; i++) {
 			for(int j = 1; j <= 6; j++ ){
 				Rectangle num = this.builderView.getReleaseNumberRectangle(i, j);
 				if (num.contains(mouseClickLocation)) {
+					this.level.setDraggingActive(true);
+					this.level.setDragSource(ReleaseLevel.DRAG_SOURCE_NUMBERBAR);
 					numBeingdragged = this.level.getNumberBar().getNumbers()[i-1][j-1];
-					this.builderView.setnumberBeingDragged(new ReleaseNumber(numBeingdragged.getValue(), numBeingdragged.getColor(),
+					this.level.setnumberBeingDragged(new ReleaseNumber(numBeingdragged.getValue(), numBeingdragged.getColor(),
 							numBeingdragged.getCol(), numBeingdragged.getRow()));
-					System.out.println(i + " " + j);
+					System.out.println(numBeingdragged.getColor() + " " + numBeingdragged.getRow());
+					this.level.setTopPointOfDraggingPiece(new Point(num.x, num.y));
+					this.level.setDraggingDistToPointX(e.getX() - num.x);
+					this.level.setDraggingDistToPointY(e.getY() - num.y);
 				}
 			}
 		}
+		this.builderView.repaint();
 		
-		if (this.builderView.getnumberBeingDragged() == null) {
+		if (this.level.getnumberBeingDragged() == null) {
 			//oh well
 			return;
 		}
-		**/
-		
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseDragged(MouseEvent e) {
+		
+		if( this.level.isDraggingActive() &&
+				this.level.getDragSource() == ReleaseLevel.DRAG_SOURCE_NUMBERBAR) {
+				// Form the new point to draw the Piece
+				this.level.setTopPointOfDraggingPiece(new Point(e.getX() - this.level.getDraggingDistToPointX(), 
+						                                    e.getY() - this.level.getDraggingDistToPointY()));
+				
+				// Force the view to repaint
+				this.builderView.repaint();
+			}
 		
 	}
 

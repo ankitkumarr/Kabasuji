@@ -12,7 +12,9 @@ import com.halaesus.kabasuji.shared.memento.ReleaseLevelMemento;
  */
 public class ReleaseLevel extends AbstractLevel {
   
+	public static final int DRAG_SOURCE_NUMBERBAR = 5;
 	NumberBar numberBar;
+	ReleaseNumber numberBeingDragged;
 	
 	public ReleaseLevel(ReleaseLevelMemento memento) {
 		super(memento);
@@ -20,12 +22,14 @@ public class ReleaseLevel extends AbstractLevel {
 		levelType = "Release";
 		// TODO: Fix this
 		numberBar = new NumberBar();
+		numberBeingDragged = null;
 	}
 
 	public ReleaseLevel(ReleaseLevel anotherLevel) {
 		super(anotherLevel); // Fill out Super Fields
 		// Get the NumberBar
 		this.numberBar = anotherLevel.numberBar;
+		numberBeingDragged = null;
 	}
 	
     public NumberBar getNumberBar(){
@@ -106,6 +110,18 @@ public class ReleaseLevel extends AbstractLevel {
 	@Override
 	public AbstractLevelMemento generateMemento() {
 		return new ReleaseLevelMemento(board.generateMemento(), bullpen.palette, this.levelIndex, this.levelType, this.levelName);
+	}
+	
+	public ReleaseNumber getnumberBeingDragged(){
+	    return this.numberBeingDragged;
+	}
+	    
+	public boolean isNumberDraggingActive() {
+	    return (this.numberBeingDragged!=null);
+	}
+	    
+	public void setnumberBeingDragged(ReleaseNumber beingDragged){
+	    this.numberBeingDragged = beingDragged;
 	}
 
 }

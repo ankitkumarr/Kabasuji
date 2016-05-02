@@ -40,6 +40,8 @@ import com.halaesus.kabasuji.builder.controller.DragPieceFromWorkspace;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
+import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
+import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 import com.halaesus.kabasuji.shared.entity.SplashModel;
 import com.halaesus.kabasuji.utils.BuilderPieceHelper;
 import com.halaesus.kabasuji.utils.JLabelHelper;
@@ -80,7 +82,7 @@ public abstract class AbstractBuilderView extends JPanel {
 	JPanel builderPalette;
 	JPanel playerPalette;
 	
-	private Image backgroundImage;
+	protected Image backgroundImage;
 
 	HashMap<Rectangle, MouseListener> clickMap;
 	HexominoButtonView[] hexominoButton;
@@ -261,13 +263,16 @@ public abstract class AbstractBuilderView extends JPanel {
 	public void paint(Graphics g) {
 		super.paint(g); // Let the super do its stuff
 		// Draw a dragging piece
-		if( this.level.isDraggingActive() ) {
+
+		if( this.level.isDraggingActive() && this.level.getDragSource()!=ReleaseLevel.DRAG_SOURCE_NUMBERBAR ) {
 			drawBullpenTrashCan(g); // Draw the trash can over the Bullpen and then draw the Piece
 			drawDraggingPiece(g); // Paint the piece out now
 		}
 	}
+	
+	
 
-	private void drawBullpenTrashCan(Graphics g) {
+	protected void drawBullpenTrashCan(Graphics g) {
 		assert( this.level.isDraggingActive() == true ); // This function can only be called if there is a piece being dragged
 		// Check dragging state; Source needs to be the Board
 		if( this.level.getDragSource() == AbstractLevel.DRAG_SOURCE_BOARD ) {
@@ -297,8 +302,10 @@ public abstract class AbstractBuilderView extends JPanel {
 			
 		}
 	}
+	
+	
 
-	private void drawDraggingPiece(Graphics g) {
+	protected void drawDraggingPiece(Graphics g) {
 		assert( this.level.isDraggingActive() == true ); // This function can only be called if there is a piece being dragged
 		// If a piece is being dragged, we'd draw that first
 		Piece toBeDrawn = this.level.getPieceBeingDragged();
@@ -442,7 +449,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		repaint();
 	}
 
-	private void setupBoardPieces(Graphics g) {
+	protected void setupBoardPieces(Graphics g) {
 		// Go over all the Pieces on the board and draw them out
 		for( Iterator<Piece> piecesIter = this.level.getBoard().getPiecesIt(); piecesIter.hasNext();  ) {
 			// Grab the next piece from the iterator
@@ -468,7 +475,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		}
 	}
 
-	private void setupGameBoard(Graphics g) {
+	protected void setupGameBoard(Graphics g) {
 		// Backup old Graphics color
 		Color oldColor = g.getColor();
 		// Load up the inactive squares and fill them in
@@ -493,7 +500,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		g.setColor(oldColor);
 	}
 
-	private void drawWorkspacePiece(Graphics g) {
+	protected void drawWorkspacePiece(Graphics g) {
 		// Check if there is a piece in the workspace
 				if( level.getLevelBullpen().getWorkspace().pieceExists() ) {
 					// We gotta draw it out

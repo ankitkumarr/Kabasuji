@@ -4,16 +4,10 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import com.halaesus.kabasuji.builder.boundary.ReleaseBuilderView;
-import com.halaesus.kabasuji.player.boundary.ReleaseLevelView;
-import com.halaesus.kabasuji.shared.entity.AbstractBoard;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
-import com.halaesus.kabasuji.shared.entity.Piece;
-import com.halaesus.kabasuji.shared.entity.PieceSquare;
-import com.halaesus.kabasuji.shared.entity.PuzzleLevel;
 import com.halaesus.kabasuji.shared.entity.ReleaseBoard;
 import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
 import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
-import com.halaesus.kabasuji.utils.PieceHelper;
 import com.halaesus.kabasuji.utils.ReleaseNumberHelper;
 
 public class NumberToBoardMove implements IMove {
@@ -59,7 +53,6 @@ public class NumberToBoardMove implements IMove {
 		ReleaseLevel level = (ReleaseLevel) aLevel;
 		assert( level.isDraggingActive() == true ); // We can only be called if a drag is in action
     	// Take Board Bounds and see if the Piece is within those bounds or not
-    	ReleaseNumber numberDragged = level.getnumberBeingDragged();
     	Point topPiecePoint = level.getTopPointOfDraggingPiece();
     	
     	// Calculate tightest rectangle around PieceSquares

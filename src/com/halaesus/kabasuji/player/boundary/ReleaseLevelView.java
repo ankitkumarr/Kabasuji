@@ -71,8 +71,6 @@ public class ReleaseLevelView extends AbstractLevelView {
 			// Add it to the array
 			releaseNumbersOnBoard[num.getRow()][num.getCol()] = n;
 		}
-		
-		// TODO: Work on repainting the ReleaseNumbers
 	}
 
 	@Override

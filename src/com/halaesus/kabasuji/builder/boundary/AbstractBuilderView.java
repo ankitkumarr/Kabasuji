@@ -41,7 +41,6 @@ import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
 import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
-import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 import com.halaesus.kabasuji.shared.entity.SplashModel;
 import com.halaesus.kabasuji.utils.BuilderPieceHelper;
 import com.halaesus.kabasuji.utils.JLabelHelper;

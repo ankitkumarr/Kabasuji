@@ -34,7 +34,7 @@ public class WorkspaceToPlayerPaletteMove implements IMove {
 
 	@Override
     public boolean redoMove(AbstractLevel level) {
-        // TODO implement here
-    	return false; // stub
+    	piece.getParentHexomino().changeCount(+1);
+    	return true;
     }
 }

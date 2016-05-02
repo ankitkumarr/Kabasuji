@@ -12,6 +12,7 @@ import javax.swing.SwingUtilities;
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
 import com.halaesus.kabasuji.builder.entity.BoardToBoardMove;
 import com.halaesus.kabasuji.builder.entity.BoardToBullpenMove;
+import com.halaesus.kabasuji.builder.entity.MoveManager;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
@@ -22,6 +23,7 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
     AbstractBuilderView levelView;
     PieceSquare[] originalBoardPieceSquares;
     AbstractLevel level;
+    Piece clickedPiece;
 
     public DragPieceFromBoard(AbstractLevel theLevel, AbstractBuilderView levelView) {
         // Save the information
@@ -81,6 +83,7 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 					// Calculate Top_Left Rectangle Square
 					Rectangle topLeftPieceRect = this.levelView.getBoardPieceRectangle(yMin, xMin);
 					
+					clickedPiece = aPiece;
 					// Inform the Model
 					this.level.setDraggingActive(true);
 					this.level.setDragSource(AbstractLevel.DRAG_SOURCE_BOARD);
@@ -181,11 +184,12 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 				Piece snappedPiece = BuilderPieceHelper.snapToNearestBoardSquare(level, this.levelView);
 				
 				// It was dropped on the board itself; Spawn off the move
-				BoardToBoardMove theMove = new BoardToBoardMove(this.levelView, this.originalBoardPieceSquares, snappedPiece);
+				BoardToBoardMove theMove = new BoardToBoardMove(this.levelView, clickedPiece, originalBoardPieceSquares, snappedPiece);
 				// Now, attempt the move
 				if( theMove.isValid(this.level) ) {
 					// The move is valid; Perform the move and let the underlying board know about this
-					theMove.doMove(this.level);
+					if (theMove.doMove(this.level))
+						MoveManager.pushMove(theMove);
 					Piece finalPiece = snappedPiece;
 					// Check if the Final Piece location is different from the original location or not
 					boolean locationChanged = false;
@@ -203,11 +207,12 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 				}
 			} else if( bullpenRectangle.contains(tighestPieceRectangle) ) {
 				// It was dropped on the Bullpen; Spawn off the move
-				BoardToBullpenMove theMove = new BoardToBullpenMove(this.levelView, this.originalBoardPieceSquares);
+				BoardToBullpenMove theMove = new BoardToBullpenMove(this.levelView, pieceDragged, originalBoardPieceSquares);
 				// Now attempt the move
 				if( theMove.isValid(this.level) ) {
 					// The move is valid; Perform the move and let the underlying board know about this
-					theMove.doMove(this.level);
+					if (theMove.doMove(this.level))
+						MoveManager.pushMove(theMove);
 					this.level.boardPieceRemoved(level.getPieceBeingDragged());
 				} else {
 					// The move wasn't performed :( Put the piece back to where it was picked from

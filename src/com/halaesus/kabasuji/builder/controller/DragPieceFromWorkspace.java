@@ -91,7 +91,8 @@ public class DragPieceFromWorkspace implements MouseListener, MouseMotionListene
 			// Now attempt the move
 			if( theMove.isValid(this.level) ) {
 				// The move is valid; Perform the move and let the underlying board know about this
-				theMove.doMove(this.level);
+				if (theMove.doMove(this.level))
+					MoveManager.pushMove(theMove);
 				//level.newPieceDropped();
 			} else if (levelView.getPlayerPaletteFrame().getBounds().contains(e.getPoint())){ // mouse is released over the player palette
 				WorkspaceToPlayerPaletteMove wtpMove = new WorkspaceToPlayerPaletteMove(level.getPieceBeingDragged());

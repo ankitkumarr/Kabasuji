@@ -10,8 +10,6 @@ import java.util.Iterator;
 import javax.swing.SwingUtilities;
 
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
-import com.halaesus.kabasuji.builder.entity.BoardToBoardMove;
-import com.halaesus.kabasuji.builder.entity.BoardToBullpenMove;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;

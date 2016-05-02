@@ -11,10 +11,12 @@ import com.halaesus.kabasuji.shared.entity.PieceSquare;
 public class BoardToBullpenMove implements IMove {
 
 	AbstractBuilderView levelView;
+	Piece originalPiece;
 	PieceSquare[] originalPieceSquares;
 
-    public BoardToBullpenMove(AbstractBuilderView levelView, PieceSquare[] originalPieceSquares) {
+    public BoardToBullpenMove(AbstractBuilderView levelView, Piece originalPiece, PieceSquare[] originalPieceSquares) {
     	this.levelView = levelView;
+    	this.originalPiece = originalPiece;
     	this.originalPieceSquares = originalPieceSquares;
     }
 
@@ -51,13 +53,13 @@ public class BoardToBullpenMove implements IMove {
 
     @Override
     public boolean doMove(AbstractLevel level) {
-		if( level.isDraggingActive() == false )
+		if (!level.isDraggingActive())
 			return false; // An active drag needs to be in place for this function to be called
-		if( isValid(level) == false )
+		if (!isValid(level))
 			return false; // Also, the move should be valid for this function to be called
     	
 		// Remove the piece from the board and return
-		// STEP 1: Mark original BoardSquares as not inactive
+		// STEP 1: Mark original BoardSquares as inactive
 		for( PieceSquare aPieceSquare : originalPieceSquares ) {
 			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
 		}
@@ -71,16 +73,39 @@ public class BoardToBullpenMove implements IMove {
 
 	@Override
 	public boolean undoMove(AbstractLevel level) {
-		// TODO Auto-generated method stub
+		/**
+		
+		// STEP 1: Mark original BoardSquares as active
+		for( PieceSquare aPieceSquare : originalPieceSquares ) {
+			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
+		}
+		// STEP 2: Increment Bullpen Count for the respective piece
+		originalPiece.getParentHexomino().changeCount(+1);
+		
+		// The move was successful, so:
+		return true;
+		
+		*/
+		
 		return false;
 	}
 
 	
 	@Override
 	public boolean redoMove(AbstractLevel level) {
-		// TODO Auto-generated method stub
+		 /**
+		// STEP 1: Mark original BoardSquares as inactive
+		for( PieceSquare aPieceSquare : originalPiece.getPieceSquares() ) {
+			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
+		}
+		// STEP 2: Decrement Bullpen Count for the respective piece
+		if (originalPiece.getParentHexomino().getCount() > 0)
+			originalPiece.getParentHexomino().changeCount(-1);
+		
+		// The move was successful, so:
+		return true;
+		*/
+		
 		return false;
 	}
-
-
 }

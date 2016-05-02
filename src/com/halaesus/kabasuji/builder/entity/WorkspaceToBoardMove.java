@@ -98,6 +98,8 @@ public class WorkspaceToBoardMove implements IMove {
 
 	@Override
 	public boolean undoMove(AbstractLevel level) {
+		/**
+		
 		BoardSquare[][] squares = level.getBoard().getSquares();
 
 		for (Point p : boardSquares) {
@@ -105,10 +107,16 @@ public class WorkspaceToBoardMove implements IMove {
 		}
 		pieceBeingMoved.getParentHexomino().changeCount(-1);
 		return true;
+		
+		*/
+		
+		return false;
 	}
 
 	@Override
 	public boolean redoMove(AbstractLevel level) {
+		/**
+		
 		BoardSquare[][] squares = level.getBoard().getSquares();
 
 		for (Point p : boardSquares) {
@@ -116,6 +124,10 @@ public class WorkspaceToBoardMove implements IMove {
 		}
 		pieceBeingMoved.getParentHexomino().changeCount(1);
 		return true;
+		
+		*/
+		
+		return false;
 	}
 
 }

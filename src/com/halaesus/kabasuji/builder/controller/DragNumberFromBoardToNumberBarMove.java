@@ -1,58 +1,70 @@
 package com.halaesus.kabasuji.builder.controller;
 
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
+import com.halaesus.kabasuji.builder.boundary.ReleaseBuilderView;
 import com.halaesus.kabasuji.builder.entity.*;
+import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
 
 /**
  * 
  */
-public class DragNumberFromBoardToNumberBarMove {
+public class DragNumberFromBoardToNumberBarMove implements MouseListener, MouseMotionListener {
 
-    /**
-     * Default constructor
-     */
-    public DragNumberFromBoardToNumberBarMove() {
+   
+ 
+	ReleaseLevel level;
+	ReleaseBuilderView builderView;
+	
+    public DragNumberFromBoardToNumberBarMove(ReleaseBuilderView builderView, ReleaseLevel level) {
+        this.builderView = builderView;
+        this.level = level;
     }
 
-    /**
-     * 
-     */
-    NumberFromBoardToNumberBarMove move;
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		
+	}
 
-    /**
-     * 
-     */
-    AbstractBuilderView builderView;
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    /**
-     * @param NumberFromBoardToNumberBarMove move 
-     * @param AbstractBuilderView builderView
-     */
-    public DragNumberFromBoardToNumberBarMove(NumberFromBoardToNumberBarMove move, AbstractBuilderView builderView) {
-        // TODO implement here
-    }
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    /**
-     * @param MouseEvent e
-     */
-    public void mousePressed(MouseEvent e) {
-        // TODO implement here
-    }
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    /**
-     * @param MouseEvent e
-     */
-    public void mouseDragged(MouseEvent e) {
-        // TODO implement here
-    }
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    /**
-     * @param MouseEvent e
-     */
-    public void mouseReleased(MouseEvent e) {
-        // TODO implement here
-    }
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+ 
 
 }

@@ -64,5 +64,13 @@ public class ReleaseBoard extends AbstractBoard {
 		}
 		return false;
 	}
+	
+	public boolean isOutsideBounds(ReleaseNumber rn) {
+		BoardSquare bs[][] = this.getSquares();
+		if (bs[rn.getRow()][rn.getCol()].active) {
+			return false;
+		}
+		return true;
+	}
     
 }

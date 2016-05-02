@@ -88,7 +88,9 @@ public class NumberToBoardMove implements IMove {
 			return false;
 		}
 		
-		
+		if(rb.isOutsideBounds(newNumberDragged)) {
+			return false;
+		}
 		//TODO Check if Piece is outside Active Board Bounds
 		//if( level.getBoard().isOutsideBounds(newPieceDragged))
 		//	return false; // We are outside board active bounds and thus the drag cannot be completed

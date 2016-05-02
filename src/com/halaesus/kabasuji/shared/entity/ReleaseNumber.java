@@ -48,4 +48,11 @@ public class ReleaseNumber implements Serializable {
     public int getRow(){
     	return this.row;
     }
+    
+    public void setRow(int r) {
+    	this.row = r;
+    }
+    public void setCol(int c) {
+    	this.col = c;
+    }
 }

@@ -91,20 +91,29 @@ public class WorkspaceToBoardMove extends PieceMove {
 		// STEP 1: Remove the piece from the board and add it to the Workspace
 		theLevel.getBoard().getPieces().remove(getFinalPiece());
 		theLevel.getLevelBullpen().getWorkspace().addPiece(getOriginalPiece());
-
+		theLevel.getLevelBullpen().getWorkspace().getPiece().centerPiece(); // Center the Piece after adding it to the Workspace
 		// STEP 2: Mark original BoardSquares as inactive
 		for (PieceSquare aPieceSquare : getFinalPiece().getPieceSquares()) {
 			theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
 		}
-		
 		// The move was successful, so:
 		return true;
 	}
 
 	@Override
 	public boolean redoMove() {
-		// TODO Auto-generated method stub
-		return false;
+		// STEP 1: Check if there is a final piece
+		if( finalPiece == null )
+			return false;
+		// STEP 2: Remvoe the Piece from the Workspace and add it back to the board
+		theLevel.getBoard().addPiece(finalPiece);
+		theLevel.getLevelBullpen().getWorkspace().addPiece(null); // Remove the Piece from the Workspace
+		// STEP 3: Mark the underlying BoardSquares as active
+		for (PieceSquare aPieceSquare : getFinalPiece().getPieceSquares()) {
+			theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
+		}
+		// The move was successful, so;
+		return true;
 	}
 
 }

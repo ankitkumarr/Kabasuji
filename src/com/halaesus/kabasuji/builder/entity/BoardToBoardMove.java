@@ -96,14 +96,13 @@ public class BoardToBoardMove extends PieceMove {
 		// STEP 1: Remove the final Piece that was placed and replace it with the original piece
 		theLevel.getBoard().getPieces().remove(getFinalPiece());
 		theLevel.getBoard().addPiece(getOriginalPiece());
-
-		// STEP 2: Mark original BoardSquares as active
-		for (PieceSquare aPieceSquare : getOriginalPiece().getPieceSquares()) {
-			theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
-		}
-		// STEP 3: Mark underlying BoardSquares as inactive
+		// STEP 2: Mark old BoardSquares as inactive
 		for (PieceSquare aPieceSquare : getFinalPiece().getPieceSquares()) {
 			theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
+		}
+		// STEP 3: Mark original BoardSquares as active
+		for (PieceSquare aPieceSquare : getOriginalPiece().getPieceSquares()) {
+			theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
 		}
 		// The move was successful, so:
 		return true;

@@ -96,6 +96,7 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 					
 					// We've handled the mousePress, so exit the loop
 					exit = true;
+					break; // Bug fix right here
 				}
 			}
 		}

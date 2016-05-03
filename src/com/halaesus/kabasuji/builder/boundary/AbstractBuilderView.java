@@ -86,9 +86,11 @@ public abstract class AbstractBuilderView extends JPanel {
 	HashMap<Rectangle, MouseListener> clickMap;
 	HexominoButtonView[] hexominoButton;
 	
-	public AbstractBuilderView(Application application, AbstractLevel aLevel) {
+	public AbstractBuilderView(Application application, AbstractLevel aLevel, int levelIndex) {
 		this.application = application;
 		level = aLevel;
+		// hacky fix to support move up and down in level manager
+		level.setLevelIndex(levelIndex);
 		bullpenPiecesBoardTopPoint = new Point(0, 399);
 		boardPiecesTopPoint = new Point(320, 80);
 

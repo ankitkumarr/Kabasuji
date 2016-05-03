@@ -97,6 +97,10 @@ public abstract class AbstractLevel {
 		return levelIndex;
 	}
     
+    public void setLevelIndex(int levelIndex) {
+  		this.levelIndex = levelIndex;
+  	}
+    
     public Bullpen getLevelBullpen() {
     	return bullpen;
     }

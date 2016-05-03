@@ -19,9 +19,9 @@ public class PuzzleBuilderView extends AbstractBuilderView {
     JButton setMoves;
     PuzzleLevel level;
 
-    public PuzzleBuilderView(Application application, AbstractLevel aLevel) {
+    public PuzzleBuilderView(Application application, AbstractLevel aLevel, int levelIndex) {
         // TODO implement here
-    	super(application, aLevel);
+    	super(application, aLevel, levelIndex);
     	this.level = (PuzzleLevel) aLevel;
     	setupmovesBox();
     	setupsetMoves();

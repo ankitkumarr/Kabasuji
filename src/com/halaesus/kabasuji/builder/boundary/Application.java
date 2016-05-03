@@ -70,13 +70,13 @@ public class Application extends JFrame {
 		setContentPane(currentView);
 	}
 	
-	public void showLevel(AbstractLevel level, String type) {
+	public void showLevel(AbstractLevel level, String type, int levelIndex) {
 		if (type.toUpperCase().equals("PUZZLE")) {
-			view = new PuzzleBuilderView(this, level);
+			view = new PuzzleBuilderView(this, level, levelIndex);
 		} else if (type.toUpperCase().equals("LIGHTNING")) {
-			view = new LightningBuilderView(this, level);
+			view = new LightningBuilderView(this, level, levelIndex);
 		} else if (type.toUpperCase().equals("RELEASE")) {
-			view = new ReleaseBuilderView(this, level);
+			view = new ReleaseBuilderView(this, level,  levelIndex);
 		}
 		
 		currentView = view;

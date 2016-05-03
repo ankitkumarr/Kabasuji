@@ -112,7 +112,8 @@ public class LevelManagerDialog extends JDialog {
 							public void actionPerformed(ActionEvent e) {
 								if (levelListView.getSelectedIndex() >= 0) {
 									Application.instance().showLevel(levelList.loadLevel(levelListView.getSelectedIndex()),
-											levelList.getLevelType(levelListView.getSelectedIndex()));
+											levelList.getLevelType(levelListView.getSelectedIndex()),
+											levelListView.getSelectedIndex());
 									dispose();
 								}
 							}
@@ -152,7 +153,7 @@ public class LevelManagerDialog extends JDialog {
 								downButton.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										int selectedIndex = levelListView.getSelectedIndex();
-										if (selectedIndex < levelListView.getModel().getSize()) {
+										if (selectedIndex < levelListView.getModel().getSize() -1) {
 											levelList.swapIndexes(selectedIndex, selectedIndex + 1);
 											populateLevelListView();
 											levelListView.setSelectedIndex(selectedIndex + 1);

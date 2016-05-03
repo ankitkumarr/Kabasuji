@@ -3,6 +3,9 @@ package com.halaesus.kabasuji.builder.entity;
 import com.halaesus.kabasuji.builder.boundary.PuzzleBuilderView;
 import com.halaesus.kabasuji.shared.entity.PuzzleLevel;
 
+/**
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ */
 public class UpdateNumMovesInPuzzleMove extends GameSettingChangeMove {
 
 	int originalNumMoves;
@@ -37,8 +40,6 @@ public class UpdateNumMovesInPuzzleMove extends GameSettingChangeMove {
 		// Now save the stuff
 		thePuzzleLevel.setAllowedMoves(getOriginalNumMoves());
 		theBuilderView.setMovesLabel(String.valueOf(getOriginalNumMoves()));
-		// Set the final values
-		setFinalNumMoves(Integer.parseInt(theBuilderView.getMovesValue()));
 		// We did the move, so:
 		return true;
 	}
@@ -50,8 +51,6 @@ public class UpdateNumMovesInPuzzleMove extends GameSettingChangeMove {
 		// Now save the stuff
 		thePuzzleLevel.setAllowedMoves(getFinalNumMoves());
 		theBuilderView.setMovesLabel(String.valueOf(getFinalNumMoves()));
-		// Set the final values
-		setFinalNumMoves(Integer.parseInt(theBuilderView.getMovesValue()));
 		// We did the move, so:
 		return true;
 	}

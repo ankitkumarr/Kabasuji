@@ -75,7 +75,7 @@ public class LightningBuilderView extends AbstractBuilderView {
     }
     
     public String getMoves() {
-    	return Integer.toString(level.getRandomMoves());
+    	return Integer.toString(level.getNumRandomPieces());
     }
     
     public void setupTimeAndPieces() {
@@ -130,15 +130,16 @@ public class LightningBuilderView extends AbstractBuilderView {
     public String getMinutesValue(){
     	return minText.getText();
     }
+    
     public String getSecondsValue(){
     	return secText.getText();
     }
+    
     public String getRandPiecesValue(){
     	return randPiecesText.getText();
     }
     
-    
-    public void setmovesLabel(String text) {
+    public void setMovesLabel(String text) {
     	randPiecesLabel.setText(" Random Moves : " + text);
     } 
     

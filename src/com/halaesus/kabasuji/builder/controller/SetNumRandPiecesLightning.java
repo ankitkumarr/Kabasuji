@@ -4,66 +4,45 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import com.halaesus.kabasuji.builder.boundary.LightningBuilderView;
+import com.halaesus.kabasuji.builder.entity.MoveManager;
+import com.halaesus.kabasuji.builder.entity.UpdateNumRandPiecesInLightningMove;
 import com.halaesus.kabasuji.shared.entity.LightningLevel;
 
 /**
- * 
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
 public class SetNumRandPiecesLightning implements MouseListener {
 
-    /**
-     * 
-     */
     LightningBuilderView builderView;
-
-    /**
-     * 
-     */
     LightningLevel level;
 
-    /**
-     * @param LightningBuilderView builderView 
-     * @param LightningLevel level
-     */
     public SetNumRandPiecesLightning(LightningBuilderView builderView, LightningLevel level) {
         this.builderView = builderView;
         this.level = level;
     }
 
-    /**
-     * @param MouseEvent e
-     */
-  
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void mousePressed(MouseEvent e) {
-		this.level.setRandomMoves(Integer.parseInt(this.builderView.getRandPiecesValue()));
-    	this.builderView.setmovesLabel(Integer.toString(this.level.getRandomMoves()));
+        // STEP 1: Spawn off the move
+    	UpdateNumRandPiecesInLightningMove theMove = new UpdateNumRandPiecesInLightningMove(level, builderView);
+    	theMove.setOriginalNumPieces(level.getNumRandomPieces());
+    	// STEP 2: Perform the move
+    	if( theMove.isValid() && theMove.doMove() )
+    		MoveManager.pushMove(theMove); // Add the move to the Stack of Moves
+    	// STEP 3: Refresh the GUI
     	this.builderView.repaint();
-		
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseClicked(MouseEvent e) { }
+
+	@Override
+	public void mouseEntered(MouseEvent e) { }
+
+	@Override
+	public void mouseExited(MouseEvent e) { }
+
+	@Override
+	public void mouseReleased(MouseEvent e) { }
 
 }

@@ -3,6 +3,9 @@ package com.halaesus.kabasuji.builder.entity;
 import com.halaesus.kabasuji.builder.boundary.PuzzleBuilderView;
 import com.halaesus.kabasuji.shared.entity.PuzzleLevel;
 
+/**
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ */
 public class UpdateNumMovesInPuzzleMove extends GameSettingChangeMove {
 
 	int originalNumMoves;
@@ -19,6 +22,9 @@ public class UpdateNumMovesInPuzzleMove extends GameSettingChangeMove {
 
 	@Override
 	public boolean doMove() {
+		if( !isValid() )
+			return false; // We cannot perform the move if it is not valid
+		// Go onto perform the move
 		PuzzleBuilderView theBuilderView = (PuzzleBuilderView)this.theBuilderView;
 		PuzzleLevel thePuzzleLevel = (PuzzleLevel)this.theLevel;
 		// Now save the stuff
@@ -37,8 +43,6 @@ public class UpdateNumMovesInPuzzleMove extends GameSettingChangeMove {
 		// Now save the stuff
 		thePuzzleLevel.setAllowedMoves(getOriginalNumMoves());
 		theBuilderView.setMovesLabel(String.valueOf(getOriginalNumMoves()));
-		// Set the final values
-		setFinalNumMoves(Integer.parseInt(theBuilderView.getMovesValue()));
 		// We did the move, so:
 		return true;
 	}
@@ -50,8 +54,6 @@ public class UpdateNumMovesInPuzzleMove extends GameSettingChangeMove {
 		// Now save the stuff
 		thePuzzleLevel.setAllowedMoves(getFinalNumMoves());
 		theBuilderView.setMovesLabel(String.valueOf(getFinalNumMoves()));
-		// Set the final values
-		setFinalNumMoves(Integer.parseInt(theBuilderView.getMovesValue()));
 		// We did the move, so:
 		return true;
 	}
@@ -65,11 +67,11 @@ public class UpdateNumMovesInPuzzleMove extends GameSettingChangeMove {
 		this.originalNumMoves = originalNumMoves;
 	}
 
-	public int getFinalNumMoves() {
+	private int getFinalNumMoves() {
 		return finalNumMoves;
 	}
 
-	public void setFinalNumMoves(int finalNumMoves) {
+	private void setFinalNumMoves(int finalNumMoves) {
 		this.finalNumMoves = finalNumMoves;
 	}
 

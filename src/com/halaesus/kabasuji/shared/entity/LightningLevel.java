@@ -51,7 +51,7 @@ public class LightningLevel extends AbstractLevel {
 		return this.maxTime;
 	}
 	
-	public int getRandomMoves() {
+	public int getNumRandomPieces() {
 		return this.numRandomPieces;
 	}
 	

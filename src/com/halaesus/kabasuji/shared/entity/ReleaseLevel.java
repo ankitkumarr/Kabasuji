@@ -15,6 +15,7 @@ public class ReleaseLevel extends AbstractLevel {
 	public static final int DRAG_SOURCE_NUMBERBAR = 5;
 	NumberBar numberBar;
 	ReleaseNumber numberBeingDragged;
+	boolean numberOverNumberbar;
 	
 	public ReleaseLevel(ReleaseLevelMemento memento) {
 		super(memento);
@@ -35,6 +36,14 @@ public class ReleaseLevel extends AbstractLevel {
     public NumberBar getNumberBar(){
     	return this.numberBar;
 	}
+    
+    public void setNumberOverNumberBar(boolean val) {
+    	this.numberOverNumberbar = val;
+    }
+    
+    public boolean getNumberOverNumberBar() {
+    	return this.numberOverNumberbar;
+    }
         
     // Abstract Methods Filler
 

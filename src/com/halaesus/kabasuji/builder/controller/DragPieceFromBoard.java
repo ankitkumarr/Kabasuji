@@ -37,6 +37,9 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 		// only allow left click
 		if (!SwingUtilities.isLeftMouseButton(e))
 			return;
+		if((e.getModifiers() & e.CTRL_MASK) == e.CTRL_MASK) {
+			return;
+		}
 			
 		// See if we should be handing this drag or not
 		Rectangle overallBoardRectangle = new Rectangle(this.levelView.getBoardPieceRectangle(0, 0).x, 
@@ -104,6 +107,9 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		if((e.getModifiers() & e.CTRL_MASK) == e.CTRL_MASK) {
+			return;
+		}
 		// Only if the dragging is active, make the necessary changes
 		if( this.level.isDraggingActive() &&
 			this.level.getDragSource() == AbstractLevel.DRAG_SOURCE_BOARD ) {
@@ -144,6 +150,9 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		if((e.getModifiers() & e.CTRL_MASK) == e.CTRL_MASK) {
+			return;
+		}
 		// Stop the drag if it was happening
 		if( this.level.isDraggingActive() &&
 			this.level.getDragSource() == AbstractLevel.DRAG_SOURCE_BOARD ) {

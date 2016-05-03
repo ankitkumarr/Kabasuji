@@ -265,7 +265,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		super.paint(g); // Let the super do its stuff
 		// Draw a dragging piece
 
-		if( this.level.isDraggingActive() && this.level.getDragSource()!=ReleaseLevel.DRAG_SOURCE_NUMBERBAR ) {
+		if( this.level.isDraggingActive() && this.level.getDragSource()!=ReleaseLevel.DRAG_SOURCE_NUMBERBAR && ((ReleaseLevel)this.level).isNumberDraggingActive()!=true) {
 			drawBullpenTrashCan(g); // Draw the trash can over the Bullpen and then draw the Piece
 			drawDraggingPiece(g); // Paint the piece out now
 		}

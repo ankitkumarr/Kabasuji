@@ -28,6 +28,7 @@ public class DragPieceFromWorkspace implements MouseListener, MouseMotionListene
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		
 		// If there is no piece to drag, do nothing
 		if( level.getLevelBullpen().getWorkspace().getPiece() == null )
 			return;

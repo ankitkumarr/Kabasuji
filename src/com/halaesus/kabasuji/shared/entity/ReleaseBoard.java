@@ -26,6 +26,10 @@ public class ReleaseBoard extends AbstractBoard {
     public void addNumber(ReleaseNumber rn) {
     	this.numbers.add(rn);
     }
+    
+    public void removeNumber(ReleaseNumber rn) {
+    	this.numbers.remove(rn);
+    }
 
 	@Override
 	public AbstractBoardMemento generateMemento() {

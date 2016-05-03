@@ -42,6 +42,11 @@ public class DragNumberToBoardMove implements MouseListener, MouseMotionListener
 	@Override
 	public void mousePressed(MouseEvent e) {
 		
+		int desiredKey = e.BUTTON1_MASK | e.CTRL_MASK;
+		if(((e.getModifiers() & desiredKey) == desiredKey)) {
+			return;
+		}
+		
 		Point mouseClickLocation = new Point(e.getX(), e.getY());
 		//System.out.println(mouseClickLocation);
 		ReleaseNumber numBeingdragged;
@@ -72,6 +77,11 @@ public class DragNumberToBoardMove implements MouseListener, MouseMotionListener
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		
+		int desiredKey = e.BUTTON1_MASK | e.CTRL_MASK;
+		if((e.getModifiers() & e.CTRL_MASK) == e.CTRL_MASK) {
+			return;
+		}
 		if( this.level.isDraggingActive() &&
 				this.level.getDragSource() == ReleaseLevel.DRAG_SOURCE_NUMBERBAR ) {
 			NumberToBoardMove theMove = new NumberToBoardMove(this.level, this.builderView);
@@ -94,6 +104,11 @@ public class DragNumberToBoardMove implements MouseListener, MouseMotionListener
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		
+		int desiredKey = e.BUTTON1_MASK | e.CTRL_MASK;
+		if((e.getModifiers() & e.CTRL_MASK) == e.CTRL_MASK) {
+			return;
+		}
 		if( this.level.isDraggingActive() &&
 			this.level.getDragSource() == ReleaseLevel.DRAG_SOURCE_NUMBERBAR) {
 			// Form the new point to draw the Piece

@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import com.halaesus.kabasuji.builder.controller.DragNumberFromBoardToNumberBarMove;
 import com.halaesus.kabasuji.builder.controller.DragNumberToBoardMove;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.ReleaseBoard;
@@ -36,6 +37,10 @@ public class ReleaseBuilderView extends AbstractBuilderView {
     	addMouseListener(theMove);
     	addMouseMotionListener(theMove);
     	
+    	DragNumberFromBoardToNumberBarMove NfromBtoNB = new DragNumberFromBoardToNumberBarMove(this, this.level);
+    	addMouseListener(NfromBtoNB);
+    	addMouseMotionListener(NfromBtoNB);
+
     	draggingLabel = new JLabel("");
     	draggingLabel.setVisible(false);
     	add(draggingLabel);
@@ -99,13 +104,14 @@ public class ReleaseBuilderView extends AbstractBuilderView {
 		add(draggingLabel);
 	}
     
+ 
    
     protected void paintComponent(Graphics g) {
 		
-		if (this.level.isDraggingActive() && this.level.getDragSource()==ReleaseLevel.DRAG_SOURCE_NUMBERBAR )
+		if (this.level.isDraggingActive() && this.level.getnumberBeingDragged()!=null)
 			this.drawDraggingNumber(g);
 		else
-			this.remove(this.draggingLabel);
+			this.remove(this.draggingLabel); 
 		
 		super.paintComponent(g);
 		
@@ -126,7 +132,6 @@ public class ReleaseBuilderView extends AbstractBuilderView {
 		ReleaseBoard rb = (ReleaseBoard) this.level.getBoard();
 		Set<ReleaseNumber> rNumbers = rb.getReleaseNumbers();
 		
-		if( rNumbers.size() != numbersOnTheBoard.size() ) {
 			// Remove them all
 			for( JLabel theLabel : numbersOnTheBoard )
 				remove(theLabel);
@@ -144,8 +149,11 @@ public class ReleaseBuilderView extends AbstractBuilderView {
 				// Add it to the List
 				numbersOnTheBoard.add(n);
 			}
-		}
 	}
+    
+    public Rectangle getReleaseNumberBarBounds() {
+    	return new Rectangle(960, 80, 53*6, 53*6);
+    }
     
    
 }

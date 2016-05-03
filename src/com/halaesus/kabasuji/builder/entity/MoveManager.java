@@ -41,18 +41,16 @@ public class MoveManager {
     	if (instance().moves.isEmpty()) return;
     	
     	IMove move = instance().moves.pop();
-    	move.undoMove(level);
+    	move.undoMove();
     	instance().undoneMoves.push(move);
-    	System.out.println(move + " undo");
     }
     
     public static void redo(AbstractLevel level) {
     	if (instance().undoneMoves.isEmpty()) return;
     	
     	IMove move = instance().undoneMoves.pop();
-    	move.redoMove(level);
+    	move.redoMove();
     	instance().moves.push(move);
-    	System.out.println(move + " redo");
     }
 
 }

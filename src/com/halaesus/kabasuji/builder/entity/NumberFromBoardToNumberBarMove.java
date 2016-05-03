@@ -1,35 +1,37 @@
 package com.halaesus.kabasuji.builder.entity;
 
+import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
-import com.halaesus.kabasuji.shared.entity.NumberBar;
-import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 
-public class NumberFromBoardToNumberBarMove implements IMove {
-
+/**
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ */
+public class NumberFromBoardToNumberBarMove extends NumberMove {
    
-    ReleaseNumber number;
-    NumberBar numberBar;
-    
+    public NumberFromBoardToNumberBarMove(AbstractLevel theLevel, AbstractBuilderView theBuilderView) {
+		super(theLevel, theBuilderView);
+	}
+
 	@Override
-	public boolean doMove(AbstractLevel level) {
+	public boolean doMove() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	@Override
-	public boolean isValid(AbstractLevel level) {
+	public boolean isValid() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	@Override
-	public boolean redoMove(AbstractLevel level) {
+	public boolean redoMove() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	@Override
-	public boolean undoMove(AbstractLevel level) {
+	public boolean undoMove() {
 		// TODO Auto-generated method stub
 		return false;
 	}

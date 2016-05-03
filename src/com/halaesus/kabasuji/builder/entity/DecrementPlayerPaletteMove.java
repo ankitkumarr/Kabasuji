@@ -1,40 +1,38 @@
 package com.halaesus.kabasuji.builder.entity;
 
-import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Hexomino;
 
 /**
- * 
- * @author Anthony Panetta
- *
+ * @author Anthony Panetta, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
-public class DecrementPlayerPaletteMove implements IMove {
-	Hexomino hex;
+public class DecrementPlayerPaletteMove extends PlayerPaletteMove {
 	
-	public DecrementPlayerPaletteMove(Hexomino h) {
-		hex = h;
+	public DecrementPlayerPaletteMove(Hexomino hexomino) {
+		setHexomino(hexomino);
 	}
+   
+    public boolean isValid() {
+    	return (getHexomino().getCount() > 0);
+    }
 
-    public boolean doMove(AbstractLevel level) {
-    	if (!isValid(level)) return false;
-    	
-    	hex.changeCount(-1);
+    public boolean doMove() {
+    	// Check if the Move is valid or not
+    	if (!isValid())
+    		return false;
+    	// If it is valid, perform the move and return
+    	getHexomino().changeCount(-1);
+    	// As the move was successful, so:
         return true;
     }
    
-    public boolean isValid(AbstractLevel level) {
-    	if (hex.getCount() > 0) return true;
-        return false;
-    }
-   
-	@Override
-	public boolean undoMove(AbstractLevel level) {
-		hex.changeCount(+1);
+	public boolean undoMove() {
+		// Undo the move by incrementing the Piece count
+		getHexomino().changeCount(+1);
+		// As the undo was successful, so:
         return true;
 	}
 
-	@Override
-	public boolean redoMove(AbstractLevel level) {
-		return doMove(level);
+	public boolean redoMove() {
+		return doMove();
 	}
 }

@@ -13,12 +13,15 @@ public class UpdateNumRandPiecesInLightningMove extends GameSettingChangeMove {
 	}
 
 	@Override
-	public boolean doMove() {
+	public boolean isValid() {
 		return true; // An update to the number of moves is always possible
 	}
 
 	@Override
-	public boolean isValid() {
+	public boolean doMove() {
+		if( !isValid() )
+			return false; // We cannot perform the move if it is not valid
+		// Go onto perform the move
 		LightningBuilderView theBuilderView = (LightningBuilderView)this.theBuilderView;
 		LightningLevel theLightningLevel = (LightningLevel)this.theLevel;
 		// Now save the stuff
@@ -61,11 +64,11 @@ public class UpdateNumRandPiecesInLightningMove extends GameSettingChangeMove {
 		this.originalNumPieces = originalNumPieces;
 	}
 
-	public int getFinalNumPieces() {
+	private int getFinalNumPieces() {
 		return finalNumPieces;
 	}
 
-	public void setFinalNumPieces(int finalNumPieces) {
+	private void setFinalNumPieces(int finalNumPieces) {
 		this.finalNumPieces = finalNumPieces;
 	}
 

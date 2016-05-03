@@ -22,6 +22,9 @@ public class UpdateNumMovesInPuzzleMove extends GameSettingChangeMove {
 
 	@Override
 	public boolean doMove() {
+		if( !isValid() )
+			return false; // We cannot perform the move if it is not valid
+		// Go onto perform the move
 		PuzzleBuilderView theBuilderView = (PuzzleBuilderView)this.theBuilderView;
 		PuzzleLevel thePuzzleLevel = (PuzzleLevel)this.theLevel;
 		// Now save the stuff
@@ -64,11 +67,11 @@ public class UpdateNumMovesInPuzzleMove extends GameSettingChangeMove {
 		this.originalNumMoves = originalNumMoves;
 	}
 
-	public int getFinalNumMoves() {
+	private int getFinalNumMoves() {
 		return finalNumMoves;
 	}
 
-	public void setFinalNumMoves(int finalNumMoves) {
+	private void setFinalNumMoves(int finalNumMoves) {
 		this.finalNumMoves = finalNumMoves;
 	}
 

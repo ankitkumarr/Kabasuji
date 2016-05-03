@@ -4,69 +4,50 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import com.halaesus.kabasuji.builder.boundary.LightningBuilderView;
+import com.halaesus.kabasuji.builder.entity.MoveManager;
+import com.halaesus.kabasuji.builder.entity.UpdateTimeInLightningMove;
 import com.halaesus.kabasuji.shared.entity.LightningLevel;
 
 /**
- * 
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
 public class SetTimeLightning implements MouseListener {
 
-    /**
-     * 
-     */
     LightningBuilderView builderView;
-
-    /**
-     * 
-     */
     LightningLevel level;
 
-    /**
-     * @param LightningBuilderView builderView 
-     * @param LightningLevel level
-     */
     public SetTimeLightning(LightningBuilderView builderView, LightningLevel level) {
         this.builderView = builderView;
         this.level = level;
     }
 
-    /**
-     * @param MouseEvent e
-     */
-    public void mouseClicked(MouseEvent e) {
-    	
-    }
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void mousePressed(MouseEvent e) {
-		this.level.setMaxTime(((Integer.parseInt(this.builderView.getMinutesValue()))*60) +
-    			(Integer.parseInt(this.builderView.getSecondsValue())));
-		//System.out.println("Check = " + this.level.getMaxTime());
-    	//this.level.setRandomMoves(Integer.parseInt(this.builderView.getRandPiecesValue()));
-    	//this.builderView.setmovesLabel(Integer.toString(this.level.getRandomMoves()));
-    	this.builderView.setMinutesLabel(Integer.toString((this.level.getMaxTime())/60));
-		//this.builderView.setMinutesLabel(Integer.toString((250)));
-    	this.builderView.setSecondsLabel(Integer.toString((this.level.getMaxTime())%60));
+		// STEP 1: Make the necessary calculations
+        int minutes = this.level.getMaxTime() / 60;
+        int seconds = this.level.getMaxTime() % 60;
+        // STEP 2: Spawn off the move
+        UpdateTimeInLightningMove theMove = new UpdateTimeInLightningMove(level, builderView);
+        theMove.setOriginalMinutes(minutes);
+        theMove.setOriginalSeconds(seconds);
+        // STEP 3: Perform the move
+        if( theMove.isValid() && theMove.doMove() )
+        	MoveManager.pushMove(theMove);
+        // STEP 4: Force a level repaint
     	this.builderView.repaint();
 		
 	}
 
+    @Override
+    public void mouseClicked(MouseEvent e) { }
+
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseEntered(MouseEvent arg0) { }
+
+	@Override
+	public void mouseExited(MouseEvent e) { }
+
+	@Override
+	public void mouseReleased(MouseEvent e) { }
 
 }

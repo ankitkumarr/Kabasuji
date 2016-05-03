@@ -1,6 +1,7 @@
 package com.halaesus.kabasuji.builder.controller;
 
 import java.awt.Point;
+
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -10,10 +11,15 @@ import java.util.Iterator;
 import javax.swing.SwingUtilities;
 
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
+import com.halaesus.kabasuji.builder.entity.MoveManager;
+import com.halaesus.kabasuji.builder.entity.ToggleHintMove;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
 
+/**
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ */
 public class ToggleHint implements MouseListener, MouseMotionListener {
 
     AbstractBuilderView levelView;
@@ -28,7 +34,6 @@ public class ToggleHint implements MouseListener, MouseMotionListener {
     
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
 		// only allow right click
 		if (!SwingUtilities.isRightMouseButton(e)){return;}
 		
@@ -51,21 +56,20 @@ public class ToggleHint implements MouseListener, MouseMotionListener {
 				// See if the click landed on this PieceSquare
 				Rectangle pieceSquareRect = this.levelView.getBoardPieceRectangle(aPieceSquare.getRow(), aPieceSquare.getCol());
 				if( pieceSquareRect.contains(mouseClickLocation) ) {
-					
-					// toggle the hint on underlying board squares
-					for (PieceSquare s : aPiece.getPieceSquares()) {
-						if (this.level.getBoard().getHint(s.getRow(), s.getCol()) == -1) { // if no hint
-							this.level.getBoard().addHint(s.getRow(), s.getCol(), aPiece.getColorID()); // add hint
-						} // add hint
-						else { this.level.getBoard().addHint(s.getRow(), s.getCol(), -1); // remove hint
-						}
+					// Spawn off the move
+					ToggleHintMove theMove = new ToggleHintMove(level, levelView);
+					theMove.setOriginalPiece(aPiece); // Set the piece whose hint has to be toggled
+					if( theMove.isValid() && theMove.doMove() ) {
+						// Add it to the stack of moves
+						MoveManager.pushMove(theMove);
 					}
-					
+										
 					// Force the LevelView to repaint
 					this.levelView.repaint();
 					
 					// We've handled the mousePress, so exit the loop
 					exit = true;
+					break;
 				}
 			}
 		}

@@ -27,14 +27,36 @@ public class DecrementPlayerPaletteMove implements IMove {
         return false;
     }
    
-	@Override
 	public boolean undoMove(AbstractLevel level) {
 		hex.changeCount(+1);
         return true;
 	}
 
-	@Override
 	public boolean redoMove(AbstractLevel level) {
 		return doMove(level);
+	}
+
+	@Override
+	public boolean doMove() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean undoMove() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isValid() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean redoMove() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

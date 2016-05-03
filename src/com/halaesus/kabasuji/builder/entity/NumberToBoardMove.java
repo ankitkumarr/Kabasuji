@@ -18,7 +18,6 @@ public class NumberToBoardMove implements IMove {
 		this.levelView = levelView;
 	}
 
-	@Override
 	public boolean doMove(AbstractLevel aLevel) {
 		ReleaseLevel level = (ReleaseLevel) aLevel;
 		if( level.isDraggingActive() == false )
@@ -35,19 +34,16 @@ public class NumberToBoardMove implements IMove {
 		return true;
 	}
 
-	@Override
 	public boolean undoMove(AbstractLevel level) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public boolean redoMove(AbstractLevel level) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public boolean isValid (AbstractLevel aLevel) {
 		
 		ReleaseLevel level = (ReleaseLevel) aLevel;
@@ -89,6 +85,30 @@ public class NumberToBoardMove implements IMove {
 		//	return false; // We are outside board active bounds and thus the drag cannot be completed
 		
 		return true;
+	}
+
+	@Override
+	public boolean doMove() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean undoMove() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isValid() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean redoMove() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

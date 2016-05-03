@@ -1,29 +1,11 @@
 package com.halaesus.kabasuji.builder.entity;
 
-import com.halaesus.kabasuji.shared.entity.AbstractLevel;
-
 /**
- * 
+ * @author asoota Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
 public interface IMove {
-
-    /**
-     * @param AbstractLevel level
-     */
-    public boolean doMove(AbstractLevel level);
-    
-    /**
-     * @param AbstractLevel level
-     */
-    public boolean undoMove(AbstractLevel level);
-    
-    /**
-     * @param AbstractLevel level
-     */
-    public boolean redoMove(AbstractLevel level);
-
-    /**
-     * @param AbstractLevel level
-     */
-    public boolean isValid(AbstractLevel level);
+    public boolean doMove();
+    public boolean isValid();
+    public boolean undoMove();
+    public boolean redoMove();
 }

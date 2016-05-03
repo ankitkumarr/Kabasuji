@@ -9,27 +9,21 @@ import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
 import com.halaesus.kabasuji.utils.BuilderPieceHelper;
 
-public class BoardToBoardMove implements IMove {
+/**
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ */
+public class BoardToBoardMove extends PieceMove {
 
-	AbstractBuilderView levelView;
-	PieceSquare[] originalPieceSquares;
-	Piece originalPiece;
-	Piece snappedPiece;
-
-	public BoardToBoardMove(AbstractBuilderView levelView, Piece originalPiece, PieceSquare[] originalPieceSquares, Piece snappedPiece) {
-		this.levelView = levelView;
-		this.originalPiece = originalPiece;
-		this.originalPieceSquares = originalPieceSquares;
-		this.snappedPiece = snappedPiece;
+	public BoardToBoardMove(AbstractLevel theLevel, AbstractBuilderView theBuilderView) {
+		super(theLevel, theBuilderView);
 	}
 
 	@Override
-	public boolean isValid(AbstractLevel level) {
-		assert (level.isDraggingActive() == true); // We can only be called if a
-													// drag is in action
+	public boolean isValid() {
+		assert(theLevel.isDraggingActive() == true); // We can only be called if a drag is in action
 		// Take Board Bounds and see if the Piece is within those bounds or not
-		Piece pieceDragged = level.getPieceBeingDragged();
-		Point topPiecePoint = level.getTopPointOfDraggingPiece();
+		Piece pieceDragged = theLevel.getPieceBeingDragged();
+		Point topPiecePoint = theLevel.getTopPointOfDraggingPiece();
 
 		// Calculate tightest rectangle around PieceSquares
 		PieceSquare[] squares = pieceDragged.getPieceSquares();
@@ -46,107 +40,92 @@ public class BoardToBoardMove implements IMove {
 		Rectangle tighestPieceRectangle = new Rectangle(topPiecePoint.x, topPiecePoint.y, (xMax + 1) * 53,
 				(yMax + 1) * 53);
 		// Calculate the Board Rectangle
-		Rectangle overallBoardRectangle = new Rectangle(this.levelView.getBoardPieceRectangle(0, 0).x,
-				this.levelView.getBoardPieceRectangle(0, 0).y, 12 * this.levelView.getBoardPieceRectangle(0, 0).width,
-				12 * this.levelView.getBoardPieceRectangle(0, 0).height);
+		Rectangle overallBoardRectangle = new Rectangle(theBuilderView.getBoardPieceRectangle(0, 0).x,
+				                                        theBuilderView.getBoardPieceRectangle(0, 0).y,
+				                                        12 * theBuilderView.getBoardPieceRectangle(0, 0).width,
+				                                        12 * theBuilderView.getBoardPieceRectangle(0, 0).height);
 
 		// If the piece is not in the rectangle, it is not a valid move
 		if (!overallBoardRectangle.contains(tighestPieceRectangle))
 			return false; // This move cannot take place
 
 		// Get the Piece that will Snap to the Board
-		Piece newPieceDragged = BuilderPieceHelper.snapToNearestBoardSquare(level, this.levelView);
+		Piece newPieceDragged = BuilderPieceHelper.snapToNearestBoardSquare(theLevel, theBuilderView);
 		if (newPieceDragged == null)
-			return false; // Failed to snap to the Board and hence, not a valid
-							// move
+			return false; // Failed to snap to the Board and hence, not a valid move
 
 		// Check if Piece overlaps
-		if (level.getBoard().doesCollide(newPieceDragged))
-			return false; // We clash with some other piece and thus cannot
-							// complete the drag
-
-		// Check if Piece is outside Active Board Bounds
-		// if( level.getBoard().isOutsideBounds(newPieceDragged) )
-		// return false; // We are outside board active bounds and thus the drag
-		// cannot be completed
+		if (theLevel.getBoard().doesCollide(newPieceDragged))
+			return false; // We clash with some other piece and thus cannot complete the drag
 
 		// Finally, the move was valid, so:
 		return true;
 	}
 
 	@Override
-	public boolean doMove(AbstractLevel level) {
-		if (level.isDraggingActive() == false)
-			return false; // An active drag needs to be in place for this
-							// function to be called
-		if (isValid(level) == false)
-			return false; // Also, the move should be valid for this function to
-							// be called
-		// Now, snap to the board at the location and update the underlying
-		// board
+	public boolean doMove() {
+		if (theLevel.isDraggingActive() == false)
+			return false; // An active drag needs to be in place for this function to be called
+		if (isValid() == false)
+			return false; // Also, the move should be valid for this function to be called
+		
+		// Now, snap to the board at the location and update the underlying board
 		// STEP 1: Find the squares to snap to
-
+		Piece snappedPiece = BuilderPieceHelper.snapToNearestBoardSquare(theLevel, theBuilderView);
+		// Check if snap was successful or not
 		if (snappedPiece == null)
-			return false; // We failed to snap to the board and hence the move
-							// wasn't completed
+			return false; // We failed to snap to the board and hence the move wasn't completed
 		else
-			level.getBoard().addPiece(snappedPiece); // Add the snapped Piece to
-														// the board
+			theLevel.getBoard().addPiece(snappedPiece); // Add the snapped Piece to the board
 		// STEP 2: Mark original BoardSquares as inactive
-		for (PieceSquare aPieceSquare : originalPieceSquares) {
-			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
+		for (PieceSquare aPieceSquare : getOriginalPiece().getPieceSquares()) {
+			theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
 		}
 		// STEP 3: Mark underlying BoardSquares as active
 		for (PieceSquare aPieceSquare : snappedPiece.getPieceSquares()) {
-			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
+			theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
 		}
+		// STEP 4: Save the Piece
+		setFinalPiece(new Piece(snappedPiece));
 		// The move was successful, so:
 		return true;
 	}
 
 	@Override
-	public boolean undoMove(AbstractLevel level) {
-		/** Not working yet
-		
-		level.getBoard().getPieces().remove(snappedPiece);
-//		level.getBoard().addPiece(originalPiece);
+	public boolean undoMove() {
+		// STEP 1: Remove the final Piece that was placed and replace it with the original piece
+		theLevel.getBoard().getPieces().remove(getFinalPiece());
+		theLevel.getBoard().addPiece(getOriginalPiece());
 
 		// STEP 2: Mark original BoardSquares as active
-		for (PieceSquare aPieceSquare : originalPieceSquares) {
-			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
+		for (PieceSquare aPieceSquare : getOriginalPiece().getPieceSquares()) {
+			theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
 		}
 		// STEP 3: Mark underlying BoardSquares as inactive
-		for (PieceSquare aPieceSquare : snappedPiece.getPieceSquares()) {
-			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
+		for (PieceSquare aPieceSquare : getFinalPiece().getPieceSquares()) {
+			theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
 		}
 		// The move was successful, so:
 		return true;
-		
-		*/
-		
-		return false;
 	}
 
 	@Override
-	public boolean redoMove(AbstractLevel level) {
-		/** Not working yet
-		
-		level.getBoard().getPieces().remove(originalPiece);
-		level.getBoard().addPiece(snappedPiece); // Add the snapped Piece to
-		// the board
-		// STEP 2: Mark original BoardSquares as inactive
-		for (PieceSquare aPieceSquare : originalPieceSquares) {
-			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
+	public boolean redoMove() {
+		// STEP 1: Check if there is a final piece
+		if( getFinalPiece() == null )
+			return false; // We cannot redo the move
+		// STEP 2: Remove the original piece and add the final piece to the board
+		theLevel.getBoard().addPiece(getFinalPiece());
+		theLevel.getBoard().getPieces().remove(getOriginalPiece());
+		// STEP 3: Mark original BoardSquares as inactive
+		for (PieceSquare aPieceSquare : getOriginalPiece().getPieceSquares()) {
+			theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
 		}
-		// STEP 3: Mark underlying BoardSquares as active
-		for (PieceSquare aPieceSquare : snappedPiece.getPieceSquares()) {
-			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
+		// STEP 4: Mark final BoardSquares as active
+		for (PieceSquare aPieceSquare : getFinalPiece().getPieceSquares()) {
+			theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
 		}
 		// The move was successful, so:
 		return true;
-		
-		*/
-		
-		return false;
 	}
 }

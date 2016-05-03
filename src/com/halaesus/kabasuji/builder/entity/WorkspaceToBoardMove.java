@@ -2,40 +2,28 @@ package com.halaesus.kabasuji.builder.entity;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.Vector;
-
 import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
-import com.halaesus.kabasuji.shared.entity.BoardSquare;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
 import com.halaesus.kabasuji.utils.BuilderPieceHelper;
 
-public class WorkspaceToBoardMove implements IMove {
+/**
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ */
+public class WorkspaceToBoardMove extends PieceMove {
 
-	AbstractBuilderView levelView;
-	Piece pieceBeingMoved;
-	Piece snappedPiece;
-	Vector<Point> boardSquares;
-
-	public WorkspaceToBoardMove(AbstractBuilderView levelView, Piece pieceBeingMoved, Piece snappedPiece) {
-		this.levelView = levelView;
-		this.pieceBeingMoved = pieceBeingMoved;
-		this.snappedPiece = snappedPiece;
-		boardSquares = new Vector<Point>();
+	public WorkspaceToBoardMove(AbstractLevel theLevel, AbstractBuilderView theBuilderView) {
+		super(theLevel, theBuilderView);
 	}
 
 	@Override
-	public boolean isValid(AbstractLevel level) {
-		assert (level.isDraggingActive() == true); // We can only be called if a
-													// drag is in action
+	public boolean isValid() {
+		assert(theLevel.isDraggingActive() == true); // We can only be called if a drag is in action
 		// Take Board Bounds and see if the Piece is within those bounds or not
-		Piece pieceDragged = level.getPieceBeingDragged();
-		Point topPiecePoint = level.getTopPointOfDraggingPiece();
+		Piece pieceDragged = theLevel.getPieceBeingDragged();
+		Point topPiecePoint = theLevel.getTopPointOfDraggingPiece();
 		
-		if (snappedPiece == null)
-			return false;
-
 		// Calculate tightest rectangle around PieceSquares
 		PieceSquare[] squares = pieceDragged.getPieceSquares();
 		int xMax = squares[0].getCol();
@@ -48,85 +36,74 @@ public class WorkspaceToBoardMove implements IMove {
 				yMax = s.getRow(); // We found a new max, save it
 		}
 
-		Rectangle tighestPieceRectangle = new Rectangle(topPiecePoint.x, topPiecePoint.y, (xMax + 1) * 53,
-				(yMax + 1) * 53);
+		Rectangle tighestPieceRectangle = new Rectangle(topPiecePoint.x, topPiecePoint.y, (xMax + 1) * 53, (yMax + 1) * 53);
 		// Calculate the Board Rectangle
-		Rectangle overallBoardRectangle = new Rectangle(this.levelView.getBoardPieceRectangle(0, 0).x,
-				this.levelView.getBoardPieceRectangle(0, 0).y, 12 * this.levelView.getBoardPieceRectangle(0, 0).width,
-				12 * this.levelView.getBoardPieceRectangle(0, 0).height);
+		Rectangle overallBoardRectangle = new Rectangle(this.theBuilderView.getBoardPieceRectangle(0, 0).x,
+														this.theBuilderView.getBoardPieceRectangle(0, 0).y,
+														12 * this.theBuilderView.getBoardPieceRectangle(0, 0).width,
+														12 * this.theBuilderView.getBoardPieceRectangle(0, 0).height);
 
 		// See if Piece is within Board Bounds
 		if (!overallBoardRectangle.contains(tighestPieceRectangle))
 			return false; // Definitely not a valid move
 
 		// Get the Piece that will Snap to the Board
-		Piece newPieceDragged = BuilderPieceHelper.snapToNearestBoardSquare(level, this.levelView);
+		Piece newPieceDragged = BuilderPieceHelper.snapToNearestBoardSquare(this.theLevel, this.theBuilderView);
 		if (newPieceDragged == null)
-			return false; // Failed to snap to the Board and hence, not a valid
-							// move
+			return false; // Failed to snap to the Board and hence, not a valid move
 
 		// Check if Piece overlaps
-		if (level.getBoard().doesCollide(newPieceDragged))
-			return false; // We clash with some other piece and thus cannot
-							// complete the drag
-
-		// Check if Piece is outside Active Board Bounds
-		// if( level.getBoard().isOutsideBounds(newPieceDragged) )
-		// return false; // We are outside board active bounds and thus the drag
-		// cannot be completed
+		if (theLevel.getBoard().doesCollide(newPieceDragged))
+			return false; // We clash with some other piece and thus cannotb complete the drag
 
 		// Finally, the move was valid, so:
 		return true;
 	}
 
 	@Override
-	public boolean doMove(AbstractLevel level) {
+	public boolean doMove() {
+		if( theLevel.isDraggingActive() == false )
+    		return false; // An active drag needs to be in place for this function to be called
+    	if( isValid() == false )
+    		return false; // Also, the move should be valid for this function to be called
+    	// Now, snap to the board at the location and update the underlying board
+    	// STEP 1: Find the squares to snap to
+		Piece snappedPiece = BuilderPieceHelper.snapToNearestBoardSquare(theLevel, this.theBuilderView);
+		if( snappedPiece == null )
+			return false; // We failed to snap to the board and hence the move wasn't completed
+		else
+			theLevel.getBoard().addPiece(snappedPiece); // Add the snapped Piece to the board
 		// STEP 2: Increment Bullpen Count for the respective piece
-		pieceBeingMoved.getParentHexomino().changeCount(1);
+		theLevel.getPieceBeingDragged().getParentHexomino().setCount(theLevel.getPieceBeingDragged().getParentHexomino().getCount() - 1);
 		// STEP 3: Mark underlying BoardSquares as active
 		for (PieceSquare aPieceSquare : snappedPiece.getPieceSquares()) {
-			if (!level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].isActive()) {
-				boardSquares.add(new Point(aPieceSquare.getRow(), aPieceSquare.getCol()));
-				level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
-			}
+			if (!theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].isActive())
+				theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
 		}
-
+		// STEP 4: Save the Piece
+		setFinalPiece(new Piece(snappedPiece));
 		// The move was successful, so:
-		level.getBoard().addPiece(snappedPiece);
 		return true;
 	}
 
 	@Override
-	public boolean undoMove(AbstractLevel level) {
-		/**
-		
-		BoardSquare[][] squares = level.getBoard().getSquares();
+	public boolean undoMove() {
+		// STEP 1: Remove the piece from the board and add it to the Workspace
+		theLevel.getBoard().getPieces().remove(getFinalPiece());
+		theLevel.getLevelBullpen().getWorkspace().addPiece(getOriginalPiece());
 
-		for (Point p : boardSquares) {
-			squares[p.x][p.y].setActive(false);
+		// STEP 2: Mark original BoardSquares as inactive
+		for (PieceSquare aPieceSquare : getFinalPiece().getPieceSquares()) {
+			theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
 		}
-		pieceBeingMoved.getParentHexomino().changeCount(-1);
+		
+		// The move was successful, so:
 		return true;
-		
-		*/
-		
-		return false;
 	}
 
 	@Override
-	public boolean redoMove(AbstractLevel level) {
-		/**
-		
-		BoardSquare[][] squares = level.getBoard().getSquares();
-
-		for (Point p : boardSquares) {
-			squares[p.x][p.y].setActive(true);
-		}
-		pieceBeingMoved.getParentHexomino().changeCount(1);
-		return true;
-		
-		*/
-		
+	public boolean redoMove() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 

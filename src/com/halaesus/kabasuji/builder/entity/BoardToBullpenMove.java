@@ -51,7 +51,6 @@ public class BoardToBullpenMove implements IMove {
 		return true;
     }
 
-    @Override
     public boolean doMove(AbstractLevel level) {
 		if (!level.isDraggingActive())
 			return false; // An active drag needs to be in place for this function to be called
@@ -71,7 +70,6 @@ public class BoardToBullpenMove implements IMove {
 		return true;
     }
 
-	@Override
 	public boolean undoMove(AbstractLevel level) {
 		/**
 		
@@ -91,7 +89,6 @@ public class BoardToBullpenMove implements IMove {
 	}
 
 	
-	@Override
 	public boolean redoMove(AbstractLevel level) {
 		 /**
 		// STEP 1: Mark original BoardSquares as inactive
@@ -106,6 +103,30 @@ public class BoardToBullpenMove implements IMove {
 		return true;
 		*/
 		
+		return false;
+	}
+
+	@Override
+	public boolean doMove() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean undoMove() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isValid() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean redoMove() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 }

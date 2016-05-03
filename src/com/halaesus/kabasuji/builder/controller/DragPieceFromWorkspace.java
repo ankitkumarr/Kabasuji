@@ -13,11 +13,11 @@ import com.halaesus.kabasuji.builder.entity.WorkspaceToPlayerPaletteMove;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
-import com.halaesus.kabasuji.utils.BuilderPieceHelper;
 
 public class DragPieceFromWorkspace implements MouseListener, MouseMotionListener{
 
     AbstractBuilderView levelView;
+    Piece originalPiece;
 	AbstractLevel level;
 	
     public DragPieceFromWorkspace(AbstractLevel theLevel, AbstractBuilderView levelView) {
@@ -58,6 +58,8 @@ public class DragPieceFromWorkspace implements MouseListener, MouseMotionListene
 				this.level.setTopPointOfDraggingPiece(new Point(topLeftPieceRect.x, topLeftPieceRect.y));
 				this.level.setDraggingDistToPointX(e.getX() - topLeftPieceRect.x);
 				this.level.setDraggingDistToPointY(e.getY() - topLeftPieceRect.y);
+				// Save the workspace piece
+				this.originalPiece = new Piece(this.level.getLevelBullpen().getWorkspace().getPiece());
 				// Remove piece from Workspace
 				this.level.getLevelBullpen().getWorkspace().addPiece(null);
 				// Force the LevelView to repaint
@@ -87,11 +89,13 @@ public class DragPieceFromWorkspace implements MouseListener, MouseMotionListene
 		if( this.level.isDraggingActive() &&
 			this.level.getDragSource() == AbstractLevel.DRAG_SOURCE_WORKSPACE ) {
 			// Create the move
-			WorkspaceToBoardMove theMove = new WorkspaceToBoardMove(this.levelView, level.getPieceBeingDragged(), BuilderPieceHelper.snapToNearestBoardSquare(level, this.levelView));
+			WorkspaceToBoardMove theMove = new WorkspaceToBoardMove(this.level, this.levelView);
 			// Now attempt the move
-			if( theMove.isValid(this.level) ) {
-				// The move is valid; Perform the move and let the underlying board know about this
-				if (theMove.doMove(this.level))
+			if( theMove.isValid() ) {
+				// The move is valid; Add the original Piece
+				theMove.setOriginalPiece(originalPiece);
+				// Perform the move and let the underlying board know about this
+				if (theMove.doMove())
 					MoveManager.pushMove(theMove);
 				//level.newPieceDropped();
 			} else if (levelView.getPlayerPaletteFrame().getBounds().contains(e.getPoint())){ // mouse is released over the player palette

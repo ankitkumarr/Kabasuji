@@ -23,7 +23,7 @@ public class WorkspaceToPlayerPaletteMove extends PlayerPaletteMove {
         if (!isValid()) 
         	return false;
         // If the move is valid, increase the count of the respective Hexomino by one
-    	piece.getParentHexomino().changeCount(+1);
+        getPiece().getParentHexomino().changeCount(+1);
     	// As the move was successful, so:
         return true;
     }
@@ -31,7 +31,10 @@ public class WorkspaceToPlayerPaletteMove extends PlayerPaletteMove {
 	@Override
     public boolean undoMove() {
     	// Decrease the count of the respective Hexomino by one
-    	piece.getParentHexomino().changeCount(-1);
+		getPiece().getParentHexomino().changeCount(-1);
+    	// Add the Piece back to the Workspace
+    	theLevel.getLevelBullpen().getWorkspace().addPiece(new Piece(getPiece()));
+    	theLevel.getLevelBullpen().getWorkspace().getPiece().centerPiece();
     	// As the undo was successful, so:
         return true;
     }
@@ -39,7 +42,9 @@ public class WorkspaceToPlayerPaletteMove extends PlayerPaletteMove {
 	@Override
     public boolean redoMove() {
     	// Increase the count of the respective Hexomino by one
-    	piece.getParentHexomino().changeCount(+1);
+		getPiece().getParentHexomino().changeCount(+1);
+    	// Remove the Piece from the Workspace
+    	theLevel.getLevelBullpen().getWorkspace().addPiece(null);
     	// As the redo was successful, so:
     	return true;
     }

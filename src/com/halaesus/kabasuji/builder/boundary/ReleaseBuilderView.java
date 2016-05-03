@@ -18,20 +18,40 @@ import com.halaesus.kabasuji.shared.entity.ReleaseBoard;
 import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
 import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 
+
 /**
+ * Represents the basic representation of the Builder Level of Release type
+ * <p>
+ * <b> ReleaseBuilderView </b> contains information about the GUI elements that are specific to 
+ * Release Level
+ * </p>
  * @author akumar3
- *
  */
 @SuppressWarnings("serial")
 public class ReleaseBuilderView extends AbstractBuilderView {
 	
+	/** The JLabels for all the ReleaseNumbers **/
     JLabel[][] numberBarNumbers;
+    
+    /** The ReleaseLevel to store the information about the current ReleaseLevel **/
     ReleaseLevel level;
+    
+    /** The ReleaseNumbers to store all the ReleaseNumbers **/
     ReleaseNumber rNumbers[][];
     
+    /** The JLabel (ReleaseNumber) that is being dragged **/
 	private JLabel draggingLabel;
+	
+	/**The ArrayList of all the JLabels that are on the board **/
 	private ArrayList<JLabel> numbersOnTheBoard;
     
+	
+	/**
+	 * Constructs a ReleaseBuilderView to display the window by calling all the other setup functions
+	 * @param application is the entire application which holds the information
+	 * @param aLevel The Level that holds the information about the level to be displayed
+	 * @param levelIndex  The index of the Level
+	 */
     public ReleaseBuilderView(Application application, AbstractLevel aLevel, int levelIndex) {
         
     	super(application, aLevel, levelIndex);

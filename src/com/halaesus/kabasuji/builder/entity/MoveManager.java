@@ -43,7 +43,6 @@ public class MoveManager {
     	IMove move = instance().moves.pop();
     	move.undoMove();
     	instance().undoneMoves.push(move);
-    	System.out.println(move + " undo");
     }
     
     public static void redo(AbstractLevel level) {
@@ -52,7 +51,6 @@ public class MoveManager {
     	IMove move = instance().undoneMoves.pop();
     	move.redoMove();
     	instance().moves.push(move);
-    	System.out.println(move + " redo");
     }
 
 }

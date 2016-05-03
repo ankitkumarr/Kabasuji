@@ -30,6 +30,8 @@ public class DragNumberFromBoardToNumberBarMove implements MouseListener, MouseM
 	ReleaseLevel level;
 	ReleaseBuilderView builderView;
 	
+	private ReleaseNumber sourceNumber;
+	
     public DragNumberFromBoardToNumberBarMove(ReleaseBuilderView builderView, ReleaseLevel level) {
         this.builderView = builderView;
         this.level = level;
@@ -126,6 +128,7 @@ public class DragNumberFromBoardToNumberBarMove implements MouseListener, MouseM
 							
 							// Inform the Model
 							this.level.setDraggingActive(true);
+							this.sourceNumber = theNumber;
 							this.level.setDragSource(AbstractLevel.DRAG_SOURCE_BOARD);
 							this.level.setnumberBeingDragged(new ReleaseNumber (theNumber.getValue(), theNumber.getColor(), theNumber.getCol(), theNumber.getRow()));
 							this.level.setTopPointOfDraggingPiece(new Point(numberSquareRect.x, numberSquareRect.y));
@@ -172,13 +175,21 @@ public class DragNumberFromBoardToNumberBarMove implements MouseListener, MouseM
 					if( overallBoardRectangle.contains(tighestNumberBarRectangle) ) {
 						NumberToBoardMove theMove = new NumberToBoardMove(this.level, this.builderView);
 						if( theMove.isValid() ) {
-							theMove.doMove(); 
+							
+							theMove.setOriginalNumber(sourceNumber);
+							if (theMove.doMove()) {
+								MoveManager.pushMove(theMove);
+							} 
 						}
 						}
 					 else if( numberBarRectangle.contains(tighestNumberBarRectangle) ) {
 						NumberFromBoardToNumberBarMove theMove = new NumberFromBoardToNumberBarMove(this.level, this.builderView);
 						if (theMove.isValid()) {
-							theMove.doMove();
+
+							theMove.setOriginalNumber(sourceNumber);
+							if (theMove.doMove()) {
+								MoveManager.pushMove(theMove);
+							}
 						}
 					} 
 					 

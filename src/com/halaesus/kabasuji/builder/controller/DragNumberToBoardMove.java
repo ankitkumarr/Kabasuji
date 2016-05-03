@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import com.halaesus.kabasuji.builder.boundary.ReleaseBuilderView;
+import com.halaesus.kabasuji.builder.entity.MoveManager;
 import com.halaesus.kabasuji.builder.entity.NumberToBoardMove;
 import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
 import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
@@ -87,7 +88,10 @@ public class DragNumberToBoardMove implements MouseListener, MouseMotionListener
 			NumberToBoardMove theMove = new NumberToBoardMove(this.level, this.builderView);
 
 			if( theMove.isValid() ) {
-				theMove.doMove(); 
+				theMove.setOriginalNumber(null);
+				if (theMove.doMove()) {
+					MoveManager.pushMove(theMove);
+				}
 			}
 			level.setDraggingActive(false);
 			level.setDraggingDistToPointX(-1);

@@ -65,19 +65,28 @@ public class NumberToBoardMove extends NumberMove {
     	ReleaseBoard rb = (ReleaseBoard)theLevel.getBoard();
     	rb.addNumber(getNumber);
     	// The move was successful, so:
+    	//setFinalNumber(new ReleaseNumber(getNumber.getValue(), getNumber.getColor(), getNumber.getCol(),getNumber.getRow()));
+    	setFinalNumber(getNumber);
+
 		return true;
 	}
 
 	@Override
 	public boolean undoMove() {
-		// TODO Auto-generated method stub
-		return false;
+		ReleaseBoard rb = (ReleaseBoard)theLevel.getBoard();
+		rb.removeNumber(getFinalNumber());
+	if (getOriginalNumber()!=null) {
+		rb.addNumber(getOriginalNumber());
+	}
+		return true;
 	}
 
 	@Override
 	public boolean redoMove() {
-		// TODO Auto-generated method stub
-		return false;
+		ReleaseBoard rb = (ReleaseBoard)theLevel.getBoard();
+		rb.addNumber(getFinalNumber());
+		rb.removeNumber(getOriginalNumber());
+		return true;
 	}
 
 }

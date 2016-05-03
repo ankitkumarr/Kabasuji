@@ -29,6 +29,7 @@ public class NumberFromBoardToNumberBarMove extends NumberMove {
 		ReleaseBoard rb = (ReleaseBoard)theLevel.getBoard();
 		ReleaseLevel theRLevel = (ReleaseLevel) this.theLevel;
 		rb.removeNumber(theRLevel.getnumberBeingDragged());
+		setFinalNumber(null);
 		return true;
 	}
 
@@ -53,14 +54,16 @@ public class NumberFromBoardToNumberBarMove extends NumberMove {
 
 	@Override
 	public boolean redoMove() {
-		// TODO Auto-generated method stub
-		return false;
+		ReleaseBoard rb = (ReleaseBoard)theLevel.getBoard();
+		rb.removeNumber(getOriginalNumber());
+		return true;
 	}
 
 	@Override
 	public boolean undoMove() {
-		// TODO Auto-generated method stub
-		return false;
+		ReleaseBoard rb = (ReleaseBoard)theLevel.getBoard();
+		rb.addNumber(getOriginalNumber());
+		return true;
 	}
 
 }

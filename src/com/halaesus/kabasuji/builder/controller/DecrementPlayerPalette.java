@@ -21,8 +21,8 @@ public class DecrementPlayerPalette implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		DecrementPlayerPaletteMove move = new DecrementPlayerPaletteMove(hex);
-		if (move.isValid(levelView.getLevel())) {
-			if (move.doMove(levelView.getLevel()))
+		if (move.isValid()) {
+			if (move.doMove())
 				MoveManager.pushMove(move);
 			levelView.updatePlayerPaletteView();
 		}

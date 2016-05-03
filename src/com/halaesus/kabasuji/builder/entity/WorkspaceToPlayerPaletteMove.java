@@ -3,38 +3,53 @@ package com.halaesus.kabasuji.builder.entity;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 
+/**
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ */
+public class WorkspaceToPlayerPaletteMove extends PlayerPaletteMove {
 
-public class WorkspaceToPlayerPaletteMove implements IMove {
+	private AbstractLevel theLevel;
 
-	Piece piece;
-	
-	public WorkspaceToPlayerPaletteMove(Piece p) {
-		piece = p;
+	public WorkspaceToPlayerPaletteMove(AbstractLevel theLevel, Piece thePiece) {
+		this.theLevel = theLevel;
+		setPiece(thePiece);
 	}
-	
+
 	@Override
-    public boolean doMove(AbstractLevel level) {
-        if (!isValid(level)) return false;
-    	piece.getParentHexomino().changeCount(+1);
-        return true;
+    public boolean isValid() {
+        return theLevel.isDraggingActive();
     }
-   
+
 	@Override
-    public boolean isValid(AbstractLevel level) {
-        if (!level.isDraggingActive()) return false;
-        
-        return true;
-    }
-   
-	@Override
-    public boolean undoMove(AbstractLevel level) {
-    	piece.getParentHexomino().changeCount(-1);
+    public boolean doMove() {
+    	// Check if the move is valid or not
+        if (!isValid()) 
+        	return false;
+        // If the move is valid, increase the count of the respective Hexomino by one
+        getPiece().getParentHexomino().changeCount(+1);
+    	// As the move was successful, so:
         return true;
     }
 
 	@Override
-    public boolean redoMove(AbstractLevel level) {
-    	piece.getParentHexomino().changeCount(+1);
+    public boolean undoMove() {
+    	// Decrease the count of the respective Hexomino by one
+		getPiece().getParentHexomino().changeCount(-1);
+    	// Add the Piece back to the Workspace
+    	theLevel.getLevelBullpen().getWorkspace().addPiece(new Piece(getPiece()));
+    	theLevel.getLevelBullpen().getWorkspace().getPiece().centerPiece();
+    	// As the undo was successful, so:
+        return true;
+    }
+
+	@Override
+    public boolean redoMove() {
+    	// Increase the count of the respective Hexomino by one
+		getPiece().getParentHexomino().changeCount(+1);
+    	// Remove the Piece from the Workspace
+    	theLevel.getLevelBullpen().getWorkspace().addPiece(null);
+    	// As the redo was successful, so:
     	return true;
     }
+
 }

@@ -21,7 +21,7 @@ import com.halaesus.kabasuji.utils.BuilderPieceHelper;
 public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 
     AbstractBuilderView levelView;
-    PieceSquare[] originalBoardPieceSquares;
+	Piece originalPiece;
     AbstractLevel level;
     Piece clickedPiece;
 
@@ -35,9 +35,9 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 	public void mousePressed(MouseEvent e) {
 		
 		// only allow left click
-		if (!SwingUtilities.isLeftMouseButton(e)){return;}
-		
-	
+		if (!SwingUtilities.isLeftMouseButton(e))
+			return;
+			
 		// See if we should be handing this drag or not
 		Rectangle overallBoardRectangle = new Rectangle(this.levelView.getBoardPieceRectangle(0, 0).x, 
 				                                        this.levelView.getBoardPieceRectangle(0, 0).y,
@@ -68,9 +68,8 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 						this.level.getBoard().addHint(s.getRow(), s.getCol(), -1); // remove hint
 					}
 					
-					originalBoardPieceSquares = new PieceSquare[aPiece.getPieceSquares().length];
-					for(int idx = 0; idx < aPiece.getPieceSquares().length; idx++)
-						originalBoardPieceSquares[idx] = new PieceSquare(aPiece.getPieceSquares()[idx]);
+					// Save the original piece
+					originalPiece = new Piece(aPiece);
 					
 					// Solve for tightest bounding rectangle around the PieceSquares
 					int xMin = aPiece.getPieceSquares()[0].getCol();
@@ -97,6 +96,7 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 					
 					// We've handled the mousePress, so exit the loop
 					exit = true;
+					break; // Bug fix right here
 				}
 			}
 		}
@@ -184,46 +184,50 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 				Piece snappedPiece = BuilderPieceHelper.snapToNearestBoardSquare(level, this.levelView);
 				
 				// It was dropped on the board itself; Spawn off the move
-				BoardToBoardMove theMove = new BoardToBoardMove(this.levelView, clickedPiece, originalBoardPieceSquares, snappedPiece);
+				BoardToBoardMove theMove = new BoardToBoardMove(this.level, this.levelView);
 				// Now, attempt the move
-				if( theMove.isValid(this.level) ) {
-					// The move is valid; Perform the move and let the underlying board know about this
-					if (theMove.doMove(this.level))
+				if( theMove.isValid() ) {
+					// The move is valid; Set the original piece
+					theMove.setOriginalPiece(originalPiece);
+					// Perform the move and let the underlying board know about this
+					if (theMove.doMove())
 						MoveManager.pushMove(theMove);
 					Piece finalPiece = snappedPiece;
 					// Check if the Final Piece location is different from the original location or not
 					boolean locationChanged = false;
-					for(int idx = 0; idx < this.originalBoardPieceSquares.length; idx++)
-						if( ( this.originalBoardPieceSquares[idx].getRow() != finalPiece.getPieceSquares()[idx].getRow() ) ||
-							( this.originalBoardPieceSquares[idx].getCol() != finalPiece.getPieceSquares()[idx].getCol() ) )
+					for(int idx = 0; idx < this.originalPiece.getPieceSquares().length; idx++)
+						if( ( this.originalPiece.getPieceSquares()[idx].getRow() != finalPiece.getPieceSquares()[idx].getRow() ) ||
+							( this.originalPiece.getPieceSquares()[idx].getCol() != finalPiece.getPieceSquares()[idx].getCol() ) )
 							locationChanged = true;
 					// Only if the location changed, inform the board of this move to have happened
 					if( locationChanged == true )
-						this.level.boardPieceUpdated(this.originalBoardPieceSquares, finalPiece);
+						this.level.boardPieceUpdated(this.originalPiece.getPieceSquares(), finalPiece);
 				} else {
 					// The move wasn't performed. Put the piece back to its original place
-					this.level.getBoard().addPiece(new Piece(this.level.getPieceBeingDragged().getColorID(), originalBoardPieceSquares, this.level.getPieceBeingDragged().getParentHexomino()));
-					originalBoardPieceSquares = null; // Remove old piece squares
+					this.level.getBoard().addPiece(new Piece(originalPiece));
+					originalPiece = null; // Remove old piece
 				}
 			} else if( bullpenRectangle.contains(tighestPieceRectangle) ) {
 				// It was dropped on the Bullpen; Spawn off the move
-				BoardToBullpenMove theMove = new BoardToBullpenMove(this.levelView, pieceDragged, originalBoardPieceSquares);
+				BoardToBullpenMove theMove = new BoardToBullpenMove(this.level, this.levelView);
+				// Save the original Piece now
+				theMove.setOriginalPiece(originalPiece);
 				// Now attempt the move
-				if( theMove.isValid(this.level) ) {
+				if( theMove.isValid() ) {
 					// The move is valid; Perform the move and let the underlying board know about this
-					if (theMove.doMove(this.level))
+					if (theMove.doMove())
 						MoveManager.pushMove(theMove);
 					this.level.boardPieceRemoved(level.getPieceBeingDragged());
 				} else {
 					// The move wasn't performed :( Put the piece back to where it was picked from
-					this.level.getBoard().addPiece(new Piece(this.level.getPieceBeingDragged().getColorID(), originalBoardPieceSquares, this.level.getPieceBeingDragged().getParentHexomino()));
-					originalBoardPieceSquares = null; // Remove old piece squares
+					this.level.getBoard().addPiece(new Piece(originalPiece));
+					originalPiece = null; // Remove old piece
 				}
 			} else {
 				// It wasn't dropped on a valid location. Place the piece back to its source
 				// Add the original piece back to the board
-				this.level.getBoard().addPiece(new Piece(this.level.getPieceBeingDragged().getColorID(), originalBoardPieceSquares, this.level.getPieceBeingDragged().getParentHexomino()));
-				originalBoardPieceSquares = null; // Remove old piece squares
+				this.level.getBoard().addPiece(new Piece(originalPiece));
+				originalPiece = null; // Remove old piece
 			}
 			// Nonetheless, stop the drag
 			level.setDraggingActive(false);

@@ -209,18 +209,20 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 				}
 			} else if( bullpenRectangle.contains(tighestPieceRectangle) ) {
 				// It was dropped on the Bullpen; Spawn off the move
-				/* BoardToBullpenMove theMove = new BoardToBullpenMove(this.level, this.levelView);
+				BoardToBullpenMove theMove = new BoardToBullpenMove(this.level, this.levelView);
+				// Save the original Piece now
+				theMove.setOriginalPiece(originalPiece);
 				// Now attempt the move
-				if( theMove.isValid(this.level) ) {
+				if( theMove.isValid() ) {
 					// The move is valid; Perform the move and let the underlying board know about this
-					if (theMove.doMove(this.level))
+					if (theMove.doMove())
 						MoveManager.pushMove(theMove);
 					this.level.boardPieceRemoved(level.getPieceBeingDragged());
 				} else {
 					// The move wasn't performed :( Put the piece back to where it was picked from
 					this.level.getBoard().addPiece(new Piece(originalPiece));
 					originalPiece = null; // Remove old piece
-				} */ // TODO
+				}
 			} else {
 				// It wasn't dropped on a valid location. Place the piece back to its source
 				// Add the original piece back to the board

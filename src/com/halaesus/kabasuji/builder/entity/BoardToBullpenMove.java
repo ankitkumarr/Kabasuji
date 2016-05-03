@@ -8,23 +8,21 @@ import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
 
-public class BoardToBullpenMove implements IMove {
+/**
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ */
+public class BoardToBullpenMove extends PieceMove {
 
-	AbstractBuilderView levelView;
-	Piece originalPiece;
-	PieceSquare[] originalPieceSquares;
+    public BoardToBullpenMove(AbstractLevel theLevel, AbstractBuilderView theBuilderView) {
+		super(theLevel, theBuilderView);
+	}
 
-    public BoardToBullpenMove(AbstractBuilderView levelView, Piece originalPiece, PieceSquare[] originalPieceSquares) {
-    	this.levelView = levelView;
-    	this.originalPiece = originalPiece;
-    	this.originalPieceSquares = originalPieceSquares;
-    }
-
-    public boolean isValid(AbstractLevel level) {
-		assert( level.isDraggingActive() == true ); // We can only be called if a drag is in action
+    @Override
+    public boolean isValid() {
+		assert(theLevel.isDraggingActive() == true); // We can only be called if a drag is in action
 		// Take Board Bounds and see if the Piece is within those bounds or not
-		Piece pieceDragged = level.getPieceBeingDragged();
-		Point topPiecePoint = level.getTopPointOfDraggingPiece();
+		Piece pieceDragged = theLevel.getPieceBeingDragged();
+		Point topPiecePoint = theLevel.getTopPointOfDraggingPiece();
 		
 		// Calculate tightest rectangle around PieceSquares
 		PieceSquare[] squares = pieceDragged.getPieceSquares();
@@ -44,89 +42,60 @@ public class BoardToBullpenMove implements IMove {
 				                                        (yMax + 1) * 53);
 		
 		// If the piece is not in the Bullpen rectangle, it is not a valid move
-		if( !this.levelView.getBullpenBounds().contains(tighestPieceRectangle) )
+		if( !this.theBuilderView.getBullpenBounds().contains(tighestPieceRectangle) )
 			return false; // This move cannot take place
 		
 		// Else, the move and removal of the piece from the Board is valid, so:
 		return true;
     }
 
-    public boolean doMove(AbstractLevel level) {
-		if (!level.isDraggingActive())
+    @Override
+    public boolean doMove() {
+		if (!this.theLevel.isDraggingActive())
 			return false; // An active drag needs to be in place for this function to be called
-		if (!isValid(level))
+		if (!isValid())
 			return false; // Also, the move should be valid for this function to be called
-    	
+		
 		// Remove the piece from the board and return
 		// STEP 1: Mark original BoardSquares as inactive
-		for( PieceSquare aPieceSquare : originalPieceSquares ) {
-			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
+		for( PieceSquare aPieceSquare : getOriginalPiece().getPieceSquares() ) {
+			theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
 		}
 		// STEP 2: Decrement Bullpen Count for the respective piece
-		if (level.getPieceBeingDragged().getParentHexomino().getCount() > 0)
-			level.getPieceBeingDragged().getParentHexomino().changeCount(-1);
-		
+		if(theLevel.getPieceBeingDragged().getParentHexomino().getCount() > 0)
+			theLevel.getPieceBeingDragged().getParentHexomino().changeCount(-1);
+		// STEP 3: Set the final Piece
+		setFinalPiece(null); // The Piece was removed so it has to be null
 		// The move was successful, so:
 		return true;
     }
 
-	public boolean undoMove(AbstractLevel level) {
-		/**
-		
-		// STEP 1: Mark original BoardSquares as active
-		for( PieceSquare aPieceSquare : originalPieceSquares ) {
-			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
-		}
-		// STEP 2: Increment Bullpen Count for the respective piece
-		originalPiece.getParentHexomino().changeCount(+1);
-		
-		// The move was successful, so:
-		return true;
-		
-		*/
-		
-		return false;
-	}
-
-	
-	public boolean redoMove(AbstractLevel level) {
-		 /**
-		// STEP 1: Mark original BoardSquares as inactive
-		for( PieceSquare aPieceSquare : originalPiece.getPieceSquares() ) {
-			level.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
-		}
-		// STEP 2: Decrement Bullpen Count for the respective piece
-		if (originalPiece.getParentHexomino().getCount() > 0)
-			originalPiece.getParentHexomino().changeCount(-1);
-		
-		// The move was successful, so:
-		return true;
-		*/
-		
-		return false;
-	}
-
-	@Override
-	public boolean doMove() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
+    @Override
 	public boolean undoMove() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isValid() {
-		// TODO Auto-generated method stub
-		return false;
+    	// STEP 1: Add the Piece back to the Board
+    	theLevel.getBoard().addPiece(getOriginalPiece());
+    	// STEP 2: Mark the underlying BoardSquares as active
+		for (PieceSquare aPieceSquare : getOriginalPiece().getPieceSquares()) {
+			theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
+		}
+		// STEP 3: Increment Bullpen Count for the respective piece
+		getOriginalPiece().getParentHexomino().changeCount(1);
+		// The undo was successful, so:
+		return true;
 	}
 
 	@Override
 	public boolean redoMove() {
-		// TODO Auto-generated method stub
-		return false;
+		// STEP 1: Remove the Piece from the Board
+		theLevel.getBoard().getPieces().remove(getOriginalPiece());
+		// STEP 2: Mark the underlying BoardSquares as inactive
+		for (PieceSquare aPieceSquare : getOriginalPiece().getPieceSquares()) {
+			theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
+		}
+		// STEP 3: Decrement Bullpen Count for the respective Piece
+		if(getOriginalPiece().getParentHexomino().getCount() > 0)
+			getOriginalPiece().getParentHexomino().changeCount(-1);
+		// The redo was successful, so:
+		return true;
 	}
 }

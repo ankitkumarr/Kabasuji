@@ -74,7 +74,7 @@ public class WorkspaceToBoardMove extends PieceMove {
 		else
 			theLevel.getBoard().addPiece(snappedPiece); // Add the snapped Piece to the board
 		// STEP 2: Increment Bullpen Count for the respective piece
-		theLevel.getPieceBeingDragged().getParentHexomino().setCount(theLevel.getPieceBeingDragged().getParentHexomino().getCount() - 1);
+		theLevel.getPieceBeingDragged().getParentHexomino().changeCount(1);
 		// STEP 3: Mark underlying BoardSquares as active
 		for (PieceSquare aPieceSquare : snappedPiece.getPieceSquares()) {
 			if (!theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].isActive())
@@ -96,6 +96,9 @@ public class WorkspaceToBoardMove extends PieceMove {
 		for (PieceSquare aPieceSquare : getFinalPiece().getPieceSquares()) {
 			theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(false);
 		}
+		// STEP 3: Decrement Bullpen Count for the respective piece
+		if (getFinalPiece().getParentHexomino().getCount() > 0)
+			getFinalPiece().getParentHexomino().changeCount(-1);
 		// The move was successful, so:
 		return true;
 	}
@@ -112,6 +115,8 @@ public class WorkspaceToBoardMove extends PieceMove {
 		for (PieceSquare aPieceSquare : getFinalPiece().getPieceSquares()) {
 			theLevel.getBoard().getSquares()[aPieceSquare.getRow()][aPieceSquare.getCol()].setActive(true);
 		}
+		// STEP 4: Increment Bullpen Count for the respective piece
+		getOriginalPiece().getParentHexomino().changeCount(1);
 		// The move was successful, so;
 		return true;
 	}

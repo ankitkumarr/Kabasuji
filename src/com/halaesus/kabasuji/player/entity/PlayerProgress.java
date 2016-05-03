@@ -30,8 +30,6 @@ public class PlayerProgress {
     			starsEarned.set(levelIndex + 1, 0); // then unlock next level
     		}
     	}
-    	
-    	
     	if (starsEarned.get(levelIndex) > earned) return; // we performed worst then our recorded best
     	this.starsEarned.set(levelIndex, earned); // if we got to here, actually update the stars earned    	
     }
@@ -41,6 +39,10 @@ public class PlayerProgress {
 		return new PlayerProgressMemento(starsEarned);
 	}
 
+	
+	public void setLevelList(LevelList levelList){
+		this.levels = levelList;
+	}
 	
 	public void restore(PlayerProgressMemento m) {
 		for (int i = 0; (i < m.getStored().size() && i < levels.getLevelCount()); i++) {

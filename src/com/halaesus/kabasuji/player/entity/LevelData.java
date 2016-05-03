@@ -24,10 +24,11 @@ public class LevelData implements Serializable, Comparable<LevelData> {
         this.levelName = name;
         this.fileName = fileName;
     }
-
-    public AbstractLevel loadLevel() {
+    
+    // does not look like we use this
+    /*public AbstractLevel loadLevel() {
     	return null;
-    }
+    }*/
 
 	public int getLevelIndex() {
 		return levelIndex;

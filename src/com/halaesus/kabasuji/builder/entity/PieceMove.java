@@ -4,6 +4,9 @@ import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 
+/**
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ */
 public abstract class PieceMove implements IMove {
 
 	AbstractLevel theLevel;

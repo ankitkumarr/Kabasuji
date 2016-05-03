@@ -3,6 +3,9 @@ package com.halaesus.kabasuji.builder.entity;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 
+/**
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ */
 public class WorkspaceToPlayerPaletteMove extends PlayerPaletteMove {
 
 	private AbstractLevel theLevel;

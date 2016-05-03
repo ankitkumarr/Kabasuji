@@ -12,25 +12,13 @@ import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
 import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 
 /**
- * 
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
 public class DragNumberToBoardMove implements MouseListener, MouseMotionListener {
-
    
-    /**
-     * 
-     */
     ReleaseLevel level;
-
-    /**
-     * 
-     */
     ReleaseBuilderView builderView;
 
-    /**
-     * @param NumberToBoardMove move 
-     * @param AbstractBuilderView builderView
-     */
     public DragNumberToBoardMove(ReleaseLevel level, ReleaseBuilderView builderView) {
         this.level = level;
         this.builderView = builderView;
@@ -38,19 +26,16 @@ public class DragNumberToBoardMove implements MouseListener, MouseMotionListener
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -87,15 +72,12 @@ public class DragNumberToBoardMove implements MouseListener, MouseMotionListener
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		
 		if( this.level.isDraggingActive() &&
 				this.level.getDragSource() == ReleaseLevel.DRAG_SOURCE_NUMBERBAR ) {
-			NumberToBoardMove theMove = new NumberToBoardMove(this.builderView);
-			
+			NumberToBoardMove theMove = new NumberToBoardMove(this.level, this.builderView);
 
-			if( theMove.isValid(this.level) ) {
-				
-				theMove.doMove(this.level); 
+			if( theMove.isValid() ) {
+				theMove.doMove(); 
 			}
 			level.setDraggingActive(false);
 			level.setDraggingDistToPointX(-1);
@@ -112,25 +94,19 @@ public class DragNumberToBoardMove implements MouseListener, MouseMotionListener
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		
 		if( this.level.isDraggingActive() &&
-				this.level.getDragSource() == ReleaseLevel.DRAG_SOURCE_NUMBERBAR) {
-				// Form the new point to draw the Piece
-				this.level.setTopPointOfDraggingPiece(new Point(e.getX() - this.level.getDraggingDistToPointX(), 
-						                                    e.getY() - this.level.getDraggingDistToPointY()));
-				
-				// Force the view to repaint
-				this.builderView.repaint();
-			}
-		
+			this.level.getDragSource() == ReleaseLevel.DRAG_SOURCE_NUMBERBAR) {
+			// Form the new point to draw the Piece
+			this.level.setTopPointOfDraggingPiece(new Point(e.getX() - this.level.getDraggingDistToPointX(), 
+					                                        e.getY() - this.level.getDraggingDistToPointY()));
+			// Force the view to repaint
+			this.builderView.repaint();
+		}
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
-
- 
 
 }

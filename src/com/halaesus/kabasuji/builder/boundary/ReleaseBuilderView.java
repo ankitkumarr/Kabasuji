@@ -18,6 +18,10 @@ import com.halaesus.kabasuji.shared.entity.ReleaseBoard;
 import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
 import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 
+/**
+ * @author akumar3
+ *
+ */
 @SuppressWarnings("serial")
 public class ReleaseBuilderView extends AbstractBuilderView {
 	
@@ -51,6 +55,9 @@ public class ReleaseBuilderView extends AbstractBuilderView {
     	
     }
     
+    /**
+     * This function sets up the ReleasePalette to show it in the Builder Window
+     */
     public void setupReleasePalette() {
     	Font releaseNumberFont = new Font("releaseNumberFont", Font.BOLD, 35);
     	rNumbers = this.level.getNumberBar().getNumbers();
@@ -77,20 +84,32 @@ public class ReleaseBuilderView extends AbstractBuilderView {
 		}    	
     }
     
+    /**
+     * This will return the Rectangle that belongs to a Release Number
+     * @param row 	: The row of the release Number rectangle
+     * @param col	: The column of the release Number for the rectangle
+     * @return	returns the rectangle made
+     */
     public Rectangle getReleaseNumberRectangle(int row, int col) {
     	return new Rectangle(960 + (53*(col-1)) , 80 + (53*(row-1)) , 53, 53);
     }
+    
+    /**
+     * Display the draggin of the ReleaseNumber that is being on the window
+     * @param g
+     */
     
     private void drawDraggingNumber(Graphics g) {
 		assert( this.level.isDraggingActive() == true ); // This function can only be called if there is a piece being dragged
 		ReleaseNumber numberToBeDrawn = this.level.getnumberBeingDragged();
 		Font releaseNumberFont = new Font("releaseNumberFont", Font.BOLD, 35);
 		
-		//TODO: might change this getdrag function
+		//This will return the top point of the Number being dragged
 		Point topPointToDraw = this.level.getTopPointOfDraggingPiece();
 		
 		remove(draggingLabel);
 		
+		//This will form the Label that will be dragged along
 		draggingLabel = new JLabel(Integer.toString(numberToBeDrawn.getValue()));
 		draggingLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
@@ -101,11 +120,17 @@ public class ReleaseBuilderView extends AbstractBuilderView {
 		draggingLabel.setFont(releaseNumberFont);
 		draggingLabel.setVisible(true);
 		
+		//The Label is added to be the list of components
 		add(draggingLabel);
 	}
     
  
-   
+   /** 
+    * Overrides the paintComponent from the AbstractBuilderView so that the ReleaseNumbers could be
+    * painted in the window 
+    * @param g Graphics
+    */
+    @Override
     protected void paintComponent(Graphics g) {
 		
 		if (this.level.isDraggingActive() && this.level.getnumberBeingDragged()!=null)
@@ -127,6 +152,10 @@ public class ReleaseBuilderView extends AbstractBuilderView {
 		
 	}
 
+    /**
+     * Sets up the Release numbers to be displayed on the board for Release Levels
+     * @param g Graphics
+     */
     private void setupNumberLabels(Graphics g) {
 		Font releaseNumberFont = new Font("releaseNumberFont", Font.BOLD, 35);
 		ReleaseBoard rb = (ReleaseBoard) this.level.getBoard();
@@ -151,6 +180,11 @@ public class ReleaseBuilderView extends AbstractBuilderView {
 			}
 	}
     
+    
+    /**
+     * Creates the Rectangle Bound of the ReleaseNumber Palette
+     * @return  : The rectangle bound of the palette
+     */
     public Rectangle getReleaseNumberBarBounds() {
     	return new Rectangle(960, 80, 53*6, 53*6);
     }

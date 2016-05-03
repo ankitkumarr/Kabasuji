@@ -26,9 +26,9 @@ public class LightningBuilderView extends AbstractBuilderView {
     JButton setPiecesCount;
     LightningLevel level;
 
-    public LightningBuilderView(Application application, AbstractLevel aLevel) {
+    public LightningBuilderView(Application application, AbstractLevel aLevel, int levelIndex) {
         
-    	super(application, aLevel);
+    	super(application, aLevel, levelIndex);
     	this.level = (LightningLevel) aLevel;
     	setupTimeAndPieces();
     	setupsetButtons();

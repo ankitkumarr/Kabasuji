@@ -27,9 +27,9 @@ public class ReleaseBuilderView extends AbstractBuilderView {
 	private JLabel draggingLabel;
 	private ArrayList<JLabel> numbersOnTheBoard;
     
-    public ReleaseBuilderView(Application application, AbstractLevel aLevel) {
+    public ReleaseBuilderView(Application application, AbstractLevel aLevel, int levelIndex) {
         
-    	super(application, aLevel);
+    	super(application, aLevel, levelIndex);
     	this.level = (ReleaseLevel) aLevel;
     	
     	DragNumberToBoardMove theMove = new DragNumberToBoardMove(this.level, this);

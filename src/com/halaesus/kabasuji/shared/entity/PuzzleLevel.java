@@ -111,7 +111,7 @@ public class PuzzleLevel extends AbstractLevel {
 		return allowedMoves;
 	}
 	
-	public void setallowedMoves(int allowedmoves) {
+	public void setAllowedMoves(int allowedmoves) {
 		this.allowedMoves = allowedmoves;
 	}
 

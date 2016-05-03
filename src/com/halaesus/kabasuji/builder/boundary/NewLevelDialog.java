@@ -111,7 +111,7 @@ public class NewLevelDialog extends JDialog {
 						if (name == null || name.length() == 0) return; // user must enter a name
 						
 						int idx = parent.levelList.newLevel(name, selectedType);
-						Application.instance().showLevel(parent.levelList.loadLevel(idx), selectedType);
+						Application.instance().showLevel(parent.levelList.loadLevel(idx), selectedType, idx);
 						dispose();
 						parent.dispose();
 					}

@@ -4,10 +4,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import com.halaesus.kabasuji.builder.boundary.PuzzleBuilderView;
+import com.halaesus.kabasuji.builder.entity.MoveManager;
+import com.halaesus.kabasuji.builder.entity.UpdateNumMovesInPuzzleMove;
 import com.halaesus.kabasuji.shared.entity.PuzzleLevel;
 
 /**
- * 
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
 public class SetNumMovePuzzle implements MouseListener {
 
@@ -20,37 +22,27 @@ public class SetNumMovePuzzle implements MouseListener {
         this.level = level;
     }
 
-    /**
-     * @param MouseEvent e
-     */
     public void mouseClicked(MouseEvent e) {
-        this.level.setallowedMoves(Integer.parseInt(this.builderView.getmovesValue()));
-        this.builderView.setmovesLabel((this.builderView.getmovesValue()));
+        // STEP 1: Spawn off the move
+    	UpdateNumMovesInPuzzleMove theMove = new UpdateNumMovesInPuzzleMove(level, builderView);
+    	theMove.setOriginalNumMoves(level.getAllowedMoves());
+    	// STEP 2: Perform the move
+    	if( theMove.isValid() && theMove.doMove() )
+    		MoveManager.pushMove(theMove); // Add the move to the Stack of Moves
+    	// STEP 3: Refresh the GUI
         this.builderView.repaint();
     }
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseEntered(MouseEvent arg0) { }
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseExited(MouseEvent arg0) { }
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mousePressed(MouseEvent arg0) { }
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseReleased(MouseEvent arg0) { }
 
 }

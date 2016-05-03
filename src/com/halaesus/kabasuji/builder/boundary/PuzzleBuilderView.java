@@ -19,18 +19,18 @@ public class PuzzleBuilderView extends AbstractBuilderView {
     JButton setMoves;
     PuzzleLevel level;
 
-    public PuzzleBuilderView(Application application, AbstractLevel aLevel) {
+    public PuzzleBuilderView(Application application, AbstractLevel aLevel, int levelIndex) {
         // TODO implement here
-    	super(application, aLevel);
+    	super(application, aLevel, levelIndex);
     	this.level = (PuzzleLevel) aLevel;
-    	setupmovesBox();
-    	setupsetMoves();
-    	setupmovesLabel();
+    	setupSetMovesBox();
+    	setupSetMoves();
+    	setupSetMovesLabel();
     	
     }
     
-    public void setupmovesLabel() {
-    	movesLabel = new JLabel(" Moves : " + getmoves());
+    public void setupSetMovesLabel() {
+    	movesLabel = new JLabel(" Moves : " + getMoves());
     	movesLabel.setBounds(320 + 56 * 12, 170, 324, 60);
     	movesLabel.setForeground(Color.ORANGE);
 		movesLabel.setFont(new Font(movesLabel.getFont().getName(),
@@ -41,11 +41,11 @@ public class PuzzleBuilderView extends AbstractBuilderView {
     	
     }
     
-    public String getmoves() {
+    public String getMoves() {
     	return Integer.toString(level.getAllowedMoves());
     }
     
-    public void setupmovesBox() {
+    public void setupSetMovesBox() {
     	movesBox = new JTextField();
     	//TODO: Ensure only number is entered
     	movesBox.setBounds(320 + 56 * 12, 100, 100, 70);
@@ -56,7 +56,7 @@ public class PuzzleBuilderView extends AbstractBuilderView {
 		add(movesBox);
     }
     
-    public void setupsetMoves(){
+    public void setupSetMoves(){
     	setMoves = new JButton("Set");
     	setMoves.setBounds(320 + 67 * 12, 100, 80, 70);
     	setMoves.setFont(new Font(movesBox.getFont().getName(),
@@ -66,11 +66,11 @@ public class PuzzleBuilderView extends AbstractBuilderView {
 
     }
     
-    public String getmovesValue(){
+    public String getMovesValue(){
     	return movesBox.getText();
     }
     
-    public void setmovesLabel(String text) {
+    public void setMovesLabel(String text) {
     	movesLabel.setText(" Moves : " + text);
     }
     

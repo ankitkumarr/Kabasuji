@@ -34,7 +34,6 @@ public class MoveManager {
     public static void pushMove(IMove move) {
     	instance().moves.add(move);
     	instance().undoneMoves = new Stack<IMove>();
-    	System.out.println(move + " pushed");
     }
     
     public static void undo(AbstractLevel level) {

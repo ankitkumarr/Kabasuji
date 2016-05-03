@@ -1,7 +1,7 @@
 package com.halaesus.kabasuji.builder.entity;
 
 /**
- * @author asoota Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
 public interface IMove {
     public boolean doMove();

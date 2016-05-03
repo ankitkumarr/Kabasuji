@@ -99,9 +99,9 @@ public class DragPieceFromWorkspace implements MouseListener, MouseMotionListene
 					MoveManager.pushMove(theMove);
 				//level.newPieceDropped();
 			} else if (levelView.getPlayerPaletteFrame().getBounds().contains(e.getPoint())){ // mouse is released over the player palette
-				WorkspaceToPlayerPaletteMove wtpMove = new WorkspaceToPlayerPaletteMove(level.getPieceBeingDragged());
-				if (wtpMove.isValid(level)) {
-					if (wtpMove.doMove(level))
+				WorkspaceToPlayerPaletteMove wtpMove = new WorkspaceToPlayerPaletteMove(this.level, this.level.getPieceBeingDragged());
+				if (wtpMove.isValid()) {
+					if (wtpMove.doMove())
 						MoveManager.pushMove(wtpMove);
 				}
 			} else {

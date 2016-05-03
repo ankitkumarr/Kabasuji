@@ -3,57 +3,45 @@ package com.halaesus.kabasuji.builder.entity;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 
-public class WorkspaceToPlayerPaletteMove implements IMove {
+public class WorkspaceToPlayerPaletteMove extends PlayerPaletteMove {
 
-	Piece piece;
-	
-	public WorkspaceToPlayerPaletteMove(Piece p) {
-		piece = p;
+	private AbstractLevel theLevel;
+
+	public WorkspaceToPlayerPaletteMove(AbstractLevel theLevel, Piece thePiece) {
+		this.theLevel = theLevel;
+		setPiece(thePiece);
 	}
-	
-    public boolean doMove(AbstractLevel level) {
-        if (!isValid(level)) return false;
+
+	@Override
+    public boolean isValid() {
+        return theLevel.isDraggingActive();
+    }
+
+	@Override
+    public boolean doMove() {
+    	// Check if the move is valid or not
+        if (!isValid()) 
+        	return false;
+        // If the move is valid, increase the count of the respective Hexomino by one
     	piece.getParentHexomino().changeCount(+1);
-        return true;
-    }
-   
-    public boolean isValid(AbstractLevel level) {
-        if (!level.isDraggingActive()) return false;
-        
-        return true;
-    }
-   
-    public boolean undoMove(AbstractLevel level) {
-    	piece.getParentHexomino().changeCount(-1);
+    	// As the move was successful, so:
         return true;
     }
 
-    public boolean redoMove(AbstractLevel level) {
+	@Override
+    public boolean undoMove() {
+    	// Decrease the count of the respective Hexomino by one
+    	piece.getParentHexomino().changeCount(-1);
+    	// As the undo was successful, so:
+        return true;
+    }
+
+	@Override
+    public boolean redoMove() {
+    	// Increase the count of the respective Hexomino by one
     	piece.getParentHexomino().changeCount(+1);
+    	// As the redo was successful, so:
     	return true;
     }
 
-	@Override
-	public boolean doMove() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean undoMove() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isValid() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean redoMove() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }

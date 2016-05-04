@@ -84,7 +84,7 @@ public class TestBuilderVarTwo extends BuilderTestCase {
 	
 	public void testLoadReleaseLevel(){
 		AbstractLevel releaseLevel =  levelList.loadLevel(2);
-		app.showLevel(releaseLevel,"RELEASE",	1);
+		app.showLevel(releaseLevel,"RELEASE",	2);
 		assertTrue(true);
 	}
 	

@@ -1,5 +1,7 @@
 package com.halaesus.kabasuji.builder;
 
+import java.io.File;
+
 import com.halaesus.kabasuji.builder.boundary.Application;
 import com.halaesus.kabasuji.builder.tests.BuilderTestCase;
 import com.halaesus.kabasuji.shared.entity.Model;
@@ -11,9 +13,13 @@ public class TestBuilder extends BuilderTestCase {
 		m = new Model();
 	}
 	
+
+	
 	public void testMain() {
 		Application app = Main.setupApp(m);
 		assertTrue(app instanceof Application);
+		
+		app.destroyInstance();
 		app.dispose();
 	}
 }

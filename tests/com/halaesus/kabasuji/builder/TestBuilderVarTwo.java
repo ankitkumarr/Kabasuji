@@ -38,6 +38,11 @@ public class TestBuilderVarTwo extends BuilderTestCase {
 		
 		// mimic builder main setup
 		(new ImageLoader()).execute();
+		// image loader works in the background and works great
+		// but not so great for testing so
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e){}
 		app.setVisible(true);
 		
 	}
@@ -71,12 +76,16 @@ public class TestBuilderVarTwo extends BuilderTestCase {
 		assertTrue(true);
 	}
 	
-	
-
-	
-	/*public void testLevelManagerDialog() {
-		LevelManagerDialog.main(null); // do nothing with this, just called for coverage
+	public void testLoadLightningLevel(){
+		AbstractLevel lightningLevel =  levelList.loadLevel(1);
+		app.showLevel(lightningLevel,"LIGHTNING",	1);
 		assertTrue(true);
-		app.dispose();	
-	}*/
+	}
+	
+	public void testLoadReleaseLevel(){
+		AbstractLevel releaseLevel =  levelList.loadLevel(2);
+		app.showLevel(releaseLevel,"RELEASE",	1);
+		assertTrue(true);
+	}
+	
 }

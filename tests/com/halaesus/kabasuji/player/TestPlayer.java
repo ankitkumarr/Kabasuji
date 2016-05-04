@@ -16,6 +16,7 @@ import com.halaesus.kabasuji.player.controller.DragPieceFromBoard;
 import com.halaesus.kabasuji.player.controller.DragPieceFromWorkspaceToBoard;
 import com.halaesus.kabasuji.player.entity.LevelList;
 import com.halaesus.kabasuji.player.entity.PlayerProgress;
+import com.halaesus.kabasuji.player.moves.BoardToBullpenMove;
 import com.halaesus.kabasuji.shared.entity.AbstractBoard;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Model;
@@ -167,7 +168,9 @@ public class TestPlayer extends PlayerTestCase {
 		t1.mouseReleased(me2);
 		app.showLevel(level);
 		
+		BoardToBullpenMove bpm = new BoardToBullpenMove(newView);
 		t2.mousePressed(me3);
+		bpm.isValid(level);
 		t2.mouseDragged(me1);
 		t2.mouseReleased(me2);
 		t2.mouseReleased(me4);

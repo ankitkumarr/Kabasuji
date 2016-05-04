@@ -9,14 +9,19 @@ import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
 
 /**
+ * Move Class to handle Board To bullpen move of pieces
  * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
+
 public class BoardToBullpenMove extends PieceMove {
 
     public BoardToBullpenMove(AbstractLevel theLevel, AbstractBuilderView theBuilderView) {
 		super(theLevel, theBuilderView);
 	}
 
+    /**
+     * Check if the move to be done is valid or not
+     */
     @Override
     public boolean isValid() {
 		assert(theLevel.isDraggingActive() == true); // We can only be called if a drag is in action
@@ -49,6 +54,9 @@ public class BoardToBullpenMove extends PieceMove {
 		return true;
     }
 
+    /**
+     * Performs the move
+     */
     @Override
     public boolean doMove() {
 		if (!this.theLevel.isDraggingActive())
@@ -70,6 +78,9 @@ public class BoardToBullpenMove extends PieceMove {
 		return true;
     }
 
+    /**
+	 * Undoes the move
+	 */
     @Override
 	public boolean undoMove() {
     	// STEP 1: Add the Piece back to the Board
@@ -84,6 +95,9 @@ public class BoardToBullpenMove extends PieceMove {
 		return true;
 	}
 
+    /**
+	 * Redoes the move
+	 */
 	@Override
 	public boolean redoMove() {
 		// STEP 1: Remove the Piece from the Board

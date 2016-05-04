@@ -64,6 +64,7 @@ public class TestBuilderVarTwo extends BuilderTestCase {
 	}
 	
 	public void testLoadPuzzleLevel(){
+		(new ImageLoader()).execute() ;
 		AbstractLevel puzzleLevel =  levelList.loadLevel(0);
 		app.showLevel(puzzleLevel,"PUZZLE",	0);
 		assertTrue(true);

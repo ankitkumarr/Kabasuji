@@ -25,7 +25,7 @@ import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
  * <b> ReleaseBuilderView </b> contains information about the GUI elements that are specific to 
  * Release Level
  * </p>
- * @author akumar3
+ * @author Ankit Kumar
  */
 @SuppressWarnings("serial")
 public class ReleaseBuilderView extends AbstractBuilderView {

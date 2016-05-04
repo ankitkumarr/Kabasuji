@@ -13,7 +13,7 @@ import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
 import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 
 /**
- * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ * @author Ankit Kumar, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
 public class DragNumberToBoardMove implements MouseListener, MouseMotionListener {
    

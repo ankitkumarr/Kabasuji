@@ -18,7 +18,7 @@ import com.halaesus.kabasuji.shared.entity.PuzzleLevel;
  * <b> PuzzleBuilderView </b> contains information about the GUI elements that are specific to 
  * Puzzle Level
  * </p>
- * @author akumar3
+ * @author Ankit Kumar
  */
 @SuppressWarnings("serial")
 public class PuzzleBuilderView extends AbstractBuilderView {

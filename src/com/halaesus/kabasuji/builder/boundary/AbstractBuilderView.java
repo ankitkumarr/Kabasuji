@@ -49,43 +49,138 @@ import com.halaesus.kabasuji.utils.PieceHelper;
 import com.halaesus.kabasuji.builder.controller.ClickPieceInPalette;
 import com.halaesus.kabasuji.builder.controller.DecrementPlayerPalette;
 
+/**
+ * Abstract View class to represent the generic view for all type of BuilderLevel views
+ * @author akumar3
+ *
+ */
 @SuppressWarnings("serial")
 public abstract class AbstractBuilderView extends JPanel {
+	
+	/**
+	 * The main Application window
+	 */
 	Application application;
+	
+	/**
+	 * Level to store all the level information
+	 */
 	AbstractLevel level;
 	
 	// top bar buttons
+	/**
+	 * Button to prompt the level manager
+	 */
 	JButton levelManagerBtn;
+	
+	/**
+	 * Button to save the level
+	 */
 	JButton saveBtn;
+	
+	/**
+	 * Button to open a level
+	 */
 	JButton openBtn;
+	
+	/**
+	 * Button to undo a move
+	 */
 	JButton undoBtn;
+	
+	/**
+	 * Button to redo a move
+	 */
 	JButton redoBtn;
 	
 	// workspace buttons
+	/**
+	 * Flip HorizontalButtton
+	 */
 	JButton flipHBtn;
+	
+	/**
+	 * Flip Vertical Button
+	 */
 	JButton flipVBtn;
+	
+	/**
+	 * Roatate CounterClockwise Button
+	 */
 	JButton rotateCCBtn;
+	
+	/**
+	 * Roatate Clockwise button
+	 */
 	JButton rotateCWBtn;
 
 	// palette buttons
+	/**
+	 * Array of buttons for the builder palette
+	 */
 	JButton[] builderPaletteHexBtns;
+	
+	/**
+	 * Array of buttons for Player palette hexominoes
+	 */
 	HexominoButtonView[] playerPaletteHexBtns;
 	
+	/**
+	 * top point of the piece in the bullpen
+	 */
 	Point bullpenPiecesBoardTopPoint;
+	
+	/**
+	 * The top point of pieces in the board
+	 */
 	Point boardPiecesTopPoint;
 
+	/**
+	 * Label to display levelinfo
+	 */
 	JLabel levelInfo;
+	
+	/**
+	 * Label to display bullpen
+	 */
 	JLabel bullpenLevel;
+	
+	/**
+	 * Array of labels to show count of the hexominoes
+	 */
 	JLabel[] playerHexsCount;
 
+	/**
+	 * Panel to show the palette of the pieces
+	 */
 	JPanel builderPalette;
+	
+	/**
+	 * Panel to show the palette of the player
+	 */
 	JPanel playerPalette;
 	
+	/**
+	 * Image to store the scaled background image
+	 */
 	protected Image backgroundImage;
 
+	/**
+	 * HashMap to map the Mouseclicks with their rectangles
+	 */
 	HashMap<Rectangle, MouseListener> clickMap;
+	
+	/**
+	 * ButtonViews to display the hexomino buttons
+	 */
 	HexominoButtonView[] hexominoButton;
 	
+	/**
+	 * Create an instance of AbstractBuilderView to show the level components on the screen
+	 * @param application
+	 * @param aLevel Level to get the information to be displayed
+	 * @param levelIndex Level index of the level
+	 */
 	public AbstractBuilderView(Application application, AbstractLevel aLevel, int levelIndex) {
 		this.application = application;
 		level = aLevel;
@@ -93,7 +188,6 @@ public abstract class AbstractBuilderView extends JPanel {
 		level.setLevelIndex(levelIndex);
 		bullpenPiecesBoardTopPoint = new Point(0, 399);
 		boardPiecesTopPoint = new Point(320, 80);
-
 		setBounds(0, 0, 1280, 720);
 		setLayout(null);
 		
@@ -117,13 +211,19 @@ public abstract class AbstractBuilderView extends JPanel {
 		addMouseMotionListener(toggleHint);
 	}
 	
+	/**
+	 * sets up the Top Bar of the window with individual buttons for functionalities
+	 */
 	private void setupTopBar() {
+		
+		//Level Manager button
 		levelManagerBtn = new JButton("Level Manager");
 		levelManagerBtn.setFont(new Font("Arial", Font.PLAIN, 20));
 		levelManagerBtn.setBounds(75 * 0, 0, 200, 75);
 		levelManagerBtn.addActionListener(new LaunchLevelManager());
 		this.add(levelManagerBtn);
 		
+		//Save Button
 		saveBtn = new JButton(new ImageIcon(Application.instance().getImage("save.png")
 				.getScaledInstance(75, 75, Image.SCALE_SMOOTH)));
 		saveBtn.setToolTipText("Save");
@@ -131,6 +231,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		saveBtn.addActionListener(new SaveToFile(this));
 		this.add(saveBtn);
 		
+		//Undo button
 		undoBtn = new JButton(new ImageIcon(Application.instance().getImage("undo.png")
 				.getScaledInstance(75, 75, Image.SCALE_SMOOTH)));
 		undoBtn.setBounds(75 * 5, 0, 75, 75);
@@ -138,6 +239,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		undoBtn.addActionListener(new UndoMove(level, this));
 		this.add(undoBtn);
 		
+		//Redo Button
 		redoBtn = new JButton(new ImageIcon(Application.instance().getImage("redo.png")
 				.getScaledInstance(75, 75, Image.SCALE_SMOOTH)));
 		redoBtn.setBounds(75 * 6 + 38, 0, 75, 75);
@@ -146,7 +248,13 @@ public abstract class AbstractBuilderView extends JPanel {
 		this.add(redoBtn);
 	}
 
+	/** 
+	 * Setup the workspace buttons to manage the pieces
+	 * 
+	 */
 	private void setupWorkspace() {
+		
+		//Flip Horizontal button
 		flipHBtn = new JButton(new ImageIcon(Application.instance().getImage("flipHorizontal.png")
 				.getScaledInstance(90, 90, Image.SCALE_SMOOTH)));
 		flipHBtn.setBounds(230, 630, 90, 90);
@@ -155,6 +263,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		flipHBtn.setContentAreaFilled(false);
 		this.add(flipHBtn);
 
+		//Flip vertical button
 		flipVBtn = new JButton(new ImageIcon(Application.instance().getImage("flipVertical.png")
 				.getScaledInstance(90, 90, Image.SCALE_SMOOTH)));
 		flipVBtn.setBounds(1, 400, 90, 90);
@@ -163,6 +272,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		flipVBtn.setContentAreaFilled(false);
 		this.add(flipVBtn);
 
+		//rotate clockwise button
 		rotateCWBtn = new JButton(new ImageIcon(Application.instance().getImage("rotateCW.png")
 				.getScaledInstance(90, 90, Image.SCALE_SMOOTH)));
 		rotateCWBtn.setBounds(1, 630, 90, 90);
@@ -171,6 +281,7 @@ public abstract class AbstractBuilderView extends JPanel {
 		rotateCWBtn.setContentAreaFilled(false);
 		this.add(rotateCWBtn);
 
+		//rotate counter-clockwise button
 		rotateCCBtn = new JButton(new ImageIcon(Application.instance().getImage("rotateCC.png")
 				.getScaledInstance(90, 90, Image.SCALE_SMOOTH)));
 		rotateCCBtn.setBounds(230, 400, 90, 90);
@@ -180,6 +291,9 @@ public abstract class AbstractBuilderView extends JPanel {
 		this.add(rotateCCBtn);
 	}
 	
+	/** 
+	 * Setup the palette for pieces to create the board
+	 */
 	private void setupBuilderPalette() {
 		builderPalette = new JPanel();
 		builderPalette.setBounds(8, 88, 304, 304);
@@ -198,6 +312,9 @@ public abstract class AbstractBuilderView extends JPanel {
 		}
 	}
 	
+	/** 
+	 * display the information about the level
+	 */
 	private void showLevelInfo() {
 		// Create the label
 		levelInfo = new JLabel(level.getLevelName());
@@ -210,6 +327,9 @@ public abstract class AbstractBuilderView extends JPanel {
 		add(levelInfo);
 	}
 	
+	/**
+	 * Setup the palette for the player to be played 
+	 */
 	private void setupPlayerPalette() {
 		playerPalette = new JPanel();
 		playerPalette.setBounds(968, 408, 304, 304);
@@ -232,6 +352,9 @@ public abstract class AbstractBuilderView extends JPanel {
 		}
 	}
 	
+	/**
+	 * Initalize all the MouseListeners
+	 */
 	private void implementMouseListeners() {
 		addMouseListener(new MouseListener() {
 			@Override
@@ -260,6 +383,9 @@ public abstract class AbstractBuilderView extends JPanel {
 		addMouseMotionListener(dragWorkspaceToBoard);
 	}
 
+	/**
+	 * Override the paint function to paint images
+	 */
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g); // Let the super do its stuff
@@ -282,6 +408,10 @@ public abstract class AbstractBuilderView extends JPanel {
 	
 	
 
+	/**
+	 * Display the image for deleting a piece from the board
+	 * @param g
+	 */
 	protected void drawBullpenTrashCan(Graphics g) {
 		assert( this.level.isDraggingActive() == true ); // This function can only be called if there is a piece being dragged
 		// Check dragging state; Source needs to be the Board
@@ -314,7 +444,10 @@ public abstract class AbstractBuilderView extends JPanel {
 	}
 	
 	
-
+	/**
+	 * Draw the piece that is being dragged on the board
+	 * @param g
+	 */
 	protected void drawDraggingPiece(Graphics g) {
 		assert( this.level.isDraggingActive() == true ); // This function can only be called if there is a piece being dragged
 		// If a piece is being dragged, we'd draw that first
@@ -438,11 +571,11 @@ public abstract class AbstractBuilderView extends JPanel {
 		}
 	}
 
+	/**
+	 * Override the paintComponent method to paint our new components
+	 */
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		//g.drawImage(Application.instance().getImage("gridWithBoard.jpg")         ///Slows down the application
-				//.getScaledInstance(1280, -1, Image.SCALE_SMOOTH), 0, 0, null);
-		
 		g.drawImage(backgroundImage, 0, 0, null);
 
 		// Set up the game board
@@ -452,13 +585,20 @@ public abstract class AbstractBuilderView extends JPanel {
 		drawWorkspacePiece(g);
 	}
 	
+	/**
+	 * Update the palette in the GUI if the palette has been updated
+	 */
 	public void updatePlayerPaletteView() {
 		for (int i = 0; i < 35; i++) {
 			playerPaletteHexBtns[i].setHexominoCount(level.getLevelBullpen().getPalette().getHexomino(i).getCount());
 		}
 		repaint();
 	}
-
+	
+	/**
+	 * Sets up the pieces that are in the board and displays them
+	 * @param g
+	 */
 	protected void setupBoardPieces(Graphics g) {
 		// Go over all the Pieces on the board and draw them out
 		for( Iterator<Piece> piecesIter = this.level.getBoard().getPiecesIt(); piecesIter.hasNext();  ) {
@@ -485,6 +625,10 @@ public abstract class AbstractBuilderView extends JPanel {
 		}
 	}
 
+	/**
+	 * sets up the board for the game
+	 * @param g
+	 */
 	protected void setupGameBoard(Graphics g) {
 		// Backup old Graphics color
 		Color oldColor = g.getColor();
@@ -510,6 +654,10 @@ public abstract class AbstractBuilderView extends JPanel {
 		g.setColor(oldColor);
 	}
 
+	/**
+	 * Draw the piece that is available in the workspace
+	 * @param g
+	 */
 	protected void drawWorkspacePiece(Graphics g) {
 		// Check if there is a piece in the workspace
 				if( level.getLevelBullpen().getWorkspace().pieceExists() ) {
@@ -537,36 +685,66 @@ public abstract class AbstractBuilderView extends JPanel {
 				}
 	}
 	
+	/**
+	 * returns the rectangle that is covered by the Worskpace piece
+	 * @param row ros of the piece for the rectangle
+	 * @param col col of the piece for the rectangle
+	 * @return the rectangle of the piece
+	 */
 	public Rectangle getBullpenWorkspacePieceRectangle(int row, int col) {
 		return new Rectangle(bullpenPiecesBoardTopPoint.x + (53 * col), 
 				             bullpenPiecesBoardTopPoint.y + (53 * row), 
 				             53, 53);
 	}
 	
+	/**
+	 * returns the rectangle that is covered by the Board piece
+	 * @param row ros of the piece for the rectangle
+	 * @param col col of the piece for the rectangle
+	 * @return the rectangle of the piece
+	 */
 	public Rectangle getBoardPieceRectangle(int row, int col) {
 		return new Rectangle(boardPiecesTopPoint.x + (53 * col), 
 				             boardPiecesTopPoint.y + (53 * row),
 				             53, 53);
 	}
 	
+	/**
+	 * Finds the rectangle bound covered in Bullpen
+	 * @return the rectangle covered by bullpen
+	 */
 	public Rectangle getBullpenBounds() {
 		return new Rectangle(0, 80, 320, 640);
 	}
 	
+	/**
+	 * getter function for the level
+	 * @return the level
+	 */
 	public AbstractLevel getLevel(){
 		return this.level;
 	}
 	
+	/**
+	 * gets the Jpanel for the PlayerPalatte
+	 * @return
+	 */
 	public JPanel getPlayerPaletteFrame() {
 		return playerPalette;
 	}
 
-//TODO: Not done yet
+	/**
+	 * setter function to set piece in workspace
+	 * @param p piece to be set
+	 */
 	public void setPieceInWorkspace(Piece p) {
 		level.getLevelBullpen().getWorkspace().addPiece(p); // Add the piece to the Workspace of the Level Bullpen
 		repaint(); // Force a repaint
 	}
 	
+	/**
+	 * Scale the background image to smooth things
+	 */
 	public void scalebackground() {
 		try {
 			backgroundImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/gridWithBoard.jpg")).getScaledInstance(1280, -1, Image.SCALE_SMOOTH);

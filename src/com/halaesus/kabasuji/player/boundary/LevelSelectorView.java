@@ -23,7 +23,7 @@ public class LevelSelectorView extends JPanel {
 	LevelSelector levelSelector;
 	JLabel levelSelectorLabel;
 	Application application;
-	JButton exitProgram;
+	//JButton exitProgram;
 
 	public LevelSelectorView(LevelSelector levelSelector, Application application) {
 		this.levelSelector = levelSelector;

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.halaesus.kabasuji.player.boundary.Application;
 import com.halaesus.kabasuji.player.entity.LevelList;
 import com.halaesus.kabasuji.player.entity.PlayerProgress;
+import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Model;
 
 public class TestPlayer extends PlayerTestCase {
@@ -49,6 +50,11 @@ public class TestPlayer extends PlayerTestCase {
 		masterModel = new Model(playerProgress);
 		// The Application to render the Model
 		app = new Application(masterModel);
+		
+		// Show the application
+		app.setVisible(true);
+		app.showSplashScreen();
+		app.showLevelSelector();
 	}
 	
 	protected void tearDown() {
@@ -72,7 +78,10 @@ public class TestPlayer extends PlayerTestCase {
 		assertTrue(true);
 	}
 	
-	public void testPlayUnlockedLevel(){
+	public void testPlayUnlockedPuzzleLevel(){
+		// test opening the first level to play
+		AbstractLevel level = masterModel.getLevelSelectorModel().getLevelList().loadLevel(0);
+		app.showLevel(level);
 		assertTrue(true);
 	}
 	

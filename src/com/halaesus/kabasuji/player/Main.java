@@ -17,11 +17,19 @@ import com.halaesus.kabasuji.player.entity.PlayerProgress;
 import com.halaesus.kabasuji.player.memento.PlayerProgressMemento;
 import com.halaesus.kabasuji.shared.entity.Model;
 
+/**
+ * Main class for the KabaSuji Player
+ */
 public class Main {
 	
 	/** Where player's progress persistent data is stored across executions. */
 	static final String progressStorage = "progress.data";
 	
+	/** 
+	 * Writes the player's progress data to disk 
+	 * @param p PlayerProgress object with updated data
+	 * @param location Path of the storage file
+	 */
 	static void storeState(PlayerProgress p, String location) {
 		ObjectOutputStream oos = null;
 		try {
@@ -37,6 +45,11 @@ public class Main {
 		
 	}
 	
+	/**
+	 * Loads the player's progress data from disk
+	 * @param location Path of the player progress file
+	 * @return PlayerProgress object with data loaded from disk
+	 */
 	static PlayerProgress loadState(String location) {
 		 ObjectInputStream ois = null;
 		 PlayerProgress p = new PlayerProgress();
@@ -57,7 +70,11 @@ public class Main {
 		 return p;
 	}
 	
-	
+	/**
+	 * Loads the player progress from disk or creates one if none found.
+	 * Then sets up the Model and Application for this player
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		// attempt to load PlayerProgress
 		PlayerProgress p = loadState(progressStorage);
@@ -91,5 +108,4 @@ public class Main {
 		timer.setRepeats(false);
 		timer.start();
 	}
-	
 }

@@ -72,6 +72,10 @@ public class TestPlayer extends PlayerTestCase {
 		assertTrue(true);
 	}
 	
+	public void testPlayUnlockedLevel(){
+		assertTrue(true);
+	}
+	
 	
 	
 	

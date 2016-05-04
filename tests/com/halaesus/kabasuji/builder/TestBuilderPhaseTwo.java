@@ -20,7 +20,7 @@ import com.halaesus.kabasuji.shared.entity.Model;
 import com.halaesus.kabasuji.shared.entity.PuzzleLevel;
 import com.halaesus.kabasuji.utils.PieceGenerator;
 
-public class TestBuilderVarTwo extends BuilderTestCase {
+public class TestBuilderPhaseTwo extends BuilderTestCase {
 	
 	Model model;
 	Application app;
@@ -42,7 +42,7 @@ public class TestBuilderVarTwo extends BuilderTestCase {
 		// create 3 test levels on disk
 		fileNames.add(levelList.newTestLevel("TestPuzzle", "PUZZLE" ));
 		fileNames.add(levelList.newTestLevel("TestLightning", "LIGHTNING" ));
-		fileNames.add(levelList.newTestLevel("TestRELEASE", "RELEASE" ));
+		fileNames.add(levelList.newTestLevel("TestRelease", "RELEASE" ));
 		
 		// mimic builder main setup
 		(new ImageLoader()).execute();
@@ -108,7 +108,7 @@ public class TestBuilderVarTwo extends BuilderTestCase {
 	
 	public void testSomeMovePuzzleLevel() {
 		
-		AbstractLevel level = model.getLevelSelectorModel().getLevelList().loadLevel(2);
+		AbstractLevel level = model.getLevelSelectorModel().getLevelList().loadLevel(0);
 		addPiece(level);
 		AbstractBuilderView newView = new PuzzleBuilderView(app, (PuzzleLevel) level, 0);
 		MouseEvent me = (createPressed(newView, newView.getBullpenWorkspacePieceRectangle(2, 1).x, newView.getBullpenWorkspacePieceRectangle(2, 1).y));

@@ -16,23 +16,36 @@ import com.halaesus.kabasuji.shared.entity.LightningLevel;
 import com.halaesus.kabasuji.utils.JLabelHelper;
 
 /**
- * 
+ * Represents a LightningLevelView which is a type of an AbstractLevelView
+ * <p>
  * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
- *
  */
-
 @SuppressWarnings("serial")
 public class LightningLevelView extends AbstractLevelView {
 
+	/** The number of seconds beyond which the timer seconds flash red to warn the player */
 	protected static final int WARNING_THRESHOLD = 10;
 	
+	/** Keeps track of the LightningLevel that is being played */
 	LightningLevel level;
+	
+	/** A timer to keep track of the time counting down */
 	Timer countdownTimer;
+	
+	/** A timer to show the red warning label */
 	Timer warningTimer;
 	
+	/** Label to show Level Specific Information */
 	JLabel lightningModeLabel;
+	
+	/** Label to show the remaining time to the user */
 	JLabel timeRemaining;
 
+	/**
+	 * Instantiates an object of LightningLevelView with the necessary Application and LightningLevel
+	 * @param anApplication
+	 * @param aLevel
+	 */
 	public LightningLevelView(Application anApplication, LightningLevel aLevel) {
 		super(anApplication, aLevel); // Let the super initialize itself
 		// Save the level
@@ -47,6 +60,9 @@ public class LightningLevelView extends AbstractLevelView {
 		countdownTimer.start();
 	}
 
+	/**
+	 * Sets up the Level Specific Information Label on the GUI
+	 */
 	private void setupLevelTypeLabel() {
 		// Create the label	
 		lightningModeLabel = new JLabel("Lightning Mode");
@@ -58,6 +74,9 @@ public class LightningLevelView extends AbstractLevelView {
 		add(lightningModeLabel);
 	}
 
+	/**
+	 * Sets up the remaining time label on the GUI
+	 */
 	private void setupTimeRemainingLabel() {
 		// Calculate some values
 		int seconds = level.getTimeLeft() % 60;
@@ -77,6 +96,9 @@ public class LightningLevelView extends AbstractLevelView {
 		timeRemaining.repaint(); // Render the changes
 	}
 
+	/**
+	 * Sets up the time remaining Countdown time and starts it off
+	 */
 	private void setupCountdownTimer() {
 		countdownTimer = new Timer(1000, new ActionListener() {
 		    public void actionPerformed(ActionEvent evt) {
@@ -123,6 +145,9 @@ public class LightningLevelView extends AbstractLevelView {
 		countdownTimer.setRepeats(true);
 	}
 	
+	/**
+	 * Sets up the Warning Timer
+	 */
 	private void setupWarningTimer() {
 		warningTimer = new Timer(250, new ActionListener() {
 			@Override
@@ -138,6 +163,9 @@ public class LightningLevelView extends AbstractLevelView {
 		});
 	}
 
+	/**
+	 * Overrides the paintComponent(g) to gray out BoardSquares which are marked as filled
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g); // Let the super do its painting first

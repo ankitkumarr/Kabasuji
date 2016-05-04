@@ -2,48 +2,58 @@ package com.halaesus.kabasuji.builder.tests;
 
 import java.awt.event.MouseEvent;
 
+import javax.swing.JLabel;
+
+import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
+
 import junit.framework.TestCase;
 
 // TODO make this for KabaSuji ? - Brian KD
 
 public abstract class BuilderTestCase extends TestCase {
-/*	*//** (dx,dy) are offsets into the widget space. Feel Free to Use as Is. *//*
-	public MouseEvent createPressed (AbstractBuilderView builderView, int dx, int dy) {
-		MouseEvent me = new MouseEvent(game.getContainer(), MouseEvent.MOUSE_PRESSED, 
+	public MouseEvent createPressed (AbstractBuilderView game, int dx, int dy) {
+		MouseEvent me = new MouseEvent(new JLabel(), MouseEvent.MOUSE_PRESSED, 
 				System.currentTimeMillis(), 0, 
-				view.getX()+dx, view.getY()+dy, 0, false);
+				dx, dy, 0, false);
 		return me;
 	}
 	
-	*//** (dx,dy) are offsets into the widget space. Feel Free to Use as Is. *//*
-	public MouseEvent createRightClick (Solitaire game, Widget view, int dx, int dy) {
-		MouseEvent me = new MouseEvent(game.getContainer(), MouseEvent.MOUSE_PRESSED, 
+	public MouseEvent createDragged (AbstractBuilderView game, int dx, int dy) {
+		MouseEvent me = new MouseEvent(new JLabel(), MouseEvent.MOUSE_DRAGGED, 
 				System.currentTimeMillis(), 0, 
-				view.getX()+dx, view.getY()+dy, 0, true);
+				dx, dy, 0, false);
 		return me;
 	}
 	
-	*//** (dx,dy) are offsets into the widget space. Feel Free to Use as Is. *//*
-	public MouseEvent createReleased (Solitaire game, Widget view, int dx, int dy) {
-		MouseEvent me = new MouseEvent(game.getContainer(), MouseEvent.MOUSE_RELEASED, 
+	/** (dx,dy) are offsets into the widget space. Feel Free to Use as Is. */
+	public MouseEvent createRightClick (AbstractBuilderView game, int dx, int dy) {
+		MouseEvent me = new MouseEvent(new JLabel(), MouseEvent.MOUSE_PRESSED, 
 				System.currentTimeMillis(), 0, 
-				view.getX()+dx, view.getY()+dy, 0, false);
+				dx, dy, 0, false);
 		return me;
 	}
 	
-	*//** (dx,dy) are offsets into the widget space. Feel Free to Use as Is. *//*
-	public MouseEvent createClicked (Solitaire game, Widget view, int dx, int dy) {
-		MouseEvent me = new MouseEvent(game.getContainer(), MouseEvent.MOUSE_CLICKED, 
+	/** (dx,dy) are offsets into the widget space. Feel Free to Use as Is. */
+	public MouseEvent createReleased (AbstractBuilderView game, int dx, int dy) {
+		MouseEvent me = new MouseEvent(new JLabel(), MouseEvent.MOUSE_RELEASED, 
 				System.currentTimeMillis(), 0, 
-				view.getX()+dx, view.getY()+dy, 1, false);
+				dx, dy, 0, false);
 		return me;
 	}
 	
-	*//** (dx,dy) are offsets into the widget space. Feel Free to Use as Is. *//*
-	public MouseEvent createDoubleClicked (Solitaire game, Widget view, int dx, int dy) {
-		MouseEvent me = new MouseEvent(game.getContainer(), MouseEvent.MOUSE_CLICKED, 
+	/** (dx,dy) are offsets into the widget space. Feel Free to Use as Is. */
+	public MouseEvent createClicked (AbstractBuilderView game, int dx, int dy) {
+		MouseEvent me = new MouseEvent(new JLabel(), MouseEvent.MOUSE_CLICKED, 
 				System.currentTimeMillis(), 0, 
-				view.getX()+dx, view.getY()+dy, 2, false);
+				dx, dy, 0, false);
 		return me;
-	}*/
+	}
+	
+	/** (dx,dy) are offsets into the widget space. Feel Free to Use as Is. */
+	public MouseEvent createDoubleClicked (AbstractBuilderView game, int dx, int dy) {
+		MouseEvent me = new MouseEvent(new JLabel(), MouseEvent.MOUSE_CLICKED, 
+				System.currentTimeMillis(), 0, 
+				dx, dy, 0, false);
+		return me;
+	}
 }

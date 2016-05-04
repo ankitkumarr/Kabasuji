@@ -17,19 +17,42 @@ import com.halaesus.kabasuji.player.entity.LevelData;
 import com.halaesus.kabasuji.player.entity.LevelThumbnail;
 import com.halaesus.kabasuji.shared.entity.SplashModel;
 
+/**
+ * Represents a Level Thumbnail View that would be shown on the Level Selector Screen
+ * <p>
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ */
 @SuppressWarnings("serial")
 public class LevelThumbnailView extends JPanel {
 
+	/** Keeps track if the mouse is hovered over this LevelThumbnailView */
 	protected boolean mouseHovered;
 	
+	/** Holds the actual LevelThumbnail which would be represented by LevelThumbnailView */
 	LevelThumbnail levelThumbnail;
+	
+	/** Holds LevelData to get the stars to be shown for each level */
 	LevelData levelData;
+	
+	/** Array of Images to show the User Stars */
 	BufferedImage[] stars;
+	
+	/** Image to show when the mouse is not hovered over the LevelThumbnailView */
 	Image levelTypeImageSmall;
+	
+	/** Image to show when the mouse is hovered over the LevelThumbnailView */
 	Image levelTypeImageBig;
+	
+	/** Label which shows the Level Number */
 	JLabel levelNumberLabel;
+	
+	/** Keeps track of the number of Stars Achieved by the Player */
 	int starsAchieved;
 
+	/**
+	 * Initializes a LevelThumbnailView with the necessary LevelThumbnail
+	 * @param theThumbnail
+	 */
 	public LevelThumbnailView(LevelThumbnail theThumbnail) {
 		this.levelThumbnail = theThumbnail;
 		// Extract the fields
@@ -44,6 +67,9 @@ public class LevelThumbnailView extends JPanel {
 		setupMouseHoverListener();
 	}
 
+	/**
+	 * Initializes all the GUI elements and pre-caches images.
+	 */
 	private void initialize() {
 		// Initialize the required puzzle image
 		levelTypeImageBig = null;
@@ -103,6 +129,9 @@ public class LevelThumbnailView extends JPanel {
 		}
 	}
 
+	/**
+	 * Sets up Mouse Hover Listener
+	 */
 	private void setupMouseHoverListener() {
 		// Set up Feedback Listener
 		this.addMouseListener(new MouseListener() {
@@ -131,6 +160,9 @@ public class LevelThumbnailView extends JPanel {
 		});
 	}
 
+	/**
+	 * Overrides paintComponent(g) to draw the Level Image and the User Stars
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g); // Let the super do its stuff

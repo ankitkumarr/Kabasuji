@@ -6,14 +6,30 @@ import java.util.Arrays;
 
 import com.halaesus.kabasuji.utils.PieceGenerator;
 
+/**
+ * Represents the most basic unit of KabaSuji, a Piece
+ * <p>
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu), Brian Keeley-DeBonis (bjkeeleydebonis@wpi.edu)
+ */
 public class Piece implements Serializable {
 
 	private static final long serialVersionUID = 8539046452906569460L;
+	
+	/** Represents the original PieceSquares with which this Piece was generated */
 	PieceSquare[] originalSquares;
+	/** Represents the Parent Hexomino the Piece is related to */
 	Hexomino parentHexomino;
+	/** Represents the current PieceSquares of the Piece */
     PieceSquare[] squares; 
+    /** Holds the color ID of the Piece to decide which color should be used to render the Piece */
     int colorID;
 
+    /**
+     * Instantiates a Piece with the given attributes
+     * @param colorID the Color ID of the Piece to assign a color at render time
+     * @param squareMap the PieceSquare map for the Piece
+     * @param parentHexomino the Parent Hexomino the Piece is linked to
+     */
     public Piece(int colorID, PieceSquare squareMap[], Hexomino parentHexomino) {
     	this.parentHexomino = parentHexomino;
         // Save the data
@@ -27,30 +43,58 @@ public class Piece implements Serializable {
     	this.squares = newPieceSquareArray;
     }
     
+    /**
+     * A copy constructor for a Piece which generates a new Piece with all the same attributes as the original Piece
+     * @param toCopy  the source Piece whose attributes are to be copied
+     */
     public Piece(Piece toCopy) {
     	this(toCopy.colorID, toCopy.getPieceSquares(), toCopy.parentHexomino);
     }
     
+    /**
+     * Return an array of the original PieceSquares that were used to initialize the Piece
+     * @return
+     */
     public PieceSquare[] getOriginalPieceSquares() {
     	return originalSquares;
     }
     
+    /**
+     * Returns an array of the PieceSquares that are currently in use by the Piece
+     * @return
+     */
     public PieceSquare[] getPieceSquares() {
     	return squares;
     }
     
+    /**
+     * Returns the color that the Piece should be rendered in
+     * @return
+     */
     public Color getColor() {
     	return PieceGenerator.colors[colorID];
     }
     
+    /**
+     * Returns the color ID of the Piece to determine the color to render the Pieces
+     * @return
+     */
     public int getColorID() {
     	return colorID;
     }
     
+    /**
+     * Sets the Parent Hexomino to the desired <code>Hexomino</code>
+     * @param parentHexomino
+     */
     public void setParentHexomino(Hexomino parentHexomino) {
     	this.parentHexomino = parentHexomino;
     }
     
+    /**
+     * Fetches the Parent Hexomino
+     * @return
+     */
     public Hexomino getParentHexomino() {
     	return this.parentHexomino;
     }
@@ -123,6 +167,10 @@ public class Piece implements Serializable {
 		squares = centeredSquares;	
 	}
 	
+	/**
+	 * Returns an array of PieceSquares with all the PieceSquares pushed to the top-left of a 6x6 matrix
+	 * @return
+	 */
 	public PieceSquare[] pushTopLeft() {
 		PieceSquare[] toReturn = Arrays.copyOf(squares, squares.length); // Make a copy as we'll be maintain this copy
 		// Calculate the xMin, yMin and subtract that from all squares
@@ -174,6 +222,9 @@ public class Piece implements Serializable {
 		return true;
 	}
 	
+	/**
+	 * Checks for equality of two Pieces
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if( o == null )

@@ -12,17 +12,29 @@ import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
 
+/**
+ * Controller to handle dragging a piece out of the workspace
+ */
 public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotionListener{
-
+	/** The view to update */
     AbstractLevelView levelView;
+    /** The level model */
 	AbstractLevel level;
 	
+	/**
+	 * Associate the given model and view with this controller
+	 * @param theLevel Model
+	 * @param levelView View
+	 */
     public DragPieceFromWorkspaceToBoard(AbstractLevel theLevel, AbstractLevelView levelView) {
     	// Save the information
     	this.level = theLevel;
     	this.levelView = levelView;
     }
 
+    /**
+     * Initiate the drag if appropriate
+     */
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// If there is no piece to drag, do nothing
@@ -65,6 +77,9 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 		}
 	}
 
+	/**
+	 * Move the piece
+	 */
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// Only if the dragging is active, make the necessary changes
@@ -78,6 +93,10 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 		}
 	}
 
+	/**
+	 * Drop the piece on a certain location and generate the appropriate
+	 * move based on where it was dropped
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// Stop the drag if it was happening
@@ -106,16 +125,19 @@ public class DragPieceFromWorkspaceToBoard implements MouseListener, MouseMotion
 		}
 	}
 
+	/** Not needed */
 	@Override
-	public void mouseMoved(MouseEvent e) { /* Nothing to do */ }
+	public void mouseMoved(MouseEvent e) {}
 
+	/** Not needed */
 	@Override
-	public void mouseClicked(MouseEvent e) { /* Nothing to do */ }
+	public void mouseClicked(MouseEvent e) {}
 
+	/** Not needed */
 	@Override
-	public void mouseEntered(MouseEvent e) { /* Nothing to do */ }
+	public void mouseEntered(MouseEvent e) {}
 
+	/** Not needed */
 	@Override
-	public void mouseExited(MouseEvent e) { /* Nothing to do */ }
-
+	public void mouseExited(MouseEvent e) {}
 }

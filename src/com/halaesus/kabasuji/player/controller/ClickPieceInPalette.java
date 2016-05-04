@@ -7,16 +7,28 @@ import com.halaesus.kabasuji.player.boundary.AbstractLevelView;
 import com.halaesus.kabasuji.shared.entity.Hexomino;
 import com.halaesus.kabasuji.shared.entity.Piece;
 
+/**
+ * Controller to put a piece into the workspace
+ */
 public class ClickPieceInPalette implements MouseListener {
-
+	/** View to update */
     AbstractLevelView levelView;
+    /** Hexomino to add */
     Hexomino hexomino;
     
+    /**
+     * Associate the given model and view with this controller
+     * @param hexomino Model
+     * @param levelView View
+     */
     public ClickPieceInPalette(Hexomino hexomino, AbstractLevelView levelView) {
     	this.levelView = levelView;
         this.hexomino = hexomino;
     }
 
+    /**
+     * Add the requested piece to the workspace
+     */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// Check its count
@@ -29,16 +41,19 @@ public class ClickPieceInPalette implements MouseListener {
 		}
 	}
 
+    /** Not needed */
 	@Override
-	public void mouseEntered(MouseEvent e) { /* Nothing to do */ }
+	public void mouseEntered(MouseEvent e) {}
 
+    /** Not needed */
 	@Override
-	public void mouseExited(MouseEvent e) { /* Nothing to do */ }
+	public void mouseExited(MouseEvent e) {}
 
+    /** Not needed */
 	@Override
-	public void mousePressed(MouseEvent e) { /* Nothing to do */ }
+	public void mousePressed(MouseEvent e) {}
 
+    /** Not needed */
 	@Override
-	public void mouseReleased(MouseEvent e) { /* Nothing to do */ }
-
+	public void mouseReleased(MouseEvent e) {}
 }

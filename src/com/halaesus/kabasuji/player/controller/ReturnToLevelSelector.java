@@ -6,16 +6,29 @@ import java.awt.event.MouseListener;
 import com.halaesus.kabasuji.player.boundary.Application;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 
+/**
+ * Controller for returning to the level selector screen
+ * after completing a level
+ */
 public class ReturnToLevelSelector implements MouseListener {
-
+	/** View to update */
     Application application;
+    /** Model to update */
     AbstractLevel theLevel;
 
+    /**
+     * Associates the given model and view with this controller
+     * @param application View
+     * @param theLevel Model
+     */
     public ReturnToLevelSelector(Application application, AbstractLevel theLevel) {
         this.application = application;
         this.theLevel = theLevel;
     }
 
+    /**
+     * Update the model and return to the level selector screen
+     */
 	@Override
 	public void mouseClicked(MouseEvent e) { 
 		// update the stars earned in the player progress
@@ -27,16 +40,19 @@ public class ReturnToLevelSelector implements MouseListener {
 		application.showLevelSelector();
 	}
 
+	/** Not needed */
 	@Override
-	public void mouseEntered(MouseEvent e) { /* Do nothing */ }
+	public void mouseEntered(MouseEvent e) {}
 
+	/** Not needed */
 	@Override
-	public void mouseExited(MouseEvent e) { /* Do nothing */ }
+	public void mouseExited(MouseEvent e) {}
 
+	/** Not needed */
 	@Override
-	public void mousePressed(MouseEvent e) { /* Do nothing */ }
+	public void mousePressed(MouseEvent e) {}
 
+	/** Not needed */
 	@Override
-	public void mouseReleased(MouseEvent e) { /* Do nothing */ }
-
+	public void mouseReleased(MouseEvent e) {}
 }

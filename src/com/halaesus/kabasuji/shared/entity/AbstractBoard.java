@@ -11,7 +11,7 @@ import com.halaesus.kabasuji.shared.memento.AbstractBoardMemento;
  * <b>AbstractBoard</b> contains information that is shared across all types of boards in this game: LightningBoard,
  * ReleaseBoard and PuzzleBoard
  * <p>
- * @author Corey Dixon, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ * @author Ankit Kumar, Corey Dixon, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
 public abstract class AbstractBoard {
 

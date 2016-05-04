@@ -8,7 +8,7 @@ import com.halaesus.kabasuji.shared.memento.LightningBoardMemento;
 /**
  * Represents a Lightning Board.
  * <p>
- * @author Corey Dixon, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ * @author Ankit Kumar, Corey Dixon, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
 public class LightningBoard extends AbstractBoard {
    

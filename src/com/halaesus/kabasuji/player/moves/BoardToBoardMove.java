@@ -11,18 +11,27 @@ import com.halaesus.kabasuji.shared.entity.PuzzleLevel;
 import com.halaesus.kabasuji.utils.PieceHelper;
 
 /**
- * 
+ * Represents the movement of a Piece from the Board to Board
+ * <p>
  * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
- *
  */
 public class BoardToBoardMove implements IMove {
 
+	/** The Level View where the changes should appear */
     AbstractLevelView levelView;
 
+    /**
+	 * Creates the move class and is associated with a LevelView to be updated
+	 * @param levelView
+	 */
     public BoardToBoardMove(AbstractLevelView levelView) {
     	this.levelView = levelView;
     }
     
+    /**
+     * Verifies that the BoardToBoardMove is valid
+     * @param level the AbstractLevel where the move will be validated
+     */
     public boolean isValid(AbstractLevel level) {
     	assert( level.isDraggingActive() == true ); // We can only be called if a drag is in action
     	// Take Board Bounds and see if the Piece is within those bounds or not
@@ -76,6 +85,9 @@ public class BoardToBoardMove implements IMove {
 		return true;
     }
 
+    /**
+     * Perform the move on the given AbstractLevel
+     */
     public Piece doMove(AbstractLevel level, PieceSquare[] originalPieceSquares) {
     	if( level.isDraggingActive() == false )
     		return null; // An active drag needs to be in place for this function to be called

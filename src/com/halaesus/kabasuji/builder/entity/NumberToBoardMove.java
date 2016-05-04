@@ -11,14 +11,21 @@ import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 import com.halaesus.kabasuji.utils.ReleaseNumberHelper;
 
 /**
+ * Move class to Perform the Number to Board Move
  * @author Ankit Kumar, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
 public class NumberToBoardMove extends NumberMove {
 	
+	/**
+	 * create an instance of the class to perform the move
+	 */
 	public NumberToBoardMove(AbstractLevel theLevel, ReleaseBuilderView theBuilderView) {
 		super(theLevel, theBuilderView);
 	}
 
+	/**
+	 * Checks if the move is valid 
+	*/
 	@Override
 	public boolean isValid() {
 		assert( theLevel.isDraggingActive() == true ); // We can only be called if a drag is in action
@@ -54,6 +61,10 @@ public class NumberToBoardMove extends NumberMove {
 		return true;
 	}
 
+	/**
+	 * Do a move
+	 * @return if move is done
+	 */
 	@Override
 	public boolean doMove() {
 		if( theLevel.isDraggingActive() == false )
@@ -71,6 +82,10 @@ public class NumberToBoardMove extends NumberMove {
 		return true;
 	}
 
+	 /**
+     * Undo a move
+     * @return if undo successful
+     */
 	@Override
 	public boolean undoMove() {
 		ReleaseBoard rb = (ReleaseBoard)theLevel.getBoard();
@@ -81,6 +96,10 @@ public class NumberToBoardMove extends NumberMove {
 		return true;
 	}
 
+	 /**
+     * Redo a move
+     * @return if redo successful
+     */
 	@Override
 	public boolean redoMove() {
 		ReleaseBoard rb = (ReleaseBoard)theLevel.getBoard();

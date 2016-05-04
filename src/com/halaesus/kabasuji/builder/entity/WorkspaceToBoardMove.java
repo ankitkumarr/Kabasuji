@@ -9,14 +9,24 @@ import com.halaesus.kabasuji.shared.entity.PieceSquare;
 import com.halaesus.kabasuji.utils.BuilderPieceHelper;
 
 /**
+ * Move class to perform the workspace to board move
  * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
 public class WorkspaceToBoardMove extends PieceMove {
 
+	/**
+	 * creates an instance of the class to perform the move
+	 * @param theLevel
+	 * @param theBuilderView
+	 */
 	public WorkspaceToBoardMove(AbstractLevel theLevel, AbstractBuilderView theBuilderView) {
 		super(theLevel, theBuilderView);
 	}
 
+	
+	/**
+	 * checks if the move is valid
+	 */
 	@Override
 	public boolean isValid() {
 		assert(theLevel.isDraggingActive() == true); // We can only be called if a drag is in action
@@ -60,6 +70,9 @@ public class WorkspaceToBoardMove extends PieceMove {
 		return true;
 	}
 
+	/**
+	 * Performs the move
+	 */
 	@Override
 	public boolean doMove() {
 		if( theLevel.isDraggingActive() == false )
@@ -86,6 +99,9 @@ public class WorkspaceToBoardMove extends PieceMove {
 		return true;
 	}
 
+	/**
+	 * Undoes the move
+	 */
 	@Override
 	public boolean undoMove() {
 		// STEP 1: Remove the piece from the board and add it to the Workspace
@@ -103,6 +119,9 @@ public class WorkspaceToBoardMove extends PieceMove {
 		return true;
 	}
 
+	/**
+	 * Redo the move
+	 */
 	@Override
 	public boolean redoMove() {
 		// STEP 1: Check if there is a final piece

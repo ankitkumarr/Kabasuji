@@ -4,22 +4,37 @@ import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Piece;
 
 /**
+ * Move class to perform Workspace To Player palette move by moving a piece
  * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
 public class WorkspaceToPlayerPaletteMove extends PlayerPaletteMove {
 
+	/**
+	 * Stores the information of the level
+	 */
 	private AbstractLevel theLevel;
 
+	/**
+	 * Creates the instance to perform the workspace player palette move
+	 * @param theLevel
+	 * @param thePiece
+	 */
 	public WorkspaceToPlayerPaletteMove(AbstractLevel theLevel, Piece thePiece) {
 		this.theLevel = theLevel;
 		setPiece(thePiece);
 	}
 
+	/**
+	 * Checks if the move is valid
+	 */
 	@Override
     public boolean isValid() {
         return theLevel.isDraggingActive();
     }
 
+	/**
+	 * Performs the move
+	 */
 	@Override
     public boolean doMove() {
     	// Check if the move is valid or not
@@ -31,6 +46,9 @@ public class WorkspaceToPlayerPaletteMove extends PlayerPaletteMove {
         return true;
     }
 
+	/**
+	 * Undoes the move
+	 */
 	@Override
     public boolean undoMove() {
     	// Decrease the count of the respective Hexomino by one
@@ -42,6 +60,9 @@ public class WorkspaceToPlayerPaletteMove extends PlayerPaletteMove {
         return true;
     }
 
+	/**
+	 * Redo the move
+	 */
 	@Override
     public boolean redoMove() {
     	// Increase the count of the respective Hexomino by one

@@ -4,25 +4,51 @@ import com.halaesus.kabasuji.builder.boundary.LightningBuilderView;
 import com.halaesus.kabasuji.shared.entity.LightningLevel;
 
 /**
- * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ * Move class to update the time in the lightning level
+ * @author Ankit Kumar, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
 public class UpdateTimeInLightningMove extends GameSettingChangeMove {
 
-	// Time persistence
+	/**
+	 * The original minutes before change
+	 */
 	int originalMinutes;
+	
+	/**
+	 * Original seconds before change
+	 */
 	int originalSeconds;
+	
+	/**
+	 * Final minutes after change
+	 */
 	int finalMinutes;
+	
+	/**
+	 * final seconds after change
+	 */
 	int finalSeconds;
 	
+	/**
+	 * Creates an instance of the class to perform the move
+	 * @param theLevel
+	 * @param theBuilderView
+	 */
 	public UpdateTimeInLightningMove(LightningLevel theLevel, LightningBuilderView theBuilderView) {
 		super(theLevel, theBuilderView);
 	}
-
+	
+	/**
+	 * checks if the move is valid 
+	 */
 	@Override
 	public boolean isValid() {
 		return true; // Such a move should always be valid
 	}
 
+	/**
+	 * Performs the move
+	 */
 	@Override
 	public boolean doMove() {
 		if( !isValid() )
@@ -41,6 +67,9 @@ public class UpdateTimeInLightningMove extends GameSettingChangeMove {
 		return true;
 	}
 
+	/**
+	 * Undoes the move
+	 */
 	@Override
 	public boolean undoMove() {
 		LightningBuilderView theBuilderView = (LightningBuilderView)this.theBuilderView;
@@ -53,6 +82,9 @@ public class UpdateTimeInLightningMove extends GameSettingChangeMove {
 		return true;
 	}
 
+	/**
+	 * Redoes the move
+	 */
 	@Override
 	public boolean redoMove() {
 		LightningBuilderView theBuilderView = (LightningBuilderView)this.theBuilderView;
@@ -65,35 +97,66 @@ public class UpdateTimeInLightningMove extends GameSettingChangeMove {
 		return true;
 	}
 
-	// Some getters and setters
+	/**
+	 * getter function to get the original number of minutes
+	 * @return
+	 */
 	public int getOriginalMinutes() {
 		return originalMinutes;
 	}
 
+	/**
+	 * setter function to set the original minutes
+	 * @param originalMinutes
+	 */
 	public void setOriginalMinutes(int originalMinutes) {
 		this.originalMinutes = originalMinutes;
 	}
 
+	/**
+	 * Getter to get the original seconds
+	 * @return
+	 */
 	public int getOriginalSeconds() {
 		return originalSeconds;
 	}
 
+	/**
+	 * setter to set the original seconds
+	 * @param originalSeconds
+	 */
 	public void setOriginalSeconds(int originalSeconds) {
 		this.originalSeconds = originalSeconds;
 	}
 
+	/**
+	 * getter to get the final minutes
+	 * @return
+	 */
 	private int getFinalMinutes() {
 		return finalMinutes;
 	}
 
+	/**
+	 * setter to set the final minutes
+	 * @param finalMinutes
+	 */
 	private void setFinalMinutes(int finalMinutes) {
 		this.finalMinutes = finalMinutes;
 	}
 
+	/**
+	 * getter to get the final seconds
+	 * @return
+	 */
 	private int getFinalSeconds() {
 		return finalSeconds;
 	}
 
+	/**
+	 * setter to set the final seconds
+	 * @param finalSeconds
+	 */
 	private void setFinalSeconds(int finalSeconds) {
 		this.finalSeconds = finalSeconds;
 	}

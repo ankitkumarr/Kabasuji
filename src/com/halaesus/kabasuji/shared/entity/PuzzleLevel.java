@@ -48,6 +48,22 @@ public class PuzzleLevel extends AbstractLevel {
 	public int getMovesLeft() {
 		return (allowedMoves - usedMoves);
 	}
+	
+	/**
+	 * Returns the total number of allowed moves for the <code>PuzzleLevel</code>
+	 * @return
+	 */
+	public int getAllowedMoves() {
+		return allowedMoves;
+	}
+	
+	/**
+	 * Sets the total number of allowed moves for the <code>PuzzleLevel</code>
+	 * @param allowedmoves
+	 */
+	public void setAllowedMoves(int allowedmoves) {
+		this.allowedMoves = allowedmoves;
+	}
 
 	// Abstract Methods Filler
 
@@ -148,22 +164,6 @@ public class PuzzleLevel extends AbstractLevel {
 			return;
 		}
  	}
-	
-	/**
-	 * Returns the total number of allowed moves for the <code>PuzzleLevel</code>
-	 * @return
-	 */
-	public int getAllowedMoves() {
-		return allowedMoves;
-	}
-	
-	/**
-	 * Sets the total number of allowed moves for the <code>PuzzleLevel</code>
-	 * @param allowedmoves
-	 */
-	public void setAllowedMoves(int allowedmoves) {
-		this.allowedMoves = allowedmoves;
-	}
 
 	/**
 	 * Generates a PuzzleLevelMemento with the attributes of the <code>PuzzleLevel</code>

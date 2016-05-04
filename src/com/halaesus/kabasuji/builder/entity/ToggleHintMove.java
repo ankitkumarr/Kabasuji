@@ -6,7 +6,7 @@ import com.halaesus.kabasuji.shared.entity.PieceSquare;
 
 /**
  * Class to implement toggle hint move
- * @author akumar3
+ * @author Ankit Kumar
  *
  */
 public class ToggleHintMove extends PieceMove {

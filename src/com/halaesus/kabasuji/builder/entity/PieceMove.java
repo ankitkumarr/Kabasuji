@@ -43,7 +43,7 @@ public abstract class PieceMove implements IMove {
 
 	/**
 	 * Getter to get the destination piece
-	 * @return
+	 * @return the destination pieces
 	 */
 	public Piece getFinalPiece() {
 		return finalPiece;
@@ -59,7 +59,7 @@ public abstract class PieceMove implements IMove {
 
 	/**
 	 * getter to get the original piece
-	 * @return
+	 * @return the original piece
 	 */
 	public Piece getOriginalPiece() {
 		return originalPiece;

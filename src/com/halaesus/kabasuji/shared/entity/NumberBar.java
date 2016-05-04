@@ -3,28 +3,26 @@ package com.halaesus.kabasuji.shared.entity;
 /**
  * Representation for a NumberBar for ReleaseLevel.
  * <p>
- * The valid numbers are 1 through 6. There are only 3 valid colors, 1, 2, and
- * 3.
- * 
+ * The valid numbers are 1 through 6. There are only 3 valid colors, 1, 2, and 3.
+ * <p>
  * @author Brian Keeley-DeBonis (bjkeeleydebonis@wpi.edu)
  */
 public class NumberBar {
 	
+	/** 3x6 array of ReleaseNumbers that can possibly be collected by a Player in a <code>ReleaseLevel</code> */
 	ReleaseNumber[][] numbers = new ReleaseNumber[3][6];
 	
+	/**
+	 * Constructs an instance of the NumberBar class
+	 */
 	public NumberBar() {
 		initialize();
-
-		// TODO remove this when we have collecting numbers from board working
-		// Just here so I have something to display in the boundary class
-		/* addReleaseNumber(new ReleaseNumber(5, 1, 5, 5));
-		addReleaseNumber(new ReleaseNumber(1, 2, 3, 5));
-		addReleaseNumber(new ReleaseNumber(6, 3, 5, 8)); */
-
 	}
 
+	/**
+	 * Adds all the ReleaseNumbers to the 3x6 array of ReleaseNumbers
+	 */
 	private void initialize() {
-
 		// initialize the bar to contain all 18 release numbers.
 		// however these numbers have not been found by the player yet.
 		// so the boolean collected flag is set to false
@@ -36,7 +34,10 @@ public class NumberBar {
 		}
 	}
 
-	// returns the number sets found for awarding stars
+	/**
+	 * Returns the number of sets of ReleaseNumbers marked as collected
+	 * @return
+	 */
 	public int setsFound() {
 		int found = 0;
 		for (int j = 1; j <= 3; j++) {
@@ -49,12 +50,19 @@ public class NumberBar {
 		return found;
 	}
 
+	/**
+	 * Returns the 3x6 array of ReleaseNumbers
+	 * @return
+	 */
 	public ReleaseNumber[][] getNumbers() {
 		return this.numbers;
 	}
 
-	// this function requires a valid Number to be passed in
-	// a valid release number has an int value [1,6] and an int color [1,3]
+	/**
+	 * Marks a certain ReleaseNumber as collected
+	 * @param number A valid ReleaseNumber with a valid color, ie: between 1 and 3 both inclusive, and a valid value, ie:
+	 * between 1 and 6 both inclusive
+	 */
 	public void addReleaseNumber(ReleaseNumber number) {
 		numbers[number.getColor() - 1][number.getValue() - 1].setCollected();
 	}

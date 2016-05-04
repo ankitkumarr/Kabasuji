@@ -14,18 +14,31 @@ import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 import com.halaesus.kabasuji.utils.JLabelHelper;
 
 /**
- * @author Brian Keeley-DeBonis (bjkeeleydebonis@wpi.edu)
+ * Represents a ReleaseLevelView which is a type of an AbstractLevelView
+ * <p>
+ * @author Brian Keeley-DeBonis (bjkeeleydebonis@wpi.edu), Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
 @SuppressWarnings("serial")
 public class ReleaseLevelView extends AbstractLevelView {
 
+	/** Array of ReleaseNumber which reflect ReleaseNumbers placed on the Board */
 	JLabel releaseNumbersOnBoard[][];
+	/** The level specific label */
 	JLabel releaseModeLabel;
+	/** NumberBarView to show the right-hand side NumberBar */
 	NumberBarView numberBarView;
+	/** JLabels to represent the ReleaseNumbers */
 	Set<JLabel> numbers;
+	/** The underlying ReleaseLevel (Model Class) */
 	ReleaseLevel level;
+	/** The underlying ReleaseBoard */
 	ReleaseBoard rBoard;
 	
+	/**
+	 * Instantiates a ReleaseLevelView with the top-level application and a ReleaseLevel
+	 * @param anApplication
+	 * @param aLevel
+	 */
 	public ReleaseLevelView(Application anApplication, ReleaseLevel aLevel ) {
 		super(anApplication, aLevel);  // Let the super do its stuff
 		// Save the level
@@ -41,6 +54,9 @@ public class ReleaseLevelView extends AbstractLevelView {
 		add(numberBarView);
 	}
 
+	/**
+	 * Setup the Game Level Type Label
+	 */
 	private void setupLevelTypeLabel() {
 		// Create the label
 		releaseModeLabel = new JLabel("Release Mode");
@@ -52,6 +68,10 @@ public class ReleaseLevelView extends AbstractLevelView {
 		add(releaseModeLabel);
 	}
 	
+	/**
+	 * Sets up the ReleaseNumbers on the board
+	 * @param rNumbers
+	 */
 	private void setupNumberLabels(Set<ReleaseNumber> rNumbers) {
 		Font releaseNumberFont = new Font("releaseNumberFont", Font.BOLD, 35);
 		// Initialize the array
@@ -73,6 +93,9 @@ public class ReleaseLevelView extends AbstractLevelView {
 		}
 	}
 
+	/**
+	 * Overriding paintComponent(g) to draw the ReleaseNumbers on the ReleaseBoard
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		refreshReleaseNumberLabels();
@@ -80,6 +103,9 @@ public class ReleaseLevelView extends AbstractLevelView {
 		super.paintComponent(g);
 	}
 
+	/**
+	 * Sets visibility of numbers in NumberBar based on if they're collected on the Board
+	 */
 	private void refreshReleaseNumberLabels() {
 		// Go over each of the labels
 		for(int r = 0; r < 12; r++) {

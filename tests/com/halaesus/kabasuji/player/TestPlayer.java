@@ -6,10 +6,16 @@ import java.io.File;
 import java.util.ArrayList;
 
 import com.halaesus.kabasuji.player.boundary.Application;
+import com.halaesus.kabasuji.player.boundary.LightningLevelView;
+import com.halaesus.kabasuji.player.boundary.PuzzleLevelView;
 import com.halaesus.kabasuji.player.entity.LevelList;
 import com.halaesus.kabasuji.player.entity.PlayerProgress;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.Model;
+import com.halaesus.kabasuji.shared.entity.Piece;
+import com.halaesus.kabasuji.shared.entity.PieceSquare;
+import com.halaesus.kabasuji.shared.entity.PuzzleLevel;
+import com.halaesus.kabasuji.utils.PieceGenerator;
 
 public class TestPlayer extends PlayerTestCase {
 	
@@ -96,6 +102,31 @@ public class TestPlayer extends PlayerTestCase {
 	}
 	
 	
+	
+	public void testPiece(){
+		// create the first hexomino piece
+		Piece piece  = new Piece(PieceGenerator.pieces[0]);
+		piece.centerPiece();
+		piece.rotateCC();
+		piece.rotateCW();
+		piece.flipH();
+		piece.flipV();
+		PieceSquare square = new PieceSquare(false, 1, 1);
+		piece.noSquareAbove(square);
+		piece.noSquareBelow(square);
+		piece.noSquareLeft(square);
+		piece.noSquareRight(square);
+		piece.pushTopLeft();
+		assertTrue(true);	
+	}
+	
+	
+	
+/*	public void testTrashcan(){
+		AbstractLevel level = masterModel.getLevelSelectorModel().getLevelList().loadLevel(2);
+		PuzzleLevelView  puzzleLevelView = new PuzzleLevelView(app, (PuzzleLevel) level);
+		
+	}*/
 	
 	
 	

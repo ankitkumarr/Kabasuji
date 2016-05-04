@@ -88,6 +88,10 @@ public class Application extends JFrame {
 		
 		return inst;
 	}
+	
+	 public void destroyInstance(){
+		   this.inst = null;
+		}
 
 	/**
 	 * Shows the splash screen

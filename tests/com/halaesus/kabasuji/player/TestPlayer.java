@@ -73,14 +73,24 @@ public class TestPlayer extends PlayerTestCase {
 			}
 		}
 	}
-	
-	public void testSomething(){
-		assertTrue(true);
-	}
-	
+
 	public void testPlayUnlockedPuzzleLevel(){
 		// test opening the first level to play
 		AbstractLevel level = masterModel.getLevelSelectorModel().getLevelList().loadLevel(0);
+		app.showLevel(level);
+		assertTrue(true);
+	}
+	
+	public void testPlayUnlockedLightningLevel(){
+		// test opening the first level to play
+		AbstractLevel level = masterModel.getLevelSelectorModel().getLevelList().loadLevel(1);
+		app.showLevel(level);
+		assertTrue(true);
+	}
+	
+	public void testPlayUnlockedReleaseLevel(){
+		// test opening the first level to play
+		AbstractLevel level = masterModel.getLevelSelectorModel().getLevelList().loadLevel(2);
 		app.showLevel(level);
 		assertTrue(true);
 	}

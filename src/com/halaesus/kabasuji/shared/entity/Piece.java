@@ -99,14 +99,23 @@ public class Piece implements Serializable {
     	return this.parentHexomino;
     }
 
+    /**
+     * flips piece horizontally
+     */
     public void flipH() {
     	swapCols();
     }
 
+    /**
+     * flips piece vertically
+     */
     public void flipV() {
         swapRows();
     }
     
+    /**
+     * transposes piece's squares <code>PieceSuqare</code>
+     */
     private void transpose(){
     	for (PieceSquare s: this.squares){
 			int r = s.getRow();
@@ -116,6 +125,9 @@ public class Piece implements Serializable {
 		}
     }
     
+    /**
+     * swaps the row of each square of the piece
+     */
     private void swapRows(){
     	for (PieceSquare s: this.squares){
 			int r = s.getRow();	
@@ -123,6 +135,9 @@ public class Piece implements Serializable {
 		}
     }
     
+    /**
+     * swaps the column of each square of the piece
+     */
     private void swapCols(){
     	for (PieceSquare s: this.squares){
 			int c = s.getCol();	
@@ -130,17 +145,25 @@ public class Piece implements Serializable {
 		}
     }
     
+    /**
+     * rotates the piece's squares counter clockwise
+     */
     public void rotateCC(){
     	transpose();
     	swapRows();
     }
     
+    /**
+	 * centers underlying PieceSquares within a 6x6 matrix.
+	 */
     public void rotateCW(){
     	swapRows();
     	transpose();
     }  
         
-    // centers underlying PieceSquares within a 6x6 matrix.
+    /**
+	 * centers underlying PieceSquares within a 6x6 matrix.
+	 */
 	public void centerPiece(){
 		PieceSquare[] centeredSquares = new PieceSquare[6];
 		int xMin = squares[0].getCol();
@@ -190,6 +213,11 @@ public class Piece implements Serializable {
 		return toReturn;
 	}
 	
+	/**
+	 * Returns true if piece has no square above source square
+	 * @param source
+	 * @return
+	 */
 	public boolean noSquareAbove(PieceSquare source){
 		for (PieceSquare s: this.squares){
 			if (source.getRow() -1 == s.getRow()
@@ -198,6 +226,11 @@ public class Piece implements Serializable {
 		return true;
 	}
 	
+	/**
+	 * Returns true if piece has no square below source square
+	 * @param source
+	 * @return
+	 */
 	public boolean noSquareBelow(PieceSquare source){
 		for (PieceSquare s: this.squares){
 			if (source.getRow() +1 == s.getRow()
@@ -206,6 +239,11 @@ public class Piece implements Serializable {
 		return true;
 	}
 	
+	/**
+	 * Returns true if piece has no square right of source square
+	 * @param source
+	 * @return
+	 */
 	public boolean noSquareRight(PieceSquare source){
 		for (PieceSquare s: this.squares){
 			if (source.getRow() == s.getRow()
@@ -214,6 +252,11 @@ public class Piece implements Serializable {
 		return true;
 	}
 
+	/**
+	 * Returns true if piece has no square left of source square
+	 * @param source
+	 * @return
+	 */
 	public boolean noSquareLeft(PieceSquare source){
 		for (PieceSquare s: this.squares){
 			if (source.getRow() == s.getRow()

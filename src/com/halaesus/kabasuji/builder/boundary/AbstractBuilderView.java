@@ -180,7 +180,7 @@ public abstract class AbstractBuilderView extends JPanel {
 	 * @param application
 	 * @param aLevel Level to get the information to be displayed
 	 * @param levelIndex Level index of the level
-	 */
+	 */ 
 	public AbstractBuilderView(Application application, AbstractLevel aLevel, int levelIndex) {
 		this.application = application;
 		level = aLevel;
@@ -208,7 +208,6 @@ public abstract class AbstractBuilderView extends JPanel {
 		
 		ToggleHint toggleHint = new ToggleHint(this.level, this);
 		addMouseListener(toggleHint);
-		addMouseMotionListener(toggleHint);
 	}
 	
 	/**

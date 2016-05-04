@@ -7,15 +7,28 @@ import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
 import com.halaesus.kabasuji.shared.entity.Hexomino;
 import com.halaesus.kabasuji.shared.entity.Piece;
 
+/**
+ * Controller to put a piece into the workspace
+ */
 public class ClickPieceInPalette implements MouseListener {
+	/** Hexomino to add */
     Hexomino hexomino;
+    /** View to update */
     AbstractBuilderView builderView;
 
+    /**
+     * Associate the given model and view with this controller
+     * @param hexomino Hexomino model
+     * @param builderView View
+     */
     public ClickPieceInPalette(Hexomino hexomino, AbstractBuilderView builderView) {
         this.hexomino = hexomino;
         this.builderView = builderView;
     }
 
+    /**
+     * Add the requested piece to the workspace
+     */
     @Override
 	public void mouseClicked(MouseEvent e) {
 			// Get the piece clicked on
@@ -25,16 +38,19 @@ public class ClickPieceInPalette implements MouseListener {
 			this.builderView.setPieceInWorkspace(clickOnPiece);
 	}
 
+    /** Not needed */
 	@Override
-	public void mouseEntered(MouseEvent e) { /* Nothing to do */ }
+	public void mouseEntered(MouseEvent e) {}
 
+    /** Not needed */
 	@Override
-	public void mouseExited(MouseEvent e) { /* Nothing to do */ }
+	public void mouseExited(MouseEvent e) {}
 
+    /** Not needed */
 	@Override
-	public void mousePressed(MouseEvent e) { /* Nothing to do */ }
+	public void mousePressed(MouseEvent e) {}
 
+    /** Not needed */
 	@Override
-	public void mouseReleased(MouseEvent e) { /* Nothing to do */ }
-
+	public void mouseReleased(MouseEvent e) {}
 }

@@ -2,6 +2,7 @@ package com.halaesus.kabasuji.builder.controller;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -13,54 +14,43 @@ import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
 import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 
 /**
- * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ * Controller to drag a release number on to the board
  */
 public class DragNumberToBoardMove implements MouseListener, MouseMotionListener {
-   
-    ReleaseLevel level;
-    ReleaseBuilderView builderView;
+	/** The level model to update */
+	ReleaseLevel level;
+	/** The level view to update */
+	ReleaseBuilderView builderView;
 
-    public DragNumberToBoardMove(ReleaseLevel level, ReleaseBuilderView builderView) {
-        this.level = level;
-        this.builderView = builderView;
-    }
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		
+	/** Associate the given model and view with this controller
+	 * @param level Model
+	 * @param builderView View
+	 */
+	public DragNumberToBoardMove(ReleaseLevel level, ReleaseBuilderView builderView) {
+		this.level = level;
+		this.builderView = builderView;
 	}
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		
-	}
-
+	/** Pick up a number if user clicked on one */
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
-		int desiredKey = e.BUTTON1_MASK | e.CTRL_MASK;
-		if(((e.getModifiers() & desiredKey) == desiredKey)) {
+		int desiredKey = InputEvent.BUTTON1_MASK | InputEvent.CTRL_MASK;
+		if (((e.getModifiers() & desiredKey) == desiredKey)) {
 			return;
 		}
-		
+
 		Point mouseClickLocation = new Point(e.getX(), e.getY());
-		//System.out.println(mouseClickLocation);
 		ReleaseNumber numBeingdragged;
-		
-		for(int i = 1; i <=3; i++) {
-			for(int j = 1; j <= 6; j++ ){
+
+		for (int i = 1; i <= 3; i++) {
+			for (int j = 1; j <= 6; j++) {
 				Rectangle num = this.builderView.getReleaseNumberRectangle(i, j);
 				if (num.contains(mouseClickLocation)) {
 					this.level.setDraggingActive(true);
 					this.level.setDragSource(ReleaseLevel.DRAG_SOURCE_NUMBERBAR);
-					numBeingdragged = this.level.getNumberBar().getNumbers()[i-1][j-1];
-					this.level.setnumberBeingDragged(new ReleaseNumber(numBeingdragged.getValue(), numBeingdragged.getColor(),
-							numBeingdragged.getCol(), numBeingdragged.getRow()));
+					numBeingdragged = this.level.getNumberBar().getNumbers()[i - 1][j - 1];
+					this.level.setnumberBeingDragged(new ReleaseNumber(numBeingdragged.getValue(),
+							numBeingdragged.getColor(), numBeingdragged.getCol(), numBeingdragged.getRow()));
 					this.level.setTopPointOfDraggingPiece(new Point(num.x, num.y));
 					this.level.setDraggingDistToPointX(e.getX() - num.x);
 					this.level.setDraggingDistToPointY(e.getY() - num.y);
@@ -68,26 +58,37 @@ public class DragNumberToBoardMove implements MouseListener, MouseMotionListener
 			}
 		}
 		this.builderView.repaint();
-		
+
 		if (this.level.getnumberBeingDragged() == null) {
-			//oh well
 			return;
 		}
-		
 	}
 
+	/** Move the number around */
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		
-		int desiredKey = e.BUTTON1_MASK | e.CTRL_MASK;
-		if((e.getModifiers() & e.CTRL_MASK) == e.CTRL_MASK) {
+	public void mouseDragged(MouseEvent e) {
+		if ((e.getModifiers() & InputEvent.CTRL_MASK) == InputEvent.CTRL_MASK) {
 			return;
 		}
-		if( this.level.isDraggingActive() &&
-				this.level.getDragSource() == ReleaseLevel.DRAG_SOURCE_NUMBERBAR ) {
+		if (this.level.isDraggingActive() && this.level.getDragSource() == ReleaseLevel.DRAG_SOURCE_NUMBERBAR) {
+			// Form the new point to draw the Piece
+			this.level.setTopPointOfDraggingPiece(new Point(e.getX() - this.level.getDraggingDistToPointX(),
+					e.getY() - this.level.getDraggingDistToPointY()));
+			// Force the view to repaint
+			this.builderView.repaint();
+		}
+	}
+
+	/** Drop the number on the board */
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		if ((e.getModifiers() & InputEvent.CTRL_MASK) == InputEvent.CTRL_MASK) {
+			return;
+		}
+		if (this.level.isDraggingActive() && this.level.getDragSource() == ReleaseLevel.DRAG_SOURCE_NUMBERBAR) {
 			NumberToBoardMove theMove = new NumberToBoardMove(this.level, this.builderView);
 
-			if( theMove.isValid() ) {
+			if (theMove.isValid()) {
 				theMove.setOriginalNumber(null);
 				if (theMove.doMove()) {
 					MoveManager.pushMove(theMove);
@@ -100,32 +101,22 @@ public class DragNumberToBoardMove implements MouseListener, MouseMotionListener
 			level.setTopPointOfDraggingPiece(null);
 			// Force a LevelView repaint
 			this.builderView.repaint();
-			
 		}
-		
-		
 	}
 
+	/** Not needed */
 	@Override
-	public void mouseDragged(MouseEvent e) {
-		
-		int desiredKey = e.BUTTON1_MASK | e.CTRL_MASK;
-		if((e.getModifiers() & e.CTRL_MASK) == e.CTRL_MASK) {
-			return;
-		}
-		if( this.level.isDraggingActive() &&
-			this.level.getDragSource() == ReleaseLevel.DRAG_SOURCE_NUMBERBAR) {
-			// Form the new point to draw the Piece
-			this.level.setTopPointOfDraggingPiece(new Point(e.getX() - this.level.getDraggingDistToPointX(), 
-					                                        e.getY() - this.level.getDraggingDistToPointY()));
-			// Force the view to repaint
-			this.builderView.repaint();
-		}
-	}
+	public void mouseClicked(MouseEvent e) {}
 
+	/** Not needed */
 	@Override
-	public void mouseMoved(MouseEvent arg0) {
-		
-	}
+	public void mouseEntered(MouseEvent e) {}
 
+	/** Not needed */
+	@Override
+	public void mouseExited(MouseEvent e) {}
+
+	/** Not needed */
+	@Override
+	public void mouseMoved(MouseEvent e) {}
 }

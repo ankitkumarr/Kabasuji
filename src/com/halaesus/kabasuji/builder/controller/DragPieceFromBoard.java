@@ -2,6 +2,7 @@ package com.halaesus.kabasuji.builder.controller;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -18,26 +19,35 @@ import com.halaesus.kabasuji.shared.entity.Piece;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
 import com.halaesus.kabasuji.utils.BuilderPieceHelper;
 
+/**
+ * Controller to handle dragging pieces already on the board
+ */
 public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
-
+	/** Our view to update */
     AbstractBuilderView levelView;
+    /** The piece that was clicked on */
 	Piece originalPiece;
+	/** The level model */
     AbstractLevel level;
-    Piece clickedPiece;
 
+    /** Associate the given model and view with this controller
+     * @param theLevel Model
+     * @param levelView View
+     */
     public DragPieceFromBoard(AbstractLevel theLevel, AbstractBuilderView levelView) {
         // Save the information
     	this.levelView = levelView;
         this.level = theLevel;
     }
     
+    /** Pick up the piece from the board */
 	@Override
 	public void mousePressed(MouseEvent e) {
 		
 		// only allow left click
 		if (!SwingUtilities.isLeftMouseButton(e))
 			return;
-		if((e.getModifiers() & e.CTRL_MASK) == e.CTRL_MASK) {
+		if((e.getModifiers() & InputEvent.CTRL_MASK) == InputEvent.CTRL_MASK) {
 			return;
 		}
 			
@@ -85,7 +95,6 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 					// Calculate Top_Left Rectangle Square
 					Rectangle topLeftPieceRect = this.levelView.getBoardPieceRectangle(yMin, xMin);
 					
-					clickedPiece = aPiece;
 					// Inform the Model
 					this.level.setDraggingActive(true);
 					this.level.setDragSource(AbstractLevel.DRAG_SOURCE_BOARD);
@@ -105,9 +114,10 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 		}
 	}
 
+	/** Move the Piece around */
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if((e.getModifiers() & e.CTRL_MASK) == e.CTRL_MASK) {
+		if((e.getModifiers() & InputEvent.CTRL_MASK) == InputEvent.CTRL_MASK) {
 			return;
 		}
 		// Only if the dragging is active, make the necessary changes
@@ -148,9 +158,10 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 		}
 	}
 
+	/** Drop the piece and spawn the appropriate move */
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if((e.getModifiers() & e.CTRL_MASK) == e.CTRL_MASK) {
+		if((e.getModifiers() & InputEvent.CTRL_MASK) == InputEvent.CTRL_MASK) {
 			return;
 		}
 		// Stop the drag if it was happening
@@ -251,16 +262,19 @@ public class DragPieceFromBoard implements MouseListener, MouseMotionListener {
 		}
 	}
 
+	/** Not needed */
 	@Override
-	public void mouseClicked(MouseEvent e) { /* Nothing to do */ }
+	public void mouseClicked(MouseEvent e) {}
 
+	/** Not needed */
 	@Override
-	public void mouseEntered(MouseEvent e) { /* Nothing to do */ }
+	public void mouseEntered(MouseEvent e) {}
 
+	/** Not needed */
 	@Override
-	public void mouseExited(MouseEvent e) { /* Nothing to do */ }
+	public void mouseExited(MouseEvent e) {}
 
+	/** Not needed */
 	@Override
-	public void mouseMoved(MouseEvent e) { /* Nothing to do */ }
-
+	public void mouseMoved(MouseEvent e) {}
 }

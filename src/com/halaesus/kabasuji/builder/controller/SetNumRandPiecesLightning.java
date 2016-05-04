@@ -9,18 +9,27 @@ import com.halaesus.kabasuji.builder.entity.UpdateNumRandPiecesInLightningMove;
 import com.halaesus.kabasuji.shared.entity.LightningLevel;
 
 /**
- * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ * Set the number of random pieces given in a lightning level
  */
 public class SetNumRandPiecesLightning implements MouseListener {
-
+	/** The view we will have to update */
     LightningBuilderView builderView;
+    /** The level model */
     LightningLevel level;
 
+    /** 
+     * Associate the given model and view with this controller
+     * @param builderView The view
+     * @param level The model
+     */
     public SetNumRandPiecesLightning(LightningBuilderView builderView, LightningLevel level) {
         this.builderView = builderView;
         this.level = level;
     }
 
+    /**
+     * Update the model and refresh the UI
+     */
 	@Override
 	public void mousePressed(MouseEvent e) {
         // STEP 1: Spawn off the move
@@ -33,16 +42,19 @@ public class SetNumRandPiecesLightning implements MouseListener {
     	this.builderView.repaint();
 	}
 
+	/** Not needed */
 	@Override
-	public void mouseClicked(MouseEvent e) { }
+	public void mouseClicked(MouseEvent e) {}
 
+	/** Not needed */
 	@Override
-	public void mouseEntered(MouseEvent e) { }
+	public void mouseEntered(MouseEvent e) {}
 
+	/** Not needed */
 	@Override
-	public void mouseExited(MouseEvent e) { }
+	public void mouseExited(MouseEvent e) {}
 
+	/** Not needed */
 	@Override
-	public void mouseReleased(MouseEvent e) { }
-
+	public void mouseReleased(MouseEvent e) {}
 }

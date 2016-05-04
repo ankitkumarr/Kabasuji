@@ -20,7 +20,7 @@ import com.halaesus.kabasuji.shared.entity.LightningLevel;
  * <b> LightningBuilderView </b> contains information about the GUI elements that are specific to 
  * Lightning Level
  * </p>
- * @author akumar3
+ * @author Ankit Kumar
  */
 @SuppressWarnings("serial")
 public class LightningBuilderView extends AbstractBuilderView {

@@ -19,20 +19,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-/**
- * Dialog Box used to create a new level in the builder
- * Created with WindowBuilder
- */
 @SuppressWarnings("serial")
 public class NewLevelDialog extends JDialog {
-	/** The LevelManagerDialog used to launch this dialog box */
 	LevelManagerDialog parent;
-	/** The level type selected by the user */
 	String selectedType;
 
-	/** Container for this dialog's contents */
 	private final JPanel contentPanel = new JPanel();
-	/** Text field for the name of the level */
 	private JTextField txtNamefield;
 
 	/**

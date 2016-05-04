@@ -51,7 +51,7 @@ import com.halaesus.kabasuji.builder.controller.DecrementPlayerPalette;
 
 /**
  * Abstract View class to represent the generic view for all type of BuilderLevel views
- * @author akumar3
+ * @author Ankit Kumar
  *
  */
 @SuppressWarnings("serial")

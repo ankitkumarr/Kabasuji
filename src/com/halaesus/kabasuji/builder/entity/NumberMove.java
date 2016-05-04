@@ -5,7 +5,7 @@ import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 
 /**
- * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ * @author Ankit Kumar, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
 public abstract class NumberMove implements IMove {
 

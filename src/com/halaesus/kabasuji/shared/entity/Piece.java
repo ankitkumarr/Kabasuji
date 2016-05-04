@@ -6,14 +6,30 @@ import java.util.Arrays;
 
 import com.halaesus.kabasuji.utils.PieceGenerator;
 
+/**
+ * Represents the most basic unit of KabaSuji, a Piece
+ * <p>
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu), Brian Keeley-DeBonis (bjkeeleydebonis@wpi.edu)
+ */
 public class Piece implements Serializable {
 
 	private static final long serialVersionUID = 8539046452906569460L;
+	
+	/** Represents the original PieceSquares with which this Piece was generated */
 	PieceSquare[] originalSquares;
+	/** Represents the Parent Hexomino the Piece is related to */
 	Hexomino parentHexomino;
+	/** Represents the current PieceSquares of the Piece */
     PieceSquare[] squares; 
+    /** Holds the color ID of the Piece to decide which color should be used to render the Piece */
     int colorID;
 
+    /**
+     * Instantiates a Piece with the given attributes
+     * @param colorID the Color ID of the Piece to assign a color at render time
+     * @param squareMap the PieceSquare map for the Piece
+     * @param parentHexomino the Parent Hexomino the Piece is linked to
+     */
     public Piece(int colorID, PieceSquare squareMap[], Hexomino parentHexomino) {
     	this.parentHexomino = parentHexomino;
         // Save the data
@@ -27,42 +43,79 @@ public class Piece implements Serializable {
     	this.squares = newPieceSquareArray;
     }
     
+    /**
+     * A copy constructor for a Piece which generates a new Piece with all the same attributes as the original Piece
+     * @param toCopy  the source Piece whose attributes are to be copied
+     */
     public Piece(Piece toCopy) {
     	this(toCopy.colorID, toCopy.getPieceSquares(), toCopy.parentHexomino);
     }
     
+    /**
+     * Return an array of the original PieceSquares that were used to initialize the Piece
+     * @return
+     */
     public PieceSquare[] getOriginalPieceSquares() {
     	return originalSquares;
     }
     
+    /**
+     * Returns an array of the PieceSquares that are currently in use by the Piece
+     * @return
+     */
     public PieceSquare[] getPieceSquares() {
     	return squares;
     }
     
+    /**
+     * Returns the color that the Piece should be rendered in
+     * @return
+     */
     public Color getColor() {
     	return PieceGenerator.colors[colorID];
     }
     
+    /**
+     * Returns the color ID of the Piece to determine the color to render the Pieces
+     * @return
+     */
     public int getColorID() {
     	return colorID;
     }
     
+    /**
+     * Sets the Parent Hexomino to the desired <code>Hexomino</code>
+     * @param parentHexomino
+     */
     public void setParentHexomino(Hexomino parentHexomino) {
     	this.parentHexomino = parentHexomino;
     }
     
+    /**
+     * Fetches the Parent Hexomino
+     * @return
+     */
     public Hexomino getParentHexomino() {
     	return this.parentHexomino;
     }
 
+    /**
+     * flips piece horizontally
+     */
     public void flipH() {
     	swapCols();
     }
 
+    /**
+     * flips piece vertically
+     */
     public void flipV() {
         swapRows();
     }
     
+    /**
+     * transposes piece's squares <code>PieceSuqare</code>
+     */
     private void transpose(){
     	for (PieceSquare s: this.squares){
 			int r = s.getRow();
@@ -72,6 +125,9 @@ public class Piece implements Serializable {
 		}
     }
     
+    /**
+     * swaps the row of each square of the piece
+     */
     private void swapRows(){
     	for (PieceSquare s: this.squares){
 			int r = s.getRow();	
@@ -79,6 +135,9 @@ public class Piece implements Serializable {
 		}
     }
     
+    /**
+     * swaps the column of each square of the piece
+     */
     private void swapCols(){
     	for (PieceSquare s: this.squares){
 			int c = s.getCol();	
@@ -86,17 +145,25 @@ public class Piece implements Serializable {
 		}
     }
     
+    /**
+     * rotates the piece's squares counter clockwise
+     */
     public void rotateCC(){
     	transpose();
     	swapRows();
     }
     
+    /**
+	 * centers underlying PieceSquares within a 6x6 matrix.
+	 */
     public void rotateCW(){
     	swapRows();
     	transpose();
     }  
         
-    // centers underlying PieceSquares within a 6x6 matrix.
+    /**
+	 * centers underlying PieceSquares within a 6x6 matrix.
+	 */
 	public void centerPiece(){
 		PieceSquare[] centeredSquares = new PieceSquare[6];
 		int xMin = squares[0].getCol();
@@ -123,6 +190,10 @@ public class Piece implements Serializable {
 		squares = centeredSquares;	
 	}
 	
+	/**
+	 * Returns an array of PieceSquares with all the PieceSquares pushed to the top-left of a 6x6 matrix
+	 * @return
+	 */
 	public PieceSquare[] pushTopLeft() {
 		PieceSquare[] toReturn = Arrays.copyOf(squares, squares.length); // Make a copy as we'll be maintain this copy
 		// Calculate the xMin, yMin and subtract that from all squares
@@ -142,6 +213,11 @@ public class Piece implements Serializable {
 		return toReturn;
 	}
 	
+	/**
+	 * Returns true if piece has no square above source square
+	 * @param source
+	 * @return
+	 */
 	public boolean noSquareAbove(PieceSquare source){
 		for (PieceSquare s: this.squares){
 			if (source.getRow() -1 == s.getRow()
@@ -150,6 +226,11 @@ public class Piece implements Serializable {
 		return true;
 	}
 	
+	/**
+	 * Returns true if piece has no square below source square
+	 * @param source
+	 * @return
+	 */
 	public boolean noSquareBelow(PieceSquare source){
 		for (PieceSquare s: this.squares){
 			if (source.getRow() +1 == s.getRow()
@@ -158,6 +239,11 @@ public class Piece implements Serializable {
 		return true;
 	}
 	
+	/**
+	 * Returns true if piece has no square right of source square
+	 * @param source
+	 * @return
+	 */
 	public boolean noSquareRight(PieceSquare source){
 		for (PieceSquare s: this.squares){
 			if (source.getRow() == s.getRow()
@@ -166,6 +252,11 @@ public class Piece implements Serializable {
 		return true;
 	}
 
+	/**
+	 * Returns true if piece has no square left of source square
+	 * @param source
+	 * @return
+	 */
 	public boolean noSquareLeft(PieceSquare source){
 		for (PieceSquare s: this.squares){
 			if (source.getRow() == s.getRow()
@@ -174,6 +265,9 @@ public class Piece implements Serializable {
 		return true;
 	}
 	
+	/**
+	 * Checks for equality of two Pieces
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if( o == null )

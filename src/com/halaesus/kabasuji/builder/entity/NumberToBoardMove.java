@@ -11,7 +11,7 @@ import com.halaesus.kabasuji.shared.entity.ReleaseNumber;
 import com.halaesus.kabasuji.utils.ReleaseNumberHelper;
 
 /**
- * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ * @author Ankit Kumar, Akshit (Axe) Soota (axe (at) wpi (dot) edu)
  */
 public class NumberToBoardMove extends NumberMove {
 	

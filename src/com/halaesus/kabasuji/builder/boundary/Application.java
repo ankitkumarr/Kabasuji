@@ -12,7 +12,6 @@ import com.halaesus.kabasuji.shared.entity.Model;
 
 /**
  * The overall view container for the KabaSuji builder.
- *
  */
 @SuppressWarnings("serial")
 public class Application extends JFrame {

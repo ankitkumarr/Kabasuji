@@ -208,6 +208,4 @@ public class ReleaseBuilderView extends AbstractBuilderView {
     public Rectangle getReleaseNumberBarBounds() {
     	return new Rectangle(960, 80, 53*6, 53*6);
     }
-    
-   
 }

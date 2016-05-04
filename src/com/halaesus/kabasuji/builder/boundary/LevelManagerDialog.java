@@ -30,10 +30,12 @@ import com.halaesus.kabasuji.player.entity.LevelList;
  */
 @SuppressWarnings("serial")
 public class LevelManagerDialog extends JDialog {
-
+	/** Container for this dialog's contents */
 	private final JPanel contentPanel = new JPanel();
 
+	/** View to display all of the levels */
 	JList<LevelData> levelListView;
+	/** Model of all of the levels */
 	LevelList levelList;
 
 	/**

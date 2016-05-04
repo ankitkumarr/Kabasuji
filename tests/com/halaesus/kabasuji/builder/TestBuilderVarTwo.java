@@ -36,13 +36,14 @@ public class TestBuilderVarTwo extends BuilderTestCase {
 		fileNames.add(levelList.newTestLevel("TestLightning", "LIGHTNING" ));
 		fileNames.add(levelList.newTestLevel("TestRELEASE", "RELEASE" ));
 		
-		// mimic builder main setup where
+		// mimic builder main setup
 		(new ImageLoader()).execute();
 		app.setVisible(true);
 		
 	}
 
 	protected void tearDown() {
+		app.destroyInstance();
 		app.dispose();
 		// delete the level files we created for testing
 		for (String fileName : fileNames) {
@@ -59,19 +60,23 @@ public class TestBuilderVarTwo extends BuilderTestCase {
 		}
 	}
 	
-	public void testSomething(){
+	
+	public void testSomething() {
 		assertTrue(true);
 	}
 	
 	public void testLoadPuzzleLevel(){
-		(new ImageLoader()).execute() ;
 		AbstractLevel puzzleLevel =  levelList.loadLevel(0);
 		app.showLevel(puzzleLevel,"PUZZLE",	0);
 		assertTrue(true);
 	}
 	
-	protected void testLevelManagerDialog() {
+	
+
+	
+	/*public void testLevelManagerDialog() {
 		LevelManagerDialog.main(null); // do nothing with this, just called for coverage
+		assertTrue(true);
 		app.dispose();	
-	}
+	}*/
 }

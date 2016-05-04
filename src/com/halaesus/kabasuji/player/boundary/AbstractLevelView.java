@@ -44,47 +44,106 @@ import com.halaesus.kabasuji.utils.PieceGenerator;
 import com.halaesus.kabasuji.utils.PieceHelper;
 
 /**
- * 
+ * Represents the generic LevelView for the Player Side
+ * <p>
  * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
- *
  */
 @SuppressWarnings("serial")
 public abstract class AbstractLevelView extends JPanel {
 	
 	// Initialization Variables
+	/** Keeps track if the paintComponent(g) and paint(g) functions have been called atleast once */
 	private boolean paintInitialized;
-	private boolean paintLevelCompleted;
-	// View-based (UI and user interaction based) variables
-	HashMap<Rectangle, MouseListener> clickMap;
-	Point bullpenPiecesBoardTopPoint;
-	Point boardPiecesTopPoint;
-	Application myApplication;
-	AbstractLevel level;
-	// Image storage variables
-	private Image backgroundImage;
-	private Image backButton;
-	private Image starGold;
-	private Image starGoldBig;
-	private Image starShadow;
-	private Image starShadowBig;
-	private ImageIcon[] hexominoImages;
-	private ImageIcon[] hexominoDisabledImages;
-	private Image trashCanUnfilled;
-	private Image trashCanFilled;
-	private Image rotateCCImage;
-	private Image rotateCWImage;
-	private Image flipVImage;
-	private Image flipHImage;
-	// View-based (UI Objects) variables
-	HexominoButtonView[] hexominoButton;
-	BufferedImage[] boardPieceSquares;
-	JLabel levelInfo;
-	JButton rotateCC;
-	JButton rotateCW;
-	JButton flipV;
-	JButton flipH;
-	JLabel[] hexCount;
 	
+	/** Keeps track if the pain(g) function has been called atleast once after painting the LevelCompletion Info Overlay */
+	private boolean paintLevelCompleted;
+	
+	// View-based (UI and user interaction based) variables
+	/** HashMap of Rectangle and MouseListeners to track clicks that are not related to any JComponent */
+	HashMap<Rectangle, MouseListener> clickMap;
+	
+	/** Represents the top-left point of the Bullpen Workspace */
+	Point bullpenPiecesBoardTopPoint;
+	
+	/** Represents the top-left point of the Player Board */
+	Point boardPiecesTopPoint;
+	
+	/** The top-level application */
+	Application myApplication;
+	
+	/** The level that this LevelView represents */
+	AbstractLevel level;
+	
+	// Image storage variables
+	/** Background Image of the entire LevelView */
+	private Image backgroundImage;
+	
+	/** Image for the Back Button to the Top-Left */
+	private Image backButton;
+	
+	/** Image for Gold Star (filled Star) */
+	private Image starGold;
+	
+	/** Image for high-res Gold Star (filled Star) */
+	private Image starGoldBig;
+	
+	/** Image for Shadow Star (unfilled Star) */
+	private Image starShadow;
+	
+	/** Image for high-res Shadow Star (filled Star) */
+	private Image starShadowBig;
+	
+	/** Images for all 35 enabled Hexominos */
+	private ImageIcon[] hexominoImages;
+	
+	/** Images for all 35 disabled Hexominos */
+	private ImageIcon[] hexominoDisabledImages;
+	
+	/** Image for the unfilled Trash Can */
+	private Image trashCanUnfilled;
+	
+	/** Image for filled Trash Can */
+	private Image trashCanFilled;
+	
+	/** Image for Button to rotate Piece Counter-Clockwise */
+	private Image rotateCCImage;
+	
+	/** Image for Button to rotate Piece Clockwise */
+	private Image rotateCWImage;
+	
+	/** Image for Button to flip Vertically */
+	private Image flipVImage;
+	
+	/** Image for Button to flip horizontally */
+	private Image flipHImage;
+	
+	// View-based (UI Objects) variables
+	/** Buttons to show the Hexomino Pieces */
+	HexominoButtonView[] hexominoButton;
+	
+	/** Images to show the Board PieceSquares */
+	BufferedImage[] boardPieceSquares;
+	
+	/** Label to show the Level Information */
+	JLabel levelInfo;
+	
+	/** Button to handle rotating the piece in CC fashion */
+	JButton rotateCC;
+	
+	/** Button to handle rotating the piece in CW fashion */
+	JButton rotateCW;
+	
+	/** Button to handle rotating the piece vertically */
+	JButton flipV;
+	
+	/** Button to handle rotating the piece horizontally */
+	JButton flipH;
+	
+	/**
+	 * Constructs an AbstractLevelView with the associated Application and AbstractLevel whose information has to be shown
+	 * @param application
+	 * @param aLevel
+	 */
 	public AbstractLevelView(Application application, AbstractLevel aLevel) {
 		this.myApplication = application; // Save the application object passed to us
 		this.level = aLevel; // Save the level being played here
@@ -113,6 +172,9 @@ public abstract class AbstractLevelView extends JPanel {
 		paintInitialized = false;
 	}
 
+	/**
+	 * Places all the Palette Controllers in the JPanel and adds necessary MouseListeners to them
+	 */
 	private void setupPaletteControllers() {
 		// Create the FlipV Button
 		flipV = new JButton(new ImageIcon(flipVImage));
@@ -140,6 +202,9 @@ public abstract class AbstractLevelView extends JPanel {
 		add(rotateCW);
 	}
 
+	/**
+	 * Implements HashMap-based MouseListener and the generic WorkspaceToBoard Move MouseListener
+	 */
 	private void implementMouseListeners() {
 		addMouseListener(new MouseListener() {
 			@Override
@@ -168,6 +233,9 @@ public abstract class AbstractLevelView extends JPanel {
 		addMouseMotionListener(dragWorkspaceToBoard);
 	}
 	
+	/**
+	 * Adds all level based information as GUI elements
+	 */
 	private void showLevelInfo() {
 		// Create the label
 		//levelInfo = new JLabel("Level ".concat(String.valueOf(level.getLevelIndex() + 1)));
@@ -180,6 +248,9 @@ public abstract class AbstractLevelView extends JPanel {
 		add(levelInfo);
 	}
 	
+	/**
+	 * Scales down/up all images necessary for rendering the AbstractLevelView and caching them to speed up performance
+	 */
 	private void calculateScaledImages() {
 		try {
 			backgroundImage = ImageIO.read(SplashModel.class.getResourceAsStream("/resources/gridWithBoard.jpg")).getScaledInstance(1280, -1, Image.SCALE_SMOOTH);
@@ -206,6 +277,9 @@ public abstract class AbstractLevelView extends JPanel {
 		}
 	}
 	
+	/**
+	 * Sets up Hexomino Buttons in the Player Palette
+	 */
 	private void setupHexominoesButtons() {
 		int paletteRow = 0; // To keep track of positions on the board
 		int paletteColumn = 0;
@@ -234,6 +308,9 @@ public abstract class AbstractLevelView extends JPanel {
 		}
 	}
 
+	/**
+	 * Sets up each Hexomino's count in all of the Hexomino Buttons in the Player Palette
+	 */
 	private void setuphexominoCountLabels() {
 		// Go on and add the count labels to all of them
 		for(int i = 0; i < 35; i++) {
@@ -242,6 +319,9 @@ public abstract class AbstractLevelView extends JPanel {
 		}
 	}
 	
+	/**
+	 * Override paint function to place overlays and dragging pieces 
+	 */
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g); // Let the super do its stuff
@@ -256,6 +336,10 @@ public abstract class AbstractLevelView extends JPanel {
 		}
 	}
 
+	/**
+	 * Draw the Bullpen Trash Can if the Piece being dragged is over the Player Bullpen Bounds
+	 * @param g
+	 */
 	private void drawBullpenTrashCan(Graphics g) {
 		assert( this.level.isDraggingActive() == true ); // This function can only be called if there is a piece being dragged
 		// Check dragging state; Source needs to be the Board
@@ -290,6 +374,10 @@ public abstract class AbstractLevelView extends JPanel {
 		}
 	}
 
+	/**
+	 * Draws the dragging piece if there is an active drag
+	 * @param g
+	 */
 	private void drawDraggingPiece(Graphics g) {
 		assert( this.level.isDraggingActive() == true ); // This function can only be called if there is a piece being dragged
 		// If a piece is being dragged, we'd draw that first
@@ -408,6 +496,10 @@ public abstract class AbstractLevelView extends JPanel {
 		}
 	}
 	
+	/**
+	 * Draws LevelCompletion Overlay and necessary information about the LevelCompletion Stats (like Stars and Text)
+	 * @param g
+	 */
 	private void drawLevelCompleted(Graphics g) {
 		assert( this.level.isLevelCompletedShown() == true ); // The level has to be completed for this level to be called
 		// Backup the Old Color and Old Font
@@ -482,6 +574,9 @@ public abstract class AbstractLevelView extends JPanel {
 		g.setFont(oldFont);
 	}
 
+	/**
+	 * Overrides the paintComponent method to draw out our new components
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		// Check if the Palette Controllers should be shown or not
@@ -501,9 +596,12 @@ public abstract class AbstractLevelView extends JPanel {
 		// Draw a piece in the Workspace
 		drawWorkspacePiece(g);
 		// A next call to this, will not be an initialization call
-		paintInitialized = true; // TODO: Check if this should be here or in the entity
+		paintInitialized = true;
 	}
 
+	/**
+	 * Hides/shows Palette Controllers if there exists a Piece in the Player Workspace
+	 */
 	private void fixPaletteControllersVisibility() {
 		if( this.level.getLevelBullpen().getWorkspace().getPiece() != null ) {
 			flipV.setVisible(true);
@@ -518,6 +616,9 @@ public abstract class AbstractLevelView extends JPanel {
 		}
 	}
 
+	/**
+	 * Update the Hexomino Piece Count to buttons where the count may have changed
+	 */
 	private void fixHexominoButtonCount() {
 		// Set the Hexomino Count only if the Count has changed (to prevent excessive Swing repainting)
 		for(int i = 0; i < 35; i++)
@@ -525,6 +626,10 @@ public abstract class AbstractLevelView extends JPanel {
 				hexominoButton[i].setHexominoCount(level.getLevelBullpen().getPalette().getHexomino(i).getCount());
 	}
 
+	/**
+	 * Paints the BackToLevelSelector Button
+	 * @param g
+	 */
 	private void showBackToMainButton(Graphics g) {
 		// Load up the image
 		g.drawImage(backButton, 10, 10, null);
@@ -534,6 +639,10 @@ public abstract class AbstractLevelView extends JPanel {
 			clickMap.put(new Rectangle(10, 10, 60, 50), new RequestBackToLevelSelector(AbstractLevelView.this.level, AbstractLevelView.this));
 	}
 	
+	/**
+	 * Paints the stars the user has earned
+	 * @param g
+	 */
 	private void showUserStars(Graphics g) {
 		int starsAchieved = this.level.getStarsAchieved();
 		// Load up the images
@@ -556,6 +665,10 @@ public abstract class AbstractLevelView extends JPanel {
 		}
 	}
 	
+	/**
+	 * Sets up the Game Board to reflect inactive and hint BoardSquares
+	 * @param g
+	 */
 	private void setupGameBoard(Graphics g) {
 		// Backup old Graphics color
 		Color oldColor = g.getColor();
@@ -584,6 +697,10 @@ public abstract class AbstractLevelView extends JPanel {
 		g.setColor(oldColor);
 	}
 
+	/**
+	 * Draws the Game Board Pieces on the AbstractLevelView
+	 * @param g
+	 */
 	private void setupBoardPieces(Graphics g) {
 		// Go over all the Pieces on the board and draw them out
 		for( Iterator<Piece> piecesIter = this.level.getBoard().getPiecesIt(); piecesIter.hasNext();  ) {
@@ -608,7 +725,10 @@ public abstract class AbstractLevelView extends JPanel {
 		}
 	}
 
-	
+	/**
+	 * Draws a Piece in the Workspace if there is one in the Workspace
+	 * @param g
+	 */
 	private void drawWorkspacePiece(Graphics g) {
 		// Check if there is a piece in the workspace
 		if( level.getLevelBullpen().getWorkspace().pieceExists() ) {
@@ -635,35 +755,65 @@ public abstract class AbstractLevelView extends JPanel {
 		}
 	}
 	
+	/**
+	 * Sets up the top-left point of the Board
+	 */
 	private void setupBoardPiecesTopPoint() {
 		boardPiecesTopPoint = new Point(320, 80);
 	}
 	
+	/**
+	 * Returns the Rectangle that bounds the BoardSquares in the Player Board
+	 * @param row
+	 * @param col
+	 * @return A rectangle that would paint the corresponding Workspace BoardSquare
+	 */
 	public Rectangle getBoardPieceRectangle(int row, int col) {
 		return new Rectangle(boardPiecesTopPoint.x + (53 * col), 
 				             boardPiecesTopPoint.y + (53 * row),
 				             53, 53);
 	}
 	
+	/**
+	 * Sets up the top-left point of the Player Workspace
+	 */
 	private void setupBullpenPiecesBoardTopPoint() {
 		bullpenPiecesBoardTopPoint = new Point(0, 399);
 	}
 	
+	/**
+	 * Returns the Rectangle that bounds the PieceSquares in the Player Workspace
+	 * @param row
+	 * @param col
+	 * @return A rectangle that would paint the corresponding Workspace PieceSquare
+	 */
 	public Rectangle getBullpenWorkspacePieceRectangle(int row, int col) {
 		return new Rectangle(bullpenPiecesBoardTopPoint.x + (53 * col), 
 				             bullpenPiecesBoardTopPoint.y + (53 * row), 
 				             53, 53);
 	}
 	
+	/**
+	 * Returns the Player Bullpen Bounds
+	 * @return
+	 */
 	public Rectangle getBullpenBounds() {
 		return new Rectangle(0, 80, 320, 640);
 	}
 	
+	/**
+	 * Adds the Piece <code>p</code> to the Workspace
+	 * @param p
+	 */
 	public void setPieceInWorkspace(Piece p) {
 		level.getLevelBullpen().getWorkspace().addPiece(p); // Add the piece to the Workspace of the Level Bullpen
 		repaint(); // Force a repaint
 	}
 	
+	/**
+	 * Returns the top-level application that was used to initialize this class
+	 * @return
+	 */
 	public Application getApplication(){
 		return this.myApplication;
 	}

@@ -2,6 +2,7 @@ package com.halaesus.kabasuji.player.boundary;
 
 import java.awt.Dimension;
 
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -11,15 +12,30 @@ import com.halaesus.kabasuji.shared.entity.Model;
 import com.halaesus.kabasuji.shared.entity.PuzzleLevel;
 import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
 
+/**
+ * Represents the top-level Applciation
+ * <p>
+ * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ */
 @SuppressWarnings("serial")
 public class Application extends JFrame {
 	
+	/** Holds the currently shown JPanel */
 	JPanel currentView;
+	
+	/** Holds the master model that gives all the backing data */
 	Model masterModel;
 	
+	/** Holds the SplashView Model that is necessary to show the Splash Screen */
 	SplashView splashView;
+	
+	/** Holds the LevelSelectorView that is necessary to show the Level Selector Screen */ 
 	LevelSelectorView levelSelectorView;
 
+	/**
+	 * Instantiates a top-level application with the necessary backing Model data
+	 * @param masterModel
+	 */
 	public Application(Model masterModel) {
 		// Basic GUI Stuff
 		setTitle("Kabasuji by Team Halaesus");
@@ -44,20 +60,28 @@ public class Application extends JFrame {
 		showSplashScreen();
 	}
 	
+	/**
+	 * Replaces the current screen to show the Splash Screen
+	 */
 	public void showSplashScreen() {
 		currentView = splashView; // Our current view is the Splash Screen
 		setContentPane(currentView); // Show it on the UI
 	}
 
+	/**
+	 * Replaces the current screen with the LevelSelector Screen
+	 */
 	public void showLevelSelector() {
-		// TODO this is hacky, I did this so levelSelectorView would update with newly earned stars when returning from
-		// level -Brian KD - but it sucks and I do not have time to refactor code tonight
 		levelSelectorView = new LevelSelectorView(masterModel.getLevelSelectorModel(), Application.this);
 		currentView = levelSelectorView; // Our current view is the Level Selector Screen
 		setContentPane(currentView); // Show it on the UI
 		repaint(); // Refresh the UI
 	}
 	
+	/**
+	 * Replaces the current screen with one of the levels requested to be shown
+	 * @param theLevel AbstractLevel that has to be shown
+	 */
 	public void showLevel(AbstractLevel theLevel) {
 		// Check the Level being passed to us
 		if( theLevel.getLevelType().toUpperCase().equals("LIGHTNING") )
@@ -73,6 +97,10 @@ public class Application extends JFrame {
 		repaint(); // Refresh the UI
 	}
 	
+	/**
+	 * Returns the backing Master Model
+	 * @return
+	 */
 	public Model getMasterModel(){
 		return this.masterModel;
 	}

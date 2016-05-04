@@ -129,13 +129,14 @@ public class LevelList implements Serializable {
 	
 	
 	
-	public int newTestLevel(String name, String levelType) {
+	public String newTestLevel(String name, String levelType) {
 		AbstractLevelMemento memento;
 		LevelData ld;
 		int index = levels.size();
 		Random rand = new Random();
 		rand.setSeed(System.nanoTime());
-		ld = new LevelData(index, levelType, name, name + rand.nextInt(10000) + ".ser");
+		String generatedFileName = name + rand.nextInt(10000) + ".ser";
+		ld = new LevelData(index, levelType, name, generatedFileName);
 		levels.add(ld);
 		if (levelType.toUpperCase().equals("PUZZLE")) {
 			memento = new PuzzleLevelMemento(index, levelType, name);
@@ -145,10 +146,10 @@ public class LevelList implements Serializable {
 			memento = new ReleaseLevelMemento(index, levelType, name);
 		}
 		else
-			return -1; // TODO throw exception instead?
+			return ""; // TODO throw exception instead?
 		
 		overwriteLevel(memento, index);
-		return index;
+		return generatedFileName;
 	}
 	
 	public void deleteLevel(int index) {

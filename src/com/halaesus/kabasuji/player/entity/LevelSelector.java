@@ -27,8 +27,12 @@ public class LevelSelector {
 		// Create a bunch of LevelThumbnails now
 		int idx = 0;
 		for( Iterator<LevelData> iterator = levels.getIterator(); iterator.hasNext(); idx++) {
-			// Create a new LevelThumbnail Model and add it to the ArrayList
-			thumbnails.add(new LevelThumbnail(iterator.next(), starsEarned.get(idx)));
+			if (idx < starsEarned.size()){
+				// Create a new LevelThumbnail Model and add it to the ArrayList
+				thumbnails.add(new LevelThumbnail(iterator.next(), starsEarned.get(idx)));
+			}
+			else 
+				thumbnails.add(new LevelThumbnail(iterator.next(), 0));
 		}
 		// Get the background image
 		try {

@@ -23,13 +23,11 @@ public class TestPlayer extends PlayerTestCase {
 		// add some levelData to the levelList
 		// first of, LeveList does level opening and saving
 		
-		
 		// create 3 test levels on disk
 		// TODO make these test levels actually have something
 		levelList.newTestLevel("TestPuzzle", "PUZZLE" );
 		levelList.newTestLevel("TestLightning", "LIGHTNING" );
 		levelList.newTestLevel("TestRELEASE", "RELEASE" );
-		
 			
 		// update the LevelList in the playerProgress
 		playerProgress.setLevelList(levelList);

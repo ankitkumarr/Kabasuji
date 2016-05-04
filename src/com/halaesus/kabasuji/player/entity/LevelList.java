@@ -148,7 +148,6 @@ public class LevelList implements Serializable {
 			return -1; // TODO throw exception instead?
 		
 		overwriteLevel(memento, index);
-		saveList();
 		return index;
 	}
 	

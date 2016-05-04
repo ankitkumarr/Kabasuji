@@ -10,13 +10,23 @@ import javax.imageio.ImageIO;
 
 import com.halaesus.kabasuji.shared.entity.SplashModel;
 
+/**
+ * Models the Level Selector Screen for the KabaSuji player
+ */
 public class LevelSelector {
-
+	/** Models for the thumbnails for each level */
 	ArrayList<LevelThumbnail> thumbnails;
+	/** The player's progression through the game */
 	PlayerProgress playerProgress;
+	/** The background picture */
 	BufferedImage backgroundImage;
+	/** Data about the levels */
 	LevelList levels;
 
+	/**
+	 * Construct a LevelSelector model based on the given progress
+	 * @param playerProgress The player's progression through the game
+	 */
 	public LevelSelector(PlayerProgress playerProgress) {
 		this.playerProgress = playerProgress;
 		// Grab the levels and the stars
@@ -42,6 +52,9 @@ public class LevelSelector {
 		}
     }
 	
+	/**
+	 * Put the most recent number of stars in each thumbnail
+	 */
 	public void updateStars(){
 		thumbnails = new ArrayList<LevelThumbnail>();
 		int idx = 0;
@@ -49,17 +62,28 @@ public class LevelSelector {
 			// Create a new LevelThumbnail Model and add it to the ArrayList
 			thumbnails.add(new LevelThumbnail(iterator.next(), playerProgress.starsEarned.get(idx)));
 		}
-		
 	}
 	
+	/**
+	 * Gets the list of thumbnails
+	 * @return thumbnails
+	 */
 	public ArrayList<LevelThumbnail> getThumbnails() {
 		return thumbnails;
 	}
 
+	/** 
+	 * Gets the background image
+	 * @return backgroundImage
+	 */
 	public Image getBackgroundImage() {
 		return backgroundImage;
 	}
 
+	/**
+	 * Gets the LevelList
+	 * @return levels
+	 */
 	public LevelList getLevelList(){
 		return this.levels;
 	}

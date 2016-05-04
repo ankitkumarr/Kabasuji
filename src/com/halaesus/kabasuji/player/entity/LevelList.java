@@ -19,20 +19,28 @@ import com.halaesus.kabasuji.shared.memento.PuzzleLevelMemento;
 import com.halaesus.kabasuji.shared.memento.ReleaseLevelMemento;
 
 /**
- * 
+ * Model class to hold data about the levels available to play
  * @author Corey Dixon
- *
  */
 public class LevelList implements Serializable {
-
+	/** ID for serialization */
 	private static final long serialVersionUID = -3275134577117921160L;
+	/** Data about each level */
 	ArrayList<LevelData> levels;
 
+	/**
+	 * Constructs a new LevelList
+	 */
 	public LevelList() {
 		// Initialize
 		levels = new ArrayList<LevelData>();
 	}
 
+	/**
+	 * Creates a LevelList based on the index file, or d
+	 * default LevelList if the index file is not available
+	 * @return The LevelList created, or null
+	 */
 	@SuppressWarnings("resource")
 	public static LevelList loadList() {
 		ObjectInputStream in;
@@ -51,6 +59,9 @@ public class LevelList implements Serializable {
 		return null; // TODO find more elegant solution than returning null
 	}
 
+	/**
+	 * Write this LevelList to the index file
+	 */
 	public void saveList() {
 		ObjectOutputStream out;
 		try {
@@ -65,6 +76,11 @@ public class LevelList implements Serializable {
 
 	}
 
+	/**
+	 * Loads one of the levels in the list from disk
+	 * @param index Index of level to load
+	 * @return The level that was loaded
+	 */
 	public AbstractLevel loadLevel(int index) {
 		ObjectInputStream in = null;
 		for (int i = 0; i < levels.size(); i++) {
@@ -75,10 +91,8 @@ public class LevelList implements Serializable {
 					in.close();
 					return level.generateLevel();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -87,6 +101,11 @@ public class LevelList implements Serializable {
 		return null; // not found
 	}
 
+	/**
+	 * Overwrites an existing level in the list with data from a memento
+	 * @param memento Level memento to write
+	 * @param index Index of level to overwrite
+	 */
 	public void overwriteLevel(AbstractLevelMemento memento, int index) {
 		for (int i = 0; i < levels.size(); i++) {
 			if (levels.get(i).levelIndex == index) {
@@ -96,7 +115,6 @@ public class LevelList implements Serializable {
 					out.writeObject(memento);
 					out.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -104,6 +122,12 @@ public class LevelList implements Serializable {
 		}
 	}
 	
+	/**
+	 * Adds a new level to the list
+	 * @param name Name of the level
+	 * @param levelType Type of the level
+	 * @return Index of level
+	 */
 	public int newLevel(String name, String levelType) {
 		AbstractLevelMemento memento;
 		LevelData ld;
@@ -127,8 +151,12 @@ public class LevelList implements Serializable {
 		return index;
 	}
 	
-	
-	
+	/**
+	 * Adds a new level to the list without saving to disk, used for testing
+	 * @param name Name of level
+	 * @param levelType Type of level
+	 * @return File name of the level
+	 */
 	public String newTestLevel(String name, String levelType) {
 		AbstractLevelMemento memento;
 		LevelData ld;
@@ -152,6 +180,10 @@ public class LevelList implements Serializable {
 		return generatedFileName;
 	}
 	
+	/**
+	 * Deletes the level with the given index from this list
+	 * @param index Index of level to delete
+	 */
 	public void deleteLevel(int index) {
 		for(int i = index; i < levels.size(); i++) {
 			if(levels.get(i).levelIndex == index) {
@@ -172,26 +204,52 @@ public class LevelList implements Serializable {
 	
 	// TODO prevent other classes from changing level
 	// should only use newLevel
+	/**
+	 * Adds a new LevelData to this list
+	 * @param levelData LevelData to add
+	 */
 	public void addLevelData(LevelData levelData) {
 		levels.add(levelData);
 	}
 	
+	/**
+	 * Gets the name of the level at the specified index
+	 * @param index Index of level in question
+	 * @return name of that level
+	 */
 	public String getLevelName(int index) {
 		return levels.get(index).getLevelName();
 	}
 
+	/**
+	 * Gets the number of levels stored
+	 * @return levels.size()
+	 */
 	public int getLevelCount() {
 		return levels.size();
 	}
 
+	/**
+	 * Gets an iterator to go over the levels in this list
+	 * @return Iterator for the levels being stored
+	 */
 	public Iterator<LevelData> getIterator() {
 		return levels.iterator();
 	}
 	
+	/**
+	 * Gets LevelData for each level in an array
+	 * @return Array containing LevelData for each level
+	 */
 	public LevelData[] getArray() {
 		return levels.toArray(new LevelData[1]);
 	}
 	
+	/**
+	 * Swaps the indexes of two levels and resorts the list
+	 * @param src Index 1
+	 * @param tar Index 2
+	 */
 	public void swapIndexes(int src, int tar) {
 		levels.get(src).levelIndex = tar;
 		levels.get(tar).levelIndex = src;
@@ -199,6 +257,11 @@ public class LevelList implements Serializable {
 		saveList();
 	}
 	
+	/**
+	 * Gets the type of the level at the given index
+	 * @param index Index of level in question
+	 * @return String indicating that level's type
+	 */
 	public String getLevelType(int index) {
 		return levels.get(index).levelType;
 	}

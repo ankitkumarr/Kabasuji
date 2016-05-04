@@ -10,15 +10,23 @@ import com.halaesus.kabasuji.shared.entity.ReleaseBoard;
 import com.halaesus.kabasuji.shared.entity.ReleaseLevel;
 
 /**
- * @author Akshit (Axe) Soota (axe (at) wpi (dot) edu)
+ * Move class to move Number from Board to NumberBar
+ * @author Ankit Kumar
  */
 public class NumberFromBoardToNumberBarMove extends NumberMove {
    
-	
+	/**
+	 * Creates an instance of Move class to perform the move
+	 * @param theLevel
+	 * @param theBuilderView
+	 */
     public NumberFromBoardToNumberBarMove(AbstractLevel theLevel, AbstractBuilderView theBuilderView) {
 		super(theLevel, theBuilderView);
 	}
 
+    /**
+     * Does the move
+     */
 	@Override
 	public boolean doMove() {
 		if( theLevel.isDraggingActive() == false )
@@ -33,6 +41,9 @@ public class NumberFromBoardToNumberBarMove extends NumberMove {
 		return true;
 	}
 
+	/**
+	 * Check if the move is valid
+	 */
 	@Override
 	public boolean isValid() {
 		assert( theLevel.isDraggingActive() == true ); // We can only be called if a drag is in action
@@ -52,6 +63,9 @@ public class NumberFromBoardToNumberBarMove extends NumberMove {
 		return true;
 	}
 
+	/**
+	 * Redoes the Move
+	 */
 	@Override
 	public boolean redoMove() {
 		ReleaseBoard rb = (ReleaseBoard)theLevel.getBoard();
@@ -59,6 +73,9 @@ public class NumberFromBoardToNumberBarMove extends NumberMove {
 		return true;
 	}
 
+	/**
+	 * Undoes the Move
+	 */
 	@Override
 	public boolean undoMove() {
 		ReleaseBoard rb = (ReleaseBoard)theLevel.getBoard();

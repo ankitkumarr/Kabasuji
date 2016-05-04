@@ -4,17 +4,33 @@ import com.halaesus.kabasuji.builder.boundary.AbstractBuilderView;
 import com.halaesus.kabasuji.shared.entity.AbstractLevel;
 import com.halaesus.kabasuji.shared.entity.PieceSquare;
 
+/**
+ * Class to implement toggle hint move
+ * @author akumar3
+ *
+ */
 public class ToggleHintMove extends PieceMove {
 
+	/**
+	 * Creates an instance of toggleMove class to perform the move
+	 * @param theLevel
+	 * @param theBuilderView
+	 */
 	public ToggleHintMove(AbstractLevel theLevel, AbstractBuilderView theBuilderView) {
 		super(theLevel, theBuilderView);
 	}
 
+	/**
+	 * Checks if the move is valid
+	 */
 	@Override
 	public boolean isValid() {
 		return true; // One can always toggle a hint
 	}
 
+	/**
+	 * Performs the move
+	 */
 	@Override
 	public boolean doMove() {
 		if( isValid() == false )
@@ -33,6 +49,9 @@ public class ToggleHintMove extends PieceMove {
 		return true;
 	}
 
+	/**
+	 * Undoes the move
+	 */
 	@Override
 	public boolean undoMove() {
 		// Perform the undo
@@ -45,6 +64,9 @@ public class ToggleHintMove extends PieceMove {
 		return true;
 	}
 
+	/**
+	 * Redo the move
+	 */
 	@Override
 	public boolean redoMove() {
 		// Perform the redo
